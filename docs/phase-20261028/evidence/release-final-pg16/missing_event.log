@@ -1,0 +1,2 @@
+ERROR:  Missing event in pinned set
+CONTEXT:  PL/pgSQL function history.create_release(text,text,text,text[],timestamp without time zone) line 13 at RAISE

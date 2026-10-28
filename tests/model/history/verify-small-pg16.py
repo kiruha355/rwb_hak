@@ -26,6 +26,8 @@ SUMMARY = dict(scope='small synthetic PG16 only', server=VERSION,
 SUMMARY['files_sha256'] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
     for directory in ('model', 'tests/model/history') for p in sorted((ROOT / directory).rglob('*'))
     if p.is_file() and p.suffix in ('.sql', '.py') and 'evidence' not in p.relative_to(ROOT).parts}
+for path in sorted((ROOT / 'answers').rglob('*.sql')):
+    SUMMARY['files_sha256'][str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
 for name in ('scripts/build-model.sh','scripts/init/02_raw_ddl.sql','tests/model/fixtures/base.sql',
              'tests/model/fixtures/assert-base.sql','tests/model/rollback.sql','tests/model/fingerprint.sql',
              'answers/q06-q10/test_fixture.py'):

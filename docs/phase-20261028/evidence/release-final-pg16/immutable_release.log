@@ -1,0 +1,2 @@
+ERROR:  history source is immutable: history.report_release DELETE
+CONTEXT:  PL/pgSQL function history.immutable_guard() line 4 at RAISE

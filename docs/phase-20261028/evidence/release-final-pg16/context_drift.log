@@ -1,0 +1,3 @@
+UPDATE 1
+ERROR:  Raw generation differs from pinned release R1
+CONTEXT:  PL/pgSQL function history.assert_release(text) line 8 at RAISE

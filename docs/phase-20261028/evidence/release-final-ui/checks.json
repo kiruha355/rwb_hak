@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "timestamp": "2026-10-28T14:37:07.496Z",
+  "tests": [
+    {
+      "name": "PostgreSQL strings and NULL stay distinct from zero",
+      "status": "PASS"
+    },
+    {
+      "name": "All named variants survive adaptation",
+      "status": "PASS"
+    },
+    {
+      "name": "CSV keeps dimensions, coverage, zero and NULL distinct",
+      "status": "PASS"
+    },
+    {
+      "name": "Malformed/missing/unknown/duplicate data fails instead of appearing empty",
+      "status": "PASS"
+    },
+    {
+      "name": "Every tied Q6 leader survives; unknowns remain explicit",
+      "status": "PASS"
+    },
+    {
+      "name": "Q7 threshold includes 500 and excludes 499 without reweighting",
+      "status": "PASS"
+    },
+    {
+      "name": "Q9 has states and two separate method windows",
+      "status": "PASS"
+    },
+    {
+      "name": "Q10 shows five scores per variant, zero groups, separate denominators and overlaps",
+      "status": "PASS"
+    },
+    {
+      "name": "Successful empty, loading and error are different states",
+      "status": "PASS"
+    },
+    {
+      "name": "Q1–Q5 baseline differs by the owned insertion only",
+      "status": "PASS"
+    },
+    {
+      "name": "Strict typecheck of owned production modules with available React types",
+      "status": "PASS"
+    }
+  ],
+  "tools": {
+    "node": "v22.22.3",
+    "typescript": "5.9.3",
+    "react": "19.2.3",
+    "esbuild": "0.27.3"
+  },
+  "scope": "Synthetic adapter, strict types and React SSR only; interactive.html requires html_preview. Not an API/DB E2E or pinned React 18 check."
+}

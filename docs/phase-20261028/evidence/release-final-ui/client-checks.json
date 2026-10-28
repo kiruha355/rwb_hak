@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "calls": [
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    },
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    },
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    },
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    },
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    },
+    {
+      "url": "/api/answers-block-b",
+      "aborted": false
+    }
+  ],
+  "checks": [
+    "503 error distinct from empty",
+    "focusable retry",
+    "retry to ready",
+    "fixed snapshot endpoint without query filters",
+    "details open/close",
+    "404 uses existing component slot without duplicate block",
+    "missing score grid raises contract error",
+    "unmount aborts request and ignores stale response"
+  ],
+  "layoutChecked": false,
+  "width": 1024,
+  "environment": "jsdom; layout is not verified here",
+  "react": "19.2.3",
+  "timestamp": "2026-10-28T14:37:08.109Z"
+}

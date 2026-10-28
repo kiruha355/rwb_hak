@@ -1,0 +1,243 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ R-future
+(1 row)
+
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/history/01_source.sql
+CREATE SCHEMA
+CREATE TABLE
+INSERT 0 0
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+DO
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+DO
+REVOKE
+REVOKE
+[capibara] model/history/02_prepare.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/10_dims.sql
+DO
+DO
+CREATE TABLE
+INSERT 0 730
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 8
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+COMMENT
+CREATE TABLE
+INSERT 0 11
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 2
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 5
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+[capibara] model/history/03_versions.sql
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+INSERT 0 6
+COMMENT
+COMMENT
+[capibara] model/20_facts.sql
+DO
+CREATE TABLE
+INSERT 0 11
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 11
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 0
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 0
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+ANALYZE
+[capibara] model/30_quality.sql
+CREATE TABLE
+COMMENT
+INSERT 0 33
+INSERT 0 22
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 1
+INSERT 0 7
+INSERT 0 2
+[capibara] model/40_mart.sql
+CREATE TABLE
+INSERT 0 34
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+[capibara] model/50_answers.sql
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+COMMENT
+CREATE VIEW
+COMMENT
+[capibara] model/55_answers_block_b.sql
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+[capibara] model/56_metric_passports.sql
+INSERT 0 14
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+[capibara] model/history/04_checks.sql
+CREATE FUNCTION
+ check_model 
+-------------
+ 
+(1 row)
+
+[capibara] model/history/05_result.sql
+DO
+[capibara] All build stages and invariant checks completed; psql commits on successful exit.
+psql:<stdin>:42: NOTICE:  42P06: schema "history" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:46: NOTICE:  42P07: relation "schema_version" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:73: NOTICE:  42P07: relation "baseline_snapshot" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:80: NOTICE:  42P07: relation "baseline_product" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:101: NOTICE:  42P07: relation "category_event" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:115: NOTICE:  42P07: relation "report_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:122: NOTICE:  42P07: relation "release_source_row" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:139: NOTICE:  42P07: relation "report_binding" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:153: NOTICE:  42P07: relation "release_category" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:157: NOTICE:  42P07: relation "initial_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:459: NOTICE:  42P07: relation "report_result" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:491: NOTICE:  42P06: schema "core" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:492: NOTICE:  42P06: schema "mart" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:2609: WARNING:  01000: core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 11
+{"order_id": "future1"}
+{"order_id": "future2"}
+{"order_id": "future3"}
+LOCATION:  exec_stmt_raise, pl_exec.c:3911
