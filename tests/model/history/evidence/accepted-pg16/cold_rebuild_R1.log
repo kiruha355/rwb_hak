@@ -1,0 +1,313 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ R1
+(1 row)
+
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/history/01_source.sql
+CREATE SCHEMA
+CREATE TABLE
+INSERT 0 0
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+DO
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+DO
+REVOKE
+REVOKE
+[capibara] model/history/02_prepare.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/10_dims.sql
+DO
+DO
+CREATE TABLE
+INSERT 0 730
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 8
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+COMMENT
+CREATE TABLE
+INSERT 0 4
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 2
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 4
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+[capibara] model/history/03_versions.sql
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+INSERT 0 2
+COMMENT
+COMMENT
+[capibara] model/20_facts.sql
+DO
+CREATE TABLE
+INSERT 0 4
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 4
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 0
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 0
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+ANALYZE
+[capibara] model/30_quality.sql
+CREATE TABLE
+COMMENT
+INSERT 0 12
+INSERT 0 8
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 0
+INSERT 0 7
+INSERT 0 2
+[capibara] model/40_mart.sql
+CREATE TABLE
+INSERT 0 34
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+[capibara] model/50_answers.sql
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+COMMENT
+CREATE VIEW
+COMMENT
+[capibara] model/55_answers_block_b.sql
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+[capibara] model/history/04_checks.sql
+CREATE FUNCTION
+ check_model 
+-------------
+ 
+(1 row)
+
+[capibara] model/history/05_result.sql
+DO
+[capibara] All build stages and invariant checks completed; psql commits on successful exit.
+psql:<stdin>:42: NOTICE:  42P06: schema "history" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:46: NOTICE:  42P07: relation "schema_version" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:73: NOTICE:  42P07: relation "baseline_snapshot" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:80: NOTICE:  42P07: relation "baseline_product" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:101: NOTICE:  42P07: relation "category_event" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:115: NOTICE:  42P07: relation "report_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:122: NOTICE:  42P07: relation "release_source_row" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:139: NOTICE:  42P07: relation "report_binding" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:153: NOTICE:  42P07: relation "release_category" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:157: NOTICE:  42P07: relation "initial_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:459: NOTICE:  42P07: relation "report_result" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:494: NOTICE:  00000: function core.run_checks() does not exist, skipping
+LOCATION:  does_not_exist_skipping, dropcmds.c:528
+psql:<stdin>:520: NOTICE:  00000: view "q01_revenue_monthly" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q02_sellers_top10" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q03_average_order" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q04_buyers_repeat" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q04_buyers_repeat_q1_window" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q05_category_revenue" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q06_price_history" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q07_delivery_by_state" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q08_status_snapshot" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q09_payments_2018_by_state" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q09_payment_methods" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q10_review_delivery" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "q10_review_coverage" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_order_delivery_variants" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_review_weighting" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_review" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_review_payload_variants" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_payment_reconciliation" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_order_payment_reconciliation" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_order_items" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:520: NOTICE:  00000: view "v_orders" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "check_results" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "data_issues" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "metric_definitions" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "fact_review" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "fact_payment" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "fact_order_item" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "fact_order" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_category_version" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "model_release" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_product" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_category" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_seller" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_customer_context" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_customer" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_order_status" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:540: NOTICE:  00000: table "dim_date" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:2433: WARNING:  01000: core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 4
+{"order_id": "new1"}
+{"order_id": "new2"}
+{"order_id": "old1"}
+LOCATION:  exec_stmt_raise, pl_exec.c:3911

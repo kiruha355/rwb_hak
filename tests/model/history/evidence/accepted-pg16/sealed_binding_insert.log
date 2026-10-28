@@ -1,0 +1,2 @@
+ERROR:  release is sealed
+CONTEXT:  PL/pgSQL function history.immutable_guard() line 12 at RAISE

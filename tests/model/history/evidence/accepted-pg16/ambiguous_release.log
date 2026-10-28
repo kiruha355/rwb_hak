@@ -1,0 +1,2 @@
+ERROR:  Ambiguous category boundary
+CONTEXT:  PL/pgSQL function history.create_release(text,text,text,text[],timestamp without time zone) line 21 at RAISE

@@ -1,0 +1,4 @@
+ALTER TABLE
+UPDATE 1
+ERROR:  Baseline source digest mismatch
+CONTEXT:  PL/pgSQL function history.assert_source() line 10 at RAISE
