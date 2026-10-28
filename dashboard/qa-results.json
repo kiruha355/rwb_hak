@@ -1,0 +1,74 @@
+{
+  "task": "W-16",
+  "status": "ready_for_review",
+  "recorded_at": "2026-10-28 10:18:07 UTC",
+  "source_mode": "synthetic_demo_only",
+  "dom_checks": [
+    {
+      "width": 390,
+      "contentHeight": 2459,
+      "capturedHeight": 2459,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "CAPIBARA_QA {\"width\":390,\"passed\":25,\"total\":25,\"failed\":[]}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 390,
+        "height": 2459
+      }
+    },
+    {
+      "width": 1100,
+      "contentHeight": 1801,
+      "capturedHeight": 1801,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "CAPIBARA_QA {\"width\":1100,\"passed\":25,\"total\":25,\"failed\":[]}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1100,
+        "height": 1801
+      }
+    }
+  ],
+  "offline_exporter": {
+    "method": "PYTHONDONTWRITEBYTECODE=1 python3 dashboard/check_export.py",
+    "tests": 4,
+    "status": "PASS",
+    "database_connected": false
+  },
+  "static_checks": {
+    "html_unique_ids": "PASS",
+    "inline_javascript_node_check": "PASS"
+  },
+  "visual_review": {
+    "service": [
+      390,
+      1100
+    ],
+    "sales": [
+      728
+    ],
+    "quality": [
+      728
+    ],
+    "shown_via": "html_preview -> html_render"
+  },
+  "not_verified": [
+    "real Olist model export",
+    "PostgreSQL execution of exporter SELECTs",
+    "full Olist UI E2E",
+    "raw CSV binding, controls, build lifecycle"
+  ],
+  "notes": [
+    "DOM harness is injected into the preview only; not included by production HTML.",
+    "No server, installation, Docker, build, setup or reload was started.",
+    "No git index, commit, push or checkout operations."
+  ]
+}
