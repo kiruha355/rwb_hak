@@ -1,0 +1,8 @@
+[{"schema":"raw","name":"customers","kind":"r"}, 
+ {"schema":"raw","name":"order_items","kind":"r"}, 
+ {"schema":"raw","name":"order_payments","kind":"r"}, 
+ {"schema":"raw","name":"order_reviews","kind":"r"}, 
+ {"schema":"raw","name":"orders","kind":"r"}, 
+ {"schema":"raw","name":"product_category_translation","kind":"r"}, 
+ {"schema":"raw","name":"products","kind":"r"}, 
+ {"schema":"raw","name":"sellers","kind":"r"}]

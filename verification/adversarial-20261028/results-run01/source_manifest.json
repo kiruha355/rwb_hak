@@ -1,0 +1,110 @@
+{
+  "answers/control.sql": {
+    "sha256": "8856e395c3afbfd2c769c47ced9fe23667b7312bf6582045640fcb6feebc890d",
+    "git_blob": "275abfe1ff09e02c18b069044e886b27368a2dac"
+  },
+  "answers/payment_reconciliation.sql": {
+    "sha256": "20ce8db0e5178de9fdddbe06155339ec5ccacf8f0ecebb6187609ea2560dd7e2",
+    "git_blob": "5946905d7b8d58cf40a840e632280fc594c2839b"
+  },
+  "answers/q01.sql": {
+    "sha256": "3b5a2f8a8d7bccc312d94b1394a296f3d58b128933d756a145fd25f20afe00f1",
+    "git_blob": "e6dc8d1d088819fb8cb0e244f70ca96d205aa453"
+  },
+  "answers/q02.sql": {
+    "sha256": "238458b3f2a51c080d22ea46275dabcbe17408c4140cae74b97c559faf84b6c7",
+    "git_blob": "03277b04d2ecba3ecdba8aadd685863198d52572"
+  },
+  "answers/q03.sql": {
+    "sha256": "ca3a5fffbcf740a35cf07e19f9dc4a7aeed32e3d851b097e521e7a6d33402e6e",
+    "git_blob": "4e973c218a1158182386a77a27c6e7087b46a5f8"
+  },
+  "answers/q04.sql": {
+    "sha256": "84efc278d2d9ab17be03b1c8e8ff3324b8d285a1446dd8b2c73765f4518bb471",
+    "git_blob": "58fbecdab0c8e1c481a08bb90c10e98f22863fe4"
+  },
+  "answers/q04_window.sql": {
+    "sha256": "d332d0fc0e9c80c4953cb8c043f565ba033af09d99b0a4e93e33c0229391da5f",
+    "git_blob": "fa7ac24845b75928caf54eb69593266d90a9e815"
+  },
+  "answers/q05.sql": {
+    "sha256": "b600f36c685ea74014b99497f0fd349eb3e999649005f2dd20ad1939b6b4f77e",
+    "git_blob": "007e51ea037a3b1decbe5ed201f3c778cb2a2b8f"
+  },
+  "answers/q06-q10/q06.sql": {
+    "sha256": "36663b358b88c52b53a82c61ed46f2730412b0ba45243079d898bec843b44b3f",
+    "git_blob": "98e99c684c9509205123224eeca6e7e5ced63ce6"
+  },
+  "answers/q06-q10/q07.sql": {
+    "sha256": "89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc",
+    "git_blob": "2331f00e17e4be9dead9d0b2137d8a1b368f0a35"
+  },
+  "answers/q06-q10/q08.sql": {
+    "sha256": "793467a1c39c47fec729e15c93f821f5e58fdb101da043dfafa72b67ad442b6a",
+    "git_blob": "842066900a2b9375a35b03d5303a012058b592eb"
+  },
+  "answers/q06-q10/q09.sql": {
+    "sha256": "7977be948b01acbbbc79f7d7ebe99cd35e8737793585a4e164b4dd0e3660b05b",
+    "git_blob": "287e3082d8b34477c56971110c30f0a2868d0862"
+  },
+  "answers/q06-q10/q10.sql": {
+    "sha256": "a84c1244ff15b56789eba5807ade4704c73b866d11f14d9c96e76c5ff3feea10",
+    "git_blob": "aa5b7d19280919c308c7dc388ae1b380fc893ba0"
+  },
+  "answers/q06-q10/q10_coverage.sql": {
+    "sha256": "c3091e34ad759d8c89f0eba3de37837a626aa7a87c02db81630abf2e0cc52b9d",
+    "git_blob": "a43e49538f99b3ca4bf44b6112a09e15adb5330e"
+  },
+  "answers/review_weights.sql": {
+    "sha256": "d855be39f7717e3016bfd1ee158ed7d3ca67c27a8d8b6faa683b79340cede0e8",
+    "git_blob": "513951bc8f0f83c61ab62de3c655cc1745b1a58d"
+  },
+  "model/00_schemas.sql": {
+    "sha256": "e19e07e56a504bf484dadb3d0b33a5981a91d576301c9e7f7fb928b5597b8ae3",
+    "git_blob": "872505ffbff1ecafaeec57d3e1d0f02430e08c2b"
+  },
+  "model/05_typecheck.sql": {
+    "sha256": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d",
+    "git_blob": "a5889686062078f32e3c25b4ebc2ab6df6449074"
+  },
+  "model/10_dims.sql": {
+    "sha256": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+    "git_blob": "d0ddf5549b62358e33f5c82a3cd27e88518f1f79"
+  },
+  "model/20_facts.sql": {
+    "sha256": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+    "git_blob": "33aac3ee90ebe1bcf9416e2ff76daa007b58779c"
+  },
+  "model/30_quality.sql": {
+    "sha256": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "git_blob": "87429d63e1a8350814e4ca445b8786d6769e02f1"
+  },
+  "model/40_mart.sql": {
+    "sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "git_blob": "dff764c6a4b002e75ddd27ad538abf794affb263"
+  },
+  "model/50_answers.sql": {
+    "sha256": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+    "git_blob": "bed0cc26c0fd3ef1f5f475ce8ff172b23360ee1a"
+  },
+  "model/55_answers_block_b.sql": {
+    "sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+    "git_blob": "10d5e012abd4b871a9a6a37f625328cfde07533f"
+  },
+  "model/90_checks.sql": {
+    "sha256": "0f42d520e0958ddb6f7ab8bf532ee75b888839c3cd3cd37ec84f8c19d1f60b33",
+    "git_blob": "21a10650ed35aa86fef8e7c6a5b2dcd4a2ace1b6"
+  },
+  "model/build.sql": {
+    "sha256": "03e71612b6dda7df9722c1dbf1020f049f2028d3a2e5e41b4b0b51e5f360a4dd",
+    "git_blob": "a310e09e3409e1d18bfac3deb984dd458b28f93d"
+  },
+  "scripts/build-model.sh": {
+    "sha256": "1f64c5b5cef0a45cf510ffd95c255a0835134287a57086965034926b56095b12",
+    "git_blob": "ed92904c18a985cc5f7acf9501413d711b15c860"
+  },
+  "scripts/init/02_raw_ddl.sql": {
+    "sha256": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+    "git_blob": "cfd84b30684f2a46d9a6b7946ad1e45866fec26c"
+  }
+}

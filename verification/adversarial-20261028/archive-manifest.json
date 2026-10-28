@@ -1,0 +1,12 @@
+{
+  "results-run02": {
+    "archive": "results-run02.tar.gz",
+    "sha256": "292d96dbe6934b87943ae1fd9e00779f6a6a55b56f40c5a3f28d0db64c531f31",
+    "files": 873
+  },
+  "results-final": {
+    "archive": "results-final.tar.gz",
+    "sha256": "dc80b88bea8951666ae52ac1e6fee7c4a363c2e6c2708362e90ffa0ffa575724",
+    "files": 966
+  }
+}

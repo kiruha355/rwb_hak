@@ -1,0 +1,2 @@
+[{"row":{"seller_id": "s1", "_loaded_at": "2026-10-28T17:08:07.910606+03:00", "seller_city": "s1", "_source_file": null, "seller_state": "SP", "seller_zip_code_prefix": null}}, 
+ {"row":{"seller_id": "s2", "_loaded_at": "2026-10-28T17:08:07.910668+03:00", "seller_city": "s2", "_source_file": null, "seller_state": "SP", "seller_zip_code_prefix": null}}]

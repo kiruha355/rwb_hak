@@ -1,0 +1,110 @@
+2026-10-28 17:08:07.751 MSK [74911] LOG:  starting PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit
+2026-10-28 17:08:07.751 MSK [74911] LOG:  listening on Unix socket "/var/folders/ty/_x0y4mc91d3f0_0xfp1m_mq80000gn/T/rwb-adversarial-pg16-i9fftws7/s/.s.PGSQL.55483"
+2026-10-28 17:08:07.753 MSK [74914] LOG:  database system was shut down at 2026-10-28 17:08:07 MSK
+2026-10-28 17:08:07.754 MSK [74911] LOG:  database system is ready to accept connections
+2026-10-28 17:08:08.040 MSK [74952] ERROR:  Input type/key precheck failed before model casts
+2026-10-28 17:08:08.040 MSK [74952] DETAIL:  raw.orders.order_approved_at [timestamp]: 2 row(s)
+	raw.orders.order_purchase_timestamp [timestamp]: 2 row(s)
+2026-10-28 17:08:08.040 MSK [74952] HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+2026-10-28 17:08:08.040 MSK [74952] CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+2026-10-28 17:08:08.040 MSK [74952] STATEMENT:  DO $typecheck$
+	DECLARE
+	    spec record;
+	    predicate text;
+	    failures text;
+	BEGIN
+	    FOR spec IN
+	        SELECT * FROM (VALUES
+	            ('orders', 'order_id', 'key'),
+	            ('orders', 'customer_id', 'key'),
+	            ('orders', 'order_status', 'key'),
+	            ('order_items', 'order_id', 'key'),
+	            ('order_items', 'order_item_id', 'required_integer'),
+	            ('order_items', 'product_id', 'key'),
+	            ('order_items', 'seller_id', 'key'),
+	            ('order_payments', 'order_id', 'key'),
+	            ('order_payments', 'payment_sequential', 'required_integer'),
+	            ('order_payments', 'payment_installments', 'integer'),
+	            ('order_reviews', 'review_id', 'key'),
+	            ('order_reviews', 'order_id', 'key'),
+	            ('order_reviews', 'review_score', 'integer'),
+	            ('products', 'product_id', 'key'),
+	            ('products', 'product_name_lenght', 'integer'),
+	            ('products', 'product_description_lenght', 'integer'),
+	            ('products', 'product_photos_qty', 'integer'),
+	            ('sellers', 'seller_id', 'key'),
+	            ('customers', 'customer_id', 'key'),
+	            ('customers', 'customer_unique_id', 'key'),
+	            ('product_category_translation', 'product_category_name', 'required_text'),
+	            ('order_items', 'price', 'numeric'),
+	            ('order_items', 'freight_value', 'numeric'),
+	            ('order_payments', 'payment_value', 'numeric'),
+	            ('products', 'product_weight_g', 'numeric'),
+	            ('products', 'product_length_cm', 'numeric'),
+	            ('products', 'product_height_cm', 'numeric'),
+	            ('products', 'product_width_cm', 'numeric'),
+	            ('orders', 'order_purchase_timestamp', 'timestamp'),
+	            ('orders', 'order_approved_at', 'timestamp'),
+	            ('orders', 'order_delivered_carrier_date', 'timestamp'),
+	            ('orders', 'order_delivered_customer_date', 'timestamp'),
+	            ('orders', 'order_estimated_delivery_date', 'timestamp'),
+	            ('order_items', 'shipping_limit_date', 'timestamp'),
+	            ('order_reviews', 'review_creation_date', 'timestamp'),
+	            ('order_reviews', 'review_answer_timestamp', 'timestamp')
+	        ) AS rules(source_table, source_column, rule)
+	    LOOP
+	        IF spec.rule = 'key' THEN
+	            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+	                                spec.source_column, '^[[:space:]]*$');
+	        ELSIF spec.rule = 'required_text' THEN
+	            -- CONTRACT gives even '' the distinct identity 'pt:'.
+	            predicate := format('%I IS NULL', spec.source_column);
+	        ELSIF spec.rule IN ('integer', 'required_integer') THEN
+	            -- integer input checks bounds too; '1.5' must not round to 2.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?[0-9]+$', 'integer');
+	            IF spec.rule = 'required_integer' THEN
+	                predicate := format('%I IS NULL OR (%s)', spec.source_column, predicate);
+	            END IF;
+	        ELSIF spec.rule = 'numeric' THEN
+	            -- Unconstrained numeric has finite storage/scale limits. The safe
+	            -- input validator checks them without casting the bad source text.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', 'numeric');
+	        ELSE
+	            -- No timezone suffix, infinity, timezone-dependent input or implicit
+	            -- fractional-second rounding. Chronology remains a separate warning.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column,
+	                '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$',
+	                'timestamp without time zone');
+	        END IF;
+	        EXECUTE format(
+	            'INSERT INTO pg_temp.capibara_type_errors '
+	            'SELECT %L, %L, %L, count(*) FROM raw.%I WHERE %s HAVING count(*) > 0',
+	            spec.source_table, spec.source_column, spec.rule,
+	            spec.source_table, predicate);
+	    END LOOP;
+	
+	    SELECT string_agg(format('raw.%I.%I [%s]: %s row(s)',
+	                            source_table, source_column, rule, invalid_count),
+	                      E'\n' ORDER BY source_table, source_column)
+	      INTO failures FROM pg_temp.capibara_type_errors;
+	    IF failures IS NOT NULL THEN
+	        RAISE EXCEPTION USING
+	            MESSAGE = 'Input type/key precheck failed before model casts',
+	            DETAIL = failures,
+	            HINT = 'Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.';
+	    END IF;
+	END
+	$typecheck$;
+2026-10-28 17:08:08.046 MSK [74911] LOG:  received fast shutdown request
+2026-10-28 17:08:08.046 MSK [74911] LOG:  aborting any active transactions
+2026-10-28 17:08:08.047 MSK [74911] LOG:  background worker "logical replication launcher" (PID 74917) exited with exit code 1
+2026-10-28 17:08:08.047 MSK [74912] LOG:  shutting down
+2026-10-28 17:08:08.047 MSK [74912] LOG:  checkpoint starting: shutdown immediate
+2026-10-28 17:08:08.075 MSK [74912] LOG:  checkpoint complete: wrote 956 buffers (46.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.028 s, sync=0.001 s, total=0.028 s; sync files=0, longest=0.000 s, average=0.000 s; distance=4504 kB, estimate=4504 kB; lsn=0/1983B30, redo lsn=0/1983B30
+2026-10-28 17:08:08.077 MSK [74911] LOG:  database system is shut down

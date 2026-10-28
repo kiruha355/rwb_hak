@@ -1,0 +1,91 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/10_dims.sql
+DO
+DO
+CREATE TABLE
+INSERT 0 853
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 9
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 23
+COMMENT
+CREATE TABLE
+INSERT 0 24
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 2
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+INSERT 0 4
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 5
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+[capibara] model/20_facts.sql
+DO
+CREATE TABLE
+INSERT 0 24
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+psql:<stdin>:42: NOTICE:  42P06: schema "core" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:43: NOTICE:  42P06: schema "mart" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:639: ERROR:  23503: insert or update on table "fact_order_item" violates foreign key constraint "fact_order_item_product_id_fkey"
+DETAIL:  Key (product_id)=(no-such-product) is not present in table "dim_product".
+SCHEMA NAME:  core
+TABLE NAME:  fact_order_item
+CONSTRAINT NAME:  fact_order_item_product_id_fkey
+LOCATION:  ri_ReportViolation, ri_triggers.c:2619
+Model command failed (psql exit 3). See the SQL error above.
+No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.

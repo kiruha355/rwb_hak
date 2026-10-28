@@ -1,0 +1,210 @@
+{
+  "utc": "2026-10-28T14:11:21.937064+00:00",
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "method": "streaming_csv_no_db",
+  "csv_raw_equality": "NOT_RUN",
+  "files": {
+    "olist_customers_dataset.csv": {
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "rows": 99441,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ]
+    },
+    "olist_order_items_dataset.csv": {
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "rows": 112650,
+      "header": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ]
+    },
+    "olist_order_payments_dataset.csv": {
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "rows": 103886,
+      "header": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ]
+    },
+    "olist_order_reviews_dataset.csv": {
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "rows": 99224,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ]
+    },
+    "olist_orders_dataset.csv": {
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "rows": 99441,
+      "header": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ]
+    },
+    "olist_products_dataset.csv": {
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "rows": 32951,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ]
+    },
+    "olist_sellers_dataset.csv": {
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "rows": 3095,
+      "header": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ]
+    },
+    "product_category_name_translation.csv": {
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "rows": 71,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ]
+    }
+  },
+  "observations": {
+    "zero_payment": 9,
+    "zero_installments": 2,
+    "repeated_order_score_association": 349,
+    "status:delivered": 96478,
+    "status:invoiced": 314,
+    "status:shipped": 1107,
+    "status:processing": 301,
+    "status:unavailable": 609,
+    "status:canceled": 625,
+    "delivered_without_actual_date": 8,
+    "status:created": 5,
+    "status:approved": 2,
+    "missing_category": 610,
+    "untranslated_category": 13
+  },
+  "examples": {
+    "zero_payment": [
+      {
+        "order_id": "8bcbe01d44d147f901cd3192671144db",
+        "payment_sequential": "4",
+        "payment_type": "voucher",
+        "payment_installments": "1",
+        "payment_value": "0.00"
+      },
+      {
+        "order_id": "fa65dad1b0e818e3ccc5cb0e39231352",
+        "payment_sequential": "14",
+        "payment_type": "voucher",
+        "payment_installments": "1",
+        "payment_value": "0.00"
+      }
+    ],
+    "zero_installments": [
+      {
+        "order_id": "744bade1fcf9ff3f31d860ace076d422",
+        "payment_sequential": "2",
+        "payment_type": "credit_card",
+        "payment_installments": "0",
+        "payment_value": "58.69"
+      },
+      {
+        "order_id": "1a57108394169c0b47d8f876acc9ba2d",
+        "payment_sequential": "2",
+        "payment_type": "credit_card",
+        "payment_installments": "0",
+        "payment_value": "129.94"
+      }
+    ],
+    "repeated_order_score_association": [
+      {
+        "review_id": "46abf3ea0b2710ad41390fdb79c32d84",
+        "order_id": "5040757d4e06a4be96d3827b860b4e7c",
+        "review_score": "5"
+      },
+      {
+        "review_id": "aa193e76d35950c4ae988237bb36ed2b",
+        "order_id": "cf73e2cb1f4a9480ed70c154da3d954a",
+        "review_score": "5"
+      }
+    ],
+    "delivered_without_actual_date": [
+      {
+        "order_id": "2d1e2d5bf4dc7227b3bfebb81328c15f",
+        "order_status": "delivered",
+        "order_delivered_customer_date": ""
+      },
+      {
+        "order_id": "f5dd62b788049ad9fc0526e3ad11a097",
+        "order_status": "delivered",
+        "order_delivered_customer_date": ""
+      }
+    ],
+    "missing_category": [
+      {
+        "product_id": "a41e356c76fab66334f36de622ecbd3a",
+        "product_category_name": ""
+      },
+      {
+        "product_id": "d8dee61c2034d6d075997acef1870e9b",
+        "product_category_name": ""
+      }
+    ],
+    "untranslated_category": [
+      {
+        "product_id": "0105b5323d24fc655f73052694dbbb3a",
+        "product_category_name": "pc_gamer"
+      },
+      {
+        "product_id": "6fd83eb3e0799b775e4f946bd66657c0",
+        "product_category_name": "portateis_cozinha_e_preparadores_de_alimentos"
+      }
+    ]
+  },
+  "orders_with_multiple_known_scores": 202,
+  "pinned_lock_blob_sha256": "f51d65f88c520e63fd20d015865e0cdba5b5a489b085be9d98dbe34340ecd716",
+  "pinned_lock_matches": {
+    "olist_orders_dataset.csv": true,
+    "olist_order_items_dataset.csv": true,
+    "olist_order_payments_dataset.csv": true,
+    "olist_order_reviews_dataset.csv": true,
+    "olist_products_dataset.csv": true,
+    "olist_sellers_dataset.csv": true,
+    "olist_customers_dataset.csv": true,
+    "product_category_name_translation.csv": true
+  },
+  "script_sha256": "c02663ecebef058619de32f35dc8b2b6251bfdedb3037f2bd7faa4d917d7e8c1"
+}

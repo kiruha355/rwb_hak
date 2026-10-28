@@ -1,0 +1,372 @@
+{
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "requirements_sha": "558f0f6a38110acc9fcf4386a7e53ece973aedf5",
+  "utc_start": "2026-10-28T14:10:12.416134+00:00",
+  "scope": "tiny_synthetic_actual_wrappers",
+  "full_olist_lifecycle": "NOT_RUN",
+  "csv_raw_equality": "NOT_RUN",
+  "history_runtime": "OUT_OF_SCOPE",
+  "baseline": {
+    "status": "pass",
+    "comparisons": 1678,
+    "relation_checks": {
+      "facts": 4,
+      "orders": 264,
+      "reviews": 112,
+      "review_conflicts": 75,
+      "delivery": 96,
+      "q1": 96,
+      "q2": 12,
+      "q3": 6,
+      "q4": 3,
+      "q5": 35,
+      "q6": 112,
+      "q7": 252,
+      "q8": 16,
+      "q9": 27,
+      "q9_methods": 30,
+      "q10": 400,
+      "q10_coverage": 12,
+      "q7_scaled_selector": 126
+    }
+  },
+  "metamorphic": {
+    "more_children": {
+      "status": "pass",
+      "comparisons": 1690,
+      "relation_checks": {
+        "facts": 4,
+        "orders": 264,
+        "reviews": 119,
+        "review_conflicts": 80,
+        "delivery": 96,
+        "q1": 96,
+        "q2": 12,
+        "q3": 6,
+        "q4": 3,
+        "q5": 35,
+        "q6": 112,
+        "q7": 252,
+        "q8": 16,
+        "q9": 27,
+        "q9_methods": 30,
+        "q10": 400,
+        "q10_coverage": 12,
+        "q7_scaled_selector": 126
+      },
+      "unchanged_relations": [
+        "q1",
+        "q2",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q10",
+        "q10_coverage"
+      ]
+    },
+    "item_replication": {
+      "status": "pass",
+      "comparisons": 1678,
+      "relation_checks": {
+        "facts": 4,
+        "orders": 264,
+        "reviews": 112,
+        "review_conflicts": 75,
+        "delivery": 96,
+        "q1": 96,
+        "q2": 12,
+        "q3": 6,
+        "q4": 3,
+        "q5": 35,
+        "q6": 112,
+        "q7": 252,
+        "q8": 16,
+        "q9": 27,
+        "q9_methods": 30,
+        "q10": 400,
+        "q10_coverage": 12,
+        "q7_scaled_selector": 126
+      }
+    },
+    "nonrevenue_price_leader": {
+      "status": "pass",
+      "comparisons": 1664,
+      "relation_checks": {
+        "facts": 4,
+        "orders": 264,
+        "reviews": 112,
+        "review_conflicts": 75,
+        "delivery": 96,
+        "q1": 96,
+        "q2": 12,
+        "q3": 6,
+        "q4": 3,
+        "q5": 35,
+        "q6": 98,
+        "q7": 252,
+        "q8": 16,
+        "q9": 27,
+        "q9_methods": 30,
+        "q10": 400,
+        "q10_coverage": 12,
+        "q7_scaled_selector": 126
+      }
+    },
+    "permuted_input": {
+      "status": "pass",
+      "comparisons": 1678,
+      "relation_checks": {
+        "facts": 4,
+        "orders": 264,
+        "reviews": 112,
+        "review_conflicts": 75,
+        "delivery": 96,
+        "q1": 96,
+        "q2": 12,
+        "q3": 6,
+        "q4": 3,
+        "q5": 35,
+        "q6": 112,
+        "q7": 252,
+        "q8": 16,
+        "q9": 27,
+        "q9_methods": 30,
+        "q10": 400,
+        "q10_coverage": 12,
+        "q7_scaled_selector": 126
+      },
+      "unchanged_relations": [
+        "q1",
+        "q2",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q10",
+        "q10_coverage"
+      ]
+    }
+  },
+  "mutations": {
+    "drop_childless_orders": {
+      "path": "model/40_mart.sql",
+      "before": "LEFT JOIN payments p ON p.order_id = o.order_id",
+      "after": "JOIN payments p ON p.order_id = o.order_id",
+      "replacements": 1,
+      "before_sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "after_sha256": "9714cd8d8dc3cdda1e1da821172e2b9b9ded31c1c8599cb769debae9ebd78ef6",
+      "status": "killed",
+      "detected_by": "actual_build_invariants",
+      "evidence": "logs/mut_drop_childless_orders_build.log"
+    },
+    "missing_money_becomes_zero": {
+      "path": "model/40_mart.sql",
+      "before": "i.item_revenue, i.freight_amount, i.order_gmv,",
+      "after": "coalesce(i.item_revenue, 0) AS item_revenue, i.freight_amount, i.order_gmv,",
+      "replacements": 1,
+      "before_sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "after_sha256": "2ffa04023069fdac474567e17e03f3b6706f2d69a8cb7485b9827dbfbc491103",
+      "status": "killed",
+      "detected_by": "actual_build_invariants",
+      "evidence": "logs/mut_missing_money_becomes_zero_build.log"
+    },
+    "q6_count_rows_not_distinct": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "count(DISTINCT price) AS distinct_prices",
+      "after": "count(price) AS distinct_prices",
+      "replacements": 1,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "3a4856f59061be932fd166fe931b8e0cf13cbd2b4ae81734b701234990ea48b0",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q6('all_statuses', 'a', '2018-01-01', Decimal('10')).distinct_prices: actual=4, expected=3"
+    },
+    "q7_all_orders_denominator": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "/ nullif(count(is_late), 0)",
+      "after": "/ nullif(count(*), 0)",
+      "replacements": 1,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "acb0057b0f951e69e28f8d0415c2397f35680b82b345c2b2e0282c65f39c11c7",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q7('all_statuses', 'SP', 'calendar_day').late_pct: actual=Decimal('18.1818181818181818'), expected=Decimal('25')"
+    },
+    "q7_threshold_exclusive": {
+      "path": "answers/q06-q10/q07.sql",
+      "before": "orders_count >= 500::bigint",
+      "after": "orders_count > 500::bigint",
+      "replacements": 1,
+      "before_sha256": "89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc",
+      "after_sha256": "9d856aa2835aa0d7e5909700f30e753e763aedd292a5be2b542cf906cebc4cbc",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q7_scaled_selector: key sets differ; missing={('all_statuses', 'K2', 'calendar_day'), ('delivered', 'K3', 'calendar_day'), ('all_statuses', 'K2', 'timestamp'), ('delivered', 'K3', 'timestamp')}, extra=set()"
+    },
+    "q8_wrong_childless_predicate": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "source_rows_count = 0",
+      "after": "source_rows_count = 1",
+      "replacements": 1,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "ae41a286487b67f9f09676d930988f9d9e4fde73bc98709758c8dd77d6d34335",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q8('delivered',).orders_without_items: actual=2, expected=14"
+    },
+    "q9_includes_next_year": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "< timestamp '2019-01-01'",
+      "after": "<= timestamp '2019-01-01'",
+      "replacements": 2,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "82bed1eeda78b81b3fb335b21a7d5e9a24f58a4ea728caeaac7575a73a9dd132",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q9('YY',).payment_count: actual=3, expected=2"
+    },
+    "q10_repeat_score_fanout": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "SELECT DISTINCT order_id, review_score FROM core.fact_review",
+      "after": "SELECT order_id, review_score FROM core.fact_review",
+      "replacements": 1,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "503974c6bb2007cca3ac8e3e30a9979663d74e66bb8786069a2c55e2bdcf256f",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q10('all_statuses', 'within_score', 'calendar_day', 5).orders_count: actual=4, expected=3"
+    },
+    "q10_all_orders_denominator": {
+      "path": "model/55_answers_block_b.sql",
+      "before": "/ nullif(count(a.is_late), 0)",
+      "after": "/ nullif(count(a.order_id), 0)",
+      "replacements": 1,
+      "before_sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "after_sha256": "c475e74246aa0bd550515e6f33c00b9530c738e93c130c4cc989dcfc4b8a8709",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "q10('all_statuses', 'within_score', 'calendar_day', 3).late_pct: actual=Decimal('0E-20'), expected=None"
+    },
+    "negative_delivery_duration": {
+      "path": "model/40_mart.sql",
+      "before": "is_delivered AND order_delivered_customer_date >= order_purchase_timestamp",
+      "after": "is_delivered AND order_delivered_customer_date IS NOT NULL AND order_purchase_timestamp IS NOT NULL",
+      "replacements": 1,
+      "before_sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "after_sha256": "75349ba3586a6d518947b363b78793d453b55b12f7d6f59985b7a6df83bc2186",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "delivery('negative',).purchase_to_delivery_days: actual=Decimal('-2.0000000000000000'), expected=None"
+    },
+    "choose_conflicting_review_payload": {
+      "path": "model/40_mart.sql",
+      "before": "p.review_id = v.review_id AND v.payload_variant_count = 1",
+      "after": "p.review_id = v.review_id",
+      "replacements": 1,
+      "before_sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "after_sha256": "19c4ac6c23c22b7b5310a664458431f4d9d1893c937d3c32cc742b4fac804fcf",
+      "status": "killed",
+      "detected_by": "independent_behavior_oracle",
+      "counterexample": "review_conflicts: duplicate result keys"
+    }
+  },
+  "negatives": {
+    "duplicate_item_key": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "23505",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_duplicate_item_key_build.log"
+    },
+    "orphan_product": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "23503",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_orphan_product_build.log"
+    },
+    "nonfinite_price": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "Input type/key precheck failed",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_nonfinite_price_build.log"
+    },
+    "blank_order_identity": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "Input type/key precheck failed",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_blank_order_identity_build.log"
+    },
+    "malformed_timestamp": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "Input type/key precheck failed",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_malformed_timestamp_build.log"
+    },
+    "fractional_timestamp_policy": {
+      "status": "rejected_and_rolled_back",
+      "expected_diagnostic": "Input type/key precheck failed",
+      "before_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "after_fingerprint": "d8442d7b0e8ce88ab99a039290688e93f1ec87a4455bd0e2c0a3baeddc18cb96",
+      "evidence": "logs/negative_fractional_timestamp_policy_build.log"
+    }
+  },
+  "status": "pass",
+  "server": {
+    "version": "postgres (PostgreSQL) 16.15 (Homebrew)",
+    "shared_buffers": "16MB",
+    "max_connections": 5,
+    "work_mem": "1MB",
+    "max_parallel_workers": 0,
+    "tcp_listen": false
+  },
+  "requirements_blob_sha256": "c24f3190729a672c09fcb97854a678fa02712456350038ff2bd738095652d1c5",
+  "runner_sha256": {
+    "run.py": "b4aaa67b4f0d253b9f7b169458544ea49ac582f81ebaf3f498aed94eb2d3f88f",
+    "fixture.py": "d30163b586087b5837b0cd2f6981eb005271dabfc87460871943ef6a49492b7b",
+    "oracle.py": "ebfc188ba3508066992b91208faa9a4a45a3726b8e177f47db9538948237c621"
+  },
+  "fixture_rows": {
+    "customers": 24,
+    "orders": 24,
+    "products": 5,
+    "sellers": 2,
+    "order_items": 12,
+    "order_payments": 11,
+    "order_reviews": 16,
+    "product_category_translation": 2
+  },
+  "lifecycle": {
+    "rebuild_equal": true,
+    "first_fingerprint": "f1fb632292275918121bb2ec43b6314a93706318001e897bd2e5f14394f05901",
+    "second_fingerprint": "f1fb632292275918121bb2ec43b6314a93706318001e897bd2e5f14394f05901",
+    "raw_unchanged": true,
+    "raw_before_fingerprint": "dfe7a98c43022e2f51ad5817b297d993c408ca6c6812bffdc7c62637664391a1",
+    "raw_after_fingerprint": "dfe7a98c43022e2f51ad5817b297d993c408ca6c6812bffdc7c62637664391a1",
+    "late_error_rollback": {
+      "before": "f1fb632292275918121bb2ec43b6314a93706318001e897bd2e5f14394f05901",
+      "after": "f1fb632292275918121bb2ec43b6314a93706318001e897bd2e5f14394f05901",
+      "marker": "ADVERSARIAL_LATE_FAILURE_AFTER_ALL_CHECKS",
+      "evidence": "logs/late_failure_actual_wrapper.log"
+    },
+    "raw_fixture_equality": {
+      "customers": "c45a1114c39540fd80f9ee4e22787de39aaa53b315f03a3933383a649d1df8fc",
+      "orders": "19f46d3dfacb06e99bfce178acb0363cf8df6cd9b45e1bc4e63f6bf92095631c",
+      "products": "821c58318247a6f902e7e81c5458295b0c6e5f928aa1cebbb58a2a3553f0c531",
+      "sellers": "d07f3066fe87ffc5fce94977ee1b2e82e7ae8fbb3102c8049265312f46159ef3",
+      "order_items": "dd4888741ca3e0b8d30a99847cff49095c74a2ada318855bb9b5a1ef7c366b14",
+      "order_payments": "5441e2ee58793622107a998112e4e4430e7f42884a4c8eceff08e71959f1a43e",
+      "order_reviews": "a5f942cf8daf9dbc897b66292cf0cef0b652c3a2782245e3fb0466d3681efe17",
+      "product_category_translation": "e904840d09bc27bb027246c05ae7ffe93a5d3a087c91f26611a3e6e672c27c62"
+    }
+  },
+  "own_server_stopped": true,
+  "private_runtime_removed": true,
+  "utc_end": "2026-10-28T14:10:24.774076+00:00"
+}

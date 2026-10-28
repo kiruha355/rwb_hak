@@ -1,0 +1,183 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/10_dims.sql
+DO
+DO
+CREATE TABLE
+INSERT 0 853
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 9
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 23
+COMMENT
+CREATE TABLE
+INSERT 0 24
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 2
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+INSERT 0 4
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 5
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+[capibara] model/20_facts.sql
+DO
+CREATE TABLE
+INSERT 0 24
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 12
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 11
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 16
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+ANALYZE
+[capibara] model/30_quality.sql
+CREATE TABLE
+COMMENT
+INSERT 0 22
+INSERT 0 42
+INSERT 0 2
+INSERT 0 3
+INSERT 0 7
+INSERT 0 4
+INSERT 0 1
+INSERT 0 1
+INSERT 0 3
+INSERT 0 35
+INSERT 0 2
+[capibara] model/40_mart.sql
+CREATE TABLE
+INSERT 0 34
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+[capibara] model/50_answers.sql
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+COMMENT
+CREATE VIEW
+COMMENT
+[capibara] model/55_answers_block_b.sql
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+psql:<stdin>:42: NOTICE:  42P06: schema "core" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:43: NOTICE:  42P06: schema "mart" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:1966: ERROR:  23514: core invariant checks failed
+DETAIL:  order_mart.keys_raw_minus_core: 14
+{"order_id": "boundary-1-0"}
+{"order_id": "boundary-2-0"}
+{"order_id": "boundary-2-1"}
+order_mart.multiplicity: 14
+{"count": 1, "order_id": "boundary-1-0"}
+{"count": 1, "order_id": "boundary-2-0"}
+{"count": 1, "order_id": "boundary-2-1"}
+order_mart.null_profiles: 8
+{"key": "freight_amount", "count": 18}
+{"key": "freight_amount", "count": 5}
+{"key": "item_revenue", "count": 18}
+order_mart.row_count: 1
+{"actual": 10, "expected": 24}
+order_mart.values_raw_minus_core: 14
+{"order_id": "boundary-1-0", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+{"order_id": "boundary-2-0", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+{"order_id": "boundary-2-1", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+HINT:  Transaction must roll back; preserve this error text because check_results rolls back too.
+CONTEXT:  PL/pgSQL function core.run_checks() line 285 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3911
+Model command failed (psql exit 3). See the SQL error above.
+No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.

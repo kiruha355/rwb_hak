@@ -1,0 +1,99 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+psql:<stdin>:45: NOTICE:  00000: function core.run_checks() does not exist, skipping
+LOCATION:  does_not_exist_skipping, dropcmds.c:528
+psql:<stdin>:71: NOTICE:  00000: view "q01_revenue_monthly" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q02_sellers_top10" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q03_average_order" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q04_buyers_repeat" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q04_buyers_repeat_q1_window" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q05_category_revenue" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q06_price_history" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q07_delivery_by_state" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q08_status_snapshot" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q09_payments_2018_by_state" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q09_payment_methods" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q10_review_delivery" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "q10_review_coverage" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_order_delivery_variants" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_review_weighting" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_review" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_review_payload_variants" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_payment_reconciliation" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_order_payment_reconciliation" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_order_items" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:71: NOTICE:  00000: view "v_orders" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "check_results" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "data_issues" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "metric_definitions" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "fact_review" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "fact_payment" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "fact_order_item" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "fact_order" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_product" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_category" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_seller" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_customer_context" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_customer" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_order_status" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:89: NOTICE:  00000: table "dim_date" does not exist, skipping
+LOCATION:  DropErrorMsgNonExistent, tablecmds.c:1326
+psql:<stdin>:195: ERROR:  P0001: Input type/key precheck failed before model casts
+DETAIL:  raw.orders.order_approved_at [timestamp]: 2 row(s)
+raw.orders.order_purchase_timestamp [timestamp]: 2 row(s)
+HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3911
+Model command failed (psql exit 3). See the SQL error above.
+No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.

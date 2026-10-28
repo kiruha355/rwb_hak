@@ -1,0 +1,725 @@
+2026-10-28 17:11:21.722 MSK [88009] LOG:  starting PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit
+2026-10-28 17:11:21.722 MSK [88009] LOG:  listening on Unix socket "/var/folders/ty/_x0y4mc91d3f0_0xfp1m_mq80000gn/T/rwb-adversarial-pg16-p047gkt9/s/.s.PGSQL.55483"
+2026-10-28 17:11:21.724 MSK [88012] LOG:  database system was shut down at 2026-10-28 17:11:21 MSK
+2026-10-28 17:11:21.725 MSK [88009] LOG:  database system is ready to accept connections
+2026-10-28 17:11:22.066 MSK [88052] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:22.066 MSK [88052] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:22.066 MSK [88052] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:22.802 MSK [88215] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:22.802 MSK [88215] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:22.802 MSK [88215] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:23.371 MSK [88354] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:23.371 MSK [88354] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:23.371 MSK [88354] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:23.834 MSK [88456] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:23.834 MSK [88456] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:23.834 MSK [88456] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:23.834 MSK [88456] ERROR:  ADVERSARIAL_LATE_FAILURE_AFTER_ALL_CHECKS
+2026-10-28 17:11:23.834 MSK [88456] CONTEXT:  PL/pgSQL function inline_code_block line 1 at RAISE
+2026-10-28 17:11:23.834 MSK [88456] STATEMENT:  DO $$ BEGIN RAISE EXCEPTION 'ADVERSARIAL_LATE_FAILURE_AFTER_ALL_CHECKS'; END $$;
+2026-10-28 17:11:24.367 MSK [88576] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:24.367 MSK [88576] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:24.367 MSK [88576] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:24.701 MSK [88827] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:24.701 MSK [88827] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:24.701 MSK [88827] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:25.014 MSK [88991] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:25.014 MSK [88991] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:25.014 MSK [88991] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:25.339 MSK [89055] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:25.339 MSK [89055] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:25.339 MSK [89055] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:25.661 MSK [89112] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:25.661 MSK [89112] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:25.661 MSK [89112] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:25.970 MSK [89168] ERROR:  core invariant checks failed
+2026-10-28 17:11:25.970 MSK [89168] DETAIL:  order_mart.keys_raw_minus_core: 14
+	{"order_id": "boundary-1-0"}
+	{"order_id": "boundary-2-0"}
+	{"order_id": "boundary-2-1"}
+	order_mart.multiplicity: 14
+	{"count": 1, "order_id": "boundary-1-0"}
+	{"count": 1, "order_id": "boundary-2-0"}
+	{"count": 1, "order_id": "boundary-2-1"}
+	order_mart.null_profiles: 8
+	{"key": "freight_amount", "count": 18}
+	{"key": "freight_amount", "count": 5}
+	{"key": "item_revenue", "count": 18}
+	order_mart.row_count: 1
+	{"actual": 10, "expected": 24}
+	order_mart.values_raw_minus_core: 14
+	{"order_id": "boundary-1-0", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+	{"order_id": "boundary-2-0", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+	{"order_id": "boundary-2-1", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+2026-10-28 17:11:25.970 MSK [89168] HINT:  Transaction must roll back; preserve this error text because check_results rolls back too.
+2026-10-28 17:11:25.970 MSK [89168] CONTEXT:  PL/pgSQL function core.run_checks() line 285 at RAISE
+2026-10-28 17:11:25.970 MSK [89168] STATEMENT:  SELECT core.run_checks();
+2026-10-28 17:11:26.107 MSK [89180] ERROR:  core invariant checks failed
+2026-10-28 17:11:26.107 MSK [89180] DETAIL:  order_mart.null_profiles: 2
+	{"key": "item_revenue", "count": 0}
+	{"key": "item_revenue", "count": 18}
+	order_mart.values_core_minus_raw: 18
+	{"order_id": "after-year", "order_gmv": null, "item_revenue": 0, "freight_amount": null, "payment_amount": 8, "payments_count": 1, "payment_coverage": "payments_only", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 1, "item_components_valid_count": 0}
+	{"order_id": "before-year", "order_gmv": null, "item_revenue": 0, "freight_amount": null, "payment_amount": 2, "payments_count": 1, "payment_coverage": "payments_only", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 1, "item_components_valid_count": 0}
+	{"order_id": "boundary-1-0", "order_gmv": null, "item_revenue": 0, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+	order_mart.values_raw_minus_core: 18
+	{"order_id": "after-year", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": 8, "payments_count": 1, "payment_coverage": "payments_only", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 1, "item_components_valid_count": 0}
+	{"order_id": "before-year", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": 2, "payments_count": 1, "payment_coverage": "payments_only", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 1, "item_components_valid_count": 0}
+	{"order_id": "boundary-1-0", "order_gmv": null, "item_revenue": null, "freight_amount": null, "payment_amount": null, "payments_count": 0, "payment_coverage": "neither", "price_valid_count": 0, "source_rows_count": 0, "review_pairs_count": 0, "freight_valid_count": 0, "payment_valid_count": 0, "item_components_valid_count": 0}
+2026-10-28 17:11:26.107 MSK [89180] HINT:  Transaction must roll back; preserve this error text because check_results rolls back too.
+2026-10-28 17:11:26.107 MSK [89180] CONTEXT:  PL/pgSQL function core.run_checks() line 285 at RAISE
+2026-10-28 17:11:26.107 MSK [89180] STATEMENT:  SELECT core.run_checks();
+2026-10-28 17:11:26.235 MSK [89192] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:26.235 MSK [89192] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:26.235 MSK [89192] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:26.454 MSK [89226] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:26.454 MSK [89226] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:26.454 MSK [89226] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:26.679 MSK [89262] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:26.679 MSK [89262] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:26.679 MSK [89262] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:26.962 MSK [89312] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:26.962 MSK [89312] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:26.962 MSK [89312] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:27.198 MSK [89350] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:27.198 MSK [89350] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:27.198 MSK [89350] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:27.449 MSK [89398] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:27.449 MSK [89398] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:27.449 MSK [89398] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:27.709 MSK [89444] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:27.709 MSK [89444] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:27.709 MSK [89444] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:27.970 MSK [89488] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:27.970 MSK [89488] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:27.970 MSK [89488] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:28.142 MSK [89510] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:28.142 MSK [89510] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:28.142 MSK [89510] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:28.303 MSK [89530] WARNING:  core quality warnings (source values preserved)
+2026-10-28 17:11:28.303 MSK [89530] DETAIL:  order.date_anomalies: 11
+	{"order_id": "after-year"}
+	{"order_id": "before-year"}
+	{"order_id": "boundary-1-0"}
+	review.payload_fd: 1
+	{"review_id": "shared-review", "payload_variants": 2}
+	review.score_unusual: 4
+	{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+	{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+	{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+	status.unexpected: 1
+	{"order_status": "returned_custom"}
+2026-10-28 17:11:28.303 MSK [89530] CONTEXT:  PL/pgSQL function core.run_checks() line 291 at RAISE
+2026-10-28 17:11:28.700 MSK [89623] ERROR:  duplicate key value violates unique constraint "fact_order_item_pkey"
+2026-10-28 17:11:28.700 MSK [89623] DETAIL:  Key (order_id, order_item_id)=(fanout, 1) already exists.
+2026-10-28 17:11:28.700 MSK [89623] STATEMENT:  INSERT INTO core.fact_order_item (
+	    order_id, order_item_id, product_id, seller_id, price, freight_value, shipping_limit_at
+	)
+	SELECT order_id, order_item_id::integer, product_id, seller_id,
+	       price::numeric, freight_value::numeric, shipping_limit_date::timestamp without time zone
+	FROM raw.order_items;
+2026-10-28 17:11:29.390 MSK [89789] ERROR:  insert or update on table "fact_order_item" violates foreign key constraint "fact_order_item_product_id_fkey"
+2026-10-28 17:11:29.390 MSK [89789] DETAIL:  Key (product_id)=(no-such-product) is not present in table "dim_product".
+2026-10-28 17:11:29.390 MSK [89789] STATEMENT:  INSERT INTO core.fact_order_item (
+	    order_id, order_item_id, product_id, seller_id, price, freight_value, shipping_limit_at
+	)
+	SELECT order_id, order_item_id::integer, product_id, seller_id,
+	       price::numeric, freight_value::numeric, shipping_limit_date::timestamp without time zone
+	FROM raw.order_items;
+2026-10-28 17:11:30.066 MSK [89955] ERROR:  Input type/key precheck failed before model casts
+2026-10-28 17:11:30.066 MSK [89955] DETAIL:  raw.order_items.price [numeric]: 1 row(s)
+2026-10-28 17:11:30.066 MSK [89955] HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+2026-10-28 17:11:30.066 MSK [89955] CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+2026-10-28 17:11:30.066 MSK [89955] STATEMENT:  DO $typecheck$
+	DECLARE
+	    spec record;
+	    predicate text;
+	    failures text;
+	BEGIN
+	    FOR spec IN
+	        SELECT * FROM (VALUES
+	            ('orders', 'order_id', 'key'),
+	            ('orders', 'customer_id', 'key'),
+	            ('orders', 'order_status', 'key'),
+	            ('order_items', 'order_id', 'key'),
+	            ('order_items', 'order_item_id', 'required_integer'),
+	            ('order_items', 'product_id', 'key'),
+	            ('order_items', 'seller_id', 'key'),
+	            ('order_payments', 'order_id', 'key'),
+	            ('order_payments', 'payment_sequential', 'required_integer'),
+	            ('order_payments', 'payment_installments', 'integer'),
+	            ('order_reviews', 'review_id', 'key'),
+	            ('order_reviews', 'order_id', 'key'),
+	            ('order_reviews', 'review_score', 'integer'),
+	            ('products', 'product_id', 'key'),
+	            ('products', 'product_name_lenght', 'integer'),
+	            ('products', 'product_description_lenght', 'integer'),
+	            ('products', 'product_photos_qty', 'integer'),
+	            ('sellers', 'seller_id', 'key'),
+	            ('customers', 'customer_id', 'key'),
+	            ('customers', 'customer_unique_id', 'key'),
+	            ('product_category_translation', 'product_category_name', 'required_text'),
+	            ('order_items', 'price', 'numeric'),
+	            ('order_items', 'freight_value', 'numeric'),
+	            ('order_payments', 'payment_value', 'numeric'),
+	            ('products', 'product_weight_g', 'numeric'),
+	            ('products', 'product_length_cm', 'numeric'),
+	            ('products', 'product_height_cm', 'numeric'),
+	            ('products', 'product_width_cm', 'numeric'),
+	            ('orders', 'order_purchase_timestamp', 'timestamp'),
+	            ('orders', 'order_approved_at', 'timestamp'),
+	            ('orders', 'order_delivered_carrier_date', 'timestamp'),
+	            ('orders', 'order_delivered_customer_date', 'timestamp'),
+	            ('orders', 'order_estimated_delivery_date', 'timestamp'),
+	            ('order_items', 'shipping_limit_date', 'timestamp'),
+	            ('order_reviews', 'review_creation_date', 'timestamp'),
+	            ('order_reviews', 'review_answer_timestamp', 'timestamp')
+	        ) AS rules(source_table, source_column, rule)
+	    LOOP
+	        IF spec.rule = 'key' THEN
+	            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+	                                spec.source_column, '^[[:space:]]*$');
+	        ELSIF spec.rule = 'required_text' THEN
+	            -- CONTRACT gives even '' the distinct identity 'pt:'.
+	            predicate := format('%I IS NULL', spec.source_column);
+	        ELSIF spec.rule IN ('integer', 'required_integer') THEN
+	            -- integer input checks bounds too; '1.5' must not round to 2.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?[0-9]+$', 'integer');
+	            IF spec.rule = 'required_integer' THEN
+	                predicate := format('%I IS NULL OR (%s)', spec.source_column, predicate);
+	            END IF;
+	        ELSIF spec.rule = 'numeric' THEN
+	            -- Unconstrained numeric has finite storage/scale limits. The safe
+	            -- input validator checks them without casting the bad source text.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', 'numeric');
+	        ELSE
+	            -- No timezone suffix, infinity, timezone-dependent input or implicit
+	            -- fractional-second rounding. Chronology remains a separate warning.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column,
+	                '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$',
+	                'timestamp without time zone');
+	        END IF;
+	        EXECUTE format(
+	            'INSERT INTO pg_temp.capibara_type_errors '
+	            'SELECT %L, %L, %L, count(*) FROM raw.%I WHERE %s HAVING count(*) > 0',
+	            spec.source_table, spec.source_column, spec.rule,
+	            spec.source_table, predicate);
+	    END LOOP;
+	
+	    SELECT string_agg(format('raw.%I.%I [%s]: %s row(s)',
+	                            source_table, source_column, rule, invalid_count),
+	                      E'\n' ORDER BY source_table, source_column)
+	      INTO failures FROM pg_temp.capibara_type_errors;
+	    IF failures IS NOT NULL THEN
+	        RAISE EXCEPTION USING
+	            MESSAGE = 'Input type/key precheck failed before model casts',
+	            DETAIL = failures,
+	            HINT = 'Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.';
+	    END IF;
+	END
+	$typecheck$;
+2026-10-28 17:11:30.742 MSK [90125] ERROR:  Input type/key precheck failed before model casts
+2026-10-28 17:11:30.742 MSK [90125] DETAIL:  raw.orders.order_id [key]: 1 row(s)
+2026-10-28 17:11:30.742 MSK [90125] HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+2026-10-28 17:11:30.742 MSK [90125] CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+2026-10-28 17:11:30.742 MSK [90125] STATEMENT:  DO $typecheck$
+	DECLARE
+	    spec record;
+	    predicate text;
+	    failures text;
+	BEGIN
+	    FOR spec IN
+	        SELECT * FROM (VALUES
+	            ('orders', 'order_id', 'key'),
+	            ('orders', 'customer_id', 'key'),
+	            ('orders', 'order_status', 'key'),
+	            ('order_items', 'order_id', 'key'),
+	            ('order_items', 'order_item_id', 'required_integer'),
+	            ('order_items', 'product_id', 'key'),
+	            ('order_items', 'seller_id', 'key'),
+	            ('order_payments', 'order_id', 'key'),
+	            ('order_payments', 'payment_sequential', 'required_integer'),
+	            ('order_payments', 'payment_installments', 'integer'),
+	            ('order_reviews', 'review_id', 'key'),
+	            ('order_reviews', 'order_id', 'key'),
+	            ('order_reviews', 'review_score', 'integer'),
+	            ('products', 'product_id', 'key'),
+	            ('products', 'product_name_lenght', 'integer'),
+	            ('products', 'product_description_lenght', 'integer'),
+	            ('products', 'product_photos_qty', 'integer'),
+	            ('sellers', 'seller_id', 'key'),
+	            ('customers', 'customer_id', 'key'),
+	            ('customers', 'customer_unique_id', 'key'),
+	            ('product_category_translation', 'product_category_name', 'required_text'),
+	            ('order_items', 'price', 'numeric'),
+	            ('order_items', 'freight_value', 'numeric'),
+	            ('order_payments', 'payment_value', 'numeric'),
+	            ('products', 'product_weight_g', 'numeric'),
+	            ('products', 'product_length_cm', 'numeric'),
+	            ('products', 'product_height_cm', 'numeric'),
+	            ('products', 'product_width_cm', 'numeric'),
+	            ('orders', 'order_purchase_timestamp', 'timestamp'),
+	            ('orders', 'order_approved_at', 'timestamp'),
+	            ('orders', 'order_delivered_carrier_date', 'timestamp'),
+	            ('orders', 'order_delivered_customer_date', 'timestamp'),
+	            ('orders', 'order_estimated_delivery_date', 'timestamp'),
+	            ('order_items', 'shipping_limit_date', 'timestamp'),
+	            ('order_reviews', 'review_creation_date', 'timestamp'),
+	            ('order_reviews', 'review_answer_timestamp', 'timestamp')
+	        ) AS rules(source_table, source_column, rule)
+	    LOOP
+	        IF spec.rule = 'key' THEN
+	            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+	                                spec.source_column, '^[[:space:]]*$');
+	        ELSIF spec.rule = 'required_text' THEN
+	            -- CONTRACT gives even '' the distinct identity 'pt:'.
+	            predicate := format('%I IS NULL', spec.source_column);
+	        ELSIF spec.rule IN ('integer', 'required_integer') THEN
+	            -- integer input checks bounds too; '1.5' must not round to 2.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?[0-9]+$', 'integer');
+	            IF spec.rule = 'required_integer' THEN
+	                predicate := format('%I IS NULL OR (%s)', spec.source_column, predicate);
+	            END IF;
+	        ELSIF spec.rule = 'numeric' THEN
+	            -- Unconstrained numeric has finite storage/scale limits. The safe
+	            -- input validator checks them without casting the bad source text.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', 'numeric');
+	        ELSE
+	            -- No timezone suffix, infinity, timezone-dependent input or implicit
+	            -- fractional-second rounding. Chronology remains a separate warning.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column,
+	                '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$',
+	                'timestamp without time zone');
+	        END IF;
+	        EXECUTE format(
+	            'INSERT INTO pg_temp.capibara_type_errors '
+	            'SELECT %L, %L, %L, count(*) FROM raw.%I WHERE %s HAVING count(*) > 0',
+	            spec.source_table, spec.source_column, spec.rule,
+	            spec.source_table, predicate);
+	    END LOOP;
+	
+	    SELECT string_agg(format('raw.%I.%I [%s]: %s row(s)',
+	                            source_table, source_column, rule, invalid_count),
+	                      E'\n' ORDER BY source_table, source_column)
+	      INTO failures FROM pg_temp.capibara_type_errors;
+	    IF failures IS NOT NULL THEN
+	        RAISE EXCEPTION USING
+	            MESSAGE = 'Input type/key precheck failed before model casts',
+	            DETAIL = failures,
+	            HINT = 'Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.';
+	    END IF;
+	END
+	$typecheck$;
+2026-10-28 17:11:31.471 MSK [90297] ERROR:  Input type/key precheck failed before model casts
+2026-10-28 17:11:31.471 MSK [90297] DETAIL:  raw.orders.order_purchase_timestamp [timestamp]: 1 row(s)
+2026-10-28 17:11:31.471 MSK [90297] HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+2026-10-28 17:11:31.471 MSK [90297] CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+2026-10-28 17:11:31.471 MSK [90297] STATEMENT:  DO $typecheck$
+	DECLARE
+	    spec record;
+	    predicate text;
+	    failures text;
+	BEGIN
+	    FOR spec IN
+	        SELECT * FROM (VALUES
+	            ('orders', 'order_id', 'key'),
+	            ('orders', 'customer_id', 'key'),
+	            ('orders', 'order_status', 'key'),
+	            ('order_items', 'order_id', 'key'),
+	            ('order_items', 'order_item_id', 'required_integer'),
+	            ('order_items', 'product_id', 'key'),
+	            ('order_items', 'seller_id', 'key'),
+	            ('order_payments', 'order_id', 'key'),
+	            ('order_payments', 'payment_sequential', 'required_integer'),
+	            ('order_payments', 'payment_installments', 'integer'),
+	            ('order_reviews', 'review_id', 'key'),
+	            ('order_reviews', 'order_id', 'key'),
+	            ('order_reviews', 'review_score', 'integer'),
+	            ('products', 'product_id', 'key'),
+	            ('products', 'product_name_lenght', 'integer'),
+	            ('products', 'product_description_lenght', 'integer'),
+	            ('products', 'product_photos_qty', 'integer'),
+	            ('sellers', 'seller_id', 'key'),
+	            ('customers', 'customer_id', 'key'),
+	            ('customers', 'customer_unique_id', 'key'),
+	            ('product_category_translation', 'product_category_name', 'required_text'),
+	            ('order_items', 'price', 'numeric'),
+	            ('order_items', 'freight_value', 'numeric'),
+	            ('order_payments', 'payment_value', 'numeric'),
+	            ('products', 'product_weight_g', 'numeric'),
+	            ('products', 'product_length_cm', 'numeric'),
+	            ('products', 'product_height_cm', 'numeric'),
+	            ('products', 'product_width_cm', 'numeric'),
+	            ('orders', 'order_purchase_timestamp', 'timestamp'),
+	            ('orders', 'order_approved_at', 'timestamp'),
+	            ('orders', 'order_delivered_carrier_date', 'timestamp'),
+	            ('orders', 'order_delivered_customer_date', 'timestamp'),
+	            ('orders', 'order_estimated_delivery_date', 'timestamp'),
+	            ('order_items', 'shipping_limit_date', 'timestamp'),
+	            ('order_reviews', 'review_creation_date', 'timestamp'),
+	            ('order_reviews', 'review_answer_timestamp', 'timestamp')
+	        ) AS rules(source_table, source_column, rule)
+	    LOOP
+	        IF spec.rule = 'key' THEN
+	            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+	                                spec.source_column, '^[[:space:]]*$');
+	        ELSIF spec.rule = 'required_text' THEN
+	            -- CONTRACT gives even '' the distinct identity 'pt:'.
+	            predicate := format('%I IS NULL', spec.source_column);
+	        ELSIF spec.rule IN ('integer', 'required_integer') THEN
+	            -- integer input checks bounds too; '1.5' must not round to 2.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?[0-9]+$', 'integer');
+	            IF spec.rule = 'required_integer' THEN
+	                predicate := format('%I IS NULL OR (%s)', spec.source_column, predicate);
+	            END IF;
+	        ELSIF spec.rule = 'numeric' THEN
+	            -- Unconstrained numeric has finite storage/scale limits. The safe
+	            -- input validator checks them without casting the bad source text.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', 'numeric');
+	        ELSE
+	            -- No timezone suffix, infinity, timezone-dependent input or implicit
+	            -- fractional-second rounding. Chronology remains a separate warning.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column,
+	                '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$',
+	                'timestamp without time zone');
+	        END IF;
+	        EXECUTE format(
+	            'INSERT INTO pg_temp.capibara_type_errors '
+	            'SELECT %L, %L, %L, count(*) FROM raw.%I WHERE %s HAVING count(*) > 0',
+	            spec.source_table, spec.source_column, spec.rule,
+	            spec.source_table, predicate);
+	    END LOOP;
+	
+	    SELECT string_agg(format('raw.%I.%I [%s]: %s row(s)',
+	                            source_table, source_column, rule, invalid_count),
+	                      E'\n' ORDER BY source_table, source_column)
+	      INTO failures FROM pg_temp.capibara_type_errors;
+	    IF failures IS NOT NULL THEN
+	        RAISE EXCEPTION USING
+	            MESSAGE = 'Input type/key precheck failed before model casts',
+	            DETAIL = failures,
+	            HINT = 'Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.';
+	    END IF;
+	END
+	$typecheck$;
+2026-10-28 17:11:32.178 MSK [90468] ERROR:  Input type/key precheck failed before model casts
+2026-10-28 17:11:32.178 MSK [90468] DETAIL:  raw.orders.order_purchase_timestamp [timestamp]: 1 row(s)
+2026-10-28 17:11:32.178 MSK [90468] HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+2026-10-28 17:11:32.178 MSK [90468] CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+2026-10-28 17:11:32.178 MSK [90468] STATEMENT:  DO $typecheck$
+	DECLARE
+	    spec record;
+	    predicate text;
+	    failures text;
+	BEGIN
+	    FOR spec IN
+	        SELECT * FROM (VALUES
+	            ('orders', 'order_id', 'key'),
+	            ('orders', 'customer_id', 'key'),
+	            ('orders', 'order_status', 'key'),
+	            ('order_items', 'order_id', 'key'),
+	            ('order_items', 'order_item_id', 'required_integer'),
+	            ('order_items', 'product_id', 'key'),
+	            ('order_items', 'seller_id', 'key'),
+	            ('order_payments', 'order_id', 'key'),
+	            ('order_payments', 'payment_sequential', 'required_integer'),
+	            ('order_payments', 'payment_installments', 'integer'),
+	            ('order_reviews', 'review_id', 'key'),
+	            ('order_reviews', 'order_id', 'key'),
+	            ('order_reviews', 'review_score', 'integer'),
+	            ('products', 'product_id', 'key'),
+	            ('products', 'product_name_lenght', 'integer'),
+	            ('products', 'product_description_lenght', 'integer'),
+	            ('products', 'product_photos_qty', 'integer'),
+	            ('sellers', 'seller_id', 'key'),
+	            ('customers', 'customer_id', 'key'),
+	            ('customers', 'customer_unique_id', 'key'),
+	            ('product_category_translation', 'product_category_name', 'required_text'),
+	            ('order_items', 'price', 'numeric'),
+	            ('order_items', 'freight_value', 'numeric'),
+	            ('order_payments', 'payment_value', 'numeric'),
+	            ('products', 'product_weight_g', 'numeric'),
+	            ('products', 'product_length_cm', 'numeric'),
+	            ('products', 'product_height_cm', 'numeric'),
+	            ('products', 'product_width_cm', 'numeric'),
+	            ('orders', 'order_purchase_timestamp', 'timestamp'),
+	            ('orders', 'order_approved_at', 'timestamp'),
+	            ('orders', 'order_delivered_carrier_date', 'timestamp'),
+	            ('orders', 'order_delivered_customer_date', 'timestamp'),
+	            ('orders', 'order_estimated_delivery_date', 'timestamp'),
+	            ('order_items', 'shipping_limit_date', 'timestamp'),
+	            ('order_reviews', 'review_creation_date', 'timestamp'),
+	            ('order_reviews', 'review_answer_timestamp', 'timestamp')
+	        ) AS rules(source_table, source_column, rule)
+	    LOOP
+	        IF spec.rule = 'key' THEN
+	            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+	                                spec.source_column, '^[[:space:]]*$');
+	        ELSIF spec.rule = 'required_text' THEN
+	            -- CONTRACT gives even '' the distinct identity 'pt:'.
+	            predicate := format('%I IS NULL', spec.source_column);
+	        ELSIF spec.rule IN ('integer', 'required_integer') THEN
+	            -- integer input checks bounds too; '1.5' must not round to 2.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?[0-9]+$', 'integer');
+	            IF spec.rule = 'required_integer' THEN
+	                predicate := format('%I IS NULL OR (%s)', spec.source_column, predicate);
+	            END IF;
+	        ELSIF spec.rule = 'numeric' THEN
+	            -- Unconstrained numeric has finite storage/scale limits. The safe
+	            -- input validator checks them without casting the bad source text.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column, '^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$', 'numeric');
+	        ELSE
+	            -- No timezone suffix, infinity, timezone-dependent input or implicit
+	            -- fractional-second rounding. Chronology remains a separate warning.
+	            predicate := format(
+	                '%1$I IS NOT NULL AND (NOT (%1$I ~ %2$L) OR NOT pg_catalog.pg_input_is_valid(%1$I, %3$L))',
+	                spec.source_column,
+	                '^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$',
+	                'timestamp without time zone');
+	        END IF;
+	        EXECUTE format(
+	            'INSERT INTO pg_temp.capibara_type_errors '
+	            'SELECT %L, %L, %L, count(*) FROM raw.%I WHERE %s HAVING count(*) > 0',
+	            spec.source_table, spec.source_column, spec.rule,
+	            spec.source_table, predicate);
+	    END LOOP;
+	
+	    SELECT string_agg(format('raw.%I.%I [%s]: %s row(s)',
+	                            source_table, source_column, rule, invalid_count),
+	                      E'\n' ORDER BY source_table, source_column)
+	      INTO failures FROM pg_temp.capibara_type_errors;
+	    IF failures IS NOT NULL THEN
+	        RAISE EXCEPTION USING
+	            MESSAGE = 'Input type/key precheck failed before model casts',
+	            DETAIL = failures,
+	            HINT = 'Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.';
+	    END IF;
+	END
+	$typecheck$;
+2026-10-28 17:11:32.487 MSK [88009] LOG:  received fast shutdown request
+2026-10-28 17:11:32.487 MSK [88009] LOG:  aborting any active transactions
+2026-10-28 17:11:32.490 MSK [88009] LOG:  background worker "logical replication launcher" (PID 88015) exited with exit code 1
+2026-10-28 17:11:32.492 MSK [88010] LOG:  shutting down
+2026-10-28 17:11:32.492 MSK [88010] LOG:  checkpoint starting: shutdown immediate
+2026-10-28 17:11:32.576 MSK [88010] LOG:  checkpoint complete: wrote 1926 buffers (94.0%); 0 WAL file(s) added, 0 removed, 2 recycled; write=0.022 s, sync=0.001 s, total=0.084 s; sync files=0, longest=0.000 s, average=0.000 s; distance=33042 kB, estimate=33042 kB; lsn=0/35622A8, redo lsn=0/35622A8
+2026-10-28 17:11:32.579 MSK [88009] LOG:  database system is shut down

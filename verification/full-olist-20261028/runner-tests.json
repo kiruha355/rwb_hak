@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-10-28T14:11:50.946936+00:00",
+  "argv": [
+    "python3",
+    "verification/full-olist-20261028/test_runner.py"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+}

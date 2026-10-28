@@ -1,0 +1,8 @@
+NOTICE:  table "orders" does not exist, skipping
+NOTICE:  table "order_items" does not exist, skipping
+NOTICE:  table "order_payments" does not exist, skipping
+NOTICE:  table "order_reviews" does not exist, skipping
+NOTICE:  table "products" does not exist, skipping
+NOTICE:  table "sellers" does not exist, skipping
+NOTICE:  table "customers" does not exist, skipping
+NOTICE:  table "product_category_translation" does not exist, skipping

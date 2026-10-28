@@ -1,0 +1,19 @@
+{
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "scope": "tiny_synthetic_actual_wrappers",
+  "confirmed_new_model_defects": [],
+  "test_status": "pass",
+  "baseline_value_comparisons": 1678,
+  "metamorphic_variants_passed": 5,
+  "mutations_killed": 11,
+  "mutations_total": 11,
+  "negative_inputs_rejected_with_rollback": 6,
+  "policy_observations": [
+    "Timestamp text is intentionally restricted to exact whole-second format.",
+    "single_score_only excludes {5,6}; NULL beside a known score is not another known score.",
+    "all_statuses delivery population retains orders, while measured duration and lateness require delivered status.",
+    "Q7 threshold was executed at scale 1/2/3 with threshold 2; literal 499/500/501 was not run."
+  ],
+  "unchecked": ["full_olist_db_lifecycle", "csv_raw_db_equality", "full_olist_q6_q10_core_results", "application", "performance", "new_history_runtime", "new_address_regression", "human_policy_selection"],
+  "evidence": "results-ready/summary.json"
+}

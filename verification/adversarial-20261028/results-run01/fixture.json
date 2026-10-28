@@ -1,0 +1,793 @@
+{
+  "customers": [
+    {
+      "customer_id": "c-fanout",
+      "customer_unique_id": "shared-buyer",
+      "customer_state": "SP",
+      "customer_city": "city-fanout",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-second",
+      "customer_unique_id": "shared-buyer",
+      "customer_state": "RJ",
+      "customer_city": "city-second",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-zero",
+      "customer_unique_id": "b-zero",
+      "customer_state": "SP",
+      "customer_city": "city-zero",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-no-child",
+      "customer_unique_id": "b-no-child",
+      "customer_state": "SP",
+      "customer_city": "city-no-child",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-missing-money",
+      "customer_unique_id": "b-missing-money",
+      "customer_state": "SP",
+      "customer_city": "city-missing-money",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-canceled",
+      "customer_unique_id": "b-canceled",
+      "customer_state": "SP",
+      "customer_city": "city-canceled",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-new-status",
+      "customer_unique_id": "b-new-status",
+      "customer_state": "RS",
+      "customer_city": "city-new-status",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-negative",
+      "customer_unique_id": "b-negative",
+      "customer_state": "SP",
+      "customer_city": "city-negative",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-no-purchase",
+      "customer_unique_id": "b-no-purchase",
+      "customer_state": "SP",
+      "customer_city": "city-no-purchase",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-no-estimate",
+      "customer_unique_id": "b-no-estimate",
+      "customer_state": "SP",
+      "customer_city": "city-no-estimate",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-carrier-negative",
+      "customer_unique_id": "b-carrier-negative",
+      "customer_state": "SP",
+      "customer_city": "city-carrier-negative",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-valid-invalid-score",
+      "customer_unique_id": "b-valid-invalid-score",
+      "customer_state": "SP",
+      "customer_city": "city-valid-invalid-score",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-only-invalid-score",
+      "customer_unique_id": "b-only-invalid-score",
+      "customer_state": "SP",
+      "customer_city": "city-only-invalid-score",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-null-state",
+      "customer_unique_id": "b-null-state",
+      "customer_state": null,
+      "customer_city": "city-null-state",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-before-year",
+      "customer_unique_id": "b-before-year",
+      "customer_state": "YY",
+      "customer_city": "city-before-year",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-start-year",
+      "customer_unique_id": "b-start-year",
+      "customer_state": "YY",
+      "customer_city": "city-start-year",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-end-year",
+      "customer_unique_id": "b-end-year",
+      "customer_state": "YY",
+      "customer_city": "city-end-year",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-after-year",
+      "customer_unique_id": "b-after-year",
+      "customer_state": "YY",
+      "customer_city": "city-after-year",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-1-0",
+      "customer_unique_id": "b-boundary-1-0",
+      "customer_state": "K1",
+      "customer_city": "city-boundary-1-0",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-2-0",
+      "customer_unique_id": "b-boundary-2-0",
+      "customer_state": "K2",
+      "customer_city": "city-boundary-2-0",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-2-1",
+      "customer_unique_id": "b-boundary-2-1",
+      "customer_state": "K2",
+      "customer_city": "city-boundary-2-1",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-3-0",
+      "customer_unique_id": "b-boundary-3-0",
+      "customer_state": "K3",
+      "customer_city": "city-boundary-3-0",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-3-1",
+      "customer_unique_id": "b-boundary-3-1",
+      "customer_state": "K3",
+      "customer_city": "city-boundary-3-1",
+      "customer_zip_code_prefix": "01234"
+    },
+    {
+      "customer_id": "c-boundary-3-2",
+      "customer_unique_id": "b-boundary-3-2",
+      "customer_state": "K3",
+      "customer_city": "city-boundary-3-2",
+      "customer_zip_code_prefix": "01234"
+    }
+  ],
+  "orders": [
+    {
+      "order_id": "fanout",
+      "customer_id": "c-fanout",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 12:00:00",
+      "order_approved_at": "2018-01-01 12:00:00",
+      "order_delivered_carrier_date": "2018-01-03 00:00:00",
+      "order_delivered_customer_date": "2018-01-03 18:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "second",
+      "customer_id": "c-second",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-02 00:00:00",
+      "order_approved_at": "2018-01-02 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-06 00:00:00",
+      "order_estimated_delivery_date": "2018-01-05 00:00:00"
+    },
+    {
+      "order_id": "zero",
+      "customer_id": "c-zero",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-01 00:00:00",
+      "order_delivered_customer_date": "2018-01-01 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "no-child",
+      "customer_id": "c-no-child",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "missing-money",
+      "customer_id": "c-missing-money",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-03 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "canceled",
+      "customer_id": "c-canceled",
+      "order_status": "canceled",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-05 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "new-status",
+      "customer_id": "c-new-status",
+      "order_status": "returned_custom",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-03 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "negative",
+      "customer_id": "c-negative",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-10 00:00:00",
+      "order_approved_at": "2018-01-10 00:00:00",
+      "order_delivered_carrier_date": "2018-01-09 00:00:00",
+      "order_delivered_customer_date": "2018-01-08 00:00:00",
+      "order_estimated_delivery_date": "2018-01-07 00:00:00"
+    },
+    {
+      "order_id": "no-purchase",
+      "customer_id": "c-no-purchase",
+      "order_status": "delivered",
+      "order_purchase_timestamp": null,
+      "order_approved_at": null,
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-05 00:00:00",
+      "order_estimated_delivery_date": "2018-01-06 00:00:00"
+    },
+    {
+      "order_id": "no-estimate",
+      "customer_id": "c-no-estimate",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-02 00:00:00",
+      "order_estimated_delivery_date": null
+    },
+    {
+      "order_id": "carrier-negative",
+      "customer_id": "c-carrier-negative",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-05 00:00:00",
+      "order_approved_at": "2018-01-05 00:00:00",
+      "order_delivered_carrier_date": "2018-01-04 00:00:00",
+      "order_delivered_customer_date": "2018-01-06 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "valid-invalid-score",
+      "customer_id": "c-valid-invalid-score",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-03 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "only-invalid-score",
+      "customer_id": "c-only-invalid-score",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-03 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "null-state",
+      "customer_id": "c-null-state",
+      "order_status": "processing",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "before-year",
+      "customer_id": "c-before-year",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2017-12-31 23:59:59.999999",
+      "order_approved_at": "2017-12-31 23:59:59.999999",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "start-year",
+      "customer_id": "c-start-year",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "end-year",
+      "customer_id": "c-end-year",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-12-31 23:59:59.999999",
+      "order_approved_at": "2018-12-31 23:59:59.999999",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "after-year",
+      "customer_id": "c-after-year",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2019-01-01 00:00:00",
+      "order_approved_at": "2019-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-1-0",
+      "customer_id": "c-boundary-1-0",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-2-0",
+      "customer_id": "c-boundary-2-0",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-2-1",
+      "customer_id": "c-boundary-2-1",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-02 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-3-0",
+      "customer_id": "c-boundary-3-0",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": null,
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-3-1",
+      "customer_id": "c-boundary-3-1",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-02 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    },
+    {
+      "order_id": "boundary-3-2",
+      "customer_id": "c-boundary-3-2",
+      "order_status": "delivered",
+      "order_purchase_timestamp": "2018-01-01 00:00:00",
+      "order_approved_at": "2018-01-01 00:00:00",
+      "order_delivered_carrier_date": "2018-01-02 00:00:00",
+      "order_delivered_customer_date": "2018-01-02 00:00:00",
+      "order_estimated_delivery_date": "2018-01-03 00:00:00"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "a",
+      "product_category_name": "translated"
+    },
+    {
+      "product_id": "b",
+      "product_category_name": "untranslated"
+    },
+    {
+      "product_id": "z",
+      "product_category_name": null
+    },
+    {
+      "product_id": "u",
+      "product_category_name": "unknown"
+    },
+    {
+      "product_id": "unused",
+      "product_category_name": "unused"
+    }
+  ],
+  "sellers": [
+    {
+      "seller_id": "s1",
+      "seller_city": "s1",
+      "seller_state": "SP"
+    },
+    {
+      "seller_id": "s2",
+      "seller_city": "s2",
+      "seller_state": "SP"
+    }
+  ],
+  "order_items": [
+    {
+      "order_id": "fanout",
+      "order_item_id": "1",
+      "product_id": "a",
+      "seller_id": "s1",
+      "price": "10",
+      "freight_value": "1",
+      "shipping_limit_date": "2018-01-02 00:00:00"
+    },
+    {
+      "order_id": "fanout",
+      "order_item_id": "2",
+      "product_id": "a",
+      "seller_id": "s2",
+      "price": "20",
+      "freight_value": "2",
+      "shipping_limit_date": "2018-01-04 00:00:00"
+    },
+    {
+      "order_id": "fanout",
+      "order_item_id": "3",
+      "product_id": "b",
+      "seller_id": "s1",
+      "price": "20",
+      "freight_value": "0",
+      "shipping_limit_date": "2018-01-04 00:00:00"
+    },
+    {
+      "order_id": "fanout",
+      "order_item_id": "4",
+      "product_id": "b",
+      "seller_id": "s1",
+      "price": "20",
+      "freight_value": "0",
+      "shipping_limit_date": "2018-01-04 00:00:00"
+    },
+    {
+      "order_id": "second",
+      "order_item_id": "1",
+      "product_id": "a",
+      "seller_id": "s1",
+      "price": "8",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "second",
+      "order_item_id": "2",
+      "product_id": "b",
+      "seller_id": "s2",
+      "price": "10",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "zero",
+      "order_item_id": "1",
+      "product_id": "z",
+      "seller_id": "s1",
+      "price": "0",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "missing-money",
+      "order_item_id": "1",
+      "product_id": "a",
+      "seller_id": "s1",
+      "price": null,
+      "freight_value": "1",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "missing-money",
+      "order_item_id": "2",
+      "product_id": "b",
+      "seller_id": "s1",
+      "price": "8",
+      "freight_value": null,
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "canceled",
+      "order_item_id": "1",
+      "product_id": "u",
+      "seller_id": "s1",
+      "price": "999",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "new-status",
+      "order_item_id": "1",
+      "product_id": "u",
+      "seller_id": "s1",
+      "price": "99",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    },
+    {
+      "order_id": "no-purchase",
+      "order_item_id": "1",
+      "product_id": "a",
+      "seller_id": "s1",
+      "price": "10",
+      "freight_value": "0",
+      "shipping_limit_date": null
+    }
+  ],
+  "order_payments": [
+    {
+      "order_id": "fanout",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "5",
+      "payment_installments": "0"
+    },
+    {
+      "order_id": "fanout",
+      "payment_sequential": "2",
+      "payment_type": "voucher",
+      "payment_value": "7",
+      "payment_installments": "1"
+    },
+    {
+      "order_id": "second",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "18",
+      "payment_installments": "3"
+    },
+    {
+      "order_id": "zero",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "0",
+      "payment_installments": "0"
+    },
+    {
+      "order_id": "missing-money",
+      "payment_sequential": "1",
+      "payment_type": "boleto",
+      "payment_value": null,
+      "payment_installments": null
+    },
+    {
+      "order_id": "canceled",
+      "payment_sequential": "1",
+      "payment_type": "voucher",
+      "payment_value": "999",
+      "payment_installments": "1"
+    },
+    {
+      "order_id": "no-purchase",
+      "payment_sequential": "1",
+      "payment_type": "voucher",
+      "payment_value": "9",
+      "payment_installments": null
+    },
+    {
+      "order_id": "before-year",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "2",
+      "payment_installments": "2"
+    },
+    {
+      "order_id": "start-year",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "4",
+      "payment_installments": "4"
+    },
+    {
+      "order_id": "end-year",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "6",
+      "payment_installments": "0"
+    },
+    {
+      "order_id": "after-year",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_value": "8",
+      "payment_installments": "8"
+    }
+  ],
+  "order_reviews": [
+    {
+      "order_id": "fanout",
+      "review_id": "shared-review",
+      "review_score": "5",
+      "review_comment_title": "alpha\nстрока",
+      "review_comment_message": "alpha\nстрока",
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "fanout",
+      "review_id": "repeated-score",
+      "review_score": "5",
+      "review_comment_title": "",
+      "review_comment_message": "",
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "fanout",
+      "review_id": "conflicting-score",
+      "review_score": "1",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "second",
+      "review_id": "shared-review",
+      "review_score": "4",
+      "review_comment_title": "beta",
+      "review_comment_message": "beta",
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "zero",
+      "review_id": "r-zero",
+      "review_score": "2",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "no-child",
+      "review_id": "r-no-child",
+      "review_score": "3",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "missing-money",
+      "review_id": "r-missing-money",
+      "review_score": null,
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "canceled",
+      "review_id": "r-canceled",
+      "review_score": "3",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "new-status",
+      "review_id": "r-new-status",
+      "review_score": "6",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "negative",
+      "review_id": "r-negative",
+      "review_score": "1",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "no-purchase",
+      "review_id": "r-no-purchase",
+      "review_score": "5",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "no-estimate",
+      "review_id": "r-no-estimate",
+      "review_score": "4",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "carrier-negative",
+      "review_id": "r-carrier-negative",
+      "review_score": "4",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "valid-invalid-score",
+      "review_id": "r-valid-invalid-score",
+      "review_score": "5",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "valid-invalid-score",
+      "review_id": "invalid-too",
+      "review_score": "6",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    },
+    {
+      "order_id": "only-invalid-score",
+      "review_id": "r-only-invalid-score",
+      "review_score": "6",
+      "review_comment_title": null,
+      "review_comment_message": null,
+      "review_creation_date": "2018-01-04 00:00:00",
+      "review_answer_timestamp": "2018-01-04 12:34:56"
+    }
+  ],
+  "product_category_translation": [
+    {
+      "product_category_name": "translated",
+      "product_category_name_english": "Translated"
+    },
+    {
+      "product_category_name": "unused",
+      "product_category_name_english": null
+    }
+  ]
+}

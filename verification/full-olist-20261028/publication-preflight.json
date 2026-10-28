@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-10-28T14:13:50.246715+00:00",
+  "branch": "t3/verify-full-olist",
+  "base": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+  "runner_commit": "bc33436d92cd4ecccee1d6056879b89949b83088",
+  "input_commit": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "source_sql_commit": "99bcbb366720f912ef6017a40aa5dbd6a671a8a4",
+  "runner_sha256": "1948ebb57bd6535b6fe481c947eb2eae6289e7ad7f26ea349c5c6ed6a4c5a640",
+  "checks": [
+    "owned-path diff only",
+    "runner commit matches executed bytes",
+    "both runner snapshots match recorded SHA",
+    "both CSV result hashes verified",
+    "target-tree dependency inventory checked"
+  ],
+  "pending": [
+    "full DB SELECT",
+    "CSV/raw/core equality against live endpoint",
+    "full atomic build/rebuild/rollback",
+    "new history/address rerun"
+  ],
+  "publication": "branch only; no PR, no main merge; final published head supplied in final response"
+}

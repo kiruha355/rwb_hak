@@ -1,0 +1,42 @@
+{
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "requirements_sha": "558f0f6a38110acc9fcf4386a7e53ece973aedf5",
+  "utc_start": "2026-10-28T14:08:06.708909+00:00",
+  "scope": "tiny_synthetic_actual_wrappers",
+  "full_olist_lifecycle": "NOT_RUN",
+  "csv_raw_equality": "NOT_RUN",
+  "history_runtime": "OUT_OF_SCOPE",
+  "baseline": {},
+  "metamorphic": {},
+  "mutations": {},
+  "negatives": {},
+  "status": "fail",
+  "server": {
+    "version": "postgres (PostgreSQL) 16.15 (Homebrew)",
+    "shared_buffers": "16MB",
+    "max_connections": 5,
+    "work_mem": "1MB",
+    "max_parallel_workers": 0,
+    "tcp_listen": false
+  },
+  "requirements_blob_sha256": "c24f3190729a672c09fcb97854a678fa02712456350038ff2bd738095652d1c5",
+  "runner_sha256": {
+    "run.py": "a93b44d1bd7719363490dd071c9efcfbe484c1d15a137bf5dc5f6915795b21da",
+    "fixture.py": "b2d6e8ac13293d7a3ad9908f5eb70fc6c6483e540d5189ba6401a866c6545a3f",
+    "oracle.py": "ebfc188ba3508066992b91208faa9a4a45a3726b8e177f47db9538948237c621"
+  },
+  "fixture_rows": {
+    "customers": 24,
+    "orders": 24,
+    "products": 5,
+    "sellers": 2,
+    "order_items": 12,
+    "order_payments": 11,
+    "order_reviews": 16,
+    "product_category_translation": 2
+  },
+  "error": "RuntimeError('baseline_build: exit 3; see logs/baseline_build.log')",
+  "own_server_stopped": true,
+  "private_runtime_removed": true,
+  "utc_end": "2026-10-28T14:08:08.206367+00:00"
+}
