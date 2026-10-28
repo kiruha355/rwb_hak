@@ -1,0 +1,9 @@
+summary: docs/phase-20261028/evidence/release-pg16/summary.json
+run: 2026-10-28T14:18:10.202207+00:00 status: pass checks: 182
+listed mismatches: 0
+answers/q06-q10/q06.sql sha256=36663b358b88c52b53a82c61ed46f2730412b0ba45243079d898bec843b44b3f in_run_manifest=False
+answers/q06-q10/q07.sql sha256=89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc in_run_manifest=False
+answers/q06-q10/q08.sql sha256=793467a1c39c47fec729e15c93f821f5e58fdb101da043dfafa72b67ad442b6a in_run_manifest=False
+answers/q06-q10/q09.sql sha256=7977be948b01acbbbc79f7d7ebe99cd35e8737793585a4e164b4dd0e3660b05b in_run_manifest=False
+answers/q06-q10/q10.sql sha256=a84c1244ff15b56789eba5807ade4704c73b866d11f14d9c96e76c5ff3feea10 in_run_manifest=False
+answers/q06-q10/q10_coverage.sql sha256=c3091e34ad759d8c89f0eba3de37837a626aa7a87c02db81630abf2e0cc52b9d in_run_manifest=False
