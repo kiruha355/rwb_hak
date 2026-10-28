@@ -24,6 +24,25 @@ printf 'Evidence directory: %s\n' "$evidence_dir"
 python3 scripts/input-manifest.py --verify-pinned --output "$evidence_dir/input.json"
 # No credentials are copied into evidence; libpq uses the environment/service.
 python3 scripts/verify-model.py --raw-inputs > "$evidence_dir/csv-raw.json"
+# Only after real CSV/raw equality on this paused endpoint can the exact
+# audit-manifest identity authorize the later baseline controls.
+RWB_VERIFIED_INPUT_MANIFEST_SHA256=$(python3 - <<'PY'
+import hashlib,json
+from pathlib import Path
+baseline=json.loads(Path('answers/baseline-manifest.json').read_text())
+pin=json.loads(Path('tests/model/input-manifest.lock.json').read_text())
+audit=Path(baseline['baseline_audit_manifest']).read_bytes()
+expected=baseline['baseline_audit_manifest_sha256']
+if hashlib.sha256(audit).hexdigest()!=expected:
+    raise SystemExit('Audit manifest bytes changed; cannot authorize controls')
+baseline_files={Path(f['path']).name:f['sha256'] for f in baseline['files']}
+pinned_files={f['file']:f['sha256'] for f in pin['files']}
+if len(baseline_files)!=8 or baseline_files!=pinned_files:
+    raise SystemExit('Control baseline and verified eight-input pin differ')
+print(expected)
+PY
+)
+export RWB_VERIFIED_INPUT_MANIFEST_SHA256
 "${psql_cmd[@]}" -qAt -F $'\t' -f tests/model/fingerprint.sql > "$evidence_dir/raw-before.tsv"
 bash scripts/build-model.sh build > "$evidence_dir/clean-build.log" 2>&1
 "${psql_cmd[@]}" -qAt -F $'\t' -f tests/model/fingerprint.sql > "$evidence_dir/first.tsv"

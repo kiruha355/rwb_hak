@@ -1,18 +1,125 @@
 [
-  {"name":"baseline_fanout_null_zero_late", "assert":"assert-base.sql"},
-  {"name":"fractional_scale_preserved", "before":"UPDATE raw.order_items SET price='1.234' WHERE order_id='fanout' AND order_item_id='1'", "assert_sql":"DO $$ BEGIN IF (SELECT price FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=1) IS DISTINCT FROM 1.234::numeric THEN RAISE EXCEPTION 'Precision lost before presentation'; END IF; END $$"},
-  {"name":"nan_rejected_before_cast", "before":"UPDATE raw.order_items SET price='NaN' WHERE order_id='fanout'", "error_code":"P0001", "error_text":"Input type/key precheck failed before model casts"},
-  {"name":"invalid_integer_key", "before":"UPDATE raw.order_items SET order_item_id='1.5' WHERE order_id='fanout' AND order_item_id='1'", "error_code":"P0001", "error_text":"Input type/key precheck failed before model casts"},
-  {"name":"null_mandatory_key", "before":"UPDATE raw.order_items SET product_id=NULL WHERE order_id='fanout'", "error_code":"P0001", "error_text":"Input type/key precheck failed before model casts"},
-  {"name":"duplicate_item_key", "before":"INSERT INTO raw.order_items SELECT * FROM raw.order_items WHERE order_id='fanout' AND order_item_id='1'", "error_code":"23505", "error_text":"duplicate key"},
-  {"name":"dangling_product_fk", "before":"UPDATE raw.order_items SET product_id='absent-product' WHERE order_id='fanout'", "error_code":"23503", "error_text":"foreign key"},
-  {"name":"new_status_retained_warning", "before":"UPDATE raw.orders SET order_status='future-status' WHERE order_id='neither'", "warning":"status.unexpected", "assert_sql":"DO $$ BEGIN IF NOT EXISTS(SELECT FROM core.fact_order o JOIN core.dim_order_status s USING(order_status) WHERE order_id='neither' AND order_status='future-status' AND NOT is_revenue) THEN RAISE EXCEPTION 'New status lost or given revenue'; END IF; END $$"},
-  {"name":"review_payload_conflict_retained_warning", "before":"UPDATE raw.order_reviews SET review_comment_message='conflicting payload' WHERE review_id='shared-review' AND order_id='known-zero'", "warning":"review.payload_fd", "assert_sql":"DO $$ BEGIN IF (SELECT count(DISTINCT review_comment_message) FROM core.fact_review WHERE review_id='shared-review')<>2 THEN RAISE EXCEPTION 'Conflict was silently deduplicated'; END IF; END $$"},
-  {"name":"duplicate_review_pair", "before":"INSERT INTO raw.order_reviews SELECT * FROM raw.order_reviews WHERE review_id='shared-review' AND order_id='fanout'", "error_code":"23505", "error_text":"duplicate key"},
-  {"name":"calendar_gap_detected", "after":"DELETE FROM core.dim_date WHERE date_day=DATE '2017-01-02'", "error_code":"23514", "error_text":"calendar.gaps"},
-  {"name":"compensating_order_errors_detected", "after":"UPDATE core.fact_order_item SET price=price+CASE WHEN order_id='comp-a' THEN 10 ELSE -10 END WHERE order_id IN ('comp-a','comp-b'); DO $$ BEGIN IF (SELECT sum(price) FROM core.fact_order_item) IS DISTINCT FROM (SELECT sum(price::numeric) FROM raw.order_items) THEN RAISE EXCEPTION 'Bad compensating fixture: grand total changed'; END IF; END $$", "error_code":"23514", "error_text":"item_money_order"},
-  {"name":"lost_review_text_detected", "after":"UPDATE core.fact_review SET review_comment_message=NULL WHERE review_id='shared-review' AND order_id='fanout'", "error_code":"23514", "error_text":"reviews.values_raw_minus_core"},
-  {"name":"missing_child_detected", "after":"DELETE FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=2", "error_code":"23514", "error_text":"items.keys_raw_minus_core"},
-  {"name":"replaced_child_key_detected", "after":"UPDATE core.fact_order_item SET order_item_id=9 WHERE order_id='fanout' AND order_item_id=2", "error_code":"23514", "error_text":"items.keys_core_minus_raw"},
-  {"name":"duplicate_core_multiplicity_detected", "after":"ALTER TABLE core.fact_order_item DROP CONSTRAINT fact_order_item_pkey; INSERT INTO core.fact_order_item SELECT * FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=1", "error_code":"23514", "error_text":"items.multiplicity"}
+  {
+    "name": "baseline_fanout_null_zero_late",
+    "assert": "assert-base.sql"
+  },
+  {
+    "name": "fractional_scale_preserved",
+    "before": "UPDATE raw.order_items SET price='1.234' WHERE order_id='fanout' AND order_item_id='1'",
+    "assert_sql": "DO $$ BEGIN IF (SELECT price FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=1) IS DISTINCT FROM 1.234::numeric THEN RAISE EXCEPTION 'Precision lost before presentation'; END IF; END $$"
+  },
+  {
+    "name": "nan_rejected_before_cast",
+    "before": "UPDATE raw.order_items SET price='NaN' WHERE order_id='fanout'",
+    "error_code": "P0001",
+    "error_text": "Input type/key precheck failed before model casts"
+  },
+  {
+    "name": "invalid_integer_key",
+    "before": "UPDATE raw.order_items SET order_item_id='1.5' WHERE order_id='fanout' AND order_item_id='1'",
+    "error_code": "P0001",
+    "error_text": "Input type/key precheck failed before model casts"
+  },
+  {
+    "name": "null_mandatory_key",
+    "before": "UPDATE raw.order_items SET product_id=NULL WHERE order_id='fanout'",
+    "error_code": "P0001",
+    "error_text": "Input type/key precheck failed before model casts"
+  },
+  {
+    "name": "duplicate_item_key",
+    "before": "INSERT INTO raw.order_items SELECT * FROM raw.order_items WHERE order_id='fanout' AND order_item_id='1'",
+    "error_code": "23505",
+    "error_text": "duplicate key"
+  },
+  {
+    "name": "dangling_product_fk",
+    "before": "UPDATE raw.order_items SET product_id='absent-product' WHERE order_id='fanout'",
+    "error_code": "23503",
+    "error_text": "foreign key"
+  },
+  {
+    "name": "new_status_retained_warning",
+    "before": "UPDATE raw.orders SET order_status='future-status' WHERE order_id='neither'",
+    "warning": "status.unexpected",
+    "assert_sql": "DO $$ BEGIN IF NOT EXISTS(SELECT FROM core.fact_order o JOIN core.dim_order_status s USING(order_status) WHERE order_id='neither' AND order_status='future-status' AND NOT is_revenue) THEN RAISE EXCEPTION 'New status lost or given revenue'; END IF; END $$"
+  },
+  {
+    "name": "review_payload_conflict_retained_warning",
+    "before": "UPDATE raw.order_reviews SET review_comment_message='conflicting payload' WHERE review_id='shared-review' AND order_id='known-zero'",
+    "warning": "review.payload_fd",
+    "assert_sql": "DO $$ BEGIN IF (SELECT count(DISTINCT review_comment_message) FROM core.fact_review WHERE review_id='shared-review')<>2 THEN RAISE EXCEPTION 'Conflict was silently deduplicated'; END IF; END $$"
+  },
+  {
+    "name": "duplicate_review_pair",
+    "before": "INSERT INTO raw.order_reviews SELECT * FROM raw.order_reviews WHERE review_id='shared-review' AND order_id='fanout'",
+    "error_code": "23505",
+    "error_text": "duplicate key"
+  },
+  {
+    "name": "calendar_gap_detected",
+    "after": "DELETE FROM core.dim_date WHERE date_day=DATE '2017-01-02'",
+    "error_code": "23514",
+    "error_text": "calendar.gaps"
+  },
+  {
+    "name": "compensating_order_errors_detected",
+    "after": "UPDATE core.fact_order_item SET price=price+CASE WHEN order_id='comp-a' THEN 10 ELSE -10 END WHERE order_id IN ('comp-a','comp-b'); DO $$ BEGIN IF (SELECT sum(price) FROM core.fact_order_item) IS DISTINCT FROM (SELECT sum(price::numeric) FROM raw.order_items) THEN RAISE EXCEPTION 'Bad compensating fixture: grand total changed'; END IF; END $$",
+    "error_code": "23514",
+    "error_text": "item_money_order"
+  },
+  {
+    "name": "lost_review_text_detected",
+    "after": "UPDATE core.fact_review SET review_comment_message=NULL WHERE review_id='shared-review' AND order_id='fanout'",
+    "error_code": "23514",
+    "error_text": "reviews.values_raw_minus_core"
+  },
+  {
+    "name": "missing_child_detected",
+    "after": "DELETE FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=2",
+    "error_code": "23514",
+    "error_text": "items.keys_raw_minus_core"
+  },
+  {
+    "name": "replaced_child_key_detected",
+    "after": "UPDATE core.fact_order_item SET order_item_id=9 WHERE order_id='fanout' AND order_item_id=2",
+    "error_code": "23514",
+    "error_text": "items.keys_core_minus_raw"
+  },
+  {
+    "name": "duplicate_core_multiplicity_detected",
+    "after": "ALTER TABLE core.fact_order_item DROP CONSTRAINT fact_order_item_pkey; INSERT INTO core.fact_order_item SELECT * FROM core.fact_order_item WHERE order_id='fanout' AND order_item_id=1",
+    "error_code": "23514",
+    "error_text": "items.multiplicity"
+  },
+  {
+    "name": "translation_membership_loss_detected",
+    "before": "INSERT INTO raw.product_category_translation VALUES ('null-english',NULL)",
+    "after": "UPDATE core.dim_category SET has_translation_row=false WHERE category_key='pt:null-english'",
+    "error_code": "23514",
+    "error_text": "translations.keys_raw_minus_core"
+  },
+  {
+    "name": "invented_translation_membership_detected",
+    "after": "UPDATE core.dim_category SET has_translation_row=true WHERE category_key='pt:pc_gamer'",
+    "error_code": "23514",
+    "error_text": "translations.keys_core_minus_raw"
+  },
+  {
+    "name": "tab_only_buyer_key_rejected",
+    "before": "UPDATE raw.customers SET customer_unique_id=chr(9) WHERE customer_id='unused-context'",
+    "error_code": "P0001",
+    "error_text": "Input type/key precheck failed before model casts"
+  },
+  {
+    "name": "newline_only_review_key_rejected",
+    "before": "UPDATE raw.order_reviews SET review_id=chr(10) WHERE review_id='second-review'",
+    "error_code": "P0001",
+    "error_text": "Input type/key precheck failed before model casts"
+  },
+  {
+    "name": "q2_incomplete_candidate_beyond_limit_visible",
+    "before": "INSERT INTO raw.sellers(seller_id,seller_city,seller_state) SELECT 'rank-s'||i,'rank city','SP' FROM generate_series(0,10) i;\nINSERT INTO raw.customers(customer_id,customer_unique_id) SELECT 'rank-c'||i,'rank-b'||i FROM generate_series(0,10) i;\nINSERT INTO raw.orders(order_id,customer_id,order_status,order_purchase_timestamp) SELECT 'rank-o'||i,'rank-c'||i,'delivered','2017-01-01 00:00:00' FROM generate_series(0,10) i;\nINSERT INTO raw.order_items(order_id,order_item_id,product_id,seller_id,price,freight_value) SELECT 'rank-o'||i,'1','p1','rank-s'||i,CASE WHEN i=10 THEN '1000' ELSE (100+i)::text END,'0' FROM generate_series(0,10) i;\nINSERT INTO raw.order_items(order_id,order_item_id,product_id,seller_id,price,freight_value) VALUES('rank-o10','2','p1','rank-s10',NULL,'0');",
+    "assert_sql": "DO $$ BEGIN\nIF (SELECT count(*) FROM mart.q02_sellers_top10)<>10 THEN RAISE EXCEPTION 'Top ten fixture has wrong row count'; END IF;\nIF EXISTS(SELECT FROM mart.q02_sellers_top10 WHERE ranking_is_complete OR NOT ('rank-s10'=ANY(incomplete_revenue_seller_ids)) OR ranking_scope<>'provisional_known_revenues') THEN RAISE EXCEPTION 'Incomplete seller disappeared behind LIMIT'; END IF;\nIF EXISTS(SELECT FROM mart.q02_sellers_top10 WHERE seller_id='rank-s10') THEN RAISE EXCEPTION 'Unrankable seller was assigned a top place'; END IF;\nEND $$"
+  }
 ]

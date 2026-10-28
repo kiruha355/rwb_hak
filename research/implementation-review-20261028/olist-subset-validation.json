@@ -20,7 +20,7 @@
   "csv_raw": {
     "status": "passed",
     "files_checked": 8,
-    "report_sha256": "6b6459fe3ff2775b5ae7d28acc9f7129e903bc9925ef7a3c2c3a52098626e1ab"
+    "report_sha256": "2687c7e00c7dcdacb490448a86ceda493475e11e1652b8c603d1d1d878e9679d"
   },
   "core_checks": {
     "total": 201,
@@ -32,16 +32,16 @@
     "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
     "model/05_typecheck.sql": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d",
     "model/10_dims.sql": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
-    "model/20_facts.sql": "493722f77e6b21b74a52e5c09ecd89fe5f5ef4c6e20a9d6bca00966f97d3f324",
+    "model/20_facts.sql": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
     "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
     "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
     "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
     "model/90_checks.sql": "0f42d520e0958ddb6f7ab8bf532ee75b888839c3cd3cd37ec84f8c19d1f60b33"
   },
   "source_input_manifest_sha256": "6beae18f538b1ac1e95ca5c7449a3233d809dd48b0f58394b9a484d5d6cddf41",
-  "build_report_sha256": "53ef385d6e3abf09b25d471bc73d8972720f105eb78ea1058c3c8b76557710cb",
+  "build_report_sha256": "c5b912b2f40def7713d79a9582842a6c7fc4f0ccf1727023e369d044a7aa5389",
   "postgres_version": "PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit",
-  "verified_at": "2026-10-28T10:40:54.774584+00:00",
+  "verified_at": "2026-10-28T11:16:09.175927+00:00",
   "not_run": [
     "full Olist database load",
     "full-population pinned controls",

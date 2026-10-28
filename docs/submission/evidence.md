@@ -4,6 +4,10 @@
 
 Код и исходный комплект опубликованы: main `aca34f5b693b794fc2a0ea8c2623293b462b6089`. Приняты раздельные факты/общие справочники, все review-order связи, delivered revenue без freight, order GMV с freight, обе populations Q1/Q2, весь snapshot Q2–Q5, аномалии без догадок и область/HTML дашборда. Late/reviewweight/smoothing открыты.
 
+## Актуальное дополнение: полный UI и адресные исправления
+
+Полная mart-выгрузка коллеги из main `54e5df5` доступна: [Q1–Q5 и provenance](../../research/implementation-review-20261028/full-model-answers.json), [native HTML evidence](../../research/implementation-review-20261028/full-dashboard-check.json). В ней 99 441 заказ и 112 650 позиций; страница прошла 14/14 сверок с SQL той же выгрузки. Это не независимая проверка полного CSV/raw binding. R1–R5 исправлены координатором и прошли 21 PG fixture и 17 unittest: [протокол](../../research/implementation-review-20261028/review-fixes.md). Реальная выборка 1 000 заказов прошла 8/8 CSV/raw, 201 invariant, build/rebuild/late rollback: [handoff](../../research/implementation-review-20261028/olist-subset-handoff.md). Нижние таблицы сохраняют историческую приёмку W-12; для новых результатов применять это дополнение и точные SHA отчётов. Полный lifecycle с последними root fixes пока не подтверждён. [Порядок показа](live-demo.md).
+
 ## Ответы Q1–Q10
 
 В [tasks](../../hack-context/hackathon-students/docs/tasks.md) прочитаны Q1–Q5. Для каждого ответа нужны: точный SQL/ref, grain, status, окно, компоненты, знаменатель, NULL/coverage, единицы, полный экспорт и run ID. Состояние CSV/raw baseline отличается от состояния ответа из модели.

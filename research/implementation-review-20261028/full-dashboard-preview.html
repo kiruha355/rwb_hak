@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capibara: выполнение и сервис</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6f6f4;
+  --surface: #fcfcfb;
+  --surface-2: #f0efec;
+  --border: #e2e1dc;
+  --grid: #ebeae6;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --text-3: #7a7974;
+  --accent: #2a78d6;
+  --accent-soft: #cde2fb;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --good: #008300;
+  --warn: #b77800;
+  --bad: #d03b3b;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121211;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --border: #33332f;
+    --grid: #2a2a27;
+    --text: #f0efec;
+    --text-2: #c3c2b7;
+    --text-3: #8f8e86;
+    --accent: #3987e5;
+    --accent-soft: #1c3a5e;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --good: #3fae3f;
+    --warn: #d9a020;
+    --bad: #e66767;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121211; --surface: #1a1a19; --surface-2: #232321; --border: #33332f; --grid: #2a2a27;
+  --text: #f0efec; --text-2: #c3c2b7; --text-3: #8f8e86; --accent: #3987e5; --accent-soft: #1c3a5e;
+  --series-1: #3987e5; --series-2: #d95926; --good: #3fae3f; --warn: #d9a020; --bad: #e66767;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.wrap { max-width: 1240px; margin: 0 auto; padding: 20px 16px 48px; }
+header.top { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: space-between; }
+h1 { font-size: 20px; margin: 0; letter-spacing: -0.01em; }
+h2 { font-size: 15px; margin: 0 0 4px; }
+h3 { font-size: 13px; margin: 0 0 8px; color: var(--text-2); font-weight: 600; }
+.sub { color: var(--text-2); font-size: 13px; }
+.muted { color: var(--text-3); }
+.mono { font-family: var(--mono); font-size: 12px; }
+.filters {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+  margin: 16px 0 12px; padding: 10px 12px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+}
+.filters label { display: inline-flex; gap: 6px; align-items: center; color: var(--text-2); font-size: 13px; }
+select, input[type=text], button {
+  font: inherit; font-size: 13px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px;
+}
+button { cursor: pointer; }
+button:hover { background: var(--surface-2); }
+button.on { background: var(--accent-soft); border-color: var(--accent); }
+.seg { display: inline-flex; }
+.seg button { border-radius: 0; margin-left: -1px; }
+.seg button:first-child { border-radius: 6px 0 0 6px; margin-left: 0; }
+.seg button:last-child { border-radius: 0 6px 6px 0; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.kpi .k { color: var(--text-2); font-size: 12px; }
+.kpi .v { font-size: 24px; font-weight: 650; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin: 2px 0; }
+.kpi .n { color: var(--text-3); font-size: 12px; }
+nav.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin: 20px 0 0; border-bottom: 1px solid var(--border); }
+nav.tabs button { border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; padding: 8px 12px; color: var(--text-2); }
+nav.tabs button.on { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+section.tab { display: none; }
+section.tab.on { display: block; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 12px; margin-top: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-top: 12px; min-width: 0; }
+.grid2 > .card { margin-top: 0; }
+.card .desc { color: var(--text-3); font-size: 12px; margin: -2px 0 8px; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--text-3); font-size: 11px; font-family: inherit; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .axis { stroke: var(--border); }
+.chart .hit { fill: transparent; cursor: crosshair; outline: none; }
+.chart .hit:focus-visible { stroke: var(--accent); stroke-width: 2; }
+.chart .band { fill: var(--surface-2); }
+.chart .bar { fill: var(--series-1); }
+.chart .bar.muted { fill: var(--text-3); opacity: .5; }
+.chart .bar.hl { filter: brightness(1.18); }
+.chart .dot.hl { r: 6; }
+.chart .line { fill: none; stroke: var(--series-1); stroke-width: 2; stroke-linejoin: round; }
+.chart .dot { fill: var(--series-1); stroke: var(--surface); stroke-width: 2; }
+.chart .dot.small-n { fill: var(--surface); stroke: var(--series-1); }
+.chart .ref { stroke: var(--text-2); stroke-dasharray: 3 3; }
+.chart .xhair { stroke: var(--text-3); stroke-width: 1; }
+#tip {
+  position: fixed; pointer-events: none; z-index: 10; display: none;
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  border-radius: 6px; padding: 6px 9px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  max-width: 280px;
+}
+#tip b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { color: var(--text-2); font-weight: 600; font-size: 12px; white-space: nowrap; }
+th.sortable { cursor: pointer; }
+th.sortable::after { content: " ↕"; color: var(--text-3); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.click { cursor: pointer; }
+tr.click:hover td { background: var(--surface-2); }
+tr.click:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+tr.sel td, tr.sel:hover td { background: var(--accent-soft); }
+tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); font-weight: 600; }
+.flag { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 10px; background: var(--surface-2); color: var(--text-2); white-space: nowrap; }
+.ok { color: var(--good); }
+.bad { color: var(--bad); }
+.warn { color: var(--warn); }
+details { margin-top: 8px; }
+details summary { cursor: pointer; color: var(--text-3); font-size: 12px; }
+.note { font-size: 12px; color: var(--text-2); background: var(--surface-2); border-radius: 6px; padding: 8px 10px; margin-top: 10px; }
+.empty { color: var(--text-3); padding: 24px 0; text-align: center; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+@media (max-width: 520px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .kpi .v { font-size: 20px; }
+}
+</style>
+<style>html,body{background:transparent!important;margin:0!important}body{padding:0!important}.app{max-width:none!important}</style></head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Capibara · От корзины до выкупа</h1>
+      <div class="sub">Выполнение и сервис с коммерческим контекстом. Все цифры пересчитываются из выгрузки <span class="mono">core/mart</span>.</div>
+    </div>
+    <div class="sub" id="meta"></div>
+  </header>
+
+  <div class="filters" role="group" aria-label="Период покупки">
+    <label>Период покупки
+      <select id="mFrom" aria-label="Месяц с"></select>
+      —
+      <select id="mTo" aria-label="Месяц по"></select>
+    </label>
+    <span class="seg" id="presets">
+      <button data-p="all">Весь снимок</button>
+      <button data-p="q1">Окно Q1: 09.2016–08.2018</button>
+      <button data-p="2017">2017</button>
+      <button data-p="2018">2018</button>
+    </span>
+    <span class="muted" id="periodNote"></span>
+  </div>
+
+  <div class="kpis" id="headKpis"></div>
+
+  <nav class="tabs" role="tablist">
+    <button data-tab="service" class="on" role="tab">Исполнение и сервис</button>
+    <button data-tab="commerce" role="tab">Коммерция</button>
+    <button data-tab="quality" role="tab">Качество данных и сверка</button>
+    <button data-tab="passports" role="tab">Паспорта метрик</button>
+  </nav>
+
+  <!-- ===================== Исполнение ===================== -->
+  <section class="tab on" id="tab-service">
+    <div class="filters">
+      <label>Штат покупателя <select id="state"></select></label>
+      <label>Опоздание
+        <span class="seg" id="lateVar">
+          <button data-v="day" class="on">по календарному дню</button>
+          <button data-v="ts">по timestamp</button>
+        </span>
+      </label>
+      <label>Срок передачи перевозчику
+        <span class="seg" id="hoVar">
+          <button data-v="max" class="on">последний срок позиций</button>
+          <button data-v="min">первый срок</button>
+        </span>
+      </label>
+    </div>
+    <div class="kpis" id="svcKpis"></div>
+    <div class="grid2" style="margin-top:12px">
+      <div class="card">
+        <h2>Доля опоздавших заказов по месяцам покупки</h2>
+        <div class="desc">Знаменатель: доставленные заказы с датой вручения и обещанной датой. Полый маркер: меньше 30 наблюдений, в линию и масштаб не входит (порог показа, а не статистический стандарт). Значения выше оси прижаты к верху, точное — в подсказке.</div>
+        <div class="chart" id="chLate"></div>
+      </div>
+      <div class="card">
+        <h2>Доставленные заказы по месяцам покупки</h2>
+        <div class="desc">Объём, на котором считается доля. Последние месяцы снимка неполные, это не спад.</div>
+        <div class="chart" id="chDelivered"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Срок доставки: от покупки до вручения</h2>
+      <div class="desc">Распределение по целым дням, отрезано на 60 днях (хвост собран в «60+»). Пунктир: медиана и P90. Пара дат с нарушенным порядком исключается.</div>
+      <div class="chart" id="chDays"></div>
+    </div>
+    <div class="card">
+      <div class="row"><h2>Группы по штату покупателя</h2><span class="muted" style="font-size:12px">Нажмите на строку, чтобы открыть опоздавшие заказы</span></div>
+      <div class="desc">Отзыв усредняется по парам «отзыв–заказ». Различие в оценке описательное: оно не доказывает ни причину, ни виновника.</div>
+      <div class="tbl-wrap"><table id="tblStates"></table></div>
+    </div>
+    <div class="card" id="drill">
+      <div class="row">
+        <h2 id="drillTitle">Опоздавшие заказы</h2>
+        <button id="copyIds">Скопировать ID</button>
+      </div>
+      <div class="desc">Исходные даты из <span class="mono">mart.v_order_delivery_variants</span>. Опоздание в днях: вручение минус обещанная дата, по календарным датам.</div>
+      <div class="tbl-wrap"><table id="tblDrill"></table></div>
+    </div>
+  </section>
+
+  <!-- ===================== Коммерция ===================== -->
+  <section class="tab" id="tab-commerce">
+    <div class="filters">
+      <label>Категория <select id="cat"></select></label>
+      <label>Продавец <input type="text" id="seller" list="sellerList" placeholder="seller_id или начало" size="22" autocomplete="off"></label>
+      <datalist id="sellerList"></datalist>
+      <button id="resetCom">Сбросить</button>
+    </div>
+    <div class="kpis" id="comKpis"></div>
+    <div class="card">
+      <h2>Выручка позиций по месяцам покупки</h2>
+      <div class="desc"><span class="mono">item_revenue</span>: сумма <span class="mono">price</span> позиций доставленных заказов, без доставки. Месяцы берутся из календаря: пустой ноябрь 2016 остаётся нулём.</div>
+      <div class="chart" id="chRevenue"></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Категории</h2>
+        <div class="desc">Доля считается от выручки выбранных позиций. «Без категории» — отдельный член справочника.</div>
+        <div class="tbl-wrap"><table id="tblCats"></table></div>
+      </div>
+      <div class="card">
+        <h2>Продавцы</h2>
+        <div class="desc">Выручка продавца — его собственные позиции. Заказ с двумя продавцами попадает в обе строки, поэтому заказы по продавцам складывать нельзя.</div>
+        <div class="tbl-wrap"><table id="tblSellers"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== Качество ===================== -->
+  <section class="tab" id="tab-quality">
+    <div class="card">
+      <h2>Сверка: страница против SQL-ответов mart</h2>
+      <div class="desc">Страница пересчитывает показатели из строк заказов и позиций и сравнивает их с views <span class="mono">mart.q01…q05</span> из той же выгрузки. Расхождение означает ошибку в странице или выгрузке.</div>
+      <div class="tbl-wrap"><table id="tblRecon"></table></div>
+    </div>
+    <div class="card">
+      <h2>Деньги: платежи против суммы позиций</h2>
+      <div class="desc"><span class="mono">mart.v_payment_reconciliation</span>, весь снимок. Сравнимы только заказы, у которых известны обе стороны. Отсутствие дочерних строк не равно нулю.</div>
+      <div class="tbl-wrap"><table id="tblMoney"></table></div>
+    </div>
+    <div class="card">
+      <h2>Аномалии источника</h2>
+      <div class="desc"><span class="mono">core.data_issues</span>: строки сохранены как есть и помечены. Аномалии не исправляются догадками.</div>
+      <div class="tbl-wrap"><table id="tblIssues"></table></div>
+    </div>
+  </section>
+
+  <!-- ===================== Паспорта ===================== -->
+  <section class="tab" id="tab-passports">
+    <div class="card">
+      <h2>Что нельзя складывать по срезам</h2>
+      <ul style="margin:6px 0 0 18px; padding:0">
+        <li>Доли опозданий, средний чек, средние оценки и перцентили не складываются и не усредняются. Их пересчитывают из числителя и знаменателя выбранного набора.</li>
+        <li>Покупатели (distinct <span class="mono">customer_unique_id</span>): сумма по месяцам больше покупателей за период, потому что один покупатель бывает в нескольких месяцах.</li>
+        <li>Заказы по продавцам и категориям пересекаются: заказ с двумя продавцами есть в обеих группах.</li>
+        <li>Выручка позиций (<span class="mono">item_revenue</span>) аддитивна по непересекающимся позициям и месяцам, но это не GMV заказа: доставка в неё не входит.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Паспорта метрик</h2>
+      <div class="desc">Таблица <span class="mono">mart.metric_definitions</span>, выгружена как есть.</div>
+      <div class="tbl-wrap"><table id="tblPassports"></table></div>
+    </div>
+  </section>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script src="https://cdn.jsdelivr.net/gh/kiruha355/rwb_hak@54e5df55d557a84904445e849f5d31937ebdc1c8/dashboard/data.js"></script>
+<script>
+(function () {
+'use strict';
+const D = window.CAPIBARA_DATA;
+if (!D) {
+  document.querySelector('.wrap').innerHTML =
+    '<div class="card empty">Нет файла <span class="mono">dashboard/data.js</span>. Соберите модель и выполните <span class="mono">make dashboard</span>.</div>';
+  return;
+}
+
+// ---------- decode ----------
+const MONTHS = D.dicts.months, STATES = D.dicts.states, STATUSES = D.dicts.statuses;
+const CATS = D.dicts.categories, SELLERS = D.dicts.sellers, COVS = D.dicts.coverages;
+const N = D.orders.n;
+const b36 = s => { const a = new Int16Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s[i] === '.' ? -1 : parseInt(s[i], 36); return a; };
+const tri = s => { const a = new Int8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s[i] === '1' ? 1 : s[i] === '0' ? 0 : -1; return a; };
+const O = {
+  m: b36(D.orders.m), state: b36(D.orders.state), status: b36(D.orders.status), cov: b36(D.orders.cov),
+  lateDay: tri(D.orders.late_day), lateTs: tri(D.orders.late_ts), hoMin: tri(D.orders.ho_min), hoMax: tri(D.orders.ho_max),
+  buyer: D.orders.buyer, gmv: D.orders.gmv, pay: D.orders.pay, days: D.orders.days,
+  rs: D.orders.rs, rn: D.orders.rn, dp: D.orders.dp, de: D.orders.de, dd: D.orders.dd,
+};
+const orderId = i => D.orders.id.substr(i * 32, 32);
+const isRevStatus = STATUSES.map(s => s.is_revenue);
+const deliveredIdx = STATUSES.findIndex(s => s.name === 'delivered');
+const isRev = new Uint8Array(N), isDel = new Uint8Array(N);
+for (let i = 0; i < N; i++) { isRev[i] = isRevStatus[O.status[i]] ? 1 : 0; isDel[i] = O.status[i] === deliveredIdx ? 1 : 0; }
+const I = D.items, NI = I.o.length;
+const catName = c => { const r = CATS[c]; return r[3] ? 'без категории' : (r[2] || r[1]); };
+const catUntranslated = c => !CATS[c][3] && !CATS[c][4];
+
+// ---------- format ----------
+const nf0 = new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 });
+const nf1 = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const nf2 = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const money = c => c == null ? '—' : nf2.format(c / 100);
+const moneyShort = c => { const v = c / 100; return Math.abs(v) >= 1e6 ? nf2.format(v / 1e6) + ' млн' : Math.abs(v) >= 1e3 ? nf0.format(v / 1e3) + ' тыс' : nf0.format(v); };
+const pct = (a, b) => b ? nf1.format(100 * a / b) + '%' : 'нет наблюдений';
+const int = v => nf0.format(v);
+const dateOf = d => d == null ? '—' : new Date(Date.UTC(2016, 0, 1) + d * 864e5).toISOString().slice(0, 10);
+const monthLabel = m => { const [y, mm] = MONTHS[m].split('-'); return mm + '.' + y.slice(2); };
+const SMALL_N = 30;
+
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs || {}) {
+    if (k === 'class') e.className = attrs[k];
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]);
+    else e.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids) if (c != null) e.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return e;
+}
+function percentile(sorted, p) {
+  if (!sorted.length) return null;
+  const pos = (sorted.length - 1) * p, lo = Math.floor(pos), hi = Math.ceil(pos);
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (pos - lo);
+}
+
+// ---------- state ----------
+const S = { from: 0, to: MONTHS.length - 1, state: -1, late: 'day', ho: 'max', drillState: null, cat: -1, seller: '' };
+const inPeriod = i => O.m[i] >= S.from && O.m[i] <= S.to;
+
+// ---------- tooltip ----------
+const tip = document.getElementById('tip');
+function showTip(ev, lines) {
+  tip.replaceChildren(...lines.map((l, k) => el('div', null, k === 0 ? el('b', null, l) : l)));
+  tip.style.display = 'block';
+  const r = tip.getBoundingClientRect();
+  let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+const hideTip = () => { tip.style.display = 'none'; };
+
+// ---------- charts ----------
+const SVGNS = 'http://www.w3.org/2000/svg';
+function sv(tag, attrs) { const e = document.createElementNS(SVGNS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p; return 10 * p; }
+
+// points: [{label, value (null = no data), tip: [..], muted, hollow}]
+function chart(container, points, opt) {
+  // viewBox follows the real width, so text keeps its CSS size at any card width
+  const W = Math.max(300, Math.round(container.clientWidth || 640)), H = opt.h || 220, L = 56, R = 12, T = 12, B = 28;
+  const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': opt.aria || '' });
+  // small-n points neither set the scale nor join the line: one order at 100% would flatten the rest
+  const vals = points.filter(p => p.value != null && !p.hollow).map(p => p.value);
+  const max = opt.max != null ? opt.max : niceMax(Math.max(0, ...vals));
+  const pw = (W - L - R) / points.length;
+  const y = v => T + (H - T - B) * (1 - v / max);
+  for (let k = 0; k <= 4; k++) {
+    const v = max * k / 4, yy = y(v);
+    svg.append(sv('line', { x1: L, x2: W - R, y1: yy, y2: yy, class: k ? 'gridline' : 'axis' }));
+    const t = sv('text', { x: L - 6, y: yy + 4, 'text-anchor': 'end' }); t.textContent = opt.fmtAxis(v); svg.append(t);
+  }
+  const every = Math.ceil(points.length / Math.min(opt.maxLabels || 13, Math.floor((W - L - R) / 44)));
+  points.forEach((p, k) => {
+    if (k % every) return;
+    const t = sv('text', { x: L + pw * (k + .5), y: H - 8, 'text-anchor': 'middle' }); t.textContent = p.label; svg.append(t);
+  });
+  const marks = [];
+  if (opt.type === 'bar') {
+    const bw = Math.max(1, pw - 2), r = Math.min(4, bw / 2);
+    points.forEach((p, k) => {
+      const x = L + pw * k + 1;
+      let bar = null;
+      if (p.value != null && p.value > 0) {
+        const yy = y(Math.min(p.value, max)), h = y(0) - yy;
+        const rr = Math.min(r, h);
+        const d = `M${x},${y(0)}V${yy + rr}Q${x},${yy} ${x + rr},${yy}H${x + bw - rr}Q${x + bw},${yy} ${x + bw},${yy + rr}V${y(0)}Z`;
+        bar = sv('path', { d, class: 'bar' + (p.muted ? ' muted' : '') });
+        svg.append(bar);
+      }
+      marks.push(bar);
+    });
+  } else {
+    let d = '', pen = false;
+    points.forEach((p, k) => {
+      if (p.value == null || p.hollow) { pen = false; return; }
+      d += (pen ? 'L' : 'M') + (L + pw * (k + .5)) + ',' + y(p.value); pen = true;
+    });
+    svg.append(sv('path', { d, class: 'line' }));
+    points.forEach((p, k) => {
+      if (p.value == null) { marks.push(null); return; }
+      const dot = sv('circle', { cx: L + pw * (k + .5), cy: y(Math.min(p.value, max)), r: 4, class: 'dot' + (p.hollow ? ' small-n' : '') });
+      svg.append(dot); marks.push(dot);
+    });
+  }
+  (opt.refs || []).forEach(r => {
+    const x = L + pw * r.at;
+    svg.append(sv('line', { x1: x, x2: x, y1: T, y2: H - B, class: 'ref' }));
+    const t = sv('text', { x: x + 4, y: T + 10 }); t.textContent = r.label; svg.append(t);
+  });
+  // One hover layer on top of every mark: the slot under the pointer is found
+  // from SVG coordinates, so a bar body, a dot or a gap all resolve to the same
+  // column, whatever the CSS scaling of the svg is.
+  const band = sv('rect', { y: T, width: pw, height: H - T - B, class: 'band', visibility: 'hidden' });
+  const xh = sv('line', { y1: T, y2: H - B, class: 'xhair', visibility: 'hidden' });
+  svg.insertBefore(band, svg.firstChild);
+  svg.append(xh);
+  const hit = sv('rect', { x: L, y: T, width: W - L - R, height: H - T - B, class: 'hit', tabindex: 0 });
+  svg.append(hit);
+  let cur = -1;
+  function select(k, ev) {
+    if (cur >= 0 && marks[cur]) marks[cur].classList.remove('hl');
+    cur = k;
+    if (marks[k]) marks[k].classList.add('hl');
+    const cx = L + pw * (k + .5);
+    if (opt.type === 'bar') { band.setAttribute('x', L + pw * k); band.setAttribute('visibility', 'visible'); }
+    else { xh.setAttribute('x1', cx); xh.setAttribute('x2', cx); xh.setAttribute('visibility', 'visible'); }
+    if (!ev) {
+      const m = svg.getScreenCTM(), pt = svg.createSVGPoint();
+      pt.x = cx; pt.y = T; const sp = pt.matrixTransform(m);
+      ev = { clientX: sp.x, clientY: sp.y };
+    }
+    showTip(ev, points[k].tip);
+  }
+  function clear() {
+    if (cur >= 0 && marks[cur]) marks[cur].classList.remove('hl');
+    cur = -1; band.setAttribute('visibility', 'hidden'); xh.setAttribute('visibility', 'hidden'); hideTip();
+  }
+  hit.addEventListener('pointermove', ev => {
+    const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+    const sx = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+    select(Math.max(0, Math.min(points.length - 1, Math.floor((sx - L) / pw))), ev);
+  });
+  hit.addEventListener('pointerleave', clear);
+  hit.addEventListener('blur', clear);
+  hit.addEventListener('focus', () => select(cur >= 0 ? cur : points.length - 1));
+  hit.addEventListener('keydown', ev => {
+    const step = { ArrowLeft: -1, ArrowRight: 1 }[ev.key];
+    if (ev.key === 'Home') select(0);
+    else if (ev.key === 'End') select(points.length - 1);
+    else if (step) select(Math.max(0, Math.min(points.length - 1, (cur < 0 ? 0 : cur) + step)));
+    else return;
+    ev.preventDefault();
+  });
+  const table = el('table', null,
+    el('tr', null, el('th', null, opt.colLabel || 'Период'), el('th', { class: 'num' }, opt.valLabel || 'Значение')),
+    ...points.map(p => el('tr', null, el('td', null, p.label), el('td', { class: 'num' }, p.tip[0]))));
+  container.replaceChildren(svg, el('details', null, el('summary', null, 'Данные графика таблицей'), el('div', { class: 'tbl-wrap' }, table)));
+}
+
+function kpi(k, v, n, cls) {
+  return el('div', { class: 'kpi' }, el('div', { class: 'k' }, k), el('div', { class: 'v' + (cls ? ' ' + cls : '') }, v), n ? el('div', { class: 'n' }, n) : null);
+}
+function table(tbl, cols, rows, opts) {
+  opts = opts || {};
+  const head = el('tr', null, ...cols.map((c, ci) => {
+    const th = el('th', { class: (c.num ? 'num ' : '') + (opts.onSort ? 'sortable' : '') }, c.h);
+    if (opts.onSort) th.addEventListener('click', () => opts.onSort(ci));
+    return th;
+  }));
+  const body = rows.length ? rows.map(r => {
+    const tr = el('tr', { class: (opts.onRow ? 'click ' : '') + (opts.isSel && opts.isSel(r) ? 'sel' : '') },
+      ...cols.map(c => { const v = c.v(r); return el('td', { class: c.num ? 'num' : '' }, v); }));
+    if (opts.onRow) { tr.tabIndex = 0; tr.addEventListener('click', () => opts.onRow(r)); tr.addEventListener('keydown', e => { if (e.key === 'Enter') opts.onRow(r); }); }
+    return tr;
+  }) : [el('tr', null, el('td', { colspan: cols.length, class: 'empty' }, opts.empty || 'Нет строк в выбранном срезе'))];
+  tbl.replaceChildren(el('thead', null, head), el('tbody', null, ...body));
+}
+
+// ---------- header ----------
+function computeHead() {
+  let placed = 0, delivered = 0, gmvSum = 0, gmvN = 0, gmvMissing = 0;
+  const perBuyer = new Map();
+  for (let i = 0; i < N; i++) {
+    if (!inPeriod(i)) continue;
+    placed++;
+    perBuyer.set(O.buyer[i], (perBuyer.get(O.buyer[i]) || 0) + 1);
+    if (isDel[i]) { delivered++; if (O.gmv[i] != null) { gmvSum += O.gmv[i]; gmvN++; } else gmvMissing++; }
+  }
+  let rev = 0, revRows = 0, revMissing = 0;
+  for (let j = 0; j < NI; j++) {
+    const o = I.o[j];
+    if (!isRev[o] || !inPeriod(o)) continue;
+    revRows++;
+    if (I.price[j] == null) revMissing++; else rev += I.price[j];
+  }
+  let repeat = 0; perBuyer.forEach(c => { if (c > 1) repeat++; });
+  return { placed, delivered, gmvSum, gmvN, gmvMissing, rev, revRows, revMissing, buyers: perBuyer.size, repeat };
+}
+function renderHead() {
+  const h = computeHead();
+  document.getElementById('headKpis').replaceChildren(
+    kpi('Выручка позиций, BRL', h.revMissing ? 'неизвестна' : money(h.rev),
+      h.revMissing ? `известно ${money(h.rev)}; без цены ${int(h.revMissing)} поз.` : `${int(h.revRows)} позиций доставленных заказов, без доставки`),
+    kpi('Заказы', int(h.placed), `доставлено ${int(h.delivered)} (${pct(h.delivered, h.placed)}); все статусы`),
+    kpi('Средний чек, BRL', h.gmvN ? nf2.format(h.gmvSum / h.gmvN / 100) : 'нет наблюдений',
+      `товары + доставка; ${int(h.gmvN)} доставленных заказов` + (h.gmvMissing ? `, без суммы ${int(h.gmvMissing)}` : '')),
+    kpi('Покупатели', int(h.buyers), `повторно купили ${int(h.repeat)} (${pct(h.repeat, h.buyers)}) внутри периода`),
+  );
+}
+
+// ---------- service ----------
+function lateArr() { return S.late === 'day' ? O.lateDay : O.lateTs; }
+function hoArr() { return S.ho === 'max' ? O.hoMax : O.hoMin; }
+function inService(i) { return inPeriod(i) && (S.state < 0 || O.state[i] === S.state); }
+
+function groupStats(pred) {
+  const late = lateArr(), ho = hoArr();
+  const g = { delivered: 0, eligible: 0, late: 0, unknown: 0, days: [], hoE: 0, hoL: 0, rsL: 0, rnL: 0, rsO: 0, rnO: 0 };
+  for (let i = 0; i < N; i++) {
+    if (!pred(i)) continue;
+    if (O.days[i] != null) g.days.push(O.days[i]);
+    if (ho[i] >= 0) { g.hoE++; if (ho[i] === 1) g.hoL++; }
+    if (!isDel[i]) continue;
+    g.delivered++;
+    if (late[i] < 0) { g.unknown++; continue; }
+    g.eligible++;
+    if (late[i] === 1) { g.late++; if (O.rn[i]) { g.rsL += O.rs[i]; g.rnL += O.rn[i]; } }
+    else if (O.rn[i]) { g.rsO += O.rs[i]; g.rnO += O.rn[i]; }
+  }
+  g.days.sort((a, b) => a - b);
+  g.p50 = percentile(g.days, .5); g.p90 = percentile(g.days, .9);
+  return g;
+}
+
+let stateSort = { col: 3, desc: true };
+function renderService() {
+  const g = groupStats(inService);
+  const lateName = S.late === 'day' ? 'по календарному дню' : 'по timestamp';
+  document.getElementById('svcKpis').replaceChildren(
+    kpi('Опоздавшие заказы', pct(g.late, g.eligible),
+      `${int(g.late)} из ${int(g.eligible)}, ${lateName}; без дат ${int(g.unknown)}`, g.eligible ? '' : 'muted'),
+    kpi('Срок доставки, дней', g.p50 == null ? 'нет наблюдений' : `${nf1.format(g.p50)} / ${nf1.format(g.p90)}`,
+      `медиана / P90; ${int(g.days.length)} заказов с парой дат`),
+    kpi('Передача перевозчику позже срока', pct(g.hoL, g.hoE),
+      `${int(g.hoL)} из ${int(g.hoE)}; ${S.ho === 'max' ? 'последний' : 'первый'} срок позиций. Не доказывает вину продавца`),
+    kpi('Оценка: в срок / с опозданием', (g.rnO ? nf2.format(g.rsO / g.rnO) : '—') + ' / ' + (g.rnL ? nf2.format(g.rsL / g.rnL) : '—'),
+      `пар отзыв–заказ: ${int(g.rnO)} / ${int(g.rnL)}`),
+  );
+
+  // monthly
+  const late = lateArr();
+  const mon = MONTHS.map(() => ({ del: 0, e: 0, l: 0 }));
+  for (let i = 0; i < N; i++) {
+    if (O.m[i] < 0 || !(S.state < 0 || O.state[i] === S.state) || !isDel[i]) continue;
+    const r = mon[O.m[i]]; r.del++;
+    if (late[i] >= 0) { r.e++; if (late[i] === 1) r.l++; }
+  }
+  const rng = [];
+  for (let m = S.from; m <= S.to; m++) rng.push(m);
+  chart(document.getElementById('chLate'), rng.map(m => {
+    const r = mon[m];
+    return {
+      label: monthLabel(m), value: r.e ? 100 * r.l / r.e : null, hollow: r.e < SMALL_N,
+      tip: [r.e ? nf1.format(100 * r.l / r.e) + '%' : 'нет наблюдений', MONTHS[m], `опоздали ${int(r.l)} из ${int(r.e)}` + (r.e && r.e < SMALL_N ? ' · мало наблюдений' : '')],
+    };
+  }), { type: 'line', fmtAxis: v => nf0.format(v) + '%', aria: 'Доля опоздавших заказов по месяцам', valLabel: 'Доля опозданий' });
+  chart(document.getElementById('chDelivered'), rng.map(m => ({
+    label: monthLabel(m), value: mon[m].del,
+    tip: [int(mon[m].del), MONTHS[m], 'доставленных заказов'],
+  })), { type: 'bar', fmtAxis: v => nf0.format(v), aria: 'Доставленные заказы по месяцам', valLabel: 'Доставлено' });
+
+  // histogram
+  const bins = new Array(61).fill(0);
+  for (const d of g.days) bins[Math.min(60, Math.floor(d))]++;
+  const refs = [];
+  if (g.p50 != null) refs.push({ at: Math.min(60, g.p50) + 0, label: 'медиана ' + nf1.format(g.p50) });
+  if (g.p90 != null) refs.push({ at: Math.min(60, g.p90) + 0, label: 'P90 ' + nf1.format(g.p90) });
+  chart(document.getElementById('chDays'), bins.map((c, k) => ({
+    label: k === 60 ? '60+' : String(k), value: c,
+    tip: [int(c), k === 60 ? '60 дней и больше' : `${k}–${k + 1} дней`, pct(c, g.days.length) + ' заказов с парой дат'],
+  })), { type: 'bar', h: 200, maxLabels: 13, fmtAxis: v => nf0.format(v), refs, aria: 'Распределение срока доставки', colLabel: 'Дней', valLabel: 'Заказов' });
+
+  // states table
+  const rows = STATES.map((name, s) => {
+    const st = groupStats(i => inPeriod(i) && O.state[i] === s);
+    return { s, name, ...st, rate: st.eligible ? st.late / st.eligible : null };
+  }).filter(r => r.delivered > 0);
+  const keys = [r => r.name, r => r.delivered, r => r.eligible, r => r.rate, r => r.p50, r => r.p90, r => r.rnO ? r.rsO / r.rnO : null, r => r.rnL ? r.rsL / r.rnL : null];
+  const kf = keys[stateSort.col];
+  rows.sort((a, b) => {
+    const x = kf(a), y = kf(b);
+    if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+    return (x < y ? -1 : x > y ? 1 : 0) * (stateSort.desc ? -1 : 1);
+  });
+  table(document.getElementById('tblStates'), [
+    { h: 'Штат', v: r => r.name },
+    { h: 'Доставлено', num: 1, v: r => int(r.delivered) },
+    { h: 'С датами', num: 1, v: r => int(r.eligible) },
+    { h: 'Опоздания', num: 1, v: r => r.eligible < SMALL_N ? el('span', null, pct(r.late, r.eligible), ' ', el('span', { class: 'flag' }, 'мало наблюдений')) : pct(r.late, r.eligible) },
+    { h: 'P50, дн', num: 1, v: r => r.p50 == null ? '—' : nf1.format(r.p50) },
+    { h: 'P90, дн', num: 1, v: r => r.p90 == null ? '—' : nf1.format(r.p90) },
+    { h: 'Оценка в срок', num: 1, v: r => r.rnO ? nf2.format(r.rsO / r.rnO) : '—' },
+    { h: 'Оценка с опозданием', num: 1, v: r => r.rnL ? `${nf2.format(r.rsL / r.rnL)} (${int(r.rnL)})` : '—' },
+  ], rows, {
+    onSort: ci => { stateSort = { col: ci, desc: stateSort.col === ci ? !stateSort.desc : ci !== 0 }; renderService(); },
+    onRow: r => { S.drillState = S.drillState === r.s ? null : r.s; renderDrill(); renderService(); },
+    isSel: r => r.s === S.drillState,
+  });
+  renderDrill();
+}
+
+let drillIds = [];
+function renderDrill() {
+  const late = lateArr();
+  const st = S.drillState != null ? S.drillState : S.state;
+  const rows = [];
+  for (let i = 0; i < N; i++) {
+    if (!inPeriod(i) || late[i] !== 1) continue;
+    if (st >= 0 && O.state[i] !== st) continue;
+    rows.push(i);
+  }
+  rows.sort((a, b) => ((O.dd[b] - O.de[b]) - (O.dd[a] - O.de[a])) || (O.dp[a] - O.dp[b]));
+  const shown = rows.slice(0, 100);
+  drillIds = rows.map(orderId);
+  document.getElementById('drillTitle').textContent =
+    `Опоздавшие заказы: ${st >= 0 ? 'штат ' + STATES[st] : 'все штаты'}, ${int(rows.length)}` + (rows.length > 100 ? ' (первые 100 по величине опоздания)' : '');
+  table(document.getElementById('tblDrill'), [
+    { h: 'order_id', v: i => el('span', { class: 'mono' }, orderId(i)) },
+    { h: 'Штат', v: i => STATES[O.state[i]] || '—' },
+    { h: 'Покупка', num: 1, v: i => dateOf(O.dp[i]) },
+    { h: 'Обещано', num: 1, v: i => dateOf(O.de[i]) },
+    { h: 'Вручено', num: 1, v: i => dateOf(O.dd[i]) },
+    { h: 'Опоздание, дн', num: 1, v: i => O.dd[i] == null || O.de[i] == null ? '—' : int(O.dd[i] - O.de[i]) },
+    { h: 'Оценка', num: 1, v: i => O.rn[i] ? nf1.format(O.rs[i] / O.rn[i]) + (O.rn[i] > 1 ? ` (${O.rn[i]} отз.)` : '') : 'нет отзыва' },
+  ], shown, { empty: 'В выбранном срезе нет опоздавших заказов' });
+}
+
+// ---------- commerce ----------
+function sellerMatch() {
+  const q = S.seller.trim().toLowerCase();
+  if (!q) return null;
+  const set = new Set();
+  SELLERS.forEach((s, k) => { if (s[0].startsWith(q)) set.add(k); });
+  return set;
+}
+function renderCommerce() {
+  const sm = sellerMatch();
+  const itemSel = j => (S.cat < 0 || I.cat[j] === S.cat) && (!sm || sm.has(I.seller[j]));
+  const filtered = S.cat >= 0 || sm;
+  let rev = 0, units = 0, missing = 0, freight = 0;
+  const orders = new Set(), buyers = new Set();
+  const monRev = MONTHS.map(() => 0);
+  const byCat = new Map(), bySeller = new Map();
+  for (let j = 0; j < NI; j++) {
+    const o = I.o[j];
+    if (!isRev[o] || !inPeriod(o)) continue;
+    const p = I.price[j];
+    // category table ignores the category filter, seller table ignores the seller filter
+    if (!sm || sm.has(I.seller[j])) {
+      const c = byCat.get(I.cat[j]) || { rev: 0, units: 0, orders: new Set() };
+      c.rev += p || 0; c.units++; c.orders.add(o); byCat.set(I.cat[j], c);
+    }
+    if (S.cat < 0 || I.cat[j] === S.cat) {
+      const s = bySeller.get(I.seller[j]) || { rev: 0, units: 0, orders: new Set() };
+      s.rev += p || 0; s.units++; s.orders.add(o); bySeller.set(I.seller[j], s);
+    }
+    if (!itemSel(j)) continue;
+    units++;
+    if (p == null) missing++; else { rev += p; monRev[O.m[o]] += p; }
+    if (I.freight[j] != null) freight += I.freight[j];
+    orders.add(o); buyers.add(O.buyer[o]);
+  }
+  let gmvSum = 0, gmvN = 0;
+  if (!filtered) for (let i = 0; i < N; i++) if (inPeriod(i) && isDel[i] && O.gmv[i] != null) { gmvSum += O.gmv[i]; gmvN++; }
+  document.getElementById('comKpis').replaceChildren(
+    kpi('Выручка выбранных позиций, BRL', missing ? 'неизвестна' : money(rev), missing ? `без цены ${int(missing)} поз.` : 'price, доставленные заказы, без доставки'),
+    kpi('Единиц товара', int(units), 'одна строка позиции = одна единица'),
+    kpi('Заказов с этими позициями', int(orders.size), `distinct order_id; покупателей ${int(buyers.size)}`),
+    filtered
+      ? kpi('Позиции на заказ, BRL', orders.size ? nf2.format((rev + freight) / orders.size / 100) : '—', 'price + freight выбранных позиций / заказы. Это не средний чек: часть заказа не выбрана')
+      : kpi('Средний чек, BRL', gmvN ? nf2.format(gmvSum / gmvN / 100) : '—', `order_gmv, ${int(gmvN)} доставленных заказов`),
+  );
+  const rng = []; for (let m = S.from; m <= S.to; m++) rng.push(m);
+  chart(document.getElementById('chRevenue'), rng.map(m => ({
+    label: monthLabel(m), value: monRev[m] / 100,
+    tip: [money(monRev[m]) + ' BRL', MONTHS[m]],
+  })), { type: 'bar', fmtAxis: v => moneyShort(v * 100), aria: 'Выручка позиций по месяцам', valLabel: 'Выручка, BRL' });
+
+  const catTotal = [...byCat.values()].reduce((a, c) => a + c.rev, 0);
+  const catRows = [...byCat.entries()].map(([c, v]) => ({ c, ...v })).sort((a, b) => b.rev - a.rev);
+  table(document.getElementById('tblCats'), [
+    { h: '#', num: 1, v: r => catRows.indexOf(r) + 1 },
+    { h: 'Категория', v: r => catUntranslated(r.c) ? el('span', null, catName(r.c), ' ', el('span', { class: 'flag' }, 'нет перевода')) : catName(r.c) },
+    { h: 'Выручка', num: 1, v: r => money(r.rev) },
+    { h: 'Доля', num: 1, v: r => pct(r.rev, catTotal) },
+    { h: 'Единиц', num: 1, v: r => int(r.units) },
+    { h: 'Заказов', num: 1, v: r => int(r.orders.size) },
+  ], catRows.slice(0, 25), {
+    onRow: r => { S.cat = S.cat === r.c ? -1 : r.c; document.getElementById('cat').value = S.cat; renderCommerce(); },
+    isSel: r => r.c === S.cat,
+  });
+  const selRows = [...bySeller.entries()].map(([s, v]) => ({ s, ...v })).sort((a, b) => b.rev - a.rev);
+  table(document.getElementById('tblSellers'), [
+    { h: '#', num: 1, v: r => selRows.indexOf(r) + 1 },
+    { h: 'seller_id', v: r => el('span', { class: 'mono', title: SELLERS[r.s][0] }, SELLERS[r.s][0].slice(0, 12) + '…') },
+    { h: 'Город / штат', v: r => `${SELLERS[r.s][1] || '—'} / ${SELLERS[r.s][2] || '—'}` },
+    { h: 'Выручка', num: 1, v: r => money(r.rev) },
+    { h: 'Единиц', num: 1, v: r => int(r.units) },
+    { h: 'Заказов', num: 1, v: r => int(r.orders.size) },
+  ], selRows.slice(0, 25), {
+    onRow: r => { const id = SELLERS[r.s][0]; S.seller = S.seller === id ? '' : id; document.getElementById('seller').value = S.seller; renderCommerce(); },
+    isSel: r => SELLERS[r.s][0] === S.seller,
+  });
+}
+
+// ---------- quality & reconciliation ----------
+function renderQuality() {
+  const sql = D.sql, checks = [];
+  const add = (name, ui, ref, fmt, tol) => checks.push({ name, ui, ref, fmt, ok: ref != null && ui != null && Math.abs(ui - ref) <= (tol || 0) });
+
+  // Q1: 24 calendar months [2016-09, 2018-09)
+  const q1m = new Map(sql.q01.map(r => [r.month_start.slice(0, 7), r]));
+  const uiMon = new Map(); MONTHS.forEach(m => uiMon.set(m, { rev: 0, placed: 0, del: 0 }));
+  for (let i = 0; i < N; i++) if (O.m[i] >= 0) { const r = uiMon.get(MONTHS[O.m[i]]); r.placed++; if (isDel[i]) r.del++; }
+  for (let j = 0; j < NI; j++) { const o = I.o[j]; if (isRev[o] && O.m[o] >= 0 && I.price[j] != null) uiMon.get(MONTHS[O.m[o]]).rev += I.price[j]; }
+  let monthsOk = 0, revUi = 0;
+  q1m.forEach((r, m) => {
+    const u = uiMon.get(m) || { rev: 0, placed: 0, del: 0 };
+    revUi += u.rev;
+    if (Math.round(u.rev) === Math.round(Number(r.item_revenue) * 100) && u.placed === r.orders_placed && u.del === r.orders_delivered) monthsOk++;
+  });
+  add('Q1 · выручка за 24 месяца окна, BRL', revUi / 100, sql.q01.reduce((a, r) => a + Number(r.item_revenue), 0), v => nf2.format(v), 0.005);
+  add('Q1 · месяцев, где совпали выручка и оба счёта заказов', monthsOk, sql.q01.length, v => int(v));
+
+  // Q2: top seller (all snapshot)
+  const sRev = new Map();
+  for (let j = 0; j < NI; j++) if (isRev[I.o[j]] && I.price[j] != null) sRev.set(I.seller[j], (sRev.get(I.seller[j]) || 0) + I.price[j]);
+  const topUi = [...sRev.values()].sort((a, b) => b - a).slice(0, 10);
+  add('Q2 · выручка топ-1 продавца, BRL', topUi[0] / 100, Number(sql.q02[0].item_revenue), v => nf2.format(v), 0.005);
+  add('Q2 · сумма выручки топ-10, BRL', topUi.reduce((a, v) => a + v, 0) / 100, sql.q02.reduce((a, r) => a + Number(r.item_revenue), 0), v => nf2.format(v), 0.005);
+
+  // Q3: AOV over delivered orders, all snapshot
+  let g = 0, gn = 0;
+  for (let i = 0; i < N; i++) if (isDel[i] && O.gmv[i] != null) { g += O.gmv[i]; gn++; }
+  add('Q3 · средний чек (товары + доставка), BRL', g / gn / 100, Number(sql.q03.avg_order_gmv), v => nf2.format(v), 0.00001);
+  add('Q3 · доставленных заказов в знаменателе', gn, sql.q03.n_order_gmv, v => int(v));
+
+  // Q4: buyers and repeat, all statuses, all snapshot
+  const cnt = new Map(); for (let i = 0; i < N; i++) cnt.set(O.buyer[i], (cnt.get(O.buyer[i]) || 0) + 1);
+  let rep = 0; cnt.forEach(c => { if (c > 1) rep++; });
+  add('Q4 · покупателей (customer_unique_id)', cnt.size, sql.q04.buyers, v => int(v));
+  add('Q4 · купили повторно', rep, sql.q04.repeat_buyers, v => int(v));
+
+  // Q5: categories
+  const cRev = new Map();
+  for (let j = 0; j < NI; j++) if (isRev[I.o[j]] && I.price[j] != null) cRev.set(I.cat[j], (cRev.get(I.cat[j]) || 0) + I.price[j]);
+  const topCat = [...cRev.entries()].sort((a, b) => b[1] - a[1])[0];
+  add('Q5 · категорий с выручкой', cRev.size, sql.q05.filter(r => Number(r.item_revenue) > 0).length, v => int(v));
+  add(`Q5 · выручка топ-категории (${catName(topCat[0])}), BRL`, topCat[1] / 100, Number(sql.q05[0].item_revenue), v => nf2.format(v), 0.005);
+
+  // delivery
+  const dd = []; let le = 0, ll = 0;
+  for (let i = 0; i < N; i++) { if (O.days[i] != null) dd.push(O.days[i]); if (O.lateDay[i] >= 0) { le++; if (O.lateDay[i] === 1) ll++; } }
+  dd.sort((a, b) => a - b);
+  add('Доставка · заказов с парой дат', dd.length, sql.delivery_days.n, v => int(v));
+  add('Доставка · медиана, дней (выгрузка округлена до 0.01)', percentile(dd, .5), sql.delivery_days.p50, v => nf2.format(v), 0.01);
+  add('Доставка · P90, дней (выгрузка округлена до 0.01)', percentile(dd, .9), sql.delivery_days.p90, v => nf2.format(v), 0.01);
+  add('Опоздания по дню · опоздало / с датами', ll * 1e6 + le, sql.delivery_days.late_day * 1e6 + sql.delivery_days.late_day_eligible, v => `${int(Math.floor(v / 1e6))} / ${int(v % 1e6)}`);
+
+  const fails = checks.filter(c => !c.ok).length;
+  table(document.getElementById('tblRecon'), [
+    { h: 'Проверка', v: c => c.name },
+    { h: 'Страница', num: 1, v: c => c.fmt(c.ui) },
+    { h: 'SQL mart', num: 1, v: c => c.fmt(c.ref) },
+    { h: 'Итог', v: c => c.ok ? el('span', { class: 'ok' }, '✓ совпадает') : el('span', { class: 'bad' }, '✗ расхождение') },
+  ], checks);
+  const badge = document.getElementById('reconBadge');
+  badge.textContent = fails ? `✗ сверка: ${fails} из ${checks.length} не совпали` : `✓ сверка с SQL: ${checks.length} из ${checks.length}`;
+  badge.className = fails ? 'bad' : 'ok';
+
+  const covRu = { both: 'есть позиции и платежи', items_only: 'только позиции', payments_only: 'только платежи', neither: 'ни того, ни другого' };
+  table(document.getElementById('tblMoney'), [
+    { h: 'Статус', v: r => r.order_status },
+    { h: 'Дочерние строки', v: r => covRu[r.payment_coverage] || r.payment_coverage },
+    { h: 'Заказов', num: 1, v: r => int(r.orders_count) },
+    { h: 'Сравнимы', num: 1, v: r => int(r.comparable_orders) },
+    { h: 'Δ ≠ 0', num: 1, v: r => int(r.exact_mismatch_orders) },
+    { h: '|Δ| > 0.01', num: 1, v: r => int(r.gt_001_mismatch_orders) },
+    { h: 'Σ Δ (платёж − GMV)', num: 1, v: r => r.signed_delta_sum == null ? '—' : nf2.format(r.signed_delta_sum) },
+    { h: 'Σ |Δ|', num: 1, v: r => r.absolute_delta_sum == null ? '—' : nf2.format(r.absolute_delta_sum) },
+  ], D.payment_reconciliation);
+
+  const issueRu = {
+    carrier_before_approval: 'передан перевозчику раньше подтверждения оплаты',
+    order_without_items: 'заказ без позиций',
+    order_without_reviews: 'заказ без отзыва',
+    payment_item_exact_mismatch: 'сумма платежей ≠ товары + доставка',
+    product_missing_category: 'товар без категории',
+    product_name_lenght_missing: 'нет длины названия',
+    product_photos_qty_missing: 'нет числа фото',
+    product_description_lenght_missing: 'нет длины описания',
+    carrier_before_purchase: 'передан перевозчику раньше покупки',
+    delivery_before_carrier: 'вручён раньше передачи перевозчику',
+    delivered_missing_approval_date: 'delivered без даты подтверждения',
+    payment_zero_value: 'нулевой платёж',
+    delivered_missing_delivery_date: 'delivered без даты вручения',
+    delivery_date_on_other_status: 'дата вручения у недоставленного',
+    product_weight_g_zero: 'вес товара 0',
+    unrecognized_payment_type: 'неизвестный тип платежа',
+    category_missing_translation: 'категория без перевода',
+    payment_nonpositive_installments: 'рассрочка 0 частей',
+    order_without_payments: 'заказ без платежа',
+  };
+  table(document.getElementById('tblIssues'), [
+    { h: 'Код', v: r => el('span', { class: 'mono' }, r.code) },
+    { h: 'Что это', v: r => issueRu[r.code] || '—' },
+    { h: 'Уровень', v: r => r.entity },
+    { h: 'Строк', num: 1, v: r => int(r.n) },
+  ], D.data_issues);
+
+  table(document.getElementById('tblPassports'), [
+    { h: 'Метрика', v: r => el('span', { class: 'mono' }, r.name) },
+    { h: 'Уровень', v: r => r.grain },
+    { h: 'Формула', v: r => el('span', { class: 'mono' }, r.formula_sql) },
+    { h: 'Популяция', v: r => r.status_rule },
+    { h: 'Окно', v: r => r.window },
+    { h: 'Знаменатель', v: r => r.denominator },
+    { h: 'NULL', v: r => r.null_policy },
+    { h: 'Складывается по', v: r => r.additive_over },
+    { h: 'Не складывается по', v: r => r.non_additive_over },
+  ], D.metric_definitions);
+}
+
+// ---------- wiring ----------
+function fillSelect(sel, opts, val) { sel.replaceChildren(...opts.map(([v, t]) => el('option', { value: v }, t))); sel.value = val; }
+const mFrom = document.getElementById('mFrom'), mTo = document.getElementById('mTo');
+fillSelect(mFrom, MONTHS.map((m, k) => [k, m]), 0);
+fillSelect(mTo, MONTHS.map((m, k) => [k, m]), MONTHS.length - 1);
+fillSelect(document.getElementById('state'), [[-1, 'все штаты'], ...STATES.map((s, k) => [k, s])], -1);
+const catOpts = CATS.map((c, k) => [k, catName(k)]).sort((a, b) => a[1].localeCompare(b[1]));
+fillSelect(document.getElementById('cat'), [[-1, 'все категории'], ...catOpts], -1);
+{
+  const sr = new Map();
+  for (let j = 0; j < NI; j++) if (isRev[I.o[j]] && I.price[j] != null) sr.set(I.seller[j], (sr.get(I.seller[j]) || 0) + I.price[j]);
+  document.getElementById('sellerList').replaceChildren(...[...sr.entries()].sort((a, b) => b[1] - a[1]).slice(0, 50)
+    .map(([s]) => el('option', { value: SELLERS[s][0] }, `${SELLERS[s][1]} / ${SELLERS[s][2]}`)));
+}
+
+const unknownPurchase = Array.prototype.filter.call(O.m, v => v < 0).length;
+const meta = document.getElementById('meta');
+meta.append(`Выгрузка ${D.meta.exported_at.replace('T', ' ').replace('Z', ' UTC')} · ${int(N)} заказов · ${int(NI)} позиций · `);
+meta.append(el('span', { id: 'reconBadge' }, ''));
+
+const MIDX = m => MONTHS.indexOf(m);
+const PRESETS = {
+  all: [0, MONTHS.length - 1],
+  q1: [MIDX('2016-09'), MIDX('2018-08')],
+  2017: [MIDX('2017-01'), MIDX('2017-12')],
+  2018: [MIDX('2018-01'), MONTHS.length - 1],
+};
+function syncPresets() {
+  document.querySelectorAll('#presets button').forEach(b => {
+    const p = PRESETS[b.dataset.p]; b.classList.toggle('on', p[0] === S.from && p[1] === S.to);
+  });
+  const empty = [];
+  const cnt = MONTHS.map(() => 0); for (let i = 0; i < N; i++) if (O.m[i] >= 0) cnt[O.m[i]]++;
+  for (let m = S.from; m <= S.to; m++) if (!cnt[m]) empty.push(MONTHS[m]);
+  document.getElementById('periodNote').textContent =
+    (empty.length ? `без заказов: ${empty.join(', ')}` : '') +
+    (unknownPurchase ? ` · без даты покупки ${int(unknownPurchase)} заказов вне любого периода` : '');
+}
+let active = 'service';
+function renderAll() {
+  syncPresets(); renderHead();
+  if (active === 'service') renderService();
+  if (active === 'commerce') renderCommerce();
+}
+document.querySelectorAll('#presets button').forEach(b => b.addEventListener('click', () => {
+  [S.from, S.to] = PRESETS[b.dataset.p]; mFrom.value = S.from; mTo.value = S.to; renderAll();
+}));
+mFrom.addEventListener('change', () => { S.from = +mFrom.value; if (S.to < S.from) { S.to = S.from; mTo.value = S.to; } renderAll(); });
+mTo.addEventListener('change', () => { S.to = +mTo.value; if (S.from > S.to) { S.from = S.to; mFrom.value = S.from; } renderAll(); });
+document.getElementById('state').addEventListener('change', e => { S.state = +e.target.value; S.drillState = null; renderService(); });
+function seg(id, key) {
+  document.querySelectorAll(`#${id} button`).forEach(b => b.addEventListener('click', () => {
+    S[key] = b.dataset.v;
+    document.querySelectorAll(`#${id} button`).forEach(x => x.classList.toggle('on', x === b));
+    renderService();
+  }));
+}
+seg('lateVar', 'late'); seg('hoVar', 'ho');
+document.getElementById('cat').addEventListener('change', e => { S.cat = +e.target.value; renderCommerce(); });
+document.getElementById('seller').addEventListener('input', e => { S.seller = e.target.value; renderCommerce(); });
+document.getElementById('resetCom').addEventListener('click', () => {
+  S.cat = -1; S.seller = ''; document.getElementById('cat').value = -1; document.getElementById('seller').value = ''; renderCommerce();
+});
+document.getElementById('copyIds').addEventListener('click', async e => {
+  const b = e.currentTarget;
+  try { await navigator.clipboard.writeText(drillIds.join('\n')); b.textContent = `Скопировано: ${int(drillIds.length)}`; }
+  catch (_) { b.textContent = 'Буфер обмена недоступен'; }
+  setTimeout(() => { b.textContent = 'Скопировать ID'; }, 2000);
+});
+document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => {
+  active = b.dataset.tab;
+  document.querySelectorAll('nav.tabs button').forEach(x => x.classList.toggle('on', x === b));
+  document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === 'tab-' + active));
+  try { localStorage.setItem('capibara-tab', active); } catch (_) {}
+  renderAll();
+}));
+
+let resizeTimer;
+addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderAll, 150); });
+renderQuality();
+try { const t = localStorage.getItem('capibara-tab'); if (t && t !== 'service') document.querySelector(`nav.tabs button[data-tab="${t}"]`)?.click(); } catch (_) {}
+renderAll();
+})();
+</script>
+<script>console.log("FULL_OLIST_QA",JSON.stringify({orders:window.CAPIBARA_DATA?.orders.n,items:window.CAPIBARA_DATA?.items.o.length,reconciliation:document.getElementById("reconBadge")?.textContent,overflow:document.documentElement.scrollWidth>innerWidth}));</script></body>
+</html>

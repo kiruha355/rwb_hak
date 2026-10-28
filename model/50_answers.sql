@@ -60,18 +60,30 @@ WITH sellers AS (
                 END AS item_revenue
     FROM mart.v_order_items
     GROUP BY seller_id, seller_city, seller_state
+), ranking_scope AS (
+    SELECT count(*) AS revenue_candidate_sellers,
+           count(*) FILTER (WHERE item_revenue IS NULL) AS incomplete_revenue_sellers,
+           coalesce(array_agg(seller_id ORDER BY seller_id)
+                    FILTER (WHERE item_revenue IS NULL), ARRAY[]::text[]) AS incomplete_revenue_seller_ids
+    FROM sellers
 )
 SELECT seller_id, seller_city, seller_state,
        orders_delivered, units_delivered, orders_all_statuses, units_all_statuses,
        orders_revenue_eligible, revenue_item_rows_count,
        revenue_price_valid_count, revenue_price_missing_count,
-       item_revenue, item_revenue_known_sum
-FROM sellers
+       item_revenue, item_revenue_known_sum,
+       CASE WHEN item_revenue IS NOT NULL
+            THEN row_number() OVER (ORDER BY item_revenue DESC NULLS LAST, seller_id) END AS revenue_rank,
+       revenue_candidate_sellers, incomplete_revenue_sellers, incomplete_revenue_seller_ids,
+       incomplete_revenue_sellers = 0 AS ranking_is_complete,
+       CASE WHEN incomplete_revenue_sellers = 0 THEN 'complete_population'
+            ELSE 'provisional_known_revenues' END AS ranking_scope
+FROM sellers CROSS JOIN ranking_scope
 ORDER BY item_revenue DESC NULLS LAST, seller_id
 LIMIT 10;
 
 COMMENT ON VIEW mart.q02_sellers_top10 IS
-'Q2: all-snapshot seller ranking by own eligible item price, no freight. Delivered order/unit counts and all-status counts are separate. City/state retain source text.';
+'Q2: own eligible item price, no freight. Global candidate coverage is computed before LIMIT; unknown revenues remain unranked and all incomplete seller IDs stay visible. With incomplete candidates ranking is provisional, not an established top of the whole population. Delivered/all-status counts are separate.';
 
 CREATE VIEW mart.q03_average_order AS
 SELECT count(*) AS n_delivered_orders,

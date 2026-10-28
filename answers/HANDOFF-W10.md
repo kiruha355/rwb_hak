@@ -97,3 +97,7 @@ RWB_RAW_RELOAD_PAUSED=1 RWB_DB_MODE=host PGSERVICE=capibara make answers
 ```
 
 Публикация и итоговая независимая приёмка — W-01/родитель.
+
+## Integration update after Astra review
+
+The original W-10 run above is historical. Root subsequently fixed the Q2 global candidate coverage, repeated all 93 offline checks against the changed SQL, and refreshed verification/checksum files. The integrated model also ran against a bounded real Olist subset; full-population acceptance remains pending. See [review fixes](../research/implementation-review-20261028/review-fixes.md) and [real-subset evidence](../research/implementation-review-20261028/olist-subset-handoff.md).

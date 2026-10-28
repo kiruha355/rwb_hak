@@ -1,0 +1,66 @@
+{
+  "status": "ready_for_review_not_published",
+  "updated_at": "2026-10-28T10:42:19.773034+00:00",
+  "files": [
+    {
+      "file": "scripts/build-olist-subset.py",
+      "sha256": "00585750ceca51298cc42cd84631aaab9182df10b78c1f56d189714d48d46906",
+      "bytes": 21286
+    },
+    {
+      "file": "dashboard/olist.html",
+      "sha256": "a63c754d5ef6d626683d7cc64341ef05553fc5df20323c0e48579f012321f509",
+      "bytes": 1191825
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-answers.json",
+      "sha256": "ce17b1474124f63640faf8e88382ce60dce69023b671508ca75b472038a2c096",
+      "bytes": 64500
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-build.json",
+      "sha256": "53ef385d6e3abf09b25d471bc73d8972720f105eb78ea1058c3c8b76557710cb",
+      "bytes": 913
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-export-check.json",
+      "sha256": "dc217105bda54ad3f83ed6fcf0c55267bae4d489738e96ce692f01569b64e7c8",
+      "bytes": 3088
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-handoff.md",
+      "sha256": "184d46890b238a7d105e381962f8506e937f80cbbe5472184c6425374fde654c",
+      "bytes": 6825
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-input.json",
+      "sha256": "6beae18f538b1ac1e95ca5c7449a3233d809dd48b0f58394b9a484d5d6cddf41",
+      "bytes": 8141
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-raw-verification.json",
+      "sha256": "6b6459fe3ff2775b5ae7d28acc9f7129e903bc9925ef7a3c2c3a52098626e1ab",
+      "bytes": 2062
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-rollback.json",
+      "sha256": "89d04d900209593472e3ba85d7df8b9e115cf0f2572b96a7cc6fa0a0cc50f2f6",
+      "bytes": 3573
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-source-equality.json",
+      "sha256": "d3185ec57c1b67f45bdf8df3d2541afb58bd99fc92fe177181b1938d25f4ac58",
+      "bytes": 1560
+    },
+    {
+      "file": "research/implementation-review-20261028/olist-subset-validation.json",
+      "sha256": "352f228cfb6b2a298afe2d69246bc1767e11d1f071f6c09dc45edf4d88a793af",
+      "bytes": 2403
+    }
+  ],
+  "excluded": [
+    "runtime CSV",
+    "database files",
+    "runtime log files"
+  ]
+}

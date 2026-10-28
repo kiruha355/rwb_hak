@@ -78,20 +78,20 @@ BEGIN
  ($sql$translations$sql$, $sql$category_key$sql$,
  $sql$SELECT 'pt:'||product_category_name AS category_key, product_category_name, product_category_name_english FROM raw.product_category_translation$sql$,
  $sql$SELECT category_key, name_pt AS product_category_name, name_en AS product_category_name_english
- FROM core.dim_category WHERE name_pt IN (SELECT product_category_name FROM raw.product_category_translation)$sql$),
+ FROM core.dim_category WHERE has_translation_row$sql$),
  ($sql$buyers$sql$, $sql$customer_unique_id$sql$,
  $sql$SELECT DISTINCT customer_unique_id FROM raw.customers$sql$,
  $sql$SELECT customer_unique_id FROM core.dim_customer$sql$),
  ($sql$categories$sql$, $sql$category_key$sql$,
  $sql$SELECT 'unknown'::text AS category_key, NULL::text AS name_pt,
- NULL::text AS name_en, true AS is_unknown, false AS is_translated
+ NULL::text AS name_en, true AS is_unknown, false AS is_translated, false AS has_translation_row
  UNION ALL
  SELECT 'pt:'||n.product_category_name, n.product_category_name, t.product_category_name_english,
- false, t.product_category_name_english IS NOT NULL
+ false, t.product_category_name_english IS NOT NULL, t.product_category_name IS NOT NULL
  FROM (SELECT product_category_name FROM raw.products WHERE product_category_name IS NOT NULL
        UNION SELECT product_category_name FROM raw.product_category_translation WHERE product_category_name IS NOT NULL) n
  LEFT JOIN raw.product_category_translation t USING(product_category_name)$sql$,
- $sql$SELECT category_key, name_pt, name_en, is_unknown, is_translated FROM core.dim_category$sql$),
+ $sql$SELECT category_key, name_pt, name_en, is_unknown, is_translated, has_translation_row FROM core.dim_category$sql$),
  ($sql$statuses$sql$, $sql$order_status$sql$,
  $sql$SELECT order_status, order_status='delivered' AS is_revenue FROM (
  SELECT order_status FROM raw.orders WHERE order_status IS NOT NULL
@@ -179,7 +179,7 @@ BEGIN
        'sql',format('WITH e AS (SELECT f.key, count(*) FILTER (WHERE f.value=''null''::jsonb) FROM (%s) e CROSS JOIN LATERAL jsonb_each(to_jsonb(e)) f GROUP BY f.key), a AS (SELECT f.key, count(*) FILTER (WHERE f.value=''null''::jsonb) FROM (%s) a CROSS JOIN LATERAL jsonb_each(to_jsonb(a)) f GROUP BY f.key) (TABLE e EXCEPT ALL TABLE a) UNION ALL (TABLE a EXCEPT ALL TABLE e)',mapping.source_sql,mapping.target_sql))
    );
    -- Each mapped relation has a natural unique key, including review-order pairs.
-   SELECT string_agg(format('%I IS NULL OR %I::text=''''',trim(k),trim(k)),' OR ')
+   SELECT string_agg(format('%I IS NULL OR %I::text ~ %L',trim(k),trim(k),'^[[:space:]]*$'),' OR ')
      INTO key_null_sql FROM unnest(string_to_array(mapping.keys,',')) k;
    rules := rules || jsonb_build_array(
      jsonb_build_object('name',mapping.name||'.source_key_unique','group','key','severity','error',

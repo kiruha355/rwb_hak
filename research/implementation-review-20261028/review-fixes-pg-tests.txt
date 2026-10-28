@@ -1,0 +1,22 @@
+test_changed_source_is_not_accepted_as_equal (test_csv_raw_pg.CsvRawPostgresTests.test_changed_source_is_not_accepted_as_equal) ... ok
+test_comparison_transaction_cannot_write_source (test_csv_raw_pg.CsvRawPostgresTests.test_comparison_transaction_cannot_write_source) ... ok
+test_csv_copy_runs_read_only_and_preserves_null_vs_empty (test_csv_raw_pg.CsvRawPostgresTests.test_csv_copy_runs_read_only_and_preserves_null_vs_empty) ... ok
+test_bad_headers_and_ragged_rows_rejected (test_input_manifest.InputManifestTests.test_bad_headers_and_ragged_rows_rejected) ... ok
+test_bom_multiline_and_bytes_are_exact (test_input_manifest.InputManifestTests.test_bom_multiline_and_bytes_are_exact) ... ok
+test_changed_source_ref_rejected (test_input_manifest.InputManifestTests.test_changed_source_ref_rejected) ... ok
+test_cli_missing_inputs_fails_without_writing_output (test_input_manifest.InputManifestTests.test_cli_missing_inputs_fails_without_writing_output) ... ok
+test_duplicate_or_missing_or_unsafe_entry_rejected (test_input_manifest.InputManifestTests.test_duplicate_or_missing_or_unsafe_entry_rejected) ... ok
+test_every_contract_field_and_file_inventory_is_checked (test_input_manifest.InputManifestTests.test_every_contract_field_and_file_inventory_is_checked) ... ok
+test_malformed_quoted_record_rejected (test_input_manifest.InputManifestTests.test_malformed_quoted_record_rejected) ... ok
+test_manifest_order_does_not_matter (test_input_manifest.InputManifestTests.test_manifest_order_does_not_matter) ... ok
+test_same_row_count_changed_payload_is_not_equal (test_input_manifest.InputManifestTests.test_same_row_count_changed_payload_is_not_equal) ... ok
+test_all_fixture_fragments_and_pipeline_rebind_without_live_schema (test_verify_model.FixtureSafetyTests.test_all_fixture_fragments_and_pipeline_rebind_without_live_schema) ... ok
+test_plan_reports_pending_and_no_fake_execution (test_verify_model.FixtureSafetyTests.test_plan_reports_pending_and_no_fake_execution) ... ok
+test_required_negative_checks_name_real_diagnostics (test_verify_model.FixtureSafetyTests.test_required_negative_checks_name_real_diagnostics) ... ok
+test_schema_rebinding_includes_dynamic_sql (test_verify_model.FixtureSafetyTests.test_schema_rebinding_includes_dynamic_sql) ... ok
+test_unsafe_schema_psql_and_commit_rejected (test_verify_model.FixtureSafetyTests.test_unsafe_schema_psql_and_commit_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.056s
+
+OK

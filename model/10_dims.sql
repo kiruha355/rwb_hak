@@ -10,16 +10,16 @@ BEGIN
     FROM (
         SELECT 'raw.customers' AS source_table, 'customer_id' AS column_name,
                customer_id AS source_key, customer_id AS source_value
-        FROM raw.customers WHERE customer_id IS NULL OR btrim(customer_id) = ''
+        FROM raw.customers WHERE customer_id IS NULL OR customer_id ~ '^[[:space:]]*$'
         UNION ALL
         SELECT 'raw.customers', 'customer_unique_id', customer_id, customer_unique_id
-        FROM raw.customers WHERE customer_unique_id IS NULL OR btrim(customer_unique_id) = ''
+        FROM raw.customers WHERE customer_unique_id IS NULL OR customer_unique_id ~ '^[[:space:]]*$'
         UNION ALL
         SELECT 'raw.sellers', 'seller_id', seller_id, seller_id
-        FROM raw.sellers WHERE seller_id IS NULL OR btrim(seller_id) = ''
+        FROM raw.sellers WHERE seller_id IS NULL OR seller_id ~ '^[[:space:]]*$'
         UNION ALL
         SELECT 'raw.products', 'product_id', product_id, product_id
-        FROM raw.products WHERE product_id IS NULL OR btrim(product_id) = ''
+        FROM raw.products WHERE product_id IS NULL OR product_id ~ '^[[:space:]]*$'
         UNION ALL
         SELECT 'raw.product_category_translation', 'product_category_name',
                product_category_name, product_category_name
@@ -155,7 +155,7 @@ COMMENT ON COLUMN core.dim_date.date_day IS 'Date key; join each timestamp role 
 COMMENT ON COLUMN core.dim_date.month_start IS 'Month grain; select DISTINCT before joining a month aggregate.';
 
 CREATE TABLE core.dim_order_status (
-    order_status text PRIMARY KEY CHECK (btrim(order_status) <> ''),
+    order_status text PRIMARY KEY CHECK (order_status !~ '^[[:space:]]*$'),
     is_revenue boolean NOT NULL,
     CONSTRAINT order_status_revenue_rule CHECK (is_revenue = (order_status = 'delivered'))
 );
@@ -173,14 +173,14 @@ COMMENT ON TABLE core.dim_order_status IS 'Observed and known status domain; uns
 COMMENT ON COLUMN core.dim_order_status.is_revenue IS 'Assignment item-revenue eligibility: delivered only; not proof of buyout, settlement or no return.';
 
 CREATE TABLE core.dim_customer (
-    customer_unique_id text PRIMARY KEY CHECK (btrim(customer_unique_id) <> '')
+    customer_unique_id text PRIMARY KEY CHECK (customer_unique_id !~ '^[[:space:]]*$')
 );
 INSERT INTO core.dim_customer (customer_unique_id)
 SELECT DISTINCT customer_unique_id FROM raw.customers;
 COMMENT ON TABLE core.dim_customer IS 'One observed buyer per customer_unique_id; no selected address or invented history.';
 
 CREATE TABLE core.dim_customer_context (
-    customer_id text PRIMARY KEY CHECK (btrim(customer_id) <> ''),
+    customer_id text PRIMARY KEY CHECK (customer_id !~ '^[[:space:]]*$'),
     customer_unique_id text NOT NULL REFERENCES core.dim_customer (customer_unique_id),
     customer_zip_code_prefix text,
     customer_zip_code_prefix_validated text,
@@ -208,7 +208,7 @@ COMMENT ON COLUMN core.dim_customer_context.customer_zip_code_prefix IS 'Origina
 COMMENT ON COLUMN core.dim_customer_context.customer_zip_code_prefix_validated IS 'Derived 5-digit prefix only for 1-5 ASCII digits; invalid/NULL source yields NULL without truncation.';
 
 CREATE TABLE core.dim_seller (
-    seller_id text PRIMARY KEY CHECK (btrim(seller_id) <> ''),
+    seller_id text PRIMARY KEY CHECK (seller_id !~ '^[[:space:]]*$'),
     seller_zip_code_prefix text,
     seller_zip_code_prefix_validated text,
     seller_city text,
@@ -268,7 +268,7 @@ COMMENT ON COLUMN core.dim_category.is_translated IS 'True exactly when an Engli
 COMMENT ON COLUMN core.dim_category.has_translation_row IS 'Source translation-row membership, preserved separately from nullable English value and category usage.';
 
 CREATE TABLE core.dim_product (
-    product_id text PRIMARY KEY CHECK (btrim(product_id) <> ''),
+    product_id text PRIMARY KEY CHECK (product_id !~ '^[[:space:]]*$'),
     category_key text NOT NULL REFERENCES core.dim_category (category_key),
     product_name_lenght integer,
     product_description_lenght integer,

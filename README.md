@@ -4,16 +4,24 @@
 
 **Для выступления сейчас:** [речь на две минуты и пять результатов](docs/submission/checkpoint-now.html) ([текст](docs/submission/checkpoint-now.md)). **Все детали:** [единый HTML-hub комплекта](docs/submission/index.html).
 
-Код модели, сборки, проверок и SQL **5 из 10 вопросов** опубликован в main `aca34f5b693b794fc2a0ea8c2623293b462b6089`. Малые проверки: **14 Python + 93 DuckDB + 16/16 PostgreSQL 16 synthetic**. Полная Olist-сборка, CSV↔raw binding, контрольные ответы из модели и полный lifecycle остаются **pending**. Условия Q6–Q10 ещё не опубликованы. Это промежуточный результат, не заявление о готовности всех десяти ответов.
+Код модели, сборки, проверок и SQL **5 из 10 вопросов** опубликован в main `aca34f5b693b794fc2a0ea8c2623293b462b6089`. После адресных исправлений: **17 Python (включая 3 PG comparator) + 93 DuckDB + 21/21 PostgreSQL 16 fixture**. [Сценарий технического показа](docs/submission/live-demo.md). Полный HTML и SQL-выгрузка коллеги доступны; полная CSV↔raw привязка и lifecycle с последними исправлениями здесь остаются **pending**. Проверенный нами ограниченный прогон описан ниже. Условия Q6–Q10 ещё не опубликованы. Это промежуточный результат, не заявление о готовности всех десяти ответов.
+
+## Работающий HTML на настоящих данных
+
+[Основной дашборд с полным mart-экспортом коллеги](dashboard/index.html) использует локальный `dashboard/data.js`. В нём 99 441 заказ, 112 650 позиций; native HTML-проверка подтвердила 14/14 внутренних сверок с SQL из той же выгрузки. [Полные результаты Q1–Q5 с provenance](research/implementation-review-20261028/full-model-answers.json), [UI evidence](research/implementation-review-20261028/full-dashboard-check.json). Для открытия держите index.html и data.js рядом; отдельная проверенная ограниченная версия ниже работает одним файлом.
+
+[Открыть автономную выборку](dashboard/olist.html) — **1 000 реальных заказов Olist** со всеми их **1 121 позициями, 1 037 платежами и 996 связями отзывов**. Выборка ограничена и не репрезентативна: показатели относятся к этим заказам, их нельзя переносить на полный маркетплейс. Входы прошли raw→core→mart на PostgreSQL 16.15; это реальные модельные результаты, не синтетический набор.
+
+Проверено для этой выборки: соответствие исходным строкам и полный набор дочерних записей, 8/8 CSV↔raw сравнений, 201 invariant без ошибок, сборка, отдельные проверки, SQL-ответы, повторная сборка и поздний rollback. [Воспроизводимый скрипт](scripts/build-olist-subset.py), [доказательства](research/implementation-review-20261028/olist-subset-handoff.md). Полный Olist и его контрольные цифры остаются отдельной невыполненной проверкой.
 
 ## Что сдаём по требованиям
 
 | Обязательный результат | Где смотреть | Состояние |
 |---|---|---|
 | SQL сборки core с нуля, одним запуском | [build.sql](model/build.sql), [wrapper](scripts/build-model.sh), [runbook](docs/build-runbook.md) | Реализован; full Olist clean/rebuild pending |
-| Запросы и цифры для 10 вопросов из модели | [SQL Q1–Q5](model/50_answers.sql), [RESULTS](answers/RESULTS.md), [реестр ответов](docs/submission/evidence.md#ответы-q1q10) | Q1–Q5 реализованы; full-data exports pending; Q6–Q10 ждут условий |
+| Запросы и цифры для 10 вопросов из модели | [SQL Q1–Q5](model/50_answers.sql), [RESULTS](answers/RESULTS.md), [реестр ответов](docs/submission/evidence.md#ответы-q1q10) | Q1–Q5 есть в полной mart-выгрузке; full lifecycle отдельно; Q6–Q10 ждут условий |
 | Записка решений ≤½ страницы | [записка](docs/submission/decisions-note.html), [текст](docs/submission/decisions-note.md) | Подготовлена; принятый пакет отражён |
-| Концепция дашборда | [пользователи, формулы, grain, источники и неаддитивность](docs/submission/dashboard-concept.md) | Подготовлена; область и HTML приняты; подключённый full-data UI pending |
+| Концепция дашборда | [пользователи, формулы, grain, источники и неаддитивность](docs/submission/dashboard-concept.md) | Подготовлена; HTML на полном mart-экспорте открыт и сверён внутри страницы |
 | Стратегия развития | [сущности, SCD, PostgreSQL, следующий стек и риски](docs/submission/growth-strategy.md) | Подготовлена; пороги нагрузки требуют измерений |
 
 Семь критериев PDF: ответы 30, модель 30, поддерживаемость 15, понимание и вброс 25, концепция дашборда 20, ИИ 15, развитие 20 — **155 баллов**. [Защита и репетиция](docs/submission/defense.md), [показ](docs/submission/presentation.html) и [AI evidence](docs/submission/ai-log.md) помогают предъявить результат; баллы себе не выставляем.
@@ -59,19 +67,19 @@ RWB_RAW_RELOAD_PAUSED=1 RWB_DB_MODE=host make build
 
 Host defaults: `127.0.0.1:5432`, database `marketplace`, user `hack`; переопределение через libpq/`PGSERVICE` — в [runbook](docs/build-runbook.md). Пароль — вне Git. Для **уже запущенного** Compose PostgreSQL есть `RWB_DB_MODE=docker`. Сборка сама не запускает Docker и не загружает raw.
 
-**`scripts/setup.sh` — подготовка/перезагрузка исходного стенда, а не ежедневная сборка модели:** он выполняет `TRUNCATE` и повторную загрузку `raw`; `--reset` удаляет volumes. Применять только к своему согласованному окружению. На текущем Mac preflight вернул **78**: тяжёлые Docker/build/полный fixture здесь не запускать и guard не обходить. Команда выше приведена для разрешённого подготовленного стенда, сейчас она нами не выполнялась. [Подготовка окружения](docs/dev-environment-20261028.md), [README организаторов](hack-context/hackathon-students/README.md).
+**`scripts/setup.sh` — подготовка/перезагрузка исходного стенда, а не ежедневная сборка модели:** он выполняет `TRUNCATE` и повторную загрузку `raw`; `--reset` удаляет volumes. Применять только к своему согласованному окружению. На текущем Mac preflight вернул **78**: тяжёлые Docker/build/полный fixture здесь не запускать и guard не обходить. Полный набор этой командой пока не проверен; ограниченная реальная выборка уже прошла её на отдельном PostgreSQL-стенде. [Подготовка окружения](docs/dev-environment-20261028.md), [README организаторов](hack-context/hackathon-students/README.md).
 
 ## Что фактически проверено
 
 | Метод | Наблюдаемый результат | Предел доказательства |
 |---|---|---|
-| Python unittest | 14 PASS, независимый повтор координатора | Manifest/isolation, не данные Olist в core |
+| Python unittest | 17 PASS, включая 3 native PG comparator | Manifest/isolation, CSV NULL/quoted-empty, запрет записи источника |
 | DuckDB synthetic SQL | 93 PASS, [отчёт](answers/verification.json) | Настоящие mart/answer SQL на малых данных; не PostgreSQL full build |
-| PostgreSQL 16.15 synthetic | 16/16 PASS; fixture CLI 0.944 s; [отчёт и ограничения](research/implementation-review-20261028/pg-smoke.md), [JSON](research/implementation-review-20261028/pg-smoke.json) | Реальные малые PG cases; временный сервер остановлен; не полная Olist-сборка |
+| PostgreSQL 16.15 fixtures | 21/21 PASS после исправлений; [актуальный отчёт](research/implementation-review-20261028/review-fixes-pg-cases.json) | Малые положительные/отрицательные сценарии; собственный сервер остановлен |
 | Static/source и CSV | Ссылки, структура, SQL inventory, связанный заказ | Статика/CSV не доказывают равенство CSV↔raw↔core |
-| Независимое Astra review | 1 P1 + 4 P2: [technical evidence](docs/submission/evidence.md#независимый-review) | Исправления ведёт координатор; готовность full model не объявлена |
+| Независимое Astra review | 1 P1 + 4 P2: [technical evidence](docs/submission/evidence.md#независимый-review) | R1–R5 исправлены и прошли адресные PG проверки; [протокол](research/implementation-review-20261028/review-fixes.md); исходный review сохранён |
 
-Полная Olist-сборка, CSV↔live raw binding, pinned control, clean/rebuild/late rollback/concurrency и full-data exports остаются **pending**. Наличие транзакции и зелёные малые проверки не заменяют эти результаты. [Матрица приёмки](docs/submission/evidence.md#матрица-runtime-приёмки).
+Полная Olist-сборка, CSV↔live raw binding, pinned control, clean/rebuild/late rollback/concurrency остаются **pending**; полный SQL-экспорт коллеги доступен отдельно. Наличие транзакции и зелёные малые проверки не заменяют эти результаты. [Матрица приёмки](docs/submission/evidence.md#матрица-runtime-приёмки).
 
 Малые команды из корня, без установки зависимостей и запуска БД:
 
@@ -82,7 +90,7 @@ python3 scripts/verify-model.py --plan
 python3 -m unittest discover -s tests/model -p 'test_*.py'
 ```
 
-При уже установленном DuckDB: `python3 answers/check_offline.py` — малые synthetic SQL checks; не устанавливать пакет ради показа. `--plan` печатает план, а не выполняет 16 PG cases. Точные результаты и provenance — в [evidence](docs/submission/evidence.md).
+При уже установленном DuckDB: `python3 answers/check_offline.py` — малые synthetic SQL checks; не устанавливать пакет ради показа. `--plan` печатает план, а не выполняет 21 PG cases. Точные результаты и provenance — в [evidence](docs/submission/evidence.md).
 
 ## ИИ, защита и развитие
 

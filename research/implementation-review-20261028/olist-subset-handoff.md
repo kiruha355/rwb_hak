@@ -74,7 +74,7 @@ python3 scripts/build-olist-subset.py report
 python3 scripts/build-olist-subset.py rollback-check
 # PGHOST/PGPORT/PGDATABASE/PGUSER задаются для выделенного endpoint;
 # PGSERVICE и DATABASE_URL должны быть сняты, если относятся к другой БД.
-python3 dashboard/export_data.py \
+python3 dashboard/subset/export_data.py \
   --dataset-label 'Olist · 1 000 реальных заказов · ограниченная выборка' \
   --output "$RWB_SUBSET_RUNTIME/model.json" \
   --html dashboard/olist.html \
@@ -92,6 +92,10 @@ exit 2). Исправлен только wrapper окружения: перем�
 показать реальную страницу, зарегистрировать handoff и опубликовать готовые code/HTML/metadata.
 Не публиковать runtime CSV, DB или полные runtime logs.
 
-Final HTML SHA256: `a63c754d5ef6d626683d7cc64341ef05553fc5df20323c0e48579f012321f509`.
+Final HTML SHA256: `617655ad73f2b465bf726d254416c1d29db78313be73ad024d9735380ac20dee`.
 Canonical data SHA256: `ad80d501a86c47e6a7b18e6dbc1598cd4057ff710da8a61b3f2b5558ff1ba06e`.
-Validation report SHA256: `352f228cfb6b2a298afe2d69246bc1767e11d1f071f6c09dc45edf4d88a793af`.
+Validation report SHA256: `6b47da9672b2b98c3bd598e422ef566e9c21d208c37fdbb577ad9a2167092cbd`.
+
+## Адресная интеграция с полным дашбордом коллеги
+
+Обновление 2026-10-28T11:10:21.258160+00:00. Основной `dashboard/index.html`, полный `data.js`, `export.sql`, Makefile и полный exporter сохранены из main `bcd4a9d`. Наша автономная страница — `dashboard/olist.html`; экспортёр/шаблон перемещены в `dashboard/subset/`, исторический W-16 — в `dashboard/sample/`. В core объединены root key guards и ANALYZE коллеги. После объединения повторены 21 PG fixture, 17 unittest (включая 3 PG CSV regressions), 8/8 CSV/raw, build/check/answers/rebuild, 201 invariant и поздний rollback; все прошли. Кодовые SHA в validation и HTML обновлены фактическим повторным прогоном. Поток полного Olist этим не проверен. Исторический `olist-subset-publication.json` фиксирует прежний handoff; актуальную порцию фиксирует `integration-publication.json`.

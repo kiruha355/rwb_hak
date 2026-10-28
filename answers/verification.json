@@ -111,7 +111,7 @@
   ],
   "checked_file_sha256": {
     "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
-    "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138",
+    "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
     "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
     "docs/metric-definitions.md": "73707aa2afb994b4c36eda18c51f84c8f719a4f7faae7156d2b9aacede9ae7bb",
     "answers/check_offline.py": "ddb3c4e24858a9792f3311b5bee5ad05a18219e6d8c05e3c669bffcaab6eba96",

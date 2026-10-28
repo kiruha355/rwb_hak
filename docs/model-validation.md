@@ -28,8 +28,12 @@ fixtures, clean build/rebuild/rollback и ответы из core не испол
    unquoted empty/NULL и quoted empty/text, которое Python `csv.reader` не хранит.
    Проверяется `_source_file`; `_loaded_at` не является исходным бизнес-полем.
    Нужны существующее подключение и остановленные на время проверки raw writers.
-   Соединение read-only; запись разрешена только во временные таблицы, затем
-   `ROLLBACK`. Этот шаг **pending**, он не подтверждает core.
+   Сначала отдельная транзакция создаёт только пустые session-private TEMP
+   tables с `ON COMMIT PRESERVE ROWS`. Затем сравнение идёт в `REPEATABLE READ
+   READ ONLY`: COPY пишет только в уже существующие TEMP tables; raw не меняется.
+   При закрытии соединения временные объекты исчезают. `CREATE TEMP` внутри
+   read-only запрещён PostgreSQL, поэтому фазы разделены. Полный pinned binding
+   остаётся **pending**, он не подтверждает core по наличию кода.
 3. **raw → core → порядок агрегации mart:** [90_checks.sql](../model/90_checks.sql)
    сравнивает типизированные значения согласно контракту. Ни значения ответов,
    ни количество строк конкретного снимка не являются business invariants.
@@ -85,7 +89,7 @@ python3 scripts/verify-model.py --plan
 
 Результаты: 14 offline unit tests — OK; Python compile и Bash syntax — exit 0;
 два manifest-запуска — exit 0, 8 хешей/header/count совпали с pin; план сообщает
-`pending_db_execution`, 16 сценариев, missing stages `[]`. Offline tests проверяют
+`pending_db_execution`, 21 сценарий, missing stages `[]`. Offline tests проверяют
 повреждённый CSV, изменение bytes без изменения count, header/order, отсутствие
 файлов, unsafe/duplicate manifest entries, изменение ref, schema rebinding,
 запрет transaction terminators и соответствие inventory диагностике.
@@ -149,7 +153,10 @@ RWB_RAW_RELOAD_PAUSED=1 bash tests/model/validate-lifecycle.sh
 весь build и намеренно выбросит `W11_INJECTED_LATE_FAILURE_AFTER_ALL_CHECKS`.
 Принимается только psql exit 3 с этим маркером; после rollback fingerprints
 должны совпасть с последним успешным build, включая raw и определения объектов.
-Далее выполняются отдельные `check` и baseline `control`, повторяется manifest.
+После успешного CSV↔raw binding скрипт сверяет восемь pin-хешей с baseline и
+байты audit manifest, затем сам устанавливает точный token для последующего
+`control`. До binding этот token автоматически не выдаётся. Далее выполняются
+отдельные `check` и baseline `control`, повторяется manifest.
 
 Скрипт сохраняет логи, manifest и небольшие fingerprints в выведенный evidence
 directory, не удаляет их и не выгружает полные данные. Тестовая БД после двух

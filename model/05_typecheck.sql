@@ -56,8 +56,8 @@ BEGIN
         ) AS rules(source_table, source_column, rule)
     LOOP
         IF spec.rule = 'key' THEN
-            predicate := format('%1$I IS NULL OR btrim(%1$I) = %2$L',
-                                spec.source_column, '');
+            predicate := format('%1$I IS NULL OR %1$I ~ %2$L',
+                                spec.source_column, '^[[:space:]]*$');
         ELSIF spec.rule = 'required_text' THEN
             -- CONTRACT gives even '' the distinct identity 'pt:'.
             predicate := format('%I IS NULL', spec.source_column);

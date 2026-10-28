@@ -1,0 +1,42 @@
+{
+  "kind": "native_html_preview",
+  "status": "passed_for_render_and_14_internal_reconciliations",
+  "provenance": {
+    "repository": "kiruha355/rwb_hak",
+    "source_commit": "54e5df55d557a84904445e849f5d31937ebdc1c8",
+    "export_meta": {
+      "exported_at": "2026-10-28T10:26:26Z",
+      "database": "marketplace",
+      "sources": [
+        "mart.v_orders",
+        "mart.v_order_delivery_variants",
+        "mart.v_order_items",
+        "mart.v_payment_reconciliation",
+        "mart.metric_definitions",
+        "mart.q01..q05",
+        "core.data_issues"
+      ]
+    },
+    "data_js_sha256": "293a32614288cd7ba7afbb5cbec07e0babbb6b13f21ed56087a45d25a7aaddfe",
+    "index_html_sha256": "81da5ded965d607c7d8f082032da5f10252254efdc1f0e9d13633a82a02f1d27",
+    "method": "Read committed full mart export; native html_preview of the same index with data.js URL pinned to source commit. No full DB load in this run.",
+    "orders": 99441,
+    "items": 112650,
+    "not_verified_here": [
+      "full CSV/raw binding",
+      "full clean/rebuild/late rollback",
+      "full run with subsequent root fixes"
+    ]
+  },
+  "observed": {
+    "width": 728,
+    "orders": 99441,
+    "items": 112650,
+    "sql_reconciliations_passed": 14,
+    "sql_reconciliations_total": 14,
+    "horizontal_overflow": false,
+    "console_errors": []
+  },
+  "note": "UI-versus-SQL uses two computations from the same published model export. This is not independent source/raw equality.",
+  "recorded_at": "2026-10-28T11:10:21.258160+00:00"
+}

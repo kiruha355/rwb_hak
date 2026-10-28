@@ -4,7 +4,7 @@
     {
       "command": "bash scripts/build-model.sh build",
       "exit_code": 0,
-      "log_sha256": "3944e3b964c3ea9a9cd70e5ade89b79aeb92f87e5ac2d3be5fa736b6787878c5"
+      "log_sha256": "b7a705ffe46a24da5f677b8fe64e6a812ee0247534bd7372c3ee4d9ba3c017e9"
     },
     {
       "command": "bash scripts/build-model.sh check",
@@ -19,9 +19,9 @@
     {
       "command": "bash scripts/build-model.sh rebuild-check",
       "exit_code": 0,
-      "log_sha256": "4fc57c7f50c19ecb4063e747e77348a96833d159f1cca6d38aee3d1ba1ad7f7d"
+      "log_sha256": "a00ce9b770d30329ffa448b99277bfea31f05976c30062eab0057876c64cc187"
     }
   ],
   "full_pinned_controls": "not_run; subset is not full Olist population",
-  "completed_at": "2026-10-28T10:36:10.184207+00:00"
+  "completed_at": "2026-10-28T11:16:09.072144+00:00"
 }

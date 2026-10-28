@@ -157,6 +157,49 @@ def run_fixtures(env_name):
         connection.close()
 
 
+def compare_csv_rows(connection, entries, data_dir):
+    """Compare source rows in READ ONLY; prepare only session temp DDL first.
+
+    PostgreSQL forbids CREATE TEMP in READ ONLY. A separate setup transaction
+    creates empty session-private tables; the source snapshot is then acquired
+    in REPEATABLE READ READ ONLY. No source/model object is written.
+    """
+    from psycopg2 import sql
+    connection.set_session(readonly=False)
+    try:
+        with connection.cursor() as cursor:
+            for index, entry in enumerate(entries):
+                definitions = sql.SQL(",").join(
+                    sql.SQL("{} text").format(sql.Identifier(c)) for c in entry["header"])
+                cursor.execute(sql.SQL("CREATE TEMP TABLE {} ({}) ON COMMIT PRESERVE ROWS").format(
+                    sql.Identifier(f"w11_csv_{index}"), definitions))
+        connection.commit()
+    except BaseException:
+        connection.rollback()
+        raise
+    connection.set_session(isolation_level="REPEATABLE READ", readonly=True)
+    results = []
+    with connection.cursor() as cursor:
+        cursor.execute("SET LOCAL statement_timeout='120s'; SET LOCAL lock_timeout='3s'")
+        for index, entry in enumerate(entries):
+            columns = sql.SQL(",").join(map(sql.Identifier, entry["header"]))
+            temp = sql.Identifier(f"w11_csv_{index}")
+            raw = sql.Identifier(*entry["table"].split("."))
+            query = sql.SQL("COPY {} ({}) FROM STDIN WITH (FORMAT csv, HEADER true)").format(temp, columns)
+            with (data_dir / entry["file"]).open(encoding="utf-8-sig", newline="") as stream:
+                cursor.copy_expert(query.as_string(connection), stream)
+            def differences(left, right):
+                cursor.execute(sql.SQL("SELECT count(*) FROM (SELECT {} FROM {} EXCEPT ALL SELECT {} FROM {}) d").format(columns,left,columns,right))
+                return cursor.fetchone()[0]
+            missing = differences(temp, raw)
+            extra = differences(raw, temp)
+            cursor.execute(sql.SQL("SELECT count(*) FROM {} WHERE _source_file IS DISTINCT FROM %s").format(raw), (entry["file"],))
+            wrong_lineage = cursor.fetchone()[0]
+            results.append({"file": entry["file"], "table": entry["table"], "csv_rows": entry["rows"],
+                            "missing_in_raw": missing, "extra_in_raw": extra, "wrong_source_file": wrong_lineage})
+    return results
+
+
 def raw_inputs(env_name, data_dir):
     if os.environ.get("RWB_RAW_RELOAD_PAUSED") != "1":
         raise ValueError("RWB_RAW_RELOAD_PAUSED=1 required after all raw writers are paused; snapshot isolation alone is insufficient")
@@ -169,33 +212,10 @@ def raw_inputs(env_name, data_dir):
     if failures:
         raise ValueError("Pinned CSV mismatch: " + "; ".join(failures))
     connection = connect(env_name, fixtures=False)
-    from psycopg2 import sql
-    results = []
     try:
-        with connection.cursor() as cursor:
-            cursor.execute("SET LOCAL statement_timeout='120s'; SET LOCAL lock_timeout='3s'")
-            for index, entry in enumerate(pinned["files"]):
-                columns = sql.SQL(",").join(map(sql.Identifier, entry["header"]))
-                temp = sql.Identifier(f"w11_csv_{index}")
-                raw = sql.Identifier(*entry["table"].split("."))
-                definitions = sql.SQL(",").join(sql.SQL("{} text").format(sql.Identifier(c)) for c in entry["header"])
-                cursor.execute(sql.SQL("CREATE TEMP TABLE {} ({}) ON COMMIT DROP").format(temp, definitions))
-                query = sql.SQL("COPY {} ({}) FROM STDIN WITH (FORMAT csv, HEADER true)").format(temp, columns)
-                # PG's CSV parser, like the loader, distinguishes quoted empty text
-                # from an unquoted empty (NULL). Python csv.reader alone does not.
-                with (data_dir / entry["file"]).open(encoding="utf-8-sig", newline="") as stream:
-                    cursor.copy_expert(query.as_string(connection), stream)
-                def differences(left, right):
-                    cursor.execute(sql.SQL("SELECT count(*) FROM (SELECT {} FROM {} EXCEPT ALL SELECT {} FROM {}) d").format(columns,left,columns,right))
-                    return cursor.fetchone()[0]
-                missing = differences(temp, raw)
-                extra = differences(raw, temp)
-                cursor.execute(sql.SQL("SELECT count(*) FROM {} WHERE _source_file IS DISTINCT FROM %s").format(raw), (entry["file"],))
-                wrong_lineage = cursor.fetchone()[0]
-                results.append({"file": entry["file"], "table": entry["table"], "csv_rows": entry["rows"],
-                                "missing_in_raw": missing, "extra_in_raw": extra, "wrong_source_file": wrong_lineage})
-            if module.compare(module.collect(data_dir, pinned), before):
-                raise ValueError("CSV changed during raw comparison")
+        results = compare_csv_rows(connection, pinned["files"], data_dir)
+        if module.compare(module.collect(data_dir, pinned), before):
+            raise ValueError("CSV changed during raw comparison")
         if any(r[k] for r in results for k in ("missing_in_raw", "extra_in_raw", "wrong_source_file")):
             raise ValueError("CSV/raw multiset mismatch: " + json.dumps(results))
         return {"status": "passed", "method": "pinned CSV vs raw business columns: bidirectional EXCEPT ALL, PG CSV NULL semantics",

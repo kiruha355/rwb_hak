@@ -29,7 +29,7 @@ BEGIN
             ('review_id', r.review_id), ('order_id', r.order_id)
         ) AS v(column_name, source_value)
     ) AS identities
-    WHERE source_value IS NULL OR btrim(source_value) = '' LIMIT 1;
+    WHERE source_value IS NULL OR source_value ~ '^[[:space:]]*$' LIMIT 1;
     IF FOUND THEN
         RAISE EXCEPTION 'Invalid required identity: %.%, key=%, value=%',
             bad.source_table, bad.column_name, bad.source_key, bad.source_value;
@@ -78,8 +78,8 @@ END
 $validate_fact_inputs$;
 
 CREATE TABLE core.fact_order (
-    order_id text PRIMARY KEY CHECK (btrim(order_id) <> ''),
-    customer_id text NOT NULL CHECK (btrim(customer_id) <> ''),
+    order_id text PRIMARY KEY CHECK (order_id !~ '^[[:space:]]*$'),
+    customer_id text NOT NULL CHECK (customer_id !~ '^[[:space:]]*$'),
     customer_unique_id text NOT NULL REFERENCES core.dim_customer (customer_unique_id),
     order_status text NOT NULL REFERENCES core.dim_order_status (order_status),
     order_purchase_timestamp timestamp without time zone,
@@ -173,7 +173,7 @@ COMMENT ON COLUMN core.fact_payment.payment_installments IS 'Source count, inclu
 COMMENT ON COLUMN core.fact_payment.payment_value IS 'Exact source payment amount; no reconciliation adjustment, allocation, zero substitution or scale rounding.';
 
 CREATE TABLE core.fact_review (
-    review_id text NOT NULL CHECK (btrim(review_id) <> ''),
+    review_id text NOT NULL CHECK (review_id !~ '^[[:space:]]*$'),
     order_id text NOT NULL REFERENCES core.fact_order (order_id),
     review_score integer,
     review_comment_title text,
@@ -197,7 +197,6 @@ COMMENT ON COLUMN core.fact_review.review_comment_title IS 'Full source text wit
 COMMENT ON COLUMN core.fact_review.review_comment_message IS 'Full source text without trimming, truncation, empty-string substitution or dedup selection.';
 COMMENT ON COLUMN core.fact_review.review_creation_date IS 'Naive source timestamp retained at timestamp precision despite the source column suffix date.';
 COMMENT ON COLUMN core.fact_review.review_answer_timestamp IS 'Naive source response timestamp; latest does not establish authoritative/current opinion.';
-
 -- Tables are created and filled in the same transaction, so autovacuum has not
 -- collected statistics yet. Without them the planner assumes ~200 groups per
 -- aggregate and picks nested loops over ~100k x 100k rows in 30_quality/40_mart.

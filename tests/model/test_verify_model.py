@@ -41,13 +41,13 @@ class FixtureSafetyTests(unittest.TestCase):
     def test_plan_reports_pending_and_no_fake_execution(self):
         result = verify.plan()
         self.assertEqual(result["status"], "pending_db_execution")
-        self.assertEqual(len(result["cases"]), 16)
+        self.assertEqual(len(result["cases"]), 21)
         self.assertEqual(result["missing_stages"], [])
         self.assertNotIn("passed", result)
 
     def test_required_negative_checks_name_real_diagnostics(self):
         sql = (ROOT / "model/90_checks.sql").read_text()
-        mapping_names = {"items", "reviews"}
+        mapping_names = {"items", "reviews", "translations", "categories"}
         suffixes = {"values_raw_minus_core", "keys_raw_minus_core", "keys_core_minus_raw", "multiplicity"}
         for case in verify.inventory():
             if case.get("error_code") == "23514":
