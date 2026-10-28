@@ -1,0 +1,180 @@
+{
+  "method": "Independent Sol stdlib CSV + Decimal, local files; no DB/core/third-party code",
+  "source_ref_claim_to_compare": "d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "files": {
+    "olist_orders_dataset.csv": {
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "records": 99441,
+      "header": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ]
+    },
+    "olist_order_items_dataset.csv": {
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "records": 112650,
+      "header": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ]
+    },
+    "olist_order_payments_dataset.csv": {
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "records": 103886,
+      "header": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ]
+    },
+    "olist_customers_dataset.csv": {
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "records": 99441,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ]
+    },
+    "olist_order_reviews_dataset.csv": {
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "records": 99224,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ]
+    },
+    "olist_products_dataset.csv": {
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "records": 32951,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ]
+    },
+    "olist_sellers_dataset.csv": {
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "records": 3095,
+      "header": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ]
+    },
+    "product_category_name_translation.csv": {
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "records": 71,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ]
+    }
+  },
+  "total_csv_records": 550759,
+  "finance": {
+    "comparison": "sum(payment_value) - sum(price + freight_value), separately by order_id",
+    "population": "orders with both children, all source statuses",
+    "orders": 99441,
+    "intersection": 98665,
+    "items_only": 1,
+    "payments_only": 775,
+    "thresholds": {
+      "exact_nonzero": {
+        "count": 639,
+        "sum_delta": "-1819.51"
+      },
+      "abs_gt_one_cent": {
+        "count": 366,
+        "sum_delta": "-1818.84"
+      }
+    },
+    "zero_substitution_hypothesis_only": {
+      "nonzero_count": 1412,
+      "sum_delta": "160628.98"
+    },
+    "fanout_intersection": {
+      "join_rows": 117601,
+      "item_amount_correct": "15848099.68",
+      "item_amount_after_join": "16571528.43",
+      "payment_correct": "15846280.17",
+      "payment_after_join": "20308134.71"
+    }
+  },
+  "customers": {
+    "customer_ids": 99441,
+    "buyers": 96096,
+    "buyers_multiple_zip_prefix": 250
+  },
+  "reviews": {
+    "records": 99224,
+    "distinct_pairs": 99224,
+    "distinct_review_ids": 98410,
+    "ids_conflicting_full_payload": 0
+  },
+  "time": {
+    "purchase_month_counts": {
+      "2016-09": 4,
+      "2016-10": 324,
+      "2016-12": 1,
+      "2017-01": 800,
+      "2017-02": 1780,
+      "2017-03": 2682,
+      "2017-04": 2404,
+      "2017-05": 3700,
+      "2017-06": 3245,
+      "2017-07": 4026,
+      "2017-08": 4331,
+      "2017-09": 4285,
+      "2017-10": 4631,
+      "2017-11": 7544,
+      "2017-12": 5673,
+      "2018-01": 7269,
+      "2018-02": 6728,
+      "2018-03": 7211,
+      "2018-04": 6939,
+      "2018-05": 6873,
+      "2018-06": 6167,
+      "2018-07": 6292,
+      "2018-08": 6512,
+      "2018-09": 16,
+      "2018-10": 4
+    },
+    "tail_purchase_ge_2018_09_01": 20,
+    "tail_delivered_status": 0,
+    "max_purchase": "2018-10-17 17:30:18",
+    "max_delivered_timestamp_present": "2018-10-17 13:22:46"
+  },
+  "limits": [
+    "Source bytes are local CSV, not proof of DB/raw equality",
+    "CSV empty strings compared literally; no SQL NULL assertion",
+    "No business cause, extraction as-of, metric approval or model PASS inferred"
+  ]
+}
