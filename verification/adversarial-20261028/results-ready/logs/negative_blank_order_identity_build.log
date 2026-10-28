@@ -1,0 +1,30 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/00_schemas.sql
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+psql:<stdin>:42: NOTICE:  42P06: schema "core" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:43: NOTICE:  42P06: schema "mart" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:195: ERROR:  P0001: Input type/key precheck failed before model casts
+DETAIL:  raw.orders.order_id [key]: 1 row(s)
+HINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.
+CONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE
+LOCATION:  exec_stmt_raise, pl_exec.c:3911
+Model command failed (psql exit 3). See the SQL error above.
+No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.

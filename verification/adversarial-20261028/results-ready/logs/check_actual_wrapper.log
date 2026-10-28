@@ -1,0 +1,36 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+psql:<stdin>:136: NOTICE:  42P07: relation "check_results" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:434: WARNING:  01000: core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 11
+{"order_id": "after-year"}
+{"order_id": "before-year"}
+{"order_id": "boundary-1-0"}
+review.payload_fd: 1
+{"review_id": "shared-review", "payload_variants": 2}
+review.score_unusual: 4
+{"order_id": "missing-money", "review_id": "r-missing-money", "review_score": null}
+{"order_id": "new-status", "review_id": "r-new-status", "review_score": 6}
+{"order_id": "only-invalid-score", "review_id": "r-only-invalid-score", "review_score": 6}
+status.unexpected: 1
+{"order_status": "returned_custom"}
+LOCATION:  exec_stmt_raise, pl_exec.c:3911

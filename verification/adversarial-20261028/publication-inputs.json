@@ -1,0 +1,20 @@
+{
+  "utc": "2026-10-28T14:17:18.238516+00:00",
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "harness_commit": "de3aab0a9e41b08502656e4c31a52a395237b4cd",
+  "publication_branch": "t3/adversarial-20261028",
+  "fetched_refs": {
+    "origin/main": "6452806eae21d13126da9de8ebaba01a2152eaea",
+    "origin/t3/integrate-q6-q10-marts": "aab62d7a59f196be051df12466fb21c0da4659b9"
+  },
+  "dependencies": {
+    "model": "13000f3bd4f1471ea35c897f08d8c804edf62e56",
+    "answers": "5c01ca3c0b02496cc466b842911f46eefb8a379b",
+    "scripts": "bd269df506d780281fc7b6113cd46bb3610c78fe",
+    "tests": "3441e10ce833c08b226ef2e036fd879f17f946c7"
+  },
+  "target_tree_rule": "all paths outside verification/adversarial-20261028 must exactly equal input tree",
+  "full_olist_db_pass": false,
+  "history_runtime_checked": false,
+  "whitespace_check_scope": "source/docs/json/sql; verbatim PostgreSQL *.log excluded because aligned output contains trailing spaces"
+}

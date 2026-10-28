@@ -1,0 +1,264 @@
+[
+  {
+    "label": "initdb",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/initdb",
+      "-D",
+      "<private-server>/data",
+      "-U",
+      "adversarial_fixture",
+      "-A",
+      "trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "stdin_sha256": null,
+    "exit_code": 0,
+    "seconds": 0.422
+  },
+  {
+    "label": "start_own_server",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/pg_ctl",
+      "-D",
+      "<private-server>/data",
+      "-l",
+      "<private-server>/server.log",
+      "-w",
+      "-o",
+      "-F -h '' -k <private-server>/s -p 55483 -c shared_buffers=16MB -c max_connections=5 -c work_mem=1MB -c max_parallel_workers=0",
+      "start"
+    ],
+    "stdin_sha256": null,
+    "exit_code": 0,
+    "seconds": 0.118
+  },
+  {
+    "label": "createdb",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/createdb",
+      "adversarial_fixture"
+    ],
+    "stdin_sha256": null,
+    "exit_code": 0,
+    "seconds": 0.047
+  },
+  {
+    "label": "baseline_raw_load",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "bdd9fee5043091aa29bc1009a93e6d1aa138f8559a09bf95a079407cc0abfdd2",
+    "exit_code": 0,
+    "seconds": 0.018
+  },
+  {
+    "label": "baseline_raw_before_catalog",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "8c9c9f8c33f4c0b0a1cfbed4e8b1aae8511e33e026fd51ea24abcf430964be56",
+    "exit_code": 0,
+    "seconds": 0.009
+  },
+  {
+    "label": "baseline_raw_before_raw.customers",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "ba6f1523f40d916569bca4ca4a26c82265eabbce109ad63481ff6ba64a396cd1",
+    "exit_code": 0,
+    "seconds": 0.008
+  },
+  {
+    "label": "baseline_raw_before_raw.order_items",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "a9986a8eeb59718560c46dd96c7df51588d59a045fb1180562d7e77ca126c1d0",
+    "exit_code": 0,
+    "seconds": 0.008
+  },
+  {
+    "label": "baseline_raw_before_raw.order_payments",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "a84d9338f605c933e05a389125cecdbbbaaa4db0565d1f2784f4c2a62c2f3221",
+    "exit_code": 0,
+    "seconds": 0.011
+  },
+  {
+    "label": "baseline_raw_before_raw.order_reviews",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "09bf416387b08c7efb0286b34b438b82975b2c453fc78f24fd9a7d67d482f2d8",
+    "exit_code": 0,
+    "seconds": 0.008
+  },
+  {
+    "label": "baseline_raw_before_raw.orders",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "c109b2cb40cc0ac7f8b1de7f2c8d41a9d285cfb78aeb37da5b9a1828a15b2037",
+    "exit_code": 0,
+    "seconds": 0.007
+  },
+  {
+    "label": "baseline_raw_before_raw.product_category_translation",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "6512fd50551bf2458ae7202589e05e466f6e052ab97cec75d29e017ce41f3412",
+    "exit_code": 0,
+    "seconds": 0.007
+  },
+  {
+    "label": "baseline_raw_before_raw.products",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "54329e952990910188d56cadc03020c3954d9a68325e2889bb22461f17aea3f9",
+    "exit_code": 0,
+    "seconds": 0.007
+  },
+  {
+    "label": "baseline_raw_before_raw.sellers",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "c4d469435fee384b6bbeb7b918b5643a0f4eaa2c63581e0c8da06ea9068a7d3e",
+    "exit_code": 0,
+    "seconds": 0.007
+  },
+  {
+    "label": "baseline_raw_before_defs",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "87fb0e6561f77cbf031d061b0b09c131ee7f80eff84e7c7438f977bd505d0663",
+    "exit_code": 0,
+    "seconds": 0.007
+  },
+  {
+    "label": "baseline_raw_before_constraints",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/psql",
+      "-X",
+      "-w",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-P",
+      "pager=off"
+    ],
+    "stdin_sha256": "8aa5f3b0432760e4951dd7992f91a05cdab884254f6112da04a84a357ff00fce",
+    "exit_code": 0,
+    "seconds": 0.008
+  },
+  {
+    "label": "baseline_build",
+    "argv": [
+      "bash",
+      "scripts/build-model.sh",
+      "build"
+    ],
+    "stdin_sha256": null,
+    "exit_code": 3,
+    "seconds": 0.043
+  },
+  {
+    "label": "stop_own_server",
+    "argv": [
+      "/opt/homebrew/opt/postgresql@16/bin/pg_ctl",
+      "-D",
+      "<private-server>/data",
+      "-m",
+      "fast",
+      "-w",
+      "stop"
+    ],
+    "stdin_sha256": null,
+    "exit_code": 0,
+    "seconds": 0.109
+  }
+]
