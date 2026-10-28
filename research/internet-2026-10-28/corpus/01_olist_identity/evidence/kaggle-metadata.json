@@ -1,0 +1,82 @@
+{
+  "ecommerce": {
+    "url": "https://www.kaggle.com/api/v1/datasets/view/olistbr/brazilian-ecommerce",
+    "accessed_at": "2026-10-28T08:13:03.420844+00:00",
+    "title": "Brazilian E-Commerce Public Dataset by Olist",
+    "licenseName": "CC BY-NC-SA 4.0",
+    "currentVersionNumber": 2,
+    "lastUpdated": "2021-10-01T19:08:27.97Z",
+    "versions": [
+      {
+        "number": 2,
+        "date": "2021-10-01T19:08:27.97Z",
+        "notes": "Data Update 2021/10/01"
+      },
+      {
+        "number": 7,
+        "date": "2018-11-29T12:22:57.62Z",
+        "notes": "add new feature to order_items_dataset"
+      },
+      {
+        "number": 6,
+        "date": "2018-10-31T16:15:27.527Z",
+        "notes": "Major changes in the dataset structure to allow aggregation of more data. Add data schema representation. Clear datasets names. Add delivered_carrier_date information. More detail on zip codes to increase geolocation precision. Removed the classified dataset, it will be released later as a new dataset."
+      },
+      {
+        "number": 5,
+        "date": "2018-10-25T19:46:13.67Z",
+        "notes": "add sellers with origins for all orders; create product_measures with info about product dimensions; remove duplicate records from payments"
+      },
+      {
+        "number": 4,
+        "date": "2018-10-09T01:52:17.347Z",
+        "notes": "translation for product_category_name and improved geolocation_dataset (more records)"
+      },
+      {
+        "number": 3,
+        "date": "2018-10-03T18:55:37.45Z",
+        "notes": "Adding customer_id, product_id, order_id. New datasets with payment and geolocation data."
+      },
+      {
+        "number": 2,
+        "date": "2018-09-21T15:53:39.287Z",
+        "notes": "Unversioned Update"
+      },
+      {
+        "number": 1,
+        "date": "2018-09-21T15:23:38.59Z",
+        "notes": "Initial release"
+      }
+    ],
+    "sections_checked": [
+      "description: Context",
+      "description: Joining",
+      "description: Classified Dataset"
+    ]
+  },
+  "marketing": {
+    "url": "https://www.kaggle.com/api/v1/datasets/view/olistbr/marketing-funnel-olist",
+    "accessed_at": "2026-10-28T08:13:03.420844+00:00",
+    "title": "Marketing Funnel by Olist",
+    "licenseName": "CC BY-NC-SA 4.0",
+    "currentVersionNumber": 2,
+    "lastUpdated": "2018-11-16T14:00:20.677Z",
+    "versions": [
+      {
+        "number": 2,
+        "date": "2018-11-16T14:00:20.677Z",
+        "notes": "changed filenames"
+      },
+      {
+        "number": 1,
+        "date": "2018-11-16T13:37:25.427Z",
+        "notes": "Initial release"
+      }
+    ],
+    "sections_checked": [
+      "description: Context",
+      "description: Joining",
+      "description: Classified Dataset"
+    ]
+  }
+}

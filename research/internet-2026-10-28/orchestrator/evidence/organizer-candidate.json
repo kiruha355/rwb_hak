@@ -1,0 +1,30 @@
+{
+  "repository": "daniilivanovp-droid/hackathon-students",
+  "default_branch": "main",
+  "default_ref": "3da32d149bfa14dca3fdb0c5863d0771c38efbfc",
+  "accessed_at": "2026-10-28T08:18:55.321126+00:00",
+  "identity_status": "candidate source; organizer authority not independently confirmed",
+  "files": [
+    {
+      "path": "README.md",
+      "url": "https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/README.md",
+      "sha256": "c9e6a34e7b79c1fdfeb10263f88bd1a2598c6b857fd73d46812d5f5178d8bcc4",
+      "bytes": 5397,
+      "equals_local_copy": true
+    },
+    {
+      "path": "docs/handout.md",
+      "url": "https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/docs/handout.md",
+      "sha256": "3776fbc0f67e9ead2674be7e76d72a63ecf504695a1e2bdef31fc82238aec3fe",
+      "bytes": 12266,
+      "equals_local_copy": true
+    },
+    {
+      "path": "docs/tasks.md",
+      "url": "https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/docs/tasks.md",
+      "sha256": "80f47fc44374b1062ffbb61816224df9aafb85b1a5f27bff779d425512a659d2",
+      "bytes": 5690,
+      "equals_local_copy": true
+    }
+  ]
+}
