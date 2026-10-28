@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "capibara-api",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/Users/HONOR/Desktop/rwb_hak/app/api/server.js"],
+      "port": 8787
+    },
+    {
+      "name": "capibara-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "C:/Users/HONOR/Desktop/rwb_hak/app/web", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}

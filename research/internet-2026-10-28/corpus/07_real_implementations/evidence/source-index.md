@@ -1,0 +1,14 @@
+# Индекс проверенных источников
+
+Проверено чтением через GitHub API/raw HTTPS и `git ls-remote`, 2026-10-28 08:11–08:13 UTC. Содержательный код не копировался. Ссылки на конкретные строки — в `findings.jsonl`.
+
+| Репозиторий и immutable HEAD | Дата commit / лицензия | Прочитано | Границы |
+|---|---|---|---|
+| [Tu Nguyen](https://github.com/tunguyenn99/ecommerce-data-modeling/tree/63401c2739ae42dd9bbfa7e20227fe7b7de725a3) | 2026-05-31; [MIT, copyright Tu Nguyen](https://github.com/tunguyenn99/ecommerce-data-modeling/blob/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/LICENSE) | дерево API без truncation; staging customers/payments/reviews, промежуточные агрегаты и перевод, dim customers/products, facts, schema.yml, конфигурация dbt | Статический просмотр; исполнения и данных нет. |
+| [Yaroslav Zinchenko](https://github.com/yzinchenko-data/olist-ecommerce-analytics/tree/443ebe2bb86f02c987d4e1e4c24a4824db908e79) | commit date не получен; [MIT, copyright Yaroslav Zinchenko](https://github.com/yzinchenko-data/olist-ecommerce-analytics/blob/443ebe2bb86f02c987d4e1e4c24a4824db908e79/LICENSE) | SQL order mart и quality queries | Исходные таблицы встречаются в SQL, их полное наполнение не проверено. |
+| [dishadhara23](https://github.com/dishadhara23/Sales-Customer-Intelligence-Platform/tree/45b079af4e09b87d5d1cdd15c357874e3b187512) | commit date не получен; `LICENSE` и `LICENSE.md` — HTTP 404, иные пути не исследованы | README, fact_payments, checks.py | Названия 20/21 fact файлов из предполагаемых путей вернули 404; не заявляем отсутствия фактов. |
+| [seyifalope](https://github.com/seyifalope/Olist-Ecommerce-Dbt-Project/tree/0105849dc9a3e67f4ae7d85b039df1ef8b066b8d) | commit date не получен; `LICENSE`, `LICENSE.md` — 404 | README | Заявления о тестах/модели пока без проверки исходников, не findings о поведении. |
+| [KhalifaSeck](https://github.com/KhalifaSeck/olist-data-quality/tree/777d53459c6f8e43046c845cf3d786e610071a23) | commit date не получен; `LICENSE`, `LICENSE.md` — 404 | README | Имена quality-моделей и результатов только заявлены; файлы и результаты не проверены. |
+| [tolamoye](https://github.com/tolamoye/Olist-E-commerce-Data-Analysis/tree/c609dfa753e84ebeca0711344a650668f4e81652) | commit date не получен; `LICENSE` — 404, иные пути не исследованы | конкретный SQL | Непригоден для вывода о структуре всего проекта. |
+
+README — ориентир, не proof реализаций; отсутствие файла по стандартному имени не равно отсутствию лицензии. Для MIT перенос существенного кода требует сохранения copyright и текста лицензии; в этом пакете нет переноса кода. Другие найденные `Mihirp07/retail-analytics-dbt` HEAD `752359a82a5a1b4cbdf08645d0c1f090a6fc22d4` и `dilambestall/order-to-delivery-analytics-pipeline` HEAD `a0d22b85f26ba4d6a064f92379a9ce44cc11dd1d`: прочитан search result, code и лицензии не проверены.

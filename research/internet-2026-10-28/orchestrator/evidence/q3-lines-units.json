@@ -1,0 +1,14 @@
+{
+  "method": "Sol stdlib CSV; delivered orders with items; all purchase dates; no DB",
+  "sha256": {
+    "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+    "olist_order_items_dataset.csv": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb"
+  },
+  "orders": 96478,
+  "physical_item_rows": 110197,
+  "rows_or_units_per_order": "1.142198221356164099587470719",
+  "distinct_product_seller_groups": 100196,
+  "product_seller_groups_per_order": "1.038537283111175604801094550",
+  "distinct_products_per_order": "1.038537283111175604801094550",
+  "limits": "Grouped SKU lines are derived; source order_item grain and organizer intent unchanged"
+}

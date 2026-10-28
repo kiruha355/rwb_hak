@@ -1,0 +1,60 @@
+{
+  "source": "https://api.github.com/repos/olist/work-at-olist-data/contents/datasets?ref=d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "method": "GitHub API tree values transcribed from actual successful read; local blob independently computed, four by reproduce.py and four by git hash-object. Geolocation not read locally.",
+  "files": [
+    {
+      "name": "olist_customers_dataset.csv",
+      "api_blob_sha1": "247b44f6c4836b354fb90b89f0fb8927a670fa38",
+      "api_bytes": 8562270,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_geolocation_dataset.csv",
+      "api_blob_sha1": "6d0de13e907ff7a8235ae6b35d7d15c6feaadeca",
+      "api_bytes": 61273883,
+      "local_blob_match": false
+    },
+    {
+      "name": "olist_order_items_dataset.csv",
+      "api_blob_sha1": "469094c4785f82d594796efe376fd18fdd1596b4",
+      "api_bytes": 15007623,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_order_payments_dataset.csv",
+      "api_blob_sha1": "663679bc7a2911b806ef30ef1852f25b502005b2",
+      "api_bytes": 5647783,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_order_reviews_dataset.csv",
+      "api_blob_sha1": "2c32975b59dfa8335963fd4e94e3bebd60bd16f6",
+      "api_bytes": 14451670,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_orders_dataset.csv",
+      "api_blob_sha1": "8133513ba3bcf576837c47aedd7fd81c5bb110fc",
+      "api_bytes": 17654914,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_products_dataset.csv",
+      "api_blob_sha1": "e5bd67eb7de63126b6b92aded29221303b124ed0",
+      "api_bytes": 2379446,
+      "local_blob_match": true
+    },
+    {
+      "name": "olist_sellers_dataset.csv",
+      "api_blob_sha1": "173500dec733fff76e2d4ca9eaee8995c481ea34",
+      "api_bytes": 163589,
+      "local_blob_match": true
+    },
+    {
+      "name": "product_category_name_translation.csv",
+      "api_blob_sha1": "316c88942fc31f7a22a6233a125e5dafea2af5d7",
+      "api_bytes": 2613,
+      "local_blob_match": true
+    }
+  ]
+}

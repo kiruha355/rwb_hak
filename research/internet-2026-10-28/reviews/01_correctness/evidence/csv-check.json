@@ -1,0 +1,258 @@
+{
+  "method": "R1 independent Python stdlib csv+Decimal; local bytes, no DB or Internet code execution",
+  "files": {
+    "olist_orders_dataset.csv": {
+      "records": 99441,
+      "header": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "git_blob_sha1": "8133513ba3bcf576837c47aedd7fd81c5bb110fc",
+      "bytes": 17654914
+    },
+    "olist_order_items_dataset.csv": {
+      "records": 112650,
+      "header": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "git_blob_sha1": "469094c4785f82d594796efe376fd18fdd1596b4",
+      "bytes": 15007623
+    },
+    "olist_order_payments_dataset.csv": {
+      "records": 103886,
+      "header": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "git_blob_sha1": "663679bc7a2911b806ef30ef1852f25b502005b2",
+      "bytes": 5647783
+    },
+    "olist_order_reviews_dataset.csv": {
+      "records": 99224,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "git_blob_sha1": "2c32975b59dfa8335963fd4e94e3bebd60bd16f6",
+      "bytes": 14451670
+    },
+    "olist_products_dataset.csv": {
+      "records": 32951,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "git_blob_sha1": "e5bd67eb7de63126b6b92aded29221303b124ed0",
+      "bytes": 2379446
+    },
+    "olist_sellers_dataset.csv": {
+      "records": 3095,
+      "header": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "git_blob_sha1": "173500dec733fff76e2d4ca9eaee8995c481ea34",
+      "bytes": 163589
+    },
+    "olist_customers_dataset.csv": {
+      "records": 99441,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "git_blob_sha1": "247b44f6c4836b354fb90b89f0fb8927a670fa38",
+      "bytes": 8562270
+    },
+    "product_category_name_translation.csv": {
+      "records": 71,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "git_blob_sha1": "316c88942fc31f7a22a6233a125e5dafea2af5d7",
+      "bytes": 2613
+    }
+  },
+  "total_records": 550759,
+  "keys": {
+    "orders": {
+      "rows": 99441,
+      "distinct": 99441,
+      "empty_key_rows": 0
+    },
+    "items": {
+      "rows": 112650,
+      "distinct": 112650,
+      "empty_key_rows": 0
+    },
+    "payments": {
+      "rows": 103886,
+      "distinct": 103886,
+      "empty_key_rows": 0
+    },
+    "reviews": {
+      "rows": 99224,
+      "distinct": 99224,
+      "empty_key_rows": 0
+    },
+    "products": {
+      "rows": 32951,
+      "distinct": 32951,
+      "empty_key_rows": 0
+    },
+    "sellers": {
+      "rows": 3095,
+      "distinct": 3095,
+      "empty_key_rows": 0
+    },
+    "customers": {
+      "rows": 99441,
+      "distinct": 99441,
+      "empty_key_rows": 0
+    },
+    "translations": {
+      "rows": 71,
+      "distinct": 71,
+      "empty_key_rows": 0
+    }
+  },
+  "fk_missing": {
+    "orders_customer": 0,
+    "items_order": 0,
+    "items_product": 0,
+    "items_seller": 0,
+    "payments_order": 0,
+    "reviews_order": 0
+  },
+  "order_customer_cardinality": {
+    "distinct_order_customer_ids": 99441,
+    "customers_unreferenced": 0
+  },
+  "money": {
+    "missing_values": {},
+    "all_orders": 99441,
+    "both": 98665,
+    "items_only": 1,
+    "payments_only": 775,
+    "neither": 0,
+    "items_only_sum": "143.46",
+    "payments_only_sum": "162591.95",
+    "exact_nonzero_count": 639,
+    "exact_delta_sum": "-1819.51",
+    "gt_cent_count": 366,
+    "gt_cent_delta_sum": "-1818.84",
+    "all_abs_delta_sum": "7981.47",
+    "fanout_rows": 117601,
+    "item_correct": "15848099.68",
+    "item_after_join": "16571528.43",
+    "payment_correct": "15846280.17",
+    "payment_after_join": "20308134.71"
+  },
+  "review": {
+    "pairs": 99224,
+    "ids": 98410,
+    "ids_multi_orders": 789,
+    "orders_multiple_rows": 547,
+    "full_payload_conflicts": 0,
+    "pair_weighted_mean": "4.086420624042570345884060308",
+    "review_id_weighted_mean": "4.088801951021237679097652678"
+  },
+  "customers": {
+    "unique_buyers": 96096,
+    "multi_zip_prefix": 250
+  },
+  "categories": {
+    "products_empty": 610,
+    "nonempty_distinct": 73,
+    "missing_translations": [
+      "pc_gamer",
+      "portateis_cozinha_e_preparadores_de_alimentos"
+    ],
+    "delivered_groups_including_empty": 74,
+    "delivered_price_total": "13221498.11",
+    "top_category": "beleza_saude",
+    "top_category_price": "1233131.72"
+  },
+  "metrics": {
+    "q1_all_orders": 99421,
+    "q1_delivered_orders": 96478,
+    "delivered_item_price": "13221498.11",
+    "top_seller": "4869f7a5dfa277a7dca6462dcf3b52b2",
+    "top_seller_delivered_price": "226987.93",
+    "top_seller_all_order_count": 1132,
+    "top_seller_delivered_order_count": 1124,
+    "delivered_items_plus_freight": {
+      "n": 96478,
+      "sum": "15424463.65",
+      "mean": "159.8754498434876344866187110"
+    },
+    "delivered_payment": {
+      "n": 96477,
+      "sum": "15422461.77",
+      "mean": "159.8563571628471034547094126"
+    },
+    "all_items_plus_freight": {
+      "n": 98666,
+      "sum": "15848243.14",
+      "mean": "160.6251711835890783045831391"
+    },
+    "all_payment": {
+      "n": 99440,
+      "sum": "16008872.12",
+      "mean": "160.9902666934835076427996782"
+    }
+  },
+  "time": {
+    "no_nov_2016_orders": 0,
+    "sep_2018": 16,
+    "oct_2018": 4,
+    "tail_delivered": 0,
+    "max_purchase": "2018-10-17 17:30:18",
+    "max_delivery": "2018-10-17 13:22:46"
+  },
+  "limits": [
+    "File-byte equality does not establish DB raw equality.",
+    "FD limited to decoded literal CSV payload; no inference for future data or SQL NULL.",
+    "No actual event time for each installment, extraction as-of or causes established."
+  ]
+}
