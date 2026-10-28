@@ -1,7 +1,7 @@
 # Работы, владельцы и общий контекст
 
 Repository: `kiruha355/rwb_hak` · proposal branch: `proposal/mput-agent-workflow-20261028`
-Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-28T09:11:35Z`
+Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-28T09:16:05Z`
 
 > Статус: карта задач нашей рабочей группы; общекомандное размещение реестров и архитектура не утверждены этой записью.
 
@@ -17,7 +17,7 @@ Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-2
 | W-04 | Интернет-исследование · координатор исследований | research/README.md, research/internet-2026-10-28/ | done (research slice) | Финальный корпус/3 review/синтез: b7495d66faebee5ba9b07d829caee019a6e76fdf; 85 manifest hashes сверены. 102 records, 162 dispositions, 18 selected findings; новые интенты и перенос в модель — отдельная работа. |
 | W-05 | Проверка данных · независимый аналитик | research/data-audit-2026-10-28/ | in_progress | Проверить 8 CSV, ключи, кардинальности, деньги и baseline; не выдавать raw baseline за результат core. |
 | W-06 | Бриф и пакет решений перед реализацией · автор implementation-brief (Codex / Sol) | docs/implementation-brief-20261028.md, docs/implementation-brief-20261028.html | in_progress | Сверить синтез v2 с финальным research; собрать причины, альтернативы, схемы и acceptance. Координация не означает approval архитектуры или запуск разработки. |
-| W-07 | Подготовка dev-окружения (Codex / Sol) | docs/dev-environment-20261028.md, scripts/dev-check.sh, requirements-dev.txt | in_progress | Безопасно проверить/подготовить выбранные PG16/Python/psql, закрепить драйвер существующего loader; read-only checks и runbook. Без изменений raw/core/mart или бизнес-SQL. |
+| W-07 | Подготовка dev-окружения (Codex / Sol) | docs/dev-environment-20261028.md, scripts/dev-check.sh, requirements-dev.txt | blocked (live dev); artifacts ready_for_review | Три файла переданы W-01 и frozen владельцем; offline check exit0, обычный check exit3 на Docker по отчёту владельца. После снятия локальных runtime-блокеров выполнить runbook/checks; DB/model не проверены. |
 
 Общие места этой версии: [идеи](ideas.md), [исследования](../research/README.md), [правила](../AGENTS.md). Журнал решений и explainer добавляются отдельной проверенной порцией. Исполнитель model/SQL этим снимком ещё не назначен.
 
@@ -56,7 +56,7 @@ Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-2
 - Input/base: `origin/main` на `1939068295d7203a15cbb0a1ab5d407caca90f58`;
   локальный HEAD: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e`.
 - Owner: подготовка dev-окружения (Codex / Sol); start: `2026-10-28T09:06:39Z`;
-  status: `in_progress`.
+  status: `blocked` для живого dev-стенда; артефакты: `ready_for_review`.
 - Owned новые paths: `docs/dev-environment-20261028.md`, `scripts/dev-check.sh`,
   `requirements-dev.txt`. Зона не пересекается с двумя файлами W-06.
 - Next: безопасная проверка/подготовка уже выбранных PG16/Python/psql, runbook и runtime checks.
@@ -69,3 +69,17 @@ Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-2
 - План публикации готового handoff: `proposal/dev-environment-20261028` через W-01;
   repo-visible SHA фиксируется после проверки/публикации, здесь пока pending.
 - UTC update registry writer: `2026-10-28T09:11:35Z`.
+
+### W-07 · Передача безопасной подготовки
+
+- UTC status update: `2026-10-28T09:16:05Z`. Три owned файла подготовлены и переданы W-01;
+  owner больше не меняет их до согласованного следующего шага. SHA256 сверены writer
+  с локальными файлами, без запуска скрипта.
+- По handoff владельца: offline read-only check — exit0 (8 CSV/toolchain/config/driver),
+  обычный check — exit3 на Docker. Это отчёт владельца, не повторный runtime-test writer.
+- Блокер живого dev-стенда: локальное ресурсное ограничение и недоступный Docker daemon.
+  Частные значения/пути и локальные разрешения остаются в local context/runbook.
+- Следующий шаг: после наблюдаемого снятия блокеров выполнить предварительную проверку
+  и штатные действия из [runbook](dev-environment-20261028.md), затем `scripts/dev-check.sh`.
+  Публикация файлов сама по себе не делает live dev/DB/model проверенными или done.
+- Публикационный SHA артефактов фиксируется после handoff W-01 отдельно от runtime-статуса.
