@@ -101,5 +101,5 @@ python3 -m unittest discover -s tests/model -p 'test_*.py'
 ## Материалы и координация
 
 - [Материалы организаторов, read-only](hack-context/): [PDF кейса](hack-context/Кейс%20Модель%20маркетплейса.pdf), [задание](hack-context/hackathon-students/docs/handout.md), [текущие вопросы](hack-context/hackathon-students/docs/tasks.md). Обновление Q6–Q10 берём из источника организаторов, условия не придумываем.
-- [Исходный профиль](docs/profiling.md), [исследования](research/README.md), [контракт модели](model/CONTRACT.md). Исходные CSV в `data/` не публикуются в Git.
-- [Карта работ](docs/workstreams.md), [журнал решений](docs/decision-log.md), [идеи](docs/ideas.md), [общее объяснение](explainer.html). README и hub — навигация, не новые реестры статусов.
+- [Исходный профиль](docs/profiling.md), [исследования](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/README.md), [контракт модели](model/CONTRACT.md). Исходные CSV в `data/` не публикуются в Git.
+- [Карта работ](docs/workstreams.md), [журнал решений](docs/decision-log.md), [идеи](https://github.com/kiruha355/rwb_hak/blob/72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a/docs/ideas.md), [общее объяснение](explainer.html). README и hub — навигация, не новые реестры статусов.

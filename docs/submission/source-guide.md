@@ -2,7 +2,7 @@
 
 Данные Olist используются для вымышленной Capibara. Восемь CSV — снимок заказов и связанных сущностей за сентябрь 2016 — октябрь 2018. Данных о корзине, фактическом выкупе, возвратах, комиссии и себестоимости здесь нет. Статус `delivered` означает правило включения в учебную выручку, а не подтверждение выкупа или расчёта с продавцом.
 
-Числа строк ниже взяты из [профилирования](../profiling.md) и сверенного [research S01](../../research/internet-2026-10-28/synthesis/selected-findings.md). Это **550 759 CSV records**, без заголовков; CSV records с переносами внутри текста нельзя считать через `wc -l`. Эти числа не подтверждают фактическую загрузку текущего raw/core.
+Числа строк ниже взяты из [профилирования](../profiling.md) и сверенного [research S01](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/internet-2026-10-28/synthesis/selected-findings.md). Это **550 759 CSV records**, без заголовков; CSV records с переносами внутри текста нельзя считать через `wc -l`. Эти числа не подтверждают фактическую загрузку текущего raw/core.
 
 ## Восемь файлов и один пример строки из каждого
 
@@ -62,4 +62,4 @@
 - Exact: 639 заказов, сумма −1 819.51. При `abs(delta)>0.01`: 366 заказов, сумма −1 818.84. Пара «366 / −1 819.51» смешивает выборки.
 - Происхождение 123.75 не установлено. CSV-аудит даёт среднюю цену delivered item rows 119.98; подбирать формулу ради контроля нельзя.
 
-Эти уточнения — из [брифа, вопросы 14–15](../implementation-brief-20261028.md) и [финального research](../../research/internet-2026-10-28/synthesis/selected-findings.md), а не новые DB-результаты W-12. Общий рассказ и решения: [explainer](../../explainer.html), [decision-log](../decision-log.md).
+Эти уточнения — из [брифа, вопросы 14–15](../implementation-brief-20261028.md) и [финального research](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/internet-2026-10-28/synthesis/selected-findings.md), а не новые DB-результаты W-12. Общий рассказ и решения: [explainer](../../explainer.html), [decision-log](../decision-log.md).

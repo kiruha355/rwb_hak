@@ -1,0 +1,62 @@
+{
+  "status": "ready_for_publication",
+  "repository": "kiruha355/rwb_hak",
+  "base_main": "9c531df8bd4eedeffb12c9a02087512a46dae8e2",
+  "created_at": "2026-10-28T11:20:15.144502+00:00",
+  "scope": "Only documentation links to four published source artifacts; shared source files unchanged",
+  "files": {
+    "README.md": {
+      "sha256": "e1feec095f0d402cdd6b572a9b474a4c36352659c1b3b0f06e7a7308d8b2ff22",
+      "bytes": 17563
+    },
+    "docs/submission/dashboard-concept.md": {
+      "sha256": "b605b062c625bef4a39d23a70f8769b72f5399009ae15bcb7aa73b624d0e6220",
+      "bytes": 18030
+    },
+    "docs/submission/evidence.md": {
+      "sha256": "7b4e3d189913be8d9abca2ceb810db7292b796d3865c5ebb2a9c34a3748c13a3",
+      "bytes": 18969
+    },
+    "docs/submission/source-guide.md": {
+      "sha256": "57f063bbb203b9fa089caeca111eb49152953555c2b8da487d9fabffa288617e",
+      "bytes": 10055
+    },
+    "docs/submission/growth-strategy.md": {
+      "sha256": "44ca3a552910a83a4ce93b322063daa2817e0bca2783bec14beb614ad7c3cec5",
+      "bytes": 16360
+    },
+    "docs/submission/presentation.md": {
+      "sha256": "a7eecff3c118233fb7a6db58f2d9acebefb6cdf3e929f3ce543336e6ed7ca441",
+      "bytes": 14550
+    },
+    "docs/submission/manifest.sha256": {
+      "sha256": "d93ae6c87c0cf9d66e57521feb782e636f0d43f410a974c5f93fa8ecf84864f8",
+      "bytes": 1960
+    }
+  },
+  "verified": {
+    "pack_files": 24,
+    "projected_main_local_links": 368,
+    "external_links": 11,
+    "missing_local_targets": 0,
+    "pinned_git_blob_targets_verified": 4
+  },
+  "pinned_sources": [
+    {
+      "commit": "72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a",
+      "path": "docs/ideas.md"
+    },
+    {
+      "commit": "b7495d66faebee5ba9b07d829caee019a6e76fdf",
+      "path": "research/README.md"
+    },
+    {
+      "commit": "b7495d66faebee5ba9b07d829caee019a6e76fdf",
+      "path": "research/internet-2026-10-28/backlog.md"
+    },
+    {
+      "commit": "b7495d66faebee5ba9b07d829caee019a6e76fdf",
+      "path": "research/internet-2026-10-28/synthesis/selected-findings.md"
+    }
+  ]
+}

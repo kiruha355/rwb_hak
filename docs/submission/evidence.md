@@ -25,7 +25,7 @@
 | Q9 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
 | Q10 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
 
-Источник чисел и оговорок: [implementation brief, вопросы 2–5, 14–15](../implementation-brief-20261028.md), [S04/S12](../../research/internet-2026-10-28/synthesis/selected-findings.md), [профиль](../profiling.md). Если экспорт не совпал, сохраняем расхождение и проверяем формулу/популяцию; не переписываем raw или baseline ради совпадения.
+Источник чисел и оговорок: [implementation brief, вопросы 2–5, 14–15](../implementation-brief-20261028.md), [S04/S12](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/internet-2026-10-28/synthesis/selected-findings.md), [профиль](../profiling.md). Если экспорт не совпал, сохраняем расхождение и проверяем формулу/популяцию; не переписываем raw или baseline ради совпадения.
 
 ## Уже готовое к первому чекпоинту
 

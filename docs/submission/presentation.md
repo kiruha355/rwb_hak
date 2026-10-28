@@ -58,7 +58,7 @@
 
 Речь: «Мы не исправляем источник догадками. Сохраняем связи и аномалии, а пригодность проверяем для конкретной метрики. Разные адреса не доказывают переезд».
 
-Источник: [source-guide](source-guide.md#находки-которые-меняют-проектирование), [S05–S08](../../research/internet-2026-10-28/synthesis/selected-findings.md). Метод baseline — CSV/профиль, не core run.
+Источник: [source-guide](source-guide.md#находки-которые-меняют-проектирование), [S05–S08](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/internet-2026-10-28/synthesis/selected-findings.md). Метод baseline — CSV/профиль, не core run.
 
 ## 8. Деньги и открытые параметры · 50 с
 
