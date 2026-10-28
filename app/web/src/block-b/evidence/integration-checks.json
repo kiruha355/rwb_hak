@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "timestamp": "2026-10-28T14:22:47.962195+00:00",
+  "target_parent": "6452806eae21d13126da9de8ebaba01a2152eaea",
+  "runtime_commit": "ea027bcf44a5a4a4d97fc425a9684165a6a84694",
+  "preserved_git_blobs": {
+    "app/web/src/pages/AnswersB.tsx": "2b4d76e5eed33b6b66464c4290ff541f92a2a43c",
+    "app/web/src/pages/DataPage.tsx": "9dbc1156550ba063d1c37ad78b8ee0afaae80023",
+    "app/api/server.js": "f8952a025bce2f3ff34c8ff2a830f28ada4c685c",
+    "app/web/src/lib.tsx": "44903510e3e4198163a4953ba333e330445fd3e0",
+    "app/web/src/styles.css": "0c353ee57df7e6cd0af379d1bf9850649bf6c832",
+    "app/web/src/App.tsx": "ca337901b1e1488e55ea9978650d86aa46259041",
+    "app/web/package.json": "4118775236b92f6ca035326de1d5f9d1891b0fd5",
+    "app/web/package-lock.json": "0003cac9ad04df7cf765089452475c9d5d8fe21f"
+  },
+  "runtime_files_match_tested_checkout": true,
+  "handoff_links_exist": true,
+  "scope": "Target-tree and content checks only; no full app build, endpoint, DB or E2E"
+}

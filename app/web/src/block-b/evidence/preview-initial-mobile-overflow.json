@@ -1,0 +1,16 @@
+{
+  "width": 390,
+  "contentHeight": 6778,
+  "capturedHeight": 4000,
+  "consoleMessages": [
+    {
+      "level": "error",
+      "text": "BLOCK_B_CLIENT_QA {\"status\":\"FAIL\",\"error\":\"Error: Page overflow: DIV.panel bb-body,H4.,DIV.panel bb-body,H4.,DIV.panel bb-body,H4.,DIV.panel bb-body,H4.,DIV.panel bb-body,H4.,svg.[object SVGAnimatedString],g.[object SVGAnimatedString],line.[object SVGAnimatedString],g.[object SVGAnimatedString],line.[object SVGAnimatedString],g.[object SVGAnimatedString],line.[object SVGAnimatedString],text.[object SVGAnimatedString],text.[object SVGAnimatedString],g.[object SVGAnimatedString],path.[object SVGA…"
+    }
+  ],
+  "screenshot": {
+    "mimeType": "image/png",
+    "width": 390,
+    "height": 4000
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "width": 390,
+  "contentHeight": 195,
+  "capturedHeight": 195,
+  "consoleMessages": [
+    {
+      "level": "log",
+      "text": "BLOCK_B_CLIENT_QA PASS layout=true width=390 checks=8 calls=6"
+    }
+  ],
+  "screenshot": {
+    "mimeType": "image/png",
+    "width": 390,
+    "height": 195
+  }
+}
