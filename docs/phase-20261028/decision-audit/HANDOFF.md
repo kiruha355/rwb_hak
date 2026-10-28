@@ -8,10 +8,10 @@
 - Owned paths: `docs/phase-20261028/decision-audit/**` only.
 - Status: `ready_for_review` (audit artifacts; publication receipt follows below).
 - UTC registration before substantive edits: `2026-10-28T14:10:07Z`.
-- UTC update: `2026-10-28T14:20:25Z`.
+- UTC update: `2026-10-28T14:22:30Z`.
 - Constraints: no shared registry/index changes; no SQL/model edits; no agents/model runs; no heavy fixture, installs, full DB or user survey.
 - Next: parent reviews residual packet, sends only needed decisions to the responsible human at the point of official use; independent implementation/verification/docs continue.
-- Publication: pending at this record; no report conclusions approved by this record.
+- Publication: audit content published as `4aa1bd2cefbd00e7e794ff0e40559199de75ae02`; remote readback confirmed at `2026-10-28T14:22:30Z`. This handoff receipt follows in its own commit; no report conclusions approved by publication.
 
 ## Артефакты и результат
 
@@ -30,10 +30,24 @@ python3 docs/phase-20261028/decision-audit/verify_audit.py --csv-dir /ABSOLUTE/P
 git diff --check
 ```
 
-Первый запуск checker: exit 0, 1.33 секунды, четыре CSV read-only. AST checker,
-ровно 17 строк классификации, девять относительных ссылок и trailing whitespace
-проверены отдельной малой проверкой. Перед коммитом/публикацией checker повторяется
-на финальных байтах; текущий результат и UTC сохраняются в checks.json.
+Первый запуск checker: exit 0, 1.33 секунды, четыре CSV read-only. Финальный
+повтор после привязки всех четырёх CSV к baseline: exit 0; результат и UTC
+сохранены в checks.json. AST checker, ровно 17 строк классификации, 13 относительных
+ссылок в target index и trailing whitespace проверены отдельной малой проверкой.
+Staged paths проверены: ровно пять файлов, все внутри owned directory.
+
+Перед push выполнены fetch/diff: `origin/main=6452806eae21d13126da9de8ebaba01a2152eaea`,
+`origin/t3/integrate-q6-q10-marts=aab62d7a59f196be051df12466fb21c0da4659b9`.
+С предыдущей проверки эти refs не изменились. Push отдельной ветки успешен;
+`git ls-remote --heads origin refs/heads/t3/decision-audit-20261028` вернул
+`4aa1bd2cefbd00e7e794ff0e40559199de75ae02`. Merge main и PR не создавались.
+
+Команда для независимого чтения опубликованного отчёта без переключения checkout:
+
+```sh
+git show 4aa1bd2cefbd00e7e794ff0e40559199de75ae02:docs/phase-20261028/decision-audit/REPORT.md
+git show 4aa1bd2cefbd00e7e794ff0e40559199de75ae02:docs/phase-20261028/decision-audit/RESIDUAL-DECISIONS.md
+```
 
 Не выполнялись: новые SQL/model runs, сервер/DB, полный lifecycle/raw equality,
 браузер/UI/E2E, installs, benchmark, новые model calls или агенты. Нет нового DB PASS.
