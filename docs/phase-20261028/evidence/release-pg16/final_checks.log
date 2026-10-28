@@ -1,0 +1,40 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ 
+(1 row)
+
+DO
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+[capibara] model/history/04_checks.sql
+CREATE FUNCTION
+ check_model 
+-------------
+ 
+(1 row)
+
+psql:<stdin>:139: NOTICE:  42P07: relation "check_results" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:431: WARNING:  01000: core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 5
+{"order_id": "late"}
+{"order_id": "new1"}
+{"order_id": "new2"}
+LOCATION:  exec_stmt_raise, pl_exec.c:3911

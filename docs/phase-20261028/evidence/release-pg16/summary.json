@@ -1,0 +1,706 @@
+{
+  "scope": "small synthetic PG16 only",
+  "server": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "at_utc": "2026-10-28T14:18:10.202207+00:00",
+  "checks": {
+    "initdb": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "start": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "create_lifecycle_db": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "load_lifecycle": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_raw_before_bootstrap": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_clean": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_first": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "bootstrap_raw_unchanged_exact": {
+      "status": "pass"
+    },
+    "lifecycle_rebuild": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_second": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_idempotent": {
+      "status": "pass"
+    },
+    "lifecycle_assertions": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_late_failure": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "lifecycle_intended_failure": {
+      "status": "pass"
+    },
+    "lifecycle_after_rollback": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "lifecycle_rollback": {
+      "status": "pass"
+    },
+    "q1_q10_answers": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "generic_checks": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "create_q6_db": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "q6_loader_anchor_unique": {
+      "status": "pass"
+    },
+    "published_q6_q10_assertions": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "create_history_db": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "load_history": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "server_settings": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "private_server_settings": {
+      "status": "pass"
+    },
+    "bootstrap_R0": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_first": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_raw_before": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "original_bindings": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "baseline_unknown_time": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "baseline_time_unknown": {
+      "status": "pass"
+    },
+    "R0_totals": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_total": {
+      "status": "pass"
+    },
+    "self_correction": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "self_correction_expected_error": {
+      "status": "pass"
+    },
+    "append_E1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "retry_E1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "event_conflict": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "event_conflict_expected_error": {
+      "status": "pass"
+    },
+    "event_count": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "event_retry_one_row": {
+      "status": "pass"
+    },
+    "R0_after_event": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_after": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_stable_after_event_rebuild": {
+      "status": "pass"
+    },
+    "R0_raw_after": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R0_raw_unchanged": {
+      "status": "pass"
+    },
+    "new_orders_and_profile_context": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_raw_before": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "create_R1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "retry_R1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "release_conflict": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "release_conflict_expected_error": {
+      "status": "pass"
+    },
+    "build_R1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_first": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_source_first": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_totals": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "seller_isolation": {
+      "status": "pass"
+    },
+    "inherited_bindings": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "old_original_bindings_inherited": {
+      "status": "pass"
+    },
+    "addresses": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "address_preservation": {
+      "status": "pass"
+    },
+    "R1_rebuild": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_second": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_rebuild_exact": {
+      "status": "pass"
+    },
+    "R1_source_second": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "persistent_source_rebuild_exact": {
+      "status": "pass"
+    },
+    "R1_raw_after": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_raw_unchanged": {
+      "status": "pass"
+    },
+    "boundary": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "half_open_boundary": {
+      "status": "pass"
+    },
+    "append_correction": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_after_correction": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "R1_after_correction_fp": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "original_stable_after_correction": {
+      "status": "pass"
+    },
+    "create_restatement": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "build_restatement": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "restated_totals": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "restatement_differs": {
+      "status": "pass"
+    },
+    "default_release": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "default_original_never_advanced": {
+      "status": "pass"
+    },
+    "incomplete_correction": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "incomplete_correction_expected_error": {
+      "status": "pass"
+    },
+    "missing_event": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "missing_event_expected_error": {
+      "status": "pass"
+    },
+    "correction_scope": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "correction_scope_expected_error": {
+      "status": "pass"
+    },
+    "correction_fork": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "correction_fork_expected_error": {
+      "status": "pass"
+    },
+    "missing_clock": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "missing_clock_expected_error": {
+      "status": "pass"
+    },
+    "append_E3": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "append_E4": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "append_E5": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "append_E6": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "append_E7": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "scope_unset_policy_unknown_return": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "product_seller_unset_observed_unknown_return": {
+      "status": "pass"
+    },
+    "return_A_new_identity": {
+      "status": "pass"
+    },
+    "observation_no_business_clock": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "no_invented_asof": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "untimed_observation_not_applied": {
+      "status": "pass"
+    },
+    "ambiguous_event": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "ambiguous_release": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "ambiguous_release_expected_error": {
+      "status": "pass"
+    },
+    "sealed_binding_insert": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "sealed_binding_insert_expected_error": {
+      "status": "pass"
+    },
+    "immutable_event": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "immutable_event_expected_error": {
+      "status": "pass"
+    },
+    "immutable_release": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "immutable_release_expected_error": {
+      "status": "pass"
+    },
+    "create_all_events": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "all_events_build": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "D_domain": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "retained_event_category_domain": {
+      "status": "pass"
+    },
+    "R1_before_backup": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "before_cold_restore": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "original_after_restatement_stable": {
+      "status": "pass"
+    },
+    "source_before_late_failure": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "dump_raw_and_history": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "create_restore_db": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "restore_sources": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "restore_empty_core": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "restore_has_no_projections": {
+      "status": "pass"
+    },
+    "cold_rebuild_R1": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "cold_restored_fingerprint": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "cold_restore_exact_result": {
+      "status": "pass"
+    },
+    "future_items_restore_clone": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "future_release_restore_clone": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "future_full_model": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "future_item_bindings": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "integrated_future_scope_unset_policy_unknown_return": {
+      "status": "pass"
+    },
+    "late_taxonomy_extension": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "late_taxonomy_extension_expected_error": {
+      "status": "pass"
+    },
+    "history_late_failure": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "history_intended_failure": {
+      "status": "pass"
+    },
+    "after_history_rollback": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "history_late_failure_rollback": {
+      "status": "pass"
+    },
+    "source_after_late_failure": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "persistent_source_late_rollback_exact": {
+      "status": "pass"
+    },
+    "no_rollback_candidate": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "candidate_source_and_result_rolled_back": {
+      "status": "pass"
+    },
+    "category_invariant_mutation": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "category_invariant_mutation_expected_error": {
+      "status": "pass"
+    },
+    "after_mutation_rollback": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "mutation_rolled_back": {
+      "status": "pass"
+    },
+    "context_drift": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "context_drift_expected_error": {
+      "status": "pass"
+    },
+    "after_address_mutation_rollback": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "address_mutation_rolled_back": {
+      "status": "pass"
+    },
+    "corrupt_event_source": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "corrupt_event_source_expected_error": {
+      "status": "pass"
+    },
+    "corrupt_baseline_source": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "corrupt_baseline_source_expected_error": {
+      "status": "pass"
+    },
+    "source_after_corruption_tests": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "source_corruption_rolled_back": {
+      "status": "pass"
+    },
+    "late_payment_extension": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "late_payment_extension_expected_error": {
+      "status": "pass"
+    },
+    "late_empty_order_extension": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "late_empty_order_extension_expected_error": {
+      "status": "pass"
+    },
+    "insert_late_item": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "late_raw_before": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "late_extension": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "late_extension_expected_error": {
+      "status": "pass"
+    },
+    "old_release_raw_mismatch": {
+      "status": "pass",
+      "exit_code": 3
+    },
+    "old_release_expected_error": {
+      "status": "pass"
+    },
+    "after_raw_mismatch": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "mismatch_model_survives": {
+      "status": "pass"
+    },
+    "create_late_restatement": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "build_late_restatement": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "late_restatement_totals": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "late_restatement_only": {
+      "status": "pass"
+    },
+    "late_raw_after": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "late_raw_unchanged_by_build": {
+      "status": "pass"
+    },
+    "no_failed_releases": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "no_failed_release_rows": {
+      "status": "pass"
+    },
+    "original_bindings_final": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "old_bindings_still_present": {
+      "status": "pass"
+    },
+    "frontend_fields": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "seven_frontend_relations_fields_compatible": {
+      "status": "pass"
+    },
+    "final_answers": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "final_checks": {
+      "status": "pass",
+      "exit_code": 0
+    },
+    "stop_own_server": {
+      "status": "pass",
+      "exit_code": 0
+    }
+  },
+  "full_olist": "not_run_guard78",
+  "production": "not_accessed",
+  "transport": "private_unix_socket_no_tcp",
+  "shared_buffers": "16MB",
+  "max_connections": 5,
+  "files_sha256": {
+    "model/00_schemas.sql": "4ff3d76f0c8f99127553f0f63adaff59e4c7c2fbfd17baa23ffad21758ddfc7f",
+    "model/05_typecheck.sql": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d",
+    "model/10_dims.sql": "08dd6c1110f0bf93d81b3af792733c182abba2cdfa98eb4cebc3debdf63e0805",
+    "model/20_facts.sql": "932cb4c86051be121135e461c30da2588fbe64bba542c13fb13ccdab5477c17e",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "a1f65b83c68f669b6380bb96ec233a994e33c28301dfd2837f80bf46b6ec9080",
+    "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+    "model/55_answers_block_b.sql": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+    "model/56_metric_passports.sql": "8f60425d8c52b98b146581926e33faa252c7162832be59b3d35fffcb2d43a968",
+    "model/90_checks.sql": "74e3cc5d6dabe08d75846927c982ffdda15e08cd6c028479ca8856b823620b08",
+    "model/build.sql": "e3a5f204051a703ec7b4cb4d0cac36422da1365aecdbaf50b2d7db2079d4db4d",
+    "model/history/01_source.sql": "7cedca3390eab9b9cdacd4d3c599a6bd42b4699a427339c2b48cca346e0f3b5a",
+    "model/history/02_prepare.sql": "80fe46b1c416d8d6efdd112e14c57e34e4604e79d093d71c1c750dc36f20faba",
+    "model/history/03_versions.sql": "25b375afffc231bcc5c26630300768b2d16e7859f4ef1b7f83a962a25ad9159e",
+    "model/history/04_checks.sql": "006010036424e9053dd972a88962a1cd374c67f8bc9711ddabbee96601211534",
+    "model/history/05_result.sql": "664c721930037cad14ae012cf690b241105c75e4da79c8710bd394057fff645f",
+    "tests/model/history/verify-small-pg16.py": "5ae342af7e6e7c566e9221c90ab7264a0710e7cb5c82dfaa7569a0303d55d2b7",
+    "scripts/build-model.sh": "bb1e6e8f80f2e429d6e69dd068760f3a78eba12a0c1dd05171015425afa53a16",
+    "scripts/init/02_raw_ddl.sql": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+    "tests/model/fixtures/base.sql": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a",
+    "tests/model/fixtures/assert-base.sql": "e91763223e528a04977d79272ad6abad4566ee006b8e512dd094520cb93c2518",
+    "tests/model/rollback.sql": "7ff18076507bb60ab191990b90c8435ad88cf7a64540deeed8053baad209561e",
+    "tests/model/fingerprint.sql": "39995edc49d0c5f471fd52179f9c4e9180eb25751f7143290dd8d604ff07adde",
+    "answers/q06-q10/test_fixture.py": "bb263e3db112dac0d28a903d2175b581dc4e3df1aa3bb32cfd7fcdef37d43728"
+  },
+  "published_base": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "status": "pass",
+  "runtime_removed_on_exit": true
+}

@@ -23,6 +23,7 @@ $build_guard$;
 \ir 40_mart.sql
 \ir 50_answers.sql
 \ir 55_answers_block_b.sql
+\ir 56_metric_passports.sql
 \ir 90_checks.sql
 \ir history/05_result.sql
 \echo [capibara] All build stages and invariant checks completed; psql commits on successful exit.

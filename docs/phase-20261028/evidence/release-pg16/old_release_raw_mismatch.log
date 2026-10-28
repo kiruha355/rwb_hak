@@ -1,0 +1,72 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+ set_config 
+------------
+ R1
+(1 row)
+
+DO
+[capibara] model/build.sql
+DO
+[capibara] model/history/01_source.sql
+CREATE SCHEMA
+CREATE TABLE
+INSERT 0 0
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+DO
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+DO
+REVOKE
+REVOKE
+[capibara] model/history/02_prepare.sql
+psql:<stdin>:42: NOTICE:  42P06: schema "history" already exists, skipping
+LOCATION:  CreateSchemaCommand, schemacmds.c:135
+psql:<stdin>:46: NOTICE:  42P07: relation "schema_version" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:73: NOTICE:  42P07: relation "baseline_snapshot" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:80: NOTICE:  42P07: relation "baseline_product" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:101: NOTICE:  42P07: relation "category_event" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:115: NOTICE:  42P07: relation "report_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:122: NOTICE:  42P07: relation "release_source_row" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:139: NOTICE:  42P07: relation "report_binding" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:153: NOTICE:  42P07: relation "release_category" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:157: NOTICE:  42P07: relation "initial_release" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:459: NOTICE:  42P07: relation "report_result" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:484: ERROR:  P0001: Raw generation differs from pinned release R1
+CONTEXT:  PL/pgSQL function history.assert_release(text) line 8 at RAISE
+SQL statement "SELECT history.assert_release(chosen)"
+PL/pgSQL function inline_code_block line 12 at PERFORM
+LOCATION:  exec_stmt_raise, pl_exec.c:3911
+Model command failed (psql exit 3). See the SQL error above.
+No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.

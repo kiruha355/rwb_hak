@@ -1,0 +1,2 @@
+ERROR:  Late item/order/payment/review in closed period requires restatement
+CONTEXT:  PL/pgSQL function history.create_release(text,text,text,text[],timestamp without time zone) line 55 at RAISE

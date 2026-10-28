@@ -1,5 +1,7 @@
 # Q6 и Q9: цены и платёжные записи
 
+> Снимок handoff: описания «локально», «не опубликован» и «публикация pending» ниже относятся к моменту подготовки отчёта. Эти report, script и results входят в опубликованное дерево `aab62d7a59f196be051df12466fb21c0da4659b9`; статус проверки и отсутствие human approval от публикации не меняются.
+
 - Owner: test sub-agent (текущий тред); repository `kiruha355/rwb_hak`, общий checkout `main`, HEAD `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e`.
 - Снимки: опубликованный main `bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4`, SQL-кандидат `99bcbb366720f912ef6017a40aa5dbd6a671a8a4`, integration `b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68`, [требования организаторов `558f0f6a`](https://github.com/daniilivanovp-droid/hackathon-students/blob/558f0f6a38110acc9fcf4386a7e53ece973aedf5/docs/tasks.md).
 - Owned paths: `docs/phase-20261028/experiments/payments-prices/**`; status: `ready_for_review` локально; next step: координатору сопоставить результаты с выполнением SQL на связанной полной модели. UTC update: 2026-10-28T13:31:22Z.

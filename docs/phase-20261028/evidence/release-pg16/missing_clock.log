@@ -1,0 +1,7 @@
+ERROR:  new row for relation "category_event" violates check constraint "category_event_check2"
+DETAIL:  Failing row contains (no-clock, P, null, set, pt:C, 2018-01-01 00:00:00, null, null, null, {"source": "test"}, 867cddfa9948c8061e5e8010bbf4f22a93fe7d4e0c99cf3abd20546064e37c4e, 2026-10-28 17:18:16.918644+03).
+CONTEXT:  SQL statement "INSERT INTO history.category_event(event_id,product_id,seller_id,action,category_key,
+        business_valid_from,policy_apply_from,clock_contract,supersedes_event_id,provenance,payload_sha256)
+    VALUES(p_id,p_product,p_seller,p_action,p_category,p_valid_from,p_policy_from,p_clock,
+        p_supersedes,p_provenance,payload)"
+PL/pgSQL function history.append_event(text,text,text,text,text,timestamp without time zone,timestamp without time zone,text,text,jsonb) line 23 at SQL statement

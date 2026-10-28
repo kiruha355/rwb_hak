@@ -1,5 +1,7 @@
 # Данные доставки: эксперименты Q7/Q10
 
+> Снимок handoff: описания «локально», «не опубликован» и «публикация pending» ниже относятся к моменту подготовки отчёта. Эти report, script и results входят в опубликованное дерево `aab62d7a59f196be051df12466fb21c0da4659b9`; статус проверки и отсутствие human approval от публикации не меняются.
+
 - Owner: Codex / Sol, test sub-agent, направление delivery-data.
 - Repository/branch: `kiruha355/rwb_hak`, общий dirty checkout `main`.
 - Base HEAD: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e`.

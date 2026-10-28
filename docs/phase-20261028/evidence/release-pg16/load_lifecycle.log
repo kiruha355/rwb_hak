@@ -1,0 +1,34 @@
+CREATE SCHEMA
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 10
+INSERT 0 10
+INSERT 0 1
+INSERT 0 1
+INSERT 0 3
+INSERT 0 2
+INSERT 0 9
+INSERT 0 9
+INSERT 0 4
+NOTICE:  table "orders" does not exist, skipping
+NOTICE:  table "order_items" does not exist, skipping
+NOTICE:  table "order_payments" does not exist, skipping
+NOTICE:  table "order_reviews" does not exist, skipping
+NOTICE:  table "products" does not exist, skipping
+NOTICE:  table "sellers" does not exist, skipping
+NOTICE:  table "customers" does not exist, skipping
+NOTICE:  table "product_category_translation" does not exist, skipping
