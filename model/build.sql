@@ -19,5 +19,6 @@ $build_guard$;
 \ir 30_quality.sql
 \ir 40_mart.sql
 \ir 50_answers.sql
+\ir 55_answers_block_b.sql
 \ir 90_checks.sql
 \echo [capibara] All build stages and invariant checks completed; psql commits on successful exit.

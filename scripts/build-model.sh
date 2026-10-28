@@ -166,6 +166,9 @@ case "$mode" in
             printf 'No answers/qNN.sql files exist yet.\n' >&2
             exit 2
         fi
+        answer_files+=(answers/q06-q10/q06.sql answers/q06-q10/q07.sql
+            answers/q06-q10/q08.sql answers/q06-q10/q09.sql
+            answers/q06-q10/q10.sql answers/q06-q10/q10_coverage.sql)
         for supplement in answers/payment_reconciliation.sql answers/review_weights.sql; do
             [[ ! -f $supplement ]] || answer_files+=("$supplement")
         done
