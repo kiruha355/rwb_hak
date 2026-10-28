@@ -50,22 +50,26 @@
 
 ```
 AGENTS.md                         этот файл
+docker-compose.yml                PostgreSQL 16 (из репозитория организаторов)
+scripts/                          setup.sh, загрузка raw, init-скрипты (оттуда же)
+data/                             исходные CSV, в git не кладём (качает setup.sh)
 docs/profiling.md                 профилирование raw, все цифры
-hack-context/
+hack-context/                     материалы организаторов, только для чтения
   Кейс Модель маркетплейса.pdf    презентация кейса
-  hackathon-students/             окружение организаторов (без .git)
+  hackathon-students/             README и docs из их репозитория (без .git)
     docs/handout.md               задание и описание данных
     docs/tasks.md                 вопросы к модели (дополнится в середине хакатона)
-    docker-compose.yml            PostgreSQL 16
-    scripts/setup.sh              поднимает базу и грузит raw
 ```
+
+Когда в середине хакатона обновится `docs/tasks.md` в репозитории
+организаторов, его нужно заново скопировать в `hack-context/hackathon-students/docs/`.
 
 ## Окружение
 
 - Подключение: `postgresql://hack:hack@localhost:5432/marketplace`
   (контейнер `hack_postgres`).
-- Поднять или пересоздать: `bash hack-context/hackathon-students/scripts/setup.sh [--reset]`.
-- psql: `docker compose -f hack-context/hackathon-students/docker-compose.yml exec -T postgres psql -U hack -d marketplace`.
+- Поднять или пересоздать (из корня): `bash scripts/setup.sh [--reset]`.
+- psql: `docker compose exec -T postgres psql -U hack -d marketplace`.
 - Наши правки в окружении организаторов:
   - порты привязаны к `127.0.0.1`, чтобы база не была видна в общей сети;
   - в `setup.sh` исправлен разбор порта: старый regex не понимал префикс хоста
