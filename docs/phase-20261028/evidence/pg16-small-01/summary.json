@@ -1,0 +1,53 @@
+{
+  "scope": "synthetic_ten_order_fixture_only",
+  "server": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "at_utc": "2026-10-28T13:24:57.834040+00:00",
+  "files_sha256": {
+    "model/00_schemas.sql": "e19e07e56a504bf484dadb3d0b33a5981a91d576301c9e7f7fb928b5597b8ae3",
+    "model/05_typecheck.sql": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d",
+    "model/10_dims.sql": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+    "model/20_facts.sql": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+    "model/55_answers_block_b.sql": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+    "model/90_checks.sql": "0f42d520e0958ddb6f7ab8bf532ee75b888839c3cd3cd37ec84f8c19d1f60b33",
+    "model/build.sql": "03e71612b6dda7df9722c1dbf1020f049f2028d3a2e5e41b4b0b51e5f360a4dd",
+    "answers/q06-q10/q06.sql": "36663b358b88c52b53a82c61ed46f2730412b0ba45243079d898bec843b44b3f",
+    "answers/q06-q10/q07.sql": "89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc",
+    "answers/q06-q10/q08.sql": "793467a1c39c47fec729e15c93f821f5e58fdb101da043dfafa72b67ad442b6a",
+    "answers/q06-q10/q09.sql": "7977be948b01acbbbc79f7d7ebe99cd35e8737793585a4e164b4dd0e3660b05b",
+    "answers/q06-q10/q10.sql": "a84c1244ff15b56789eba5807ade4704c73b866d11f14d9c96e76c5ff3feea10",
+    "answers/q06-q10/q10_coverage.sql": "c3091e34ad759d8c89f0eba3de37837a626aa7a87c02db81630abf2e0cc52b9d",
+    "answers/q06-q10/test_fixture.py": "f683f172f50f6bbfd2e9350ad1a85aadb9f176b32962958156959025a8bbbe8b",
+    "answers/q06-q10/test_wiring.py": "74454f7c2e820f7acb51ef03b8364c7c5023fec1504b4fd2a3544fd58b1f8fc3",
+    "scripts/build-model.sh": "1f64c5b5cef0a45cf510ffd95c255a0835134287a57086965034926b56095b12",
+    "scripts/init/02_raw_ddl.sql": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+    "tests/model/fixtures/base.sql": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a",
+    "tests/model/fingerprint.sql": "39995edc49d0c5f471fd52179f9c4e9180eb25751f7143290dd8d604ff07adde",
+    "tests/model/rollback.sql": "7ff18076507bb60ab191990b90c8435ad88cf7a64540deeed8053baad209561e"
+  },
+  "full_olist": "not_run",
+  "csv_raw_equality": "not_run",
+  "checks": {
+    "initdb": {
+      "exit_code": 0,
+      "status": "pass"
+    },
+    "start": {
+      "exit_code": 0,
+      "status": "pass"
+    },
+    "create_fixture_db": {
+      "exit_code": 0,
+      "status": "pass"
+    },
+    "stop_own_server": {
+      "exit_code": 0,
+      "status": "pass"
+    }
+  },
+  "status": "fail",
+  "error": "q6_q10_behavior: exit 1, expected 0; see evidence",
+  "runtime_removed_on_exit": true
+}

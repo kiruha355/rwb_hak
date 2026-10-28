@@ -1,0 +1,28 @@
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+[capibara] model/05_typecheck.sql
+CREATE TABLE
+DO
+[capibara] model/90_checks.sql
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+psql:<stdin>:136: NOTICE:  42P07: relation "check_results" already exists, skipping
+LOCATION:  transformCreateStmt, parse_utilcmd.c:210
+psql:<stdin>:434: WARNING:  01000: core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 1
+{"order_id": "late-null"}
+review.score_unusual: 1
+{"order_id": "all-null", "review_id": "null-score", "review_score": null}
+LOCATION:  exec_stmt_raise, pl_exec.c:3911

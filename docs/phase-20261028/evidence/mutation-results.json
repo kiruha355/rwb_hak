@@ -1,0 +1,18 @@
+[
+  {
+    "mutation": "threshold_exclusive",
+    "file": "answers/q06-q10/q07.sql",
+    "from": "orders_count >= 500::bigint",
+    "to": "orders_count > 500::bigint",
+    "expected_failure_detected": true,
+    "server_stopped": true
+  },
+  {
+    "mutation": "wrong_late_denominator",
+    "file": "model/55_answers_block_b.sql",
+    "from": "/ nullif(count(is_late), 0) AS late_pct",
+    "to": "/ nullif(count(*), 0) AS late_pct",
+    "expected_failure_detected": true,
+    "server_stopped": true
+  }
+]

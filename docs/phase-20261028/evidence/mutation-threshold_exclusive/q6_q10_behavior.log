@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/private/var/folders/ty/_x0y4mc91d3f0_0xfp1m_mq80000gn/T/capibara-mutant-0evd6a54/answers/q06-q10/test_fixture.py", line 73, in <module>
+    assert {r['customer_state'] for r in q7} == {'SP', 'BB', 'CC'}  # 1 excluded, 2 included, 3 included
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

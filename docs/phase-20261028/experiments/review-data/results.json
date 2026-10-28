@@ -1,0 +1,360 @@
+{
+  "baseline_manifest_sha256": "357f789cc4034505ef7d8888a649595c7ea67c4d145eb7be0318f546005de3b3",
+  "baseline_project_sha": "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4",
+  "definitions": {
+    "duration": "delivered minus purchase in fractional days; require both and nonnegative",
+    "late": "delivered date > estimated date; require both; calendar days in source timezone",
+    "latest": "max non-null timestamp; all-null excluded; tied max with multiple scores excluded; tied max same score counted once",
+    "min_score": "one order under smallest valid score",
+    "single_score_only": "only orders with one distinct non-null valid score",
+    "within_score": "one association per distinct order and valid score; groups overlap"
+  },
+  "diagnostics": {
+    "conflicting_score_orders": 189,
+    "delivered_orders": 96478,
+    "delivered_orders_without_valid_score": 646,
+    "duplicate_review_order_pair_rows": 0,
+    "multi_review_orders": 525,
+    "multi_review_orders_answer_all_null": 0,
+    "multi_review_orders_answer_different_known_timestamps": 525,
+    "multi_review_orders_answer_some_null": 0,
+    "multi_review_orders_creation_all_null": 0,
+    "multi_review_orders_creation_different_known_timestamps": 372,
+    "multi_review_orders_creation_some_null": 0,
+    "multi_review_same_score_only_orders": 336,
+    "null_answer_rows": 0,
+    "null_creation_rows": 0,
+    "orders_with_repeated_score": 338,
+    "repeated_same_score_orders_answer_different_known_timestamps": 338,
+    "repeated_same_score_orders_creation_different_known_timestamps": 215,
+    "repeated_score_extra_rows": 340,
+    "review_rows": 96361,
+    "scored_orders": 95832
+  },
+  "differences_vs_within_score": {
+    "latest_answer": {
+      "additional_order_score_pairs": 0,
+      "removed_order_score_pairs": 189
+    },
+    "latest_creation": {
+      "additional_order_score_pairs": 0,
+      "removed_order_score_pairs": 220
+    },
+    "min_score": {
+      "additional_order_score_pairs": 0,
+      "removed_order_score_pairs": 189
+    },
+    "single_score_only": {
+      "additional_order_score_pairs": 0,
+      "removed_order_score_pairs": 378
+    }
+  },
+  "input_order_rows": 99441,
+  "input_review_rows": 99224,
+  "inputs_sha256": {
+    "olist_order_reviews_dataset.csv": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+    "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf"
+  },
+  "invalid_score_rows_delivered": {},
+  "latest_answer_vs_min_score_changed_orders": 86,
+  "latest_creation_vs_latest_answer_changed_or_excluded_orders": 43,
+  "results": {
+    "latest_answer": {
+      "1": {
+        "duration_count": 9351,
+        "duration_coverage_pct": 99.98930710008554,
+        "duration_seconds": 17226363738.0,
+        "late_count": 9351,
+        "late_coverage_pct": 99.98930710008554,
+        "late_orders": 3431,
+        "late_pct": 36.691262966527646,
+        "mean_days": 21.32169927607267,
+        "orders_count": 9352
+      },
+      "2": {
+        "duration_count": 2921,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 4200349305.0,
+        "late_count": 2921,
+        "late_coverage_pct": 100.0,
+        "late_orders": 552,
+        "late_pct": 18.89763779527559,
+        "mean_days": 16.643325571056337,
+        "orders_count": 2921
+      },
+      "3": {
+        "duration_count": 7916,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 9750819834.0,
+        "late_count": 7916,
+        "late_coverage_pct": 100.0,
+        "late_orders": 694,
+        "late_pct": 8.767054067710966,
+        "mean_days": 14.256785124010442,
+        "orders_count": 7916
+      },
+      "4": {
+        "duration_count": 18888,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 20082404759.0,
+        "late_count": 18888,
+        "late_coverage_pct": 100.0,
+        "late_orders": 649,
+        "late_pct": 3.436044049131724,
+        "mean_days": 12.305974177583849,
+        "orders_count": 18888
+      },
+      "5": {
+        "duration_count": 56748,
+        "duration_coverage_pct": 99.98766628490881,
+        "duration_seconds": 52368783635.0,
+        "late_count": 56748,
+        "late_coverage_pct": 99.98766628490881,
+        "late_orders": 1055,
+        "late_pct": 1.8590963558187072,
+        "mean_days": 10.680908242768876,
+        "orders_count": 56755
+      }
+    },
+    "latest_creation": {
+      "1": {
+        "duration_count": 9349,
+        "duration_coverage_pct": 99.98930481283422,
+        "duration_seconds": 17227451317.0,
+        "late_count": 9349,
+        "late_coverage_pct": 99.98930481283422,
+        "late_orders": 3432,
+        "late_pct": 36.709808535672266,
+        "mean_days": 21.3276069794056,
+        "orders_count": 9350
+      },
+      "2": {
+        "duration_count": 2916,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 4190157408.0,
+        "late_count": 2916,
+        "late_coverage_pct": 100.0,
+        "late_orders": 550,
+        "late_pct": 18.86145404663923,
+        "mean_days": 16.63141022709953,
+        "orders_count": 2916
+      },
+      "3": {
+        "duration_count": 7914,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 9749793202.0,
+        "late_count": 7914,
+        "late_coverage_pct": 100.0,
+        "late_orders": 694,
+        "late_pct": 8.76926964872378,
+        "mean_days": 14.258886622043446,
+        "orders_count": 7914
+      },
+      "4": {
+        "duration_count": 18883,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 20074567248.0,
+        "late_count": 18883,
+        "late_coverage_pct": 100.0,
+        "late_orders": 649,
+        "late_pct": 3.4369538738547902,
+        "mean_days": 12.304428763084962,
+        "orders_count": 18883
+      },
+      "5": {
+        "duration_count": 56731,
+        "duration_coverage_pct": 99.98766258944623,
+        "duration_seconds": 52352881699.0,
+        "late_count": 56731,
+        "late_coverage_pct": 99.98766258944623,
+        "late_orders": 1056,
+        "late_pct": 1.861416156951226,
+        "mean_days": 10.68086462032157,
+        "orders_count": 56738
+      }
+    },
+    "min_score": {
+      "1": {
+        "duration_count": 9380,
+        "duration_coverage_pct": 99.98934015563373,
+        "duration_seconds": 17267951721.0,
+        "late_count": 9380,
+        "late_coverage_pct": 99.98934015563373,
+        "late_orders": 3433,
+        "late_pct": 36.59914712153518,
+        "mean_days": 21.307095130745086,
+        "orders_count": 9381
+      },
+      "2": {
+        "duration_count": 2930,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 4214784922.0,
+        "late_count": 2930,
+        "late_coverage_pct": 100.0,
+        "late_orders": 553,
+        "late_pct": 18.87372013651877,
+        "mean_days": 16.649226243521678,
+        "orders_count": 2930
+      },
+      "3": {
+        "duration_count": 7920,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 9745106193.0,
+        "late_count": 7920,
+        "late_coverage_pct": 100.0,
+        "late_orders": 691,
+        "late_pct": 8.724747474747474,
+        "mean_days": 14.24123496685606,
+        "orders_count": 7920
+      },
+      "4": {
+        "duration_count": 18897,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 20090708211.0,
+        "late_count": 18897,
+        "late_coverage_pct": 100.0,
+        "late_orders": 649,
+        "late_pct": 3.4344075779224217,
+        "mean_days": 12.305198975219463,
+        "orders_count": 18897
+      },
+      "5": {
+        "duration_count": 56697,
+        "duration_coverage_pct": 99.98765519187359,
+        "duration_seconds": 52310170224.0,
+        "late_count": 56697,
+        "late_coverage_pct": 99.98765519187359,
+        "late_orders": 1055,
+        "late_pct": 1.8607686473711131,
+        "mean_days": 10.678550628781064,
+        "orders_count": 56704
+      }
+    },
+    "single_score_only": {
+      "1": {
+        "duration_count": 9312,
+        "duration_coverage_pct": 99.9892623214861,
+        "duration_seconds": 17169312907.0,
+        "late_count": 9312,
+        "late_coverage_pct": 99.9892623214861,
+        "late_orders": 3426,
+        "late_pct": 36.79123711340206,
+        "mean_days": 21.340087992544465,
+        "orders_count": 9313
+      },
+      "2": {
+        "duration_count": 2904,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 4177084200.0,
+        "late_count": 2904,
+        "late_coverage_pct": 100.0,
+        "late_orders": 549,
+        "late_pct": 18.90495867768595,
+        "mean_days": 16.648030972604836,
+        "orders_count": 2904
+      },
+      "3": {
+        "duration_count": 7878,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 9695386416.0,
+        "late_count": 7878,
+        "late_coverage_pct": 100.0,
+        "late_orders": 689,
+        "late_pct": 8.745874587458745,
+        "mean_days": 14.244112789484078,
+        "orders_count": 7878
+      },
+      "4": {
+        "duration_count": 18844,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 20032080259.0,
+        "late_count": 18844,
+        "late_coverage_pct": 100.0,
+        "late_orders": 649,
+        "late_pct": 3.4440670770537043,
+        "mean_days": 12.303798597721448,
+        "orders_count": 18844
+      },
+      "5": {
+        "duration_count": 56697,
+        "duration_coverage_pct": 99.98765519187359,
+        "duration_seconds": 52310170224.0,
+        "late_count": 56697,
+        "late_coverage_pct": 99.98765519187359,
+        "late_orders": 1055,
+        "late_pct": 1.8607686473711131,
+        "mean_days": 10.678550628781064,
+        "orders_count": 56704
+      }
+    },
+    "within_score": {
+      "1": {
+        "duration_count": 9380,
+        "duration_coverage_pct": 99.98934015563373,
+        "duration_seconds": 17267951721.0,
+        "late_count": 9380,
+        "late_coverage_pct": 99.98934015563373,
+        "late_orders": 3433,
+        "late_pct": 36.59914712153518,
+        "mean_days": 21.307095130745086,
+        "orders_count": 9381
+      },
+      "2": {
+        "duration_count": 2938,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 4226900294.0,
+        "late_count": 2938,
+        "late_coverage_pct": 100.0,
+        "late_orders": 554,
+        "late_pct": 18.85636487406399,
+        "mean_days": 16.651619164901796,
+        "orders_count": 2938
+      },
+      "3": {
+        "duration_count": 7942,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 9785713380.0,
+        "late_count": 7942,
+        "late_coverage_pct": 100.0,
+        "late_orders": 697,
+        "late_pct": 8.776126920171242,
+        "mean_days": 14.26096342580934,
+        "orders_count": 7942
+      },
+      "4": {
+        "duration_count": 18943,
+        "duration_coverage_pct": 100.0,
+        "duration_seconds": 20148026293.0,
+        "late_count": 18943,
+        "late_coverage_pct": 100.0,
+        "late_orders": 651,
+        "late_pct": 3.4366256664731036,
+        "mean_days": 12.310338846094814,
+        "orders_count": 18943
+      },
+      "5": {
+        "duration_count": 56810,
+        "duration_coverage_pct": 99.98767974373867,
+        "duration_seconds": 52444816848.0,
+        "late_count": 56810,
+        "late_coverage_pct": 99.98767974373867,
+        "late_orders": 1059,
+        "late_pct": 1.8641084316141525,
+        "mean_days": 10.684742034853018,
+        "orders_count": 56817
+      }
+    }
+  },
+  "scope": "CSV-only; delivered; valid scores 1-5; no core execution",
+  "selection_outcomes": {
+    "latest_answer": {
+      "unique": 95832
+    },
+    "latest_creation": {
+      "tie_conflicting_scores": 31,
+      "tie_same_score": 123,
+      "unique": 95678
+    }
+  },
+  "selftest": "PASS: latest timestamp NULL and tie cases"
+}
