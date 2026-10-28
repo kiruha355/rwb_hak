@@ -247,20 +247,11 @@ CREATE TABLE core.dim_category (
     )
 );
 INSERT INTO core.dim_category (category_key, name_pt, name_en, is_unknown, is_translated, has_translation_row)
-VALUES ('unknown', NULL, NULL, true, false, false);
-WITH category_domain AS (
-    SELECT product_category_name FROM raw.products WHERE product_category_name IS NOT NULL
-    UNION
-    SELECT product_category_name FROM raw.product_category_translation
-)
-INSERT INTO core.dim_category (category_key, name_pt, name_en, is_unknown, is_translated, has_translation_row)
-SELECT 'pt:' || c.product_category_name, c.product_category_name,
-       t.product_category_name_english, false, t.product_category_name_english IS NOT NULL,
-       t.product_category_name IS NOT NULL
-FROM category_domain AS c
-LEFT JOIN raw.product_category_translation AS t USING (product_category_name);
--- Translation rows are NOT deduplicated: duplicate PT keys fan out here and fail PK.
-COMMENT ON TABLE core.dim_category IS 'Union of product and translation domains plus explicit unknown; missing translation never erases a known PT category.';
+SELECT category_key, name_pt, name_en, is_unknown, is_translated, has_translation_row
+FROM history.release_category
+WHERE release_id=current_setting('capibara.report_release');
+-- Labels/domain are pinned by release, including retained event categories.
+COMMENT ON TABLE core.dim_category IS 'Pinned release taxonomy: product/translation domain, retained event categories and explicit unknown; missing translation never erases a known PT category.';
 COMMENT ON COLUMN core.dim_category.category_key IS 'Collision-free discriminator: unknown for NULL source, otherwise pt: concatenated with exact source name.';
 COMMENT ON COLUMN core.dim_category.name_pt IS 'Alias of product_category_name; NULL only on unknown member; empty source text stays empty.';
 COMMENT ON COLUMN core.dim_category.name_en IS 'Alias of product_category_name_english; NULL remains missing, no fallback translation.';

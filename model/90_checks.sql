@@ -83,14 +83,8 @@ BEGIN
  $sql$SELECT DISTINCT customer_unique_id FROM raw.customers$sql$,
  $sql$SELECT customer_unique_id FROM core.dim_customer$sql$),
  ($sql$categories$sql$, $sql$category_key$sql$,
- $sql$SELECT 'unknown'::text AS category_key, NULL::text AS name_pt,
- NULL::text AS name_en, true AS is_unknown, false AS is_translated, false AS has_translation_row
- UNION ALL
- SELECT 'pt:'||n.product_category_name, n.product_category_name, t.product_category_name_english,
- false, t.product_category_name_english IS NOT NULL, t.product_category_name IS NOT NULL
- FROM (SELECT product_category_name FROM raw.products WHERE product_category_name IS NOT NULL
-       UNION SELECT product_category_name FROM raw.product_category_translation WHERE product_category_name IS NOT NULL) n
- LEFT JOIN raw.product_category_translation t USING(product_category_name)$sql$,
+ $sql$SELECT category_key,name_pt,name_en,is_unknown,is_translated,has_translation_row
+ FROM history.release_category WHERE release_id=(SELECT release_id FROM core.model_release)$sql$,
  $sql$SELECT category_key, name_pt, name_en, is_unknown, is_translated, has_translation_row FROM core.dim_category$sql$),
  ($sql$statuses$sql$, $sql$order_status$sql$,
  $sql$SELECT order_status, order_status='delivered' AS is_revenue FROM (
@@ -305,3 +299,5 @@ END;
 $checks$;
 
 SELECT core.run_checks();
+
+\ir history/04_checks.sql

@@ -90,6 +90,9 @@ SET LOCAL search_path = pg_catalog, pg_temp;
 SET LOCAL DateStyle = 'ISO, YMD';
 SET LOCAL TimeZone = 'UTC';
 SET LOCAL capibara.raw_reload_paused = '1';
+\if :{?report_release}
+SELECT set_config('capibara.report_release', :'report_release', true);
+\endif
 DO $guard$
 BEGIN
     IF current_setting('server_version_num')::integer < 160000 THEN
@@ -107,7 +110,7 @@ run_prepared() {
     local sql_file=$1
     shift
     local status=0
-    "${psql_cmd[@]}" -X -1 -v ON_ERROR_STOP=1 -w -P pager=off "$@" -f - < "$sql_file" || status=$?
+    "${psql_cmd[@]}" -X -1 -v ON_ERROR_STOP=1 -w -P pager=off -v "report_release=${RWB_REPORT_RELEASE:-}" "$@" -f - < "$sql_file" || status=$?
     if (( status != 0 )); then
         printf '%s\n' "Model command failed (psql exit $status). See the SQL error above." 'No automatic retry or raw reload was performed. A server SQL error aborts the transaction; after a lost connection inspect commit outcome before retrying.' >&2
     fi
