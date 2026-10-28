@@ -428,5 +428,29 @@ app.get(
   })
 );
 
+// ---- block B answers (Q6–Q10). The views come from model/55_answers_block_b.sql;
+// until that step is in the build, report them as not available instead of failing.
+app.get(
+  "/api/answers-b",
+  cached(async () => {
+    const [{ ok }] = await q(`SELECT to_regclass('mart.q06_price_history') IS NOT NULL AS ok`);
+    if (!ok) return { available: false };
+    const [q6, q7, q8, q9s, q9m, q10, q10c] = await Promise.all([
+      q(`SELECT population, product_id, distinct_prices, purchase_date::text AS purchase_date, price, units_sold
+         FROM mart.q06_price_history ORDER BY population, product_id, purchase_date, price`),
+      q(`SELECT population, customer_state, late_basis, orders_count, avg_delivery_days, late_pct, late_denominator, late_orders
+         FROM mart.q07_delivery_by_state ORDER BY orders_count DESC`),
+      q(`SELECT order_status, orders_count, orders_pct, orders_without_items FROM mart.q08_status_snapshot ORDER BY orders_count DESC`),
+      q(`SELECT customer_state, payment_count, payment_amount, avg_installments_all_types, avg_installments_credit_card
+         FROM mart.q09_payments_2018_by_state ORDER BY payment_amount DESC NULLS LAST`),
+      q(`SELECT period, payment_type, payment_count, avg_installments FROM mart.q09_payment_methods ORDER BY period, payment_count DESC`),
+      q(`SELECT population, score_policy, late_basis, review_score, orders_count, avg_delivery_days, late_pct
+         FROM mart.q10_review_delivery ORDER BY review_score`),
+      q(`SELECT population, orders_count, orders_without_score, orders_with_multiple_scores FROM mart.q10_review_coverage`),
+    ]);
+    return { available: true, q6, q7, q8, q9: { states: q9s, methods: q9m }, q10: { rows: q10, coverage: q10c } };
+  })
+);
+
 const PORT = Number(process.env.PORT || 8787);
 app.listen(PORT, "127.0.0.1", () => console.log(`Capibara API on http://127.0.0.1:${PORT}`));
