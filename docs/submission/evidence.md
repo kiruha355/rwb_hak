@@ -10,7 +10,7 @@
 
 ## Ответы Q1–Q10
 
-В [tasks](../../hack-context/hackathon-students/docs/tasks.md) прочитаны Q1–Q5. Для каждого ответа нужны: точный SQL/ref, grain, status, окно, компоненты, знаменатель, NULL/coverage, единицы, полный экспорт и run ID. Состояние CSV/raw baseline отличается от состояния ответа из модели.
+В [tasks](../../hack-context/hackathon-students/docs/tasks.md) прочитаны Q1–Q10 и вброс, источник организаторов `558f0f6a38110acc9fcf4386a7e53ece973aedf5`. Для каждого ответа нужны: точный SQL/ref, grain, status, окно, компоненты, знаменатель, NULL/coverage, единицы, полный экспорт и run ID. Состояние CSV/raw baseline отличается от состояния ответа из модели.
 
 | Вопрос | Контроль/вариант из источников | Что должно быть в окончательном результате | Core/DB evidence |
 |---|---|---|---|
@@ -19,13 +19,17 @@
 | [Q3: чек](../../answers/q03.sql) | Order item+freight 159.88; avg source rows/units 1.142; groups product×seller 1.039 | Точный numerator/denominator до округления; payment average отдельным именем | pending |
 | [Q4: покупатели](../../answers/q04.sql) / [окно Q1](../../answers/q04_window.sql) | Весь снимок: 96 096, повторных 2 997, 3.12%; окно Q1: 96 090, 2 987, 3.11% | Устойчивая buyer identity, оба окна/статусы подписаны | pending |
 | [Q5: категории](../../answers/q05.sql) | 74 используемые группы; top 1 233 131.72; total 13 221 498.11 | Unknown сохранён; missing translation отдельно; сумма и доли при одном фильтре | pending |
-| Q6 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
-| Q7 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
-| Q8 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
-| Q9 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
-| Q10 | Условие ещё не опубликовано | Паспорт→SQL из модели→результат→check | pending: условие |
+| [Q6: история цен](../../answers/q06-q10/q06.sql) | Условие опубликовано; варианты и CSV-наблюдения в [блоке Б](block-b.md) | Все строки из mart, параметры, знаменатели и coverage, привязка входа | full Olist/core pending; synthetic PG16 PASS в указанном ниже объёме |
+| [Q7: доставка](../../answers/q06-q10/q07.sql) | Условие опубликовано; варианты и CSV-наблюдения в [блоке Б](block-b.md) | Все строки из mart, параметры, знаменатели и coverage, привязка входа | full Olist/core pending; synthetic PG16 PASS в указанном ниже объёме |
+| [Q8: снимок статусов](../../answers/q06-q10/q08.sql) | Условие опубликовано; варианты и CSV-наблюдения в [блоке Б](block-b.md) | Все строки из mart, параметры, знаменатели и coverage, привязка входа | full Olist/core pending; synthetic PG16 PASS в указанном ниже объёме |
+| [Q9: платежи](../../answers/q06-q10/q09.sql) | Условие опубликовано; варианты и CSV-наблюдения в [блоке Б](block-b.md) | Все строки из mart, параметры, знаменатели и coverage, привязка входа | full Olist/core pending; synthetic PG16 PASS в указанном ниже объёме |
+| [Q10: оценка и доставка](../../answers/q06-q10/q10.sql) | Условие опубликовано; варианты и CSV-наблюдения в [блоке Б](block-b.md) | Все строки из mart, параметры, знаменатели и coverage, привязка входа | full Olist/core pending; synthetic PG16 PASS в указанном ниже объёме |
 
 Источник чисел и оговорок: [implementation brief, вопросы 2–5, 14–15](../implementation-brief-20261028.md), [S04/S12](https://github.com/kiruha355/rwb_hak/blob/b7495d66faebee5ba9b07d829caee019a6e76fdf/research/internet-2026-10-28/synthesis/selected-findings.md), [профиль](../profiling.md). Если экспорт не совпал, сохраняем расхождение и проверяем формулу/популяцию; не переписываем raw или baseline ради совпадения.
+
+## Проверки Q6–Q10 на опубликованном снимке
+
+В [протоколе PG16.15](../phase-20261028/evidence/pg16-small-02/summary.json) зафиксированы hashes и Q6–Q10 behavior на 16 синтетических заказах; отдельный 10-order lifecycle проверил build/rebuild, сравнение, позднюю ошибку с rollback, raw и entrypoints. [Две мутации](../phase-20261028/evidence/mutation-results.json) обнаружены тестом. [CSV-исследования](../phase-20261028/README.md#поставка-исследований-и-handoff-фронтенду) — oracle для будущей сверки, не model output. Полный Olist, привязка CSV↔raw↔core, новые числа, history implementation, адресный regression и Q6–Q10 API/UI pending. Ни одно из исследований не утвердило новую метрику от имени человека.
 
 ## Уже готовое к первому чекпоинту
 
@@ -45,7 +49,7 @@
 
 ## Независимый review
 
-[Astra review](../../research/implementation-review-20261028/astra-review.md) завершён: **1 P1 + 4 P2**, P0 не найден. Разделение grains и основная семантика поддержаны прочитанным кодом и малым PG evidence. Это review конкретного input snapshot, не будущих исправлений. Координатор ведёт фиксы отдельно; W-15 их не меняет и не объявляет закрытыми.
+[Astra review](../../research/implementation-review-20261028/astra-review.md) завершён: **1 P1 + 4 P2**, P0 не найден. Разделение grains и основная семантика поддержаны прочитанным кодом и малым PG evidence. Это review конкретного input snapshot, не будущих исправлений. Адресные исправления и отдельные проверки координатора приведены в [протоколе](../../research/implementation-review-20261028/review-fixes.md); это не полный lifecycle текущего снимка.
 
 - **R1/P1:** CSV→raw verifier создаёт TEMP внутри READ ONLY; блокирует binding/lifecycle path, не доказывает неправильную модель.
 - **R2/P2:** самопроверка translation membership не защищает `has_translation_row`.
@@ -53,14 +57,14 @@
 - **R4/P2:** lifecycle-команда не устанавливает обязательный verified-manifest token.
 - **R5/P2:** whitespace-only keys проходят проверку `btrim` для табуляции/перевода строки.
 
-Методы и точные repro различаются: static/официальная PG семантика и узкие DuckDB probes; полного PG lifecycle reviewer не запускал. [Машинное evidence](../../research/implementation-review-20261028/astra-evidence.json). До full-data acceptance нужны исправления, повторные целевые проверки и полный прогон.
+Методы и точные repro различаются: static/официальная PG семантика и узкие DuckDB probes; полного PG lifecycle reviewer не запускал. [Машинное evidence](../../research/implementation-review-20261028/astra-evidence.json). Для full-data acceptance нужны проверка применимости исправлений к целевому SHA и полный прогон.
 
 ## Сборка и проверки
 
 | Входная точка | Роль | Доказательство выполнения |
 |---|---|---|
 | [model/CONTRACT.md](../../model/CONTRACT.md) | Точные имена/grains/NULL/typing | Прочитан W-12, без DB execution |
-| [build-model.sh](../../scripts/build-model.sh), [build.sql](../../model/build.sql), [runbook](../build-runbook.md) | Wrapper владеет транзакцией, single-transaction/fail-fast; raw reload pause — утверждение оператора, не автоматическая блокировка loader | Код прочитан, DB pending |
+| [build-model.sh](../../scripts/build-model.sh), [build.sql](../../model/build.sql), [runbook](../build-runbook.md) | Wrapper владеет транзакцией, single-transaction/fail-fast; raw reload pause — утверждение оператора, не автоматическая блокировка loader | На отдельном 10-order synthetic fixture проверены wrapper build/rebuild и rollback; полный Olist lifecycle pending |
 | [10_dims](../../model/10_dims.sql), [20_facts](../../model/20_facts.sql), [05_typecheck](../../model/05_typecheck.sql), [30_quality](../../model/30_quality.sql) | Детали, типы и наблюдаемые аномалии | Малые PG cases PASS; полная Olist-сохранность pending |
 | [40_mart](../../model/40_mart.sql), [50_answers](../../model/50_answers.sql), [паспорта](../metric-definitions.md) | SQL метрик и ответов, варианты с coverage | DuckDB93 +PG small cases; full-data exports pending |
 | [90_checks](../../model/90_checks.sql), [verify-model.py](../../scripts/verify-model.py), [input-manifest.py](../../scripts/input-manifest.py) | Инварианты, проверки и версия входа, отдельно от известных ответов | Код доступен; малые PG cases PASS; CSV↔raw и полный runtime pending |
@@ -110,7 +114,7 @@ limitations / pending:
 python3 docs/submission/verify_pack.py
 ```
 
-Команда проверяет локальные ссылки, переносимость HTML и manifest W-12; это static check, не SQL runtime.
+Команда проверяет локальные ссылки, переносимость HTML и manifest W-12; это static check, не SQL runtime. После обновления документов прежний manifest необходимо пересоздать владельцу комплекта; до этого проверка всего старого пакета может сообщать о расхождениях.
 
 **Точная команда следующего DB-этапа**, только на разрешённом уже работающем PostgreSQL-стенде, с настроенным правильным libpq endpoint и подтверждённой остановкой всех raw/model writers на всё время команды:
 
