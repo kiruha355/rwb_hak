@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capibara · комплект сдачи</title>
+<style>
+:root{color-scheme:light dark;--pack-ink:var(--foreground,#243244);--pack-muted:var(--muted-foreground,#5a6676);--pack-line:var(--border,#c8d0d9);--pack-link:var(--primary,#225eb1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:17px/1.6 var(--font-sans,system-ui,sans-serif);color:var(--pack-ink)}main{max-width:1000px;margin:auto}header{padding:24px 0 16px}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;letter-spacing:-.025em;margin:0 0 14px}h2{font-size:25px;line-height:1.3;margin:28px 0 12px}p{margin:8px 0 16px}a{color:var(--pack-link);text-underline-offset:.18em}a:focus-visible,summary:focus-visible{outline:3px solid var(--ring,#4383ca);outline-offset:4px}nav{display:flex;flex-wrap:wrap;gap:8px 22px}small,.muted{color:var(--pack-muted);font-size:14px}.route{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-block:1px solid var(--pack-line);padding:15px 0;margin:20px 0}.route strong{font-weight:650}.route .arrow{color:var(--pack-muted)}table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.45}th{text-align:left;font-weight:650}th,td{vertical-align:top;border-bottom:1px solid var(--pack-line);padding:12px 10px 12px 0}th:first-child{width:22%}th:nth-child(2){width:31%}details{border-bottom:1px solid var(--pack-line);padding:14px 0}summary{cursor:pointer;font-weight:650;line-height:1.5}details p{margin:12px 0}ul,ol{padding-left:24px}li{margin:6px 0}footer{margin:24px 0 30px}code{font:0.9em var(--font-mono,monospace);overflow-wrap:anywhere}.table-scroll{overflow-x:auto}section{scroll-margin-top:20px}@media(max-width:540px){body{font-size:16px}h2{font-size:23px}th,td{padding:10px 8px 10px 0}table{font-size:14px;min-width:530px}}@media print{a{color:inherit}details{break-inside:avoid}nav{display:none}body{font-size:11pt}h1{font-size:26pt}}
+@media(max-width:540px){.table-scroll{overflow-x:visible}table{min-width:0}thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}tbody,tr,td{display:block}tr{border-bottom:1px solid var(--pack-line);padding:12px 0}td{border:0;padding:2px 0}td:first-child{font-weight:650}td:nth-child(2){padding-bottom:6px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Capibara. Комплект сдачи</h1>
+<p><strong>Чекпоинт 13:30 МСК.</strong> Код готов: 7 справочников, 4 детальных факта, сборка, проверки и SQL Q1–Q5. Малые offline/static проверки успешны. PostgreSQL/core/rollback и результаты модели <strong>pending</strong>; Q6–Q10 ждут условий.</p>
+<nav aria-label="Материалы комплекта"><a href="checkpoint-1330.md">Сценарий 5–7 минут</a><a href="presentation.html">HTML-показ</a><a href="README.md">Полный индекс</a><a href="../../explainer.html">Общий explainer</a></nav>
+</header>
+<section aria-labelledby="route-title">
+<h2 id="route-title">Сначала источник</h2>
+<div class="route" aria-label="Путь данных: восемь CSV, неизменный raw, детальный core, mart, ответы и концепция">
+<strong>8 CSV</strong><span class="arrow" aria-hidden="true">→</span><span>raw</span><span class="arrow" aria-hidden="true">→</span><strong>детальный core</strong><span class="arrow" aria-hidden="true">→</span><span>mart</span><span class="arrow" aria-hidden="true">→</span><span>ответы / концепция</span>
+</div>
+<p><a href="source-guide.md">550 759 исходных записей, примеры строк и связи</a>. Числа CSV и raw-профиля — контроль источника. Сборку они не подтверждают. В источниках нет корзины, выкупа, возвратов и комиссии.</p>
+<p><a href="order-example.json">Один реальный заказ</a>: 1 позиция, 3 платежа, 1 отзыв. Товары с доставкой 38.71, платежи 38.71. <a href="checkpoint-1330.md#один-реальный-заказ-источник--sql">Связи и mapping в SQL</a>; это чтение CSV, не результат core.</p>
+</section>
+<section aria-labelledby="coverage-title">
+<h2 id="coverage-title">Что предъявляем</h2>
+<div class="table-scroll"><table>
+<thead><tr><th scope="col">Критерий</th><th scope="col">Артефакт</th><th scope="col">Доказательство / состояние</th></tr></thead>
+<tbody>
+<tr><td>Ответы</td><td><a href="evidence.md#ответы-q1q10">Q1–Q10</a></td><td>SQL Q1–Q5 готов. Нужны фактические экспорты из модели; Q6–Q10 не опубликованы.</td></tr>
+<tr><td>Качество модели</td><td><a href="../../model/CONTRACT.md">Контракт core</a></td><td>7 справочников + 4 факта готовы; соответствие 47 полям восьми источников. Сохранность на PostgreSQL pending.</td></tr>
+<tr><td>Поддерживаемость</td><td><a href="evidence.md#сборка-и-проверки">Сборка и проверки</a></td><td>14 unit-тестов, 93 проверки DuckDB, 19 файлов статически; оболочка и план 16 проверок. Повтор координатора: exit0. PostgreSQL/откат pending.</td></tr>
+<tr><td>Понимание и вброс</td><td><a href="defense.md">Защита и репетиция</a></td><td>Наш ключ, JOIN, метрика и проверка. Живая репетиция pending.</td></tr>
+<tr><td>Дашборд</td><td><a href="dashboard-concept.md">Концепция и формулы</a></td><td>Пользователь, уровень расчёта, источник, неаддитивность, действие. Область — вариант для выбора.</td></tr>
+<tr><td>Использование ИИ</td><td><a href="ai-log.md">Журнал ИИ</a></td><td>Источник→предложение→проверка→автор решения. Принятие человеком отдельно.</td></tr>
+<tr><td>Стратегия</td><td><a href="growth-strategy.md">Рост и миграция</a></td><td>Нагрузка, SLA, стоимость, источники истории, паритет и откат. Измерения pending.</td></tr>
+</tbody></table></div>
+</section>
+<section aria-label="Подробности комплекта">
+<details><summary>Короткая записка и рабочий выбор</summary><p><a href="decisions-note.md">Записка ≤½ страницы</a>: раздельные факты с натуральными ключами; buyer по customer_unique_id; адрес на заказе; все review-order пары; неизвестное отличается от нуля. Спорные правила выпускаются именованными вариантами.</p></details>
+<details><summary>Что открыто для выбора</summary><p>Counts Q1/Q2, окна, веса отзывов, late day/timestamp, область и технология дашборда. Полные <a href="../implementation-brief-20261028.md#все-17-вопросов">17 вопросов с альтернативами</a>. Разрешение реализации не превращается в 17 отдельных approvals.</p></details>
+<details><summary>Как показывать работу</summary><p><a href="presentation.md">Сценарий на 9–10 минут</a>: файлы→строки→связи→задача→модель→находки→выбор→код/check→ответ. До PostgreSQL-run показываем файлы и ограничения; после — реальные команды и экспорты. <a href="defense.md">Вопросы защиты</a> привязаны к нашим полям и контрпримерам.</p></details>
+<details><summary>Сборка, ответы и проверки в репозитории</summary><ul><li><a href="../../model/">Каталог model</a> и <a href="../../model/CONTRACT.md">точный интерфейс core</a>.</li><li><a href="../../scripts/build-model.sh">Команда сборки</a>, <a href="../../model/90_checks.sql">SQL проверок</a>, <a href="../../answers/RESULTS.md">состояние ответов владельца</a>.</li><li><a href="evidence.md#сборка-и-проверки">Входные точки и приёмка на PostgreSQL</a>.</li><li><a href="../dev-environment-20261028.md">Инструкция по окружению</a>; запуск Docker/VM на текущем Mac заблокирован.</li><li><a href="evidence.md#следующий-шаг">Следующая разрешённая команда</a>: лёгкая статическая проверка комплекта.</li></ul></details>
+<details><summary>Происхождение и канонические записи</summary><p>Repository <code>kiruha355/rwb_hak</code>; синтез <code>1939068295d7203a15cbb0a1ab5d407caca90f58</code>; research <code>72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a</code>. Это refs источников, не публикация W-12. Статусы — в <a href="../workstreams.md">workstreams</a>, решения — в <a href="../decision-log.md">decision-log</a>. Этот hub является навигацией; оценка/финальная готовность не заявлены.</p></details>
+</section>
+<footer><small>Предварительный комплект W-12 · 28 октября 2026 · публикация через W-01</small></footer>
+</main>
+</body>
+</html>

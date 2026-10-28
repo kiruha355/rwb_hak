@@ -1,0 +1,138 @@
+{
+  "method": "native html_preview, static screenshots and human-model visual inspection; no preview browser or server",
+  "previews": [
+    {
+      "key": "hub728",
+      "width": 728,
+      "contentHeight": 1572,
+      "capturedHeight": 1572,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 728,
+        "height": 1572
+      }
+    },
+    {
+      "key": "hub390",
+      "width": 390,
+      "contentHeight": 1740,
+      "capturedHeight": 1740,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 390,
+        "height": 1740
+      }
+    },
+    {
+      "key": "slides1000",
+      "width": 1000,
+      "contentHeight": 6601,
+      "capturedHeight": 4000,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1000,
+        "height": 4000
+      }
+    },
+    {
+      "key": "slides_tail1000",
+      "width": 1000,
+      "contentHeight": 2167,
+      "capturedHeight": 2167,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1000,
+        "height": 2167
+      }
+    },
+    {
+      "key": "memo642",
+      "width": 642,
+      "contentHeight": 488,
+      "capturedHeight": 488,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 642,
+        "height": 488
+      }
+    },
+    {
+      "key": "hub390_final",
+      "width": 390,
+      "contentHeight": 2021,
+      "capturedHeight": 2021,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 390,
+        "height": 2021
+      }
+    },
+    {
+      "key": "hub728_final",
+      "width": 728,
+      "contentHeight": 1593,
+      "capturedHeight": 1593,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 728,
+        "height": 1593
+      }
+    },
+    {
+      "key": "memo642_final",
+      "width": 642,
+      "contentHeight": 468,
+      "capturedHeight": 468,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 642,
+        "height": 468
+      }
+    },
+    {
+      "key": "slides_mid1000_final",
+      "width": 1000,
+      "contentHeight": 530,
+      "capturedHeight": 530,
+      "consoleMessages": [],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1000,
+        "height": 530
+      }
+    }
+  ],
+  "observations": [
+    "Final hub inspected at widths728 and390; mobile table switched to stacked rows with all status text visible.",
+    "Presentation head, middle and tail inspected; full-page capture capped at4000px, so tail/middle used temporary CSS to hide preceding sections; final artifact keeps all12 sections.",
+    "Final memo at642px width has contentHeight468px; A4 with20mm margins has half printable height about486px at96CSSpx/in;178 whitespace words including title.",
+    "Console messages empty in successful native previews."
+  ],
+  "not_checked": [
+    "Native keyboard interaction",
+    "PowerPoint or PDF pagination",
+    "PostgreSQL/core runtime",
+    "Human rehearsal timing"
+  ],
+  "final_presentation_preview": {
+    "width": 1000,
+    "contentHeight": 6577,
+    "capturedHeight": 4000,
+    "tailContentHeight": 2167,
+    "consoleMessages": [],
+    "method": "full final file plus temporary CSS tail view"
+  },
+  "inline_hub_render": {
+    "title": "Capibara · чекпоинт 13:30",
+    "height": 1593,
+    "method": "html_render of the final index.html bytes after html_preview"
+  }
+}

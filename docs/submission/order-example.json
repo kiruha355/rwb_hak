@@ -1,0 +1,97 @@
+{
+  "method": "CSV read-only; not loaded raw/core; no SQL executed",
+  "order": {
+    "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+    "customer_id": "9ef432eb6251297304e76186b10a928d",
+    "order_status": "delivered",
+    "order_purchase_timestamp": "2017-10-02 10:56:33",
+    "order_approved_at": "2017-10-02 11:07:15",
+    "order_delivered_carrier_date": "2017-10-04 19:55:00",
+    "order_delivered_customer_date": "2017-10-10 21:25:13",
+    "order_estimated_delivery_date": "2017-10-18 00:00:00"
+  },
+  "customer_context": {
+    "customer_id": "9ef432eb6251297304e76186b10a928d",
+    "customer_unique_id": "7c396fd4830fd04220f754e42b4e5bff",
+    "customer_zip_code_prefix": "3149",
+    "customer_city": "sao paulo",
+    "customer_state": "SP"
+  },
+  "items": [
+    {
+      "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+      "order_item_id": "1",
+      "product_id": "87285b34884572647811a353c7ac498a",
+      "seller_id": "3504c0cb71d7fa48d967e0e4c94d59d9",
+      "shipping_limit_date": "2017-10-06 11:07:15",
+      "price": "29.99",
+      "freight_value": "8.72"
+    }
+  ],
+  "payments": [
+    {
+      "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+      "payment_sequential": "1",
+      "payment_type": "credit_card",
+      "payment_installments": "1",
+      "payment_value": "18.12"
+    },
+    {
+      "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+      "payment_sequential": "3",
+      "payment_type": "voucher",
+      "payment_installments": "1",
+      "payment_value": "2.00"
+    },
+    {
+      "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+      "payment_sequential": "2",
+      "payment_type": "voucher",
+      "payment_installments": "1",
+      "payment_value": "18.59"
+    }
+  ],
+  "review_pairs": [
+    {
+      "review_id": "a54f0611adc9ed256b57ede6b6eb5114",
+      "order_id": "e481f51cbdc54678b7cc49136f2d6af7",
+      "review_score": "4",
+      "review_creation_date": "2017-10-11 00:00:00",
+      "review_answer_timestamp": "2017-10-12 03:43:48"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "87285b34884572647811a353c7ac498a",
+      "product_category_name": "utilidades_domesticas",
+      "product_weight_g": "500"
+    }
+  ],
+  "sellers": [
+    {
+      "seller_id": "3504c0cb71d7fa48d967e0e4c94d59d9",
+      "seller_zip_code_prefix": "9350",
+      "seller_city": "maua",
+      "seller_state": "SP"
+    }
+  ],
+  "translations": [
+    {
+      "product_category_name": "utilidades_domesticas",
+      "product_category_name_english": "housewares"
+    }
+  ],
+  "counts": {
+    "orders": 1,
+    "items": 1,
+    "payments": 3,
+    "review_pairs": 1,
+    "rows_in_naive_inner_join": 3
+  },
+  "csv_amounts": {
+    "item_price": "29.99",
+    "freight": "8.72",
+    "order_gmv": "38.71",
+    "payment_amount": "38.71"
+  }
+}

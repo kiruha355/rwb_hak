@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-28T09:49:12.753344+00:00",
+  "input_main": "1939068295d7203a15cbb0a1ab5d407caca90f58",
+  "files": {
+    "Makefile": "f7c2ac69813d122789f5b6f98151362d49497d936013e8e17d0b326d9c873706",
+    "answers/control.sql": "8856e395c3afbfd2c769c47ced9fe23667b7312bf6582045640fcb6feebc890d",
+    "answers/payment_reconciliation.sql": "20ce8db0e5178de9fdddbe06155339ec5ccacf8f0ecebb6187609ea2560dd7e2",
+    "answers/q01.sql": "3b5a2f8a8d7bccc312d94b1394a296f3d58b128933d756a145fd25f20afe00f1",
+    "answers/q02.sql": "238458b3f2a51c080d22ea46275dabcbe17408c4140cae74b97c559faf84b6c7",
+    "answers/q03.sql": "ca3a5fffbcf740a35cf07e19f9dc4a7aeed32e3d851b097e521e7a6d33402e6e",
+    "answers/q04.sql": "84efc278d2d9ab17be03b1c8e8ff3324b8d285a1446dd8b2c73765f4518bb471",
+    "answers/q04_window.sql": "d332d0fc0e9c80c4953cb8c043f565ba033af09d99b0a4e93e33c0229391da5f",
+    "answers/q05.sql": "b600f36c685ea74014b99497f0fd349eb3e999649005f2dd20ad1939b6b4f77e",
+    "answers/review_weights.sql": "d855be39f7717e3016bfd1ee158ed7d3ca67c27a8d8b6faa683b79340cede0e8",
+    "model/00_schemas.sql": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+    "model/05_typecheck.sql": "34fc2a829a9983eaee47714884a8640258fc9c9b5b71af3e7b1af024a9d91157",
+    "model/10_dims.sql": "f7aa80dcc9b8cb11ecd997259638cabaabebfb3f959950d3910c472d0b29aa39",
+    "model/20_facts.sql": "1d9ca47499c18429546cd4cc2cbf3e3668a1a7ba667faf62eba65067f107a234",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138",
+    "model/90_checks.sql": "fc1dbe0b902cecdefb8447f0498681b0eb59566966df8ccee985cdb178816ca2",
+    "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+    "model/build.sql": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59",
+    "scripts/build-model.sh": "ef527345f1b91f84c5759aa7a17cbe97b36c3572f472f00d9229058017c282b6",
+    "scripts/input-manifest.py": "3da62ab650f071e4d3e86201768cd7c7b2bcd4b7ad1a56117977cbf5791738d8",
+    "scripts/verify-model.py": "f4e6751be51580db19e9dc7bba5494e7b9664c7f443b234478614c7f5ca24c11",
+    "tests/model/fingerprint.sql": "39995edc49d0c5f471fd52179f9c4e9180eb25751f7143290dd8d604ff07adde",
+    "tests/model/fixtures/assert-base.sql": "e91763223e528a04977d79272ad6abad4566ee006b8e512dd094520cb93c2518",
+    "tests/model/fixtures/base.sql": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a",
+    "tests/model/fixtures/cases.json": "996287daccc47fdba95f4dd199cab35d5a4d82438b831348fb26ed11ad7cbeea",
+    "tests/model/rollback.sql": "7ff18076507bb60ab191990b90c8435ad88cf7a64540deeed8053baad209561e",
+    "tests/model/validate-lifecycle.sh": "c6b045191158ce91ef95af8f05b8ac4d68459e42f5b013aaa147ee8fa95998bb"
+  },
+  "parent_checks": {
+    "python_unit_tests": 14,
+    "duckdb_fixture_checks": 93,
+    "static_files": 19,
+    "bash_syntax": "pass",
+    "make_dry_run": "pass",
+    "sql_scenarios_planned": 16,
+    "postgresql_executed": false
+  },
+  "resource_guard": {
+    "checked_utc": "2026-10-28T09:46:31Z",
+    "exit": 78,
+    "free_gib": 30.06,
+    "memory_pressure_level": 2,
+    "swap_used_gib": 1.22
+  },
+  "deadline": "2026-10-28T10:30:00Z"
+}

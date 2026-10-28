@@ -1,0 +1,25 @@
+{
+  "owner": "W-10",
+  "status": "ready_for_review; PostgreSQL runtime pending",
+  "created_utc": "2026-10-28T09:41:25.477596+00:00",
+  "files": {
+    "answers/HANDOFF-W10.md": "6806a218bd04cbef64889274655fa9307e0890b877a550192b6945917c21b7f9",
+    "answers/RESULTS.md": "6075ac9f823a81446067e93299e8ef07762c40f5dfbfb50ead220ce7baa40713",
+    "answers/baseline-manifest.json": "357f789cc4034505ef7d8888a649595c7ea67c4d145eb7be0318f546005de3b3",
+    "answers/check_offline.py": "ddb3c4e24858a9792f3311b5bee5ad05a18219e6d8c05e3c669bffcaab6eba96",
+    "answers/control.sql": "8856e395c3afbfd2c769c47ced9fe23667b7312bf6582045640fcb6feebc890d",
+    "answers/payment_reconciliation.sql": "20ce8db0e5178de9fdddbe06155339ec5ccacf8f0ecebb6187609ea2560dd7e2",
+    "answers/q01.sql": "3b5a2f8a8d7bccc312d94b1394a296f3d58b128933d756a145fd25f20afe00f1",
+    "answers/q02.sql": "238458b3f2a51c080d22ea46275dabcbe17408c4140cae74b97c559faf84b6c7",
+    "answers/q03.sql": "ca3a5fffbcf740a35cf07e19f9dc4a7aeed32e3d851b097e521e7a6d33402e6e",
+    "answers/q04.sql": "84efc278d2d9ab17be03b1c8e8ff3324b8d285a1446dd8b2c73765f4518bb471",
+    "answers/q04_window.sql": "d332d0fc0e9c80c4953cb8c043f565ba033af09d99b0a4e93e33c0229391da5f",
+    "answers/q05.sql": "b600f36c685ea74014b99497f0fd349eb3e999649005f2dd20ad1939b6b4f77e",
+    "answers/review_weights.sql": "d855be39f7717e3016bfd1ee158ed7d3ca67c27a8d8b6faa683b79340cede0e8",
+    "answers/static-check.py": "2cec4e5e94cdcbb2538fd1358d7061e93f713f53af3f5bb561d7294d6c75bdfd",
+    "answers/verification.json": "4b72b919b766731b443029ebdd3a6491e60873033836fce1798a2843745a5318",
+    "docs/metric-definitions.md": "73707aa2afb994b4c36eda18c51f84c8f719a4f7faae7156d2b9aacede9ae7bb",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138"
+  }
+}

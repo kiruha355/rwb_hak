@@ -1,0 +1,787 @@
+{
+  "task": "W11 PostgreSQL 16 tiny synthetic fixture smoke",
+  "owner": "test sub-agent; no delegated agents",
+  "started_utc": "2026-10-28T09:57:18.471172+00:00",
+  "repository": "kiruha355/rwb_hak",
+  "branch": "main",
+  "scope": "16 native business-row synthetic cases only; no CSV, Docker, full build or lifecycle",
+  "runtime": "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028",
+  "report_paths": [
+    "/Users/a/rwb_hak/research/implementation-review-20261028/pg-smoke.json",
+    "/Users/a/rwb_hak/research/implementation-review-20261028/pg-smoke.md"
+  ],
+  "resource_decision": {
+    "classification": "small targeted check, not heavy/full-fixture execution",
+    "preflight_0946_utc_user_supplied": {
+      "exit_code": 78,
+      "free_gib": 30.06,
+      "pressure": 2,
+      "swap_gib": 1.22
+    },
+    "guard_bypassed": false,
+    "dependency_installation": false,
+    "expected_business_rows": {
+      "orders": 10,
+      "customers": 11,
+      "sellers": 1,
+      "products": 3,
+      "product_category_translation": 2,
+      "order_items": 9,
+      "order_payments": 9,
+      "order_reviews": 4
+    },
+    "expected_calendar_days": 730,
+    "estimated_disk_bytes_upper_bound": 268435456,
+    "estimated_memory_bytes_upper_bound": 134217728,
+    "footprint_estimates_are_not_measured_peaks": true,
+    "free_bytes_before": 32219701248,
+    "free_bytes_after": 32148996096,
+    "initdb_probe_caveat": "initdb --set overrides were supplied, but its captured default-detection banner still says max_connections 100 and shared_buffers 128MB. No long-running server was started with those defaults; effective own server settings were independently verified as 5 and 8MB. Transient initdb probe memory was not measured.",
+    "memory_measurement_limit": "The recorded 13,520 KiB RSS is an idle postmaster snapshot only, not combined cluster memory or peak RSS. The 128 MiB pre-run estimate is not a measured or enforced ceiling."
+  },
+  "connection": {
+    "transport": "Unix socket only",
+    "host_directory": "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+    "port_label": 55416,
+    "database": "rwb_w11_pg16_smoke",
+    "user": "a",
+    "credentials": "none; local peer auth"
+  },
+  "source_sha256_before": {
+    "AGENTS.md": "5ee8fdde81b541a04ffed155b9ab096267ff7d5467bad0b8955b8ea587c44682",
+    "docs/model-validation.md": "547607b4fc3018905a9ccf8cd3b22483f6ad14c62f0a7e3d86de9cd020f2cce3",
+    "model/00_schemas.sql": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+    "model/05_typecheck.sql": "34fc2a829a9983eaee47714884a8640258fc9c9b5b71af3e7b1af024a9d91157",
+    "model/10_dims.sql": "f7aa80dcc9b8cb11ecd997259638cabaabebfb3f959950d3910c472d0b29aa39",
+    "model/20_facts.sql": "1d9ca47499c18429546cd4cc2cbf3e3668a1a7ba667faf62eba65067f107a234",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138",
+    "model/90_checks.sql": "fc1dbe0b902cecdefb8447f0498681b0eb59566966df8ccee985cdb178816ca2",
+    "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+    "model/build.sql": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59",
+    "scripts/init/02_raw_ddl.sql": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+    "scripts/verify-model.py": "f4e6751be51580db19e9dc7bba5494e7b9664c7f443b234478614c7f5ca24c11",
+    "tests/model/fixtures/assert-base.sql": "e91763223e528a04977d79272ad6abad4566ee006b8e512dd094520cb93c2518",
+    "tests/model/fixtures/base.sql": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a",
+    "tests/model/fixtures/cases.json": "996287daccc47fdba95f4dd199cab35d5a4d82438b831348fb26ed11ad7cbeea"
+  },
+  "commands": [
+    {
+      "label": "local HEAD",
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "started_utc": "2026-10-28T09:57:18.473283+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.01345,
+      "stdout": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e\n",
+      "stderr": ""
+    },
+    {
+      "label": "fetched origin/main",
+      "argv": [
+        "git",
+        "rev-parse",
+        "origin/main"
+      ],
+      "started_utc": "2026-10-28T09:57:18.487125+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.011218,
+      "stdout": "1939068295d7203a15cbb0a1ab5d407caca90f58\n",
+      "stderr": ""
+    },
+    {
+      "label": "installed PG16 version",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/postgres",
+        "--version"
+      ],
+      "started_utc": "2026-10-28T09:57:18.498667+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.021253,
+      "stdout": "postgres (PostgreSQL) 16.15 (Homebrew)\n",
+      "stderr": ""
+    },
+    {
+      "label": "existing Python driver",
+      "argv": [
+        "/Users/a/.local/share/rwb-hak-dev/venv/bin/python3",
+        "-c",
+        "import sys,psycopg2; print(sys.version); print(psycopg2.__version__)"
+      ],
+      "started_utc": "2026-10-28T09:57:18.520229+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.043576,
+      "stdout": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]\n2.9.13 (dt dec pq3 ext lo64)\n",
+      "stderr": ""
+    },
+    {
+      "label": "fixture plan",
+      "argv": [
+        "/Users/a/.local/share/rwb-hak-dev/venv/bin/python3",
+        "scripts/verify-model.py",
+        "--plan"
+      ],
+      "started_utc": "2026-10-28T09:57:18.564093+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.024946,
+      "stdout": "{\n  \"status\": \"pending_db_execution\",\n  \"cases\": [\n    \"baseline_fanout_null_zero_late\",\n    \"fractional_scale_preserved\",\n    \"nan_rejected_before_cast\",\n    \"invalid_integer_key\",\n    \"null_mandatory_key\",\n    \"duplicate_item_key\",\n    \"dangling_product_fk\",\n    \"new_status_retained_warning\",\n    \"review_payload_conflict_retained_warning\",\n    \"duplicate_review_pair\",\n    \"calendar_gap_detected\",\n    \"compensating_order_errors_detected\",\n    \"lost_review_text_detected\",\n    \"missing_child_detected\",\n    \"replaced_child_key_detected\",\n    \"duplicate_core_multiplicity_detected\"\n  ],\n  \"missing_stages\": [],\n  \"scope\": \"unique w11_* schemas in one transaction; all changes rolled back\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "initialize own empty cluster",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/initdb",
+        "-D",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data",
+        "--username",
+        "a",
+        "--encoding=UTF8",
+        "--locale=C",
+        "--auth-local=peer",
+        "--auth-host=reject",
+        "--no-clean",
+        "--set=max_connections=5",
+        "--set=shared_buffers=8MB",
+        "--set=work_mem=1MB",
+        "--set=maintenance_work_mem=8MB",
+        "--set=autovacuum=off",
+        "--set=jit=off",
+        "--set=max_worker_processes=0",
+        "--set=max_parallel_workers=0",
+        "--set=max_parallel_workers_per_gather=0",
+        "--set=max_parallel_maintenance_workers=0",
+        "--set=wal_buffers=512kB",
+        "--set=min_wal_size=32MB",
+        "--set=max_wal_size=64MB"
+      ],
+      "started_utc": "2026-10-28T09:57:18.589525+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.465815,
+      "stdout": "Running in no-clean mode.  Mistakes will not be cleaned up.\nThe files belonging to this database system will be owned by user \"a\".\nThis user must also own the server process.\n\nThe database cluster will be initialized with locale \"C\".\nThe default text search configuration will be set to \"english\".\n\nData page checksums are disabled.\n\ncreating directory /Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data ... ok\ncreating subdirectories ... ok\nselecting dynamic shared memory implementation ... posix\nselecting default max_connections ... 100\nselecting default shared_buffers ... 128MB\nselecting default time zone ... Europe/Moscow\ncreating configuration files ... ok\nrunning bootstrap script ... ok\nperforming post-bootstrap initialization ... ok\nsyncing data to disk ... ok\n\nSuccess. You can now start the database server using:\n\n    '/opt/homebrew/opt/postgresql@16/bin/pg_ctl' -D /Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data -l logfile start\n\n",
+      "stderr": ""
+    },
+    {
+      "label": "cluster size after_initdb",
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data"
+      ],
+      "started_utc": "2026-10-28T09:57:19.068669+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.004212,
+      "stdout": "39472\t/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data\n",
+      "stderr": ""
+    },
+    {
+      "label": "start only own PG16",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/pg_ctl",
+        "-D",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data",
+        "-l",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/server.log",
+        "-w",
+        "-t",
+        "15",
+        "start"
+      ],
+      "started_utc": "2026-10-28T09:57:19.073171+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.126357,
+      "stdout": "waiting for server to start.... done\nserver started\n",
+      "stderr": ""
+    },
+    {
+      "label": "own postmaster TCP listener check",
+      "argv": [
+        "/usr/sbin/lsof",
+        "-nP",
+        "-a",
+        "-p",
+        "94341",
+        "-iTCP",
+        "-sTCP:LISTEN"
+      ],
+      "started_utc": "2026-10-28T09:57:19.200066+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 0.020124,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "create dedicated empty test database",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-A",
+        "-t",
+        "-h",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+        "-p",
+        "55416",
+        "-U",
+        "a",
+        "-d",
+        "postgres",
+        "-c",
+        "CREATE DATABASE rwb_w11_pg16_smoke"
+      ],
+      "started_utc": "2026-10-28T09:57:19.220588+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.075344,
+      "stdout": "CREATE DATABASE\n",
+      "stderr": ""
+    },
+    {
+      "label": "verify own server identity",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-A",
+        "-t",
+        "-h",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+        "-p",
+        "55416",
+        "-U",
+        "a",
+        "-d",
+        "rwb_w11_pg16_smoke",
+        "-c",
+        "SELECT json_build_object('version',version(),'server_version_num',current_setting('server_version_num'),'database',current_database(),'user',current_user,'data_directory',current_setting('data_directory'),'inet_server_addr',inet_server_addr())"
+      ],
+      "started_utc": "2026-10-28T09:57:19.296321+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.0099,
+      "stdout": "{\"version\" : \"PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit\", \"server_version_num\" : \"160015\", \"database\" : \"rwb_w11_pg16_smoke\", \"user\" : \"a\", \"data_directory\" : \"/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data\", \"inet_server_addr\" : null}\n",
+      "stderr": ""
+    },
+    {
+      "label": "effective requested small settings",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-A",
+        "-t",
+        "-h",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+        "-p",
+        "55416",
+        "-U",
+        "a",
+        "-d",
+        "rwb_w11_pg16_smoke",
+        "-c",
+        "SELECT json_object_agg(name,json_build_object('setting',setting,'unit',unit)) FROM pg_settings WHERE name IN ('listen_addresses','unix_socket_directories','unix_socket_permissions','max_connections','shared_buffers','work_mem','maintenance_work_mem','autovacuum','jit','max_worker_processes','max_parallel_workers','max_parallel_workers_per_gather','max_parallel_maintenance_workers','wal_buffers','min_wal_size','max_wal_size')"
+      ],
+      "started_utc": "2026-10-28T09:57:19.306753+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.008091,
+      "stdout": "{ \"autovacuum\" : {\"setting\" : \"off\", \"unit\" : null}, \"jit\" : {\"setting\" : \"off\", \"unit\" : null}, \"listen_addresses\" : {\"setting\" : \"\", \"unit\" : null}, \"maintenance_work_mem\" : {\"setting\" : \"8192\", \"unit\" : \"kB\"}, \"max_connections\" : {\"setting\" : \"5\", \"unit\" : null}, \"max_parallel_maintenance_workers\" : {\"setting\" : \"0\", \"unit\" : null}, \"max_parallel_workers\" : {\"setting\" : \"0\", \"unit\" : null}, \"max_parallel_workers_per_gather\" : {\"setting\" : \"0\", \"unit\" : null}, \"max_wal_size\" : {\"setting\" : \"64\", \"unit\" : \"MB\"}, \"max_worker_processes\" : {\"setting\" : \"0\", \"unit\" : null}, \"min_wal_size\" : {\"setting\" : \"32\", \"unit\" : \"MB\"}, \"shared_buffers\" : {\"setting\" : \"1024\", \"unit\" : \"8kB\"}, \"unix_socket_directories\" : {\"setting\" : \"/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket\", \"unit\" : null}, \"unix_socket_permissions\" : {\"setting\" : \"0700\", \"unit\" : null}, \"wal_buffers\" : {\"setting\" : \"64\", \"unit\" : \"8kB\"}, \"work_mem\" : {\"setting\" : \"1024\", \"unit\" : \"kB\"} }\n",
+      "stderr": ""
+    },
+    {
+      "label": "verify empty database before fixtures",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-A",
+        "-t",
+        "-h",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+        "-p",
+        "55416",
+        "-U",
+        "a",
+        "-d",
+        "rwb_w11_pg16_smoke",
+        "-c",
+        "SELECT count(*) FROM pg_namespace WHERE nspname IN ('raw','core','mart') OR nspname LIKE 'w11\\_%' ESCAPE '\\'"
+      ],
+      "started_utc": "2026-10-28T09:57:19.315241+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.007413,
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    {
+      "label": "own postmaster idle RSS snapshot",
+      "argv": [
+        "/bin/ps",
+        "-p",
+        "94341",
+        "-o",
+        "pid=,ppid=,rss=,comm="
+      ],
+      "started_utc": "2026-10-28T09:57:19.322996+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.001847,
+      "stdout": "94341     1  13520 /opt/homebrew/Cellar/postgresql@16/16.15_1/bin/postgres\n",
+      "stderr": ""
+    },
+    {
+      "label": "run exact repository fixture CLI",
+      "argv": [
+        "/Users/a/.local/share/rwb-hak-dev/venv/bin/python3",
+        "scripts/verify-model.py",
+        "--run-fixtures"
+      ],
+      "started_utc": "2026-10-28T09:57:19.325133+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.944424,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"method\": \"isolated fixture execution only; not pinned full-model acceptance\",\n  \"cases\": [\n    {\n      \"case\": \"baseline_fanout_null_zero_late\",\n      \"result\": \"passed\",\n      \"method\": \"PostgreSQL isolated fixture\"\n    },\n    {\n      \"case\": \"fractional_scale_preserved\",\n      \"result\": \"passed\",\n      \"method\": \"PostgreSQL isolated fixture\"\n    },\n    {\n      \"case\": \"nan_rejected_before_cast\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"05_typecheck.sql\",\n      \"sqlstate\": \"P0001\",\n      \"diagnostic\": \"ERROR:  Input type/key precheck failed before model casts\\nDETAIL:  w11_raw_80bc2faa51a8.order_items.price [numeric]: 2 row(s)\\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\\n\"\n    },\n    {\n      \"case\": \"invalid_integer_key\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"05_typecheck.sql\",\n      \"sqlstate\": \"P0001\",\n      \"diagnostic\": \"ERROR:  Input type/key precheck failed before model casts\\nDETAIL:  w11_raw_80bc2faa51a8.order_items.order_item_id [required_integer]: 1 row(s)\\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\\n\"\n    },\n    {\n      \"case\": \"null_mandatory_key\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"05_typecheck.sql\",\n      \"sqlstate\": \"P0001\",\n      \"diagnostic\": \"ERROR:  Input type/key precheck failed before model casts\\nDETAIL:  w11_raw_80bc2faa51a8.order_items.product_id [key]: 2 row(s)\\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\\n\"\n    },\n    {\n      \"case\": \"duplicate_item_key\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"20_facts.sql\",\n      \"sqlstate\": \"23505\",\n      \"diagnostic\": \"ERROR:  duplicate key value violates unique constraint \\\"fact_order_item_pkey\\\"\\nDETAIL:  Key (order_id, order_item_id)=(fanout, 1) already exists.\\n\"\n    },\n    {\n      \"case\": \"dangling_product_fk\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"20_facts.sql\",\n      \"sqlstate\": \"23503\",\n      \"diagnostic\": \"ERROR:  insert or update on table \\\"fact_order_item\\\" violates foreign key constraint \\\"fact_order_item_product_id_fkey\\\"\\nDETAIL:  Key (product_id)=(absent-product) is not present in table \\\"dim_product\\\".\\n\"\n    },\n    {\n      \"case\": \"new_status_retained_warning\",\n      \"result\": \"passed\",\n      \"method\": \"PostgreSQL isolated fixture\"\n    },\n    {\n      \"case\": \"review_payload_conflict_retained_warning\",\n      \"result\": \"passed\",\n      \"method\": \"PostgreSQL isolated fixture\"\n    },\n    {\n      \"case\": \"duplicate_review_pair\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"20_facts.sql\",\n      \"sqlstate\": \"23505\",\n      \"diagnostic\": \"ERROR:  duplicate key value violates unique constraint \\\"fact_review_pkey\\\"\\nDETAIL:  Key (review_id, order_id)=(shared-review, fanout) already exists.\\n\"\n    },\n    {\n      \"case\": \"calendar_gap_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  calendar.gaps: 1\\n{\\\"date_day\\\": \\\"2017-01-03\\\", \\\"previous_day\\\": \\\"2017-01-01\\\"}\\ncalendar.keys_raw_minus_core: 1\\n{\\\"date_day\\\": \\\"2017-01-02\\\"}\\ncalendar.multiplicity: 1\\n{\\\"count\\\": 1, \\\"date_day\\\": \\\"2017-01-02\\\"}\\ncalendar.row_count: 1\\n{\\\"actual\\\": 729, \\\"expected\\\": 730}\\ncalendar.values_raw_minus_core: 1\\n{\\\"date_day\\\": \\\"2017-01-02\\\", \\\"iso_week\\\": 1, \\\"iso_year\\\": 2017, \\\"is_weekend\\\": false, \\\"month_start\\\": \\\"2017-01-01\\\", \\\"year_number\\\": 2017, \\\"day_of_month\\\": 2, \\\"month_number\\\": 1, \\\"quarter_number\\\": 1, \\\"iso_day_of_week\\\": 1}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    },\n    {\n      \"case\": \"compensating_order_errors_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  item_money_order: 4\\n{\\\"order_id\\\": \\\"comp-a\\\", \\\"price_sum\\\": 20, \\\"row_count\\\": 1, \\\"price_known\\\": 1, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 0, \\\"freight_value_known\\\": 1, \\\"freight_value_zeros\\\": 1}\\n{\\\"order_id\\\": \\\"comp-a\\\", \\\"price_sum\\\": 30, \\\"row_count\\\": 1, \\\"price_known\\\": 1, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 0, \\\"freight_value_known\\\": 1, \\\"freight_value_zeros\\\": 1}\\n{\\\"order_id\\\": \\\"comp-b\\\", \\\"price_sum\\\": 20, \\\"row_count\\\": 1, \\\"price_known\\\": 1, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 0, \\\"freight_value_known\\\": 1, \\\"freight_value_zeros\\\": 1}\\nitems.values_core_minus_raw: 2\\n{\\\"price\\\": 20, \\\"order_id\\\": \\\"comp-b\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p1\\\", \\\"freight_value\\\": 0, \\\"order_item_id\\\": 1, \\\"shipping_limit_at\\\": null}\\n{\\\"price\\\": 30, \\\"order_id\\\": \\\"comp-a\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p1\\\", \\\"freight_value\\\": 0, \\\"order_item_id\\\": 1, \\\"shipping_limit_at\\\": null}\\nitems.values_raw_minus_core: 2\\n{\\\"price\\\": 20, \\\"order_id\\\": \\\"comp-a\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p1\\\", \\\"freight_value\\\": 0, \\\"order_item_id\\\": 1, \\\"shipping_limit_at\\\": null}\\n{\\\"price\\\": 30, \\\"order_id\\\": \\\"comp-b\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p1\\\", \\\"freight_value\\\": 0, \\\"order_item_id\\\": 1, \\\"shipping_limit_at\\\": null}\\norder_mart.values_core_minus_raw: 2\\n{\\\"order_id\\\": \\\"comp-a\\\", \\\"order_gmv\\\": 30, \\\"item_revenue\\\": 30, \\\"freight_amount\\\": 0, \\\"payment_amount\\\": 20, \\\"payments_count\\\": 1, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 1, \\\"source_rows_count\\\": 1, \\\"review_pairs_count\\\": 0, \\\"freight_valid_count\\\": 1, \\\"payment_valid_count\\\": 1, \\\"item_components_valid_count\\\": 1}\\n{\\\"order_id\\\": \\\"comp-b\\\", \\\"order_gmv\\\": 20, \\\"item_revenue\\\": 20, \\\"freight_amount\\\": 0, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 1, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 1, \\\"source_rows_count\\\": 1, \\\"review_pairs_count\\\": 0, \\\"freight_valid_count\\\": 1, \\\"payment_valid_count\\\": 1, \\\"item_components_valid_count\\\": 1}\\norder_mart.values_raw_minus_core: 2\\n{\\\"order_id\\\": \\\"comp-a\\\", \\\"order_gmv\\\": 20, \\\"item_revenue\\\": 20, \\\"freight_amount\\\": 0, \\\"payment_amount\\\": 20, \\\"payments_count\\\": 1, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 1, \\\"source_rows_count\\\": 1, \\\"review_pairs_count\\\": 0, \\\"freight_valid_count\\\": 1, \\\"payment_valid_count\\\": 1, \\\"item_components_valid_count\\\": 1}\\n{\\\"order_id\\\": \\\"comp-b\\\", \\\"order_gmv\\\": 30, \\\"item_revenue\\\": 30, \\\"freight_amount\\\": 0, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 1, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 1, \\\"source_rows_count\\\": 1, \\\"review_pairs_count\\\": 0, \\\"freight_valid_count\\\": 1, \\\"payment_valid_count\\\": 1, \\\"item_components_valid_count\\\": 1}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    },\n    {\n      \"case\": \"lost_review_text_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  reviews.null_profiles: 2\\n{\\\"key\\\": \\\"review_comment_message\\\", \\\"count\\\": 1}\\n{\\\"key\\\": \\\"review_comment_message\\\", \\\"count\\\": 2}\\nreviews.values_core_minus_raw: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"review_id\\\": \\\"shared-review\\\", \\\"review_score\\\": 5, \\\"review_comment_title\\\": null, \\\"review_creation_date\\\": \\\"2017-01-04T00:00:00\\\", \\\"review_comment_message\\\": null, \\\"review_answer_timestamp\\\": \\\"2017-01-05T12:00:00\\\"}\\nreviews.values_raw_minus_core: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"review_id\\\": \\\"shared-review\\\", \\\"review_score\\\": 5, \\\"review_comment_title\\\": null, \\\"review_creation_date\\\": \\\"2017-01-04T00:00:00\\\", \\\"review_comment_message\\\": \\\"retained text\\\", \\\"review_answer_timestamp\\\": \\\"2017-01-05T12:00:00\\\"}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    },\n    {\n      \"case\": \"missing_child_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  fact_order_item.grand_totals: 2\\n{\\\"rows\\\": 8, \\\"price_sum\\\": 76, \\\"price_known\\\": 7, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 3, \\\"freight_value_known\\\": 6, \\\"freight_value_zeros\\\": 3}\\n{\\\"rows\\\": 9, \\\"price_sum\\\": 96, \\\"price_known\\\": 8, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 5, \\\"freight_value_known\\\": 7, \\\"freight_value_zeros\\\": 3}\\nitem_money_category: 1\\n{\\\"n\\\": 1, \\\"known\\\": 1, \\\"money_sum\\\": 20, \\\"category_key\\\": \\\"pt:pc_gamer\\\"}\\nitem_money_order: 2\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"price_sum\\\": 10, \\\"row_count\\\": 1, \\\"price_known\\\": 1, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 1, \\\"freight_value_known\\\": 1, \\\"freight_value_zeros\\\": 0}\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"price_sum\\\": 30, \\\"row_count\\\": 2, \\\"price_known\\\": 2, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 3, \\\"freight_value_known\\\": 2, \\\"freight_value_zeros\\\": 0}\\nitem_money_seller: 2\\n{\\\"price_sum\\\": 76, \\\"row_count\\\": 8, \\\"seller_id\\\": \\\"s1\\\", \\\"price_known\\\": 7, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 3, \\\"freight_value_known\\\": 6, \\\"freight_value_zeros\\\": 3}\\n{\\\"price_sum\\\": 96, \\\"row_count\\\": 9, \\\"seller_id\\\": \\\"s1\\\", \\\"price_known\\\": 8, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 5, \\\"freight_value_known\\\": 7, \\\"freight_value_zeros\\\": 3}\\nitems.keys_raw_minus_core: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 2}\\nitems.multiplicity: 1\\n{\\\"count\\\": 1, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 2}\\nitems.row_count: 1\\n{\\\"actual\\\": 8, \\\"expected\\\": 9}\\nitems.values_raw_minus_core: 1\\n{\\\"price\\\": 20, \\\"order_id\\\": \\\"fanout\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p-untranslated\\\", \\\"freight_value\\\": 2, \\\"order_item_id\\\": 2, \\\"shipping_limit_at\\\": \\\"2017-01-02T12:00:00\\\"}\\norder_mart.values_core_minus_raw: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_gmv\\\": 11, \\\"item_revenue\\\": 10, \\\"freight_amount\\\": 1, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 3, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 1, \\\"source_rows_count\\\": 1, \\\"review_pairs_count\\\": 2, \\\"freight_valid_count\\\": 1, \\\"payment_valid_count\\\": 3, \\\"item_components_valid_count\\\": 1}\\norder_mart.values_raw_minus_core: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_gmv\\\": 33, \\\"item_revenue\\\": 30, \\\"freight_amount\\\": 3, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 3, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 2, \\\"source_rows_count\\\": 2, \\\"review_pairs_count\\\": 2, \\\"freight_valid_count\\\": 2, \\\"payment_valid_count\\\": 3, \\\"item_components_valid_count\\\": 2}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    },\n    {\n      \"case\": \"replaced_child_key_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  items.keys_core_minus_raw: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 9}\\nitems.keys_raw_minus_core: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 2}\\nitems.multiplicity: 2\\n{\\\"count\\\": 1, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 2}\\n{\\\"count\\\": 1, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 9}\\nitems.values_core_minus_raw: 1\\n{\\\"price\\\": 20, \\\"order_id\\\": \\\"fanout\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p-untranslated\\\", \\\"freight_value\\\": 2, \\\"order_item_id\\\": 9, \\\"shipping_limit_at\\\": \\\"2017-01-02T12:00:00\\\"}\\nitems.values_raw_minus_core: 1\\n{\\\"price\\\": 20, \\\"order_id\\\": \\\"fanout\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p-untranslated\\\", \\\"freight_value\\\": 2, \\\"order_item_id\\\": 2, \\\"shipping_limit_at\\\": \\\"2017-01-02T12:00:00\\\"}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    },\n    {\n      \"case\": \"duplicate_core_multiplicity_detected\",\n      \"result\": \"expected_failure_detected\",\n      \"step\": \"rerun invariant checks\",\n      \"sqlstate\": \"23514\",\n      \"diagnostic\": \"ERROR:  core invariant checks failed\\nDETAIL:  fact_order_item.grand_totals: 2\\n{\\\"rows\\\": 10, \\\"price_sum\\\": 106, \\\"price_known\\\": 9, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 6, \\\"freight_value_known\\\": 8, \\\"freight_value_zeros\\\": 3}\\n{\\\"rows\\\": 9, \\\"price_sum\\\": 96, \\\"price_known\\\": 8, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 5, \\\"freight_value_known\\\": 7, \\\"freight_value_zeros\\\": 3}\\nitem_money_category: 2\\n{\\\"n\\\": 7, \\\"known\\\": 7, \\\"money_sum\\\": 76, \\\"category_key\\\": \\\"pt:cat\\\"}\\n{\\\"n\\\": 8, \\\"known\\\": 8, \\\"money_sum\\\": 86, \\\"category_key\\\": \\\"pt:cat\\\"}\\nitem_money_order: 2\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"price_sum\\\": 30, \\\"row_count\\\": 2, \\\"price_known\\\": 2, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 3, \\\"freight_value_known\\\": 2, \\\"freight_value_zeros\\\": 0}\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"price_sum\\\": 40, \\\"row_count\\\": 3, \\\"price_known\\\": 3, \\\"price_zeros\\\": 0, \\\"freight_value_sum\\\": 4, \\\"freight_value_known\\\": 3, \\\"freight_value_zeros\\\": 0}\\nitem_money_seller: 2\\n{\\\"price_sum\\\": 106, \\\"row_count\\\": 10, \\\"seller_id\\\": \\\"s1\\\", \\\"price_known\\\": 9, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 6, \\\"freight_value_known\\\": 8, \\\"freight_value_zeros\\\": 3}\\n{\\\"price_sum\\\": 96, \\\"row_count\\\": 9, \\\"seller_id\\\": \\\"s1\\\", \\\"price_known\\\": 8, \\\"price_zeros\\\": 1, \\\"freight_value_sum\\\": 5, \\\"freight_value_known\\\": 7, \\\"freight_value_zeros\\\": 3}\\nitems.multiplicity: 2\\n{\\\"count\\\": 1, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 1}\\n{\\\"count\\\": 2, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 1}\\nitems.row_count: 1\\n{\\\"actual\\\": 10, \\\"expected\\\": 9}\\nitems.target_key_unique: 1\\n{\\\"count\\\": 2, \\\"order_id\\\": \\\"fanout\\\", \\\"order_item_id\\\": 1}\\nitems.values_core_minus_raw: 1\\n{\\\"price\\\": 10, \\\"order_id\\\": \\\"fanout\\\", \\\"seller_id\\\": \\\"s1\\\", \\\"product_id\\\": \\\"p1\\\", \\\"freight_value\\\": 1, \\\"order_item_id\\\": 1, \\\"shipping_limit_at\\\": \\\"2017-01-02T00:00:00\\\"}\\norder_mart.values_core_minus_raw: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_gmv\\\": 44, \\\"item_revenue\\\": 40, \\\"freight_amount\\\": 4, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 3, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 3, \\\"source_rows_count\\\": 3, \\\"review_pairs_count\\\": 2, \\\"freight_valid_count\\\": 3, \\\"payment_valid_count\\\": 3, \\\"item_components_valid_count\\\": 3}\\norder_mart.values_raw_minus_core: 1\\n{\\\"order_id\\\": \\\"fanout\\\", \\\"order_gmv\\\": 33, \\\"item_revenue\\\": 30, \\\"freight_amount\\\": 3, \\\"payment_amount\\\": 30, \\\"payments_count\\\": 3, \\\"payment_coverage\\\": \\\"both\\\", \\\"price_valid_count\\\": 2, \\\"source_rows_count\\\": 2, \\\"review_pairs_count\\\": 2, \\\"freight_valid_count\\\": 2, \\\"payment_valid_count\\\": 3, \\\"item_components_valid_count\\\": 2}\\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\\n\"\n    }\n  ],\n  \"rollback\": \"test schemas absent after rollback\",\n  \"stage_sha256\": {\n    \"model/05_typecheck.sql\": \"34fc2a829a9983eaee47714884a8640258fc9c9b5b71af3e7b1af024a9d91157\",\n    \"model/10_dims.sql\": \"f7aa80dcc9b8cb11ecd997259638cabaabebfb3f959950d3910c472d0b29aa39\",\n    \"model/20_facts.sql\": \"1d9ca47499c18429546cd4cc2cbf3e3668a1a7ba667faf62eba65067f107a234\",\n    \"model/30_quality.sql\": \"1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab\",\n    \"model/40_mart.sql\": \"7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2\",\n    \"model/50_answers.sql\": \"abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138\",\n    \"model/90_checks.sql\": \"fc1dbe0b902cecdefb8447f0498681b0eb59566966df8ccee985cdb178816ca2\"\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "verify outer rollback left no test schemas",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-A",
+        "-t",
+        "-h",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+        "-p",
+        "55416",
+        "-U",
+        "a",
+        "-d",
+        "rwb_w11_pg16_smoke",
+        "-c",
+        "SELECT count(*) FROM pg_namespace WHERE nspname IN ('raw','core','mart') OR nspname LIKE 'w11\\_%' ESCAPE '\\'"
+      ],
+      "started_utc": "2026-10-28T09:57:20.270257+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.010537,
+      "stdout": "0\n",
+      "stderr": ""
+    },
+    {
+      "label": "cluster size after_fixtures_before_stop",
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data"
+      ],
+      "started_utc": "2026-10-28T09:57:20.305942+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.004252,
+      "stdout": "68100\t/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data\n",
+      "stderr": ""
+    },
+    {
+      "label": "stop only own PG16",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/pg_ctl",
+        "-D",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data",
+        "-m",
+        "fast",
+        "-w",
+        "-t",
+        "15",
+        "stop"
+      ],
+      "started_utc": "2026-10-28T09:57:20.310722+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.108769,
+      "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+      "stderr": ""
+    },
+    {
+      "label": "confirm own PG16 stopped",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/pg_ctl",
+        "-D",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data",
+        "status"
+      ],
+      "started_utc": "2026-10-28T09:57:20.420168+00:00",
+      "exit_code": 3,
+      "elapsed_seconds": 0.004348,
+      "stdout": "pg_ctl: no server running\n",
+      "stderr": ""
+    },
+    {
+      "label": "confirm owned postmaster process absent",
+      "argv": [
+        "/bin/ps",
+        "-p",
+        "94341",
+        "-o",
+        "pid=,ppid=,rss=,comm="
+      ],
+      "started_utc": "2026-10-28T09:57:20.425182+00:00",
+      "exit_code": 1,
+      "elapsed_seconds": 0.002164,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "cluster size after_stop_preserved",
+      "argv": [
+        "/usr/bin/du",
+        "-sk",
+        "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data"
+      ],
+      "started_utc": "2026-10-28T09:57:20.441388+00:00",
+      "exit_code": 0,
+      "elapsed_seconds": 0.003119,
+      "stdout": "68192\t/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data\n",
+      "stderr": ""
+    }
+  ],
+  "status": "passed",
+  "boundaries": [
+    "Synthetic PG16 pass does not establish a real Olist core/mart build.",
+    "No pinned CSV/raw binding or real Olist control answers were run.",
+    "No build.sql orchestration, lifecycle/rebuild/late rollback, loader races, permissions matrix or benchmark were tested.",
+    "Only this task-owned PostgreSQL may be stopped; cluster/database contents are preserved.",
+    "No SQL, shared scripts/docs/registries, git index, commits or pushes are modified."
+  ],
+  "git_head": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+  "origin_main_after_fetch": "1939068295d7203a15cbb0a1ab5d407caca90f58",
+  "postgres_binary_version": "postgres (PostgreSQL) 16.15 (Homebrew)",
+  "python_driver": "3.11.9 (v3.11.9:de54cf5be3, Apr  2 2024, 07:12:50) [Clang 13.0.0 (clang-1300.0.29.30)]\n2.9.13 (dt dec pq3 ext lo64)",
+  "plan": {
+    "status": "pending_db_execution",
+    "cases": [
+      "baseline_fanout_null_zero_late",
+      "fractional_scale_preserved",
+      "nan_rejected_before_cast",
+      "invalid_integer_key",
+      "null_mandatory_key",
+      "duplicate_item_key",
+      "dangling_product_fk",
+      "new_status_retained_warning",
+      "review_payload_conflict_retained_warning",
+      "duplicate_review_pair",
+      "calendar_gap_detected",
+      "compensating_order_errors_detected",
+      "lost_review_text_detected",
+      "missing_child_detected",
+      "replaced_child_key_detected",
+      "duplicate_core_multiplicity_detected"
+    ],
+    "missing_stages": [],
+    "scope": "unique w11_* schemas in one transaction; all changes rolled back"
+  },
+  "postgres_config": {
+    "listen_addresses": "''",
+    "port": "55416",
+    "unix_socket_directories": "'/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket'",
+    "unix_socket_permissions": "0700",
+    "max_connections": "5",
+    "shared_buffers": "'8MB'",
+    "work_mem": "'1MB'",
+    "maintenance_work_mem": "'8MB'",
+    "autovacuum": "off",
+    "jit": "off",
+    "max_worker_processes": "0",
+    "max_parallel_workers": "0",
+    "max_parallel_workers_per_gather": "0",
+    "max_parallel_maintenance_workers": "0",
+    "wal_buffers": "'512kB'",
+    "min_wal_size": "'32MB'",
+    "max_wal_size": "'64MB'",
+    "timezone": "'UTC'",
+    "log_timezone": "'UTC'",
+    "logging_collector": "off",
+    "log_error_verbosity": "verbose",
+    "log_min_error_statement": "error",
+    "statement_timeout": "'60s'",
+    "lock_timeout": "'3s'"
+  },
+  "cluster_sizes": {
+    "after_initdb": {
+      "apparent_bytes": 40373873,
+      "files": 968,
+      "allocated_kib": 39472
+    },
+    "after_fixtures_before_stop": {
+      "apparent_bytes": 69666604,
+      "files": 2106,
+      "allocated_kib": 68100
+    },
+    "after_stop_preserved": {
+      "apparent_bytes": 69762138,
+      "files": 1272,
+      "allocated_kib": 68192
+    }
+  },
+  "owned_postmaster_pid": 94341,
+  "unix_socket_mode": "0o700",
+  "server_identity": {
+    "version": "PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit",
+    "server_version_num": "160015",
+    "database": "rwb_w11_pg16_smoke",
+    "user": "a",
+    "data_directory": "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/data",
+    "inet_server_addr": null
+  },
+  "effective_settings": {
+    "autovacuum": {
+      "setting": "off",
+      "unit": null
+    },
+    "jit": {
+      "setting": "off",
+      "unit": null
+    },
+    "listen_addresses": {
+      "setting": "",
+      "unit": null
+    },
+    "maintenance_work_mem": {
+      "setting": "8192",
+      "unit": "kB"
+    },
+    "max_connections": {
+      "setting": "5",
+      "unit": null
+    },
+    "max_parallel_maintenance_workers": {
+      "setting": "0",
+      "unit": null
+    },
+    "max_parallel_workers": {
+      "setting": "0",
+      "unit": null
+    },
+    "max_parallel_workers_per_gather": {
+      "setting": "0",
+      "unit": null
+    },
+    "max_wal_size": {
+      "setting": "64",
+      "unit": "MB"
+    },
+    "max_worker_processes": {
+      "setting": "0",
+      "unit": null
+    },
+    "min_wal_size": {
+      "setting": "32",
+      "unit": "MB"
+    },
+    "shared_buffers": {
+      "setting": "1024",
+      "unit": "8kB"
+    },
+    "unix_socket_directories": {
+      "setting": "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/socket",
+      "unit": null
+    },
+    "unix_socket_permissions": {
+      "setting": "0700",
+      "unit": null
+    },
+    "wal_buffers": {
+      "setting": "64",
+      "unit": "8kB"
+    },
+    "work_mem": {
+      "setting": "1024",
+      "unit": "kB"
+    }
+  },
+  "test_schema_count_before": 0,
+  "fixture_cli_exit_code": 0,
+  "fixture_report": {
+    "status": "passed",
+    "method": "isolated fixture execution only; not pinned full-model acceptance",
+    "cases": [
+      {
+        "case": "baseline_fanout_null_zero_late",
+        "result": "passed",
+        "method": "PostgreSQL isolated fixture"
+      },
+      {
+        "case": "fractional_scale_preserved",
+        "result": "passed",
+        "method": "PostgreSQL isolated fixture"
+      },
+      {
+        "case": "nan_rejected_before_cast",
+        "result": "expected_failure_detected",
+        "step": "05_typecheck.sql",
+        "sqlstate": "P0001",
+        "diagnostic": "ERROR:  Input type/key precheck failed before model casts\nDETAIL:  w11_raw_80bc2faa51a8.order_items.price [numeric]: 2 row(s)\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\n"
+      },
+      {
+        "case": "invalid_integer_key",
+        "result": "expected_failure_detected",
+        "step": "05_typecheck.sql",
+        "sqlstate": "P0001",
+        "diagnostic": "ERROR:  Input type/key precheck failed before model casts\nDETAIL:  w11_raw_80bc2faa51a8.order_items.order_item_id [required_integer]: 1 row(s)\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\n"
+      },
+      {
+        "case": "null_mandatory_key",
+        "result": "expected_failure_detected",
+        "step": "05_typecheck.sql",
+        "sqlstate": "P0001",
+        "diagnostic": "ERROR:  Input type/key precheck failed before model casts\nDETAIL:  w11_raw_80bc2faa51a8.order_items.product_id [key]: 2 row(s)\nHINT:  Inspect the named raw columns read-only. Do not repair, reload or round raw in the build.\nCONTEXT:  PL/pgSQL function inline_code_block line 88 at RAISE\n"
+      },
+      {
+        "case": "duplicate_item_key",
+        "result": "expected_failure_detected",
+        "step": "20_facts.sql",
+        "sqlstate": "23505",
+        "diagnostic": "ERROR:  duplicate key value violates unique constraint \"fact_order_item_pkey\"\nDETAIL:  Key (order_id, order_item_id)=(fanout, 1) already exists.\n"
+      },
+      {
+        "case": "dangling_product_fk",
+        "result": "expected_failure_detected",
+        "step": "20_facts.sql",
+        "sqlstate": "23503",
+        "diagnostic": "ERROR:  insert or update on table \"fact_order_item\" violates foreign key constraint \"fact_order_item_product_id_fkey\"\nDETAIL:  Key (product_id)=(absent-product) is not present in table \"dim_product\".\n"
+      },
+      {
+        "case": "new_status_retained_warning",
+        "result": "passed",
+        "method": "PostgreSQL isolated fixture"
+      },
+      {
+        "case": "review_payload_conflict_retained_warning",
+        "result": "passed",
+        "method": "PostgreSQL isolated fixture"
+      },
+      {
+        "case": "duplicate_review_pair",
+        "result": "expected_failure_detected",
+        "step": "20_facts.sql",
+        "sqlstate": "23505",
+        "diagnostic": "ERROR:  duplicate key value violates unique constraint \"fact_review_pkey\"\nDETAIL:  Key (review_id, order_id)=(shared-review, fanout) already exists.\n"
+      },
+      {
+        "case": "calendar_gap_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  calendar.gaps: 1\n{\"date_day\": \"2017-01-03\", \"previous_day\": \"2017-01-01\"}\ncalendar.keys_raw_minus_core: 1\n{\"date_day\": \"2017-01-02\"}\ncalendar.multiplicity: 1\n{\"count\": 1, \"date_day\": \"2017-01-02\"}\ncalendar.row_count: 1\n{\"actual\": 729, \"expected\": 730}\ncalendar.values_raw_minus_core: 1\n{\"date_day\": \"2017-01-02\", \"iso_week\": 1, \"iso_year\": 2017, \"is_weekend\": false, \"month_start\": \"2017-01-01\", \"year_number\": 2017, \"day_of_month\": 2, \"month_number\": 1, \"quarter_number\": 1, \"iso_day_of_week\": 1}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      },
+      {
+        "case": "compensating_order_errors_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  item_money_order: 4\n{\"order_id\": \"comp-a\", \"price_sum\": 20, \"row_count\": 1, \"price_known\": 1, \"price_zeros\": 0, \"freight_value_sum\": 0, \"freight_value_known\": 1, \"freight_value_zeros\": 1}\n{\"order_id\": \"comp-a\", \"price_sum\": 30, \"row_count\": 1, \"price_known\": 1, \"price_zeros\": 0, \"freight_value_sum\": 0, \"freight_value_known\": 1, \"freight_value_zeros\": 1}\n{\"order_id\": \"comp-b\", \"price_sum\": 20, \"row_count\": 1, \"price_known\": 1, \"price_zeros\": 0, \"freight_value_sum\": 0, \"freight_value_known\": 1, \"freight_value_zeros\": 1}\nitems.values_core_minus_raw: 2\n{\"price\": 20, \"order_id\": \"comp-b\", \"seller_id\": \"s1\", \"product_id\": \"p1\", \"freight_value\": 0, \"order_item_id\": 1, \"shipping_limit_at\": null}\n{\"price\": 30, \"order_id\": \"comp-a\", \"seller_id\": \"s1\", \"product_id\": \"p1\", \"freight_value\": 0, \"order_item_id\": 1, \"shipping_limit_at\": null}\nitems.values_raw_minus_core: 2\n{\"price\": 20, \"order_id\": \"comp-a\", \"seller_id\": \"s1\", \"product_id\": \"p1\", \"freight_value\": 0, \"order_item_id\": 1, \"shipping_limit_at\": null}\n{\"price\": 30, \"order_id\": \"comp-b\", \"seller_id\": \"s1\", \"product_id\": \"p1\", \"freight_value\": 0, \"order_item_id\": 1, \"shipping_limit_at\": null}\norder_mart.values_core_minus_raw: 2\n{\"order_id\": \"comp-a\", \"order_gmv\": 30, \"item_revenue\": 30, \"freight_amount\": 0, \"payment_amount\": 20, \"payments_count\": 1, \"payment_coverage\": \"both\", \"price_valid_count\": 1, \"source_rows_count\": 1, \"review_pairs_count\": 0, \"freight_valid_count\": 1, \"payment_valid_count\": 1, \"item_components_valid_count\": 1}\n{\"order_id\": \"comp-b\", \"order_gmv\": 20, \"item_revenue\": 20, \"freight_amount\": 0, \"payment_amount\": 30, \"payments_count\": 1, \"payment_coverage\": \"both\", \"price_valid_count\": 1, \"source_rows_count\": 1, \"review_pairs_count\": 0, \"freight_valid_count\": 1, \"payment_valid_count\": 1, \"item_components_valid_count\": 1}\norder_mart.values_raw_minus_core: 2\n{\"order_id\": \"comp-a\", \"order_gmv\": 20, \"item_revenue\": 20, \"freight_amount\": 0, \"payment_amount\": 20, \"payments_count\": 1, \"payment_coverage\": \"both\", \"price_valid_count\": 1, \"source_rows_count\": 1, \"review_pairs_count\": 0, \"freight_valid_count\": 1, \"payment_valid_count\": 1, \"item_components_valid_count\": 1}\n{\"order_id\": \"comp-b\", \"order_gmv\": 30, \"item_revenue\": 30, \"freight_amount\": 0, \"payment_amount\": 30, \"payments_count\": 1, \"payment_coverage\": \"both\", \"price_valid_count\": 1, \"source_rows_count\": 1, \"review_pairs_count\": 0, \"freight_valid_count\": 1, \"payment_valid_count\": 1, \"item_components_valid_count\": 1}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      },
+      {
+        "case": "lost_review_text_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  reviews.null_profiles: 2\n{\"key\": \"review_comment_message\", \"count\": 1}\n{\"key\": \"review_comment_message\", \"count\": 2}\nreviews.values_core_minus_raw: 1\n{\"order_id\": \"fanout\", \"review_id\": \"shared-review\", \"review_score\": 5, \"review_comment_title\": null, \"review_creation_date\": \"2017-01-04T00:00:00\", \"review_comment_message\": null, \"review_answer_timestamp\": \"2017-01-05T12:00:00\"}\nreviews.values_raw_minus_core: 1\n{\"order_id\": \"fanout\", \"review_id\": \"shared-review\", \"review_score\": 5, \"review_comment_title\": null, \"review_creation_date\": \"2017-01-04T00:00:00\", \"review_comment_message\": \"retained text\", \"review_answer_timestamp\": \"2017-01-05T12:00:00\"}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      },
+      {
+        "case": "missing_child_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  fact_order_item.grand_totals: 2\n{\"rows\": 8, \"price_sum\": 76, \"price_known\": 7, \"price_zeros\": 1, \"freight_value_sum\": 3, \"freight_value_known\": 6, \"freight_value_zeros\": 3}\n{\"rows\": 9, \"price_sum\": 96, \"price_known\": 8, \"price_zeros\": 1, \"freight_value_sum\": 5, \"freight_value_known\": 7, \"freight_value_zeros\": 3}\nitem_money_category: 1\n{\"n\": 1, \"known\": 1, \"money_sum\": 20, \"category_key\": \"pt:pc_gamer\"}\nitem_money_order: 2\n{\"order_id\": \"fanout\", \"price_sum\": 10, \"row_count\": 1, \"price_known\": 1, \"price_zeros\": 0, \"freight_value_sum\": 1, \"freight_value_known\": 1, \"freight_value_zeros\": 0}\n{\"order_id\": \"fanout\", \"price_sum\": 30, \"row_count\": 2, \"price_known\": 2, \"price_zeros\": 0, \"freight_value_sum\": 3, \"freight_value_known\": 2, \"freight_value_zeros\": 0}\nitem_money_seller: 2\n{\"price_sum\": 76, \"row_count\": 8, \"seller_id\": \"s1\", \"price_known\": 7, \"price_zeros\": 1, \"freight_value_sum\": 3, \"freight_value_known\": 6, \"freight_value_zeros\": 3}\n{\"price_sum\": 96, \"row_count\": 9, \"seller_id\": \"s1\", \"price_known\": 8, \"price_zeros\": 1, \"freight_value_sum\": 5, \"freight_value_known\": 7, \"freight_value_zeros\": 3}\nitems.keys_raw_minus_core: 1\n{\"order_id\": \"fanout\", \"order_item_id\": 2}\nitems.multiplicity: 1\n{\"count\": 1, \"order_id\": \"fanout\", \"order_item_id\": 2}\nitems.row_count: 1\n{\"actual\": 8, \"expected\": 9}\nitems.values_raw_minus_core: 1\n{\"price\": 20, \"order_id\": \"fanout\", \"seller_id\": \"s1\", \"product_id\": \"p-untranslated\", \"freight_value\": 2, \"order_item_id\": 2, \"shipping_limit_at\": \"2017-01-02T12:00:00\"}\norder_mart.values_core_minus_raw: 1\n{\"order_id\": \"fanout\", \"order_gmv\": 11, \"item_revenue\": 10, \"freight_amount\": 1, \"payment_amount\": 30, \"payments_count\": 3, \"payment_coverage\": \"both\", \"price_valid_count\": 1, \"source_rows_count\": 1, \"review_pairs_count\": 2, \"freight_valid_count\": 1, \"payment_valid_count\": 3, \"item_components_valid_count\": 1}\norder_mart.values_raw_minus_core: 1\n{\"order_id\": \"fanout\", \"order_gmv\": 33, \"item_revenue\": 30, \"freight_amount\": 3, \"payment_amount\": 30, \"payments_count\": 3, \"payment_coverage\": \"both\", \"price_valid_count\": 2, \"source_rows_count\": 2, \"review_pairs_count\": 2, \"freight_valid_count\": 2, \"payment_valid_count\": 3, \"item_components_valid_count\": 2}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      },
+      {
+        "case": "replaced_child_key_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  items.keys_core_minus_raw: 1\n{\"order_id\": \"fanout\", \"order_item_id\": 9}\nitems.keys_raw_minus_core: 1\n{\"order_id\": \"fanout\", \"order_item_id\": 2}\nitems.multiplicity: 2\n{\"count\": 1, \"order_id\": \"fanout\", \"order_item_id\": 2}\n{\"count\": 1, \"order_id\": \"fanout\", \"order_item_id\": 9}\nitems.values_core_minus_raw: 1\n{\"price\": 20, \"order_id\": \"fanout\", \"seller_id\": \"s1\", \"product_id\": \"p-untranslated\", \"freight_value\": 2, \"order_item_id\": 9, \"shipping_limit_at\": \"2017-01-02T12:00:00\"}\nitems.values_raw_minus_core: 1\n{\"price\": 20, \"order_id\": \"fanout\", \"seller_id\": \"s1\", \"product_id\": \"p-untranslated\", \"freight_value\": 2, \"order_item_id\": 2, \"shipping_limit_at\": \"2017-01-02T12:00:00\"}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      },
+      {
+        "case": "duplicate_core_multiplicity_detected",
+        "result": "expected_failure_detected",
+        "step": "rerun invariant checks",
+        "sqlstate": "23514",
+        "diagnostic": "ERROR:  core invariant checks failed\nDETAIL:  fact_order_item.grand_totals: 2\n{\"rows\": 10, \"price_sum\": 106, \"price_known\": 9, \"price_zeros\": 1, \"freight_value_sum\": 6, \"freight_value_known\": 8, \"freight_value_zeros\": 3}\n{\"rows\": 9, \"price_sum\": 96, \"price_known\": 8, \"price_zeros\": 1, \"freight_value_sum\": 5, \"freight_value_known\": 7, \"freight_value_zeros\": 3}\nitem_money_category: 2\n{\"n\": 7, \"known\": 7, \"money_sum\": 76, \"category_key\": \"pt:cat\"}\n{\"n\": 8, \"known\": 8, \"money_sum\": 86, \"category_key\": \"pt:cat\"}\nitem_money_order: 2\n{\"order_id\": \"fanout\", \"price_sum\": 30, \"row_count\": 2, \"price_known\": 2, \"price_zeros\": 0, \"freight_value_sum\": 3, \"freight_value_known\": 2, \"freight_value_zeros\": 0}\n{\"order_id\": \"fanout\", \"price_sum\": 40, \"row_count\": 3, \"price_known\": 3, \"price_zeros\": 0, \"freight_value_sum\": 4, \"freight_value_known\": 3, \"freight_value_zeros\": 0}\nitem_money_seller: 2\n{\"price_sum\": 106, \"row_count\": 10, \"seller_id\": \"s1\", \"price_known\": 9, \"price_zeros\": 1, \"freight_value_sum\": 6, \"freight_value_known\": 8, \"freight_value_zeros\": 3}\n{\"price_sum\": 96, \"row_count\": 9, \"seller_id\": \"s1\", \"price_known\": 8, \"price_zeros\": 1, \"freight_value_sum\": 5, \"freight_value_known\": 7, \"freight_value_zeros\": 3}\nitems.multiplicity: 2\n{\"count\": 1, \"order_id\": \"fanout\", \"order_item_id\": 1}\n{\"count\": 2, \"order_id\": \"fanout\", \"order_item_id\": 1}\nitems.row_count: 1\n{\"actual\": 10, \"expected\": 9}\nitems.target_key_unique: 1\n{\"count\": 2, \"order_id\": \"fanout\", \"order_item_id\": 1}\nitems.values_core_minus_raw: 1\n{\"price\": 10, \"order_id\": \"fanout\", \"seller_id\": \"s1\", \"product_id\": \"p1\", \"freight_value\": 1, \"order_item_id\": 1, \"shipping_limit_at\": \"2017-01-02T00:00:00\"}\norder_mart.values_core_minus_raw: 1\n{\"order_id\": \"fanout\", \"order_gmv\": 44, \"item_revenue\": 40, \"freight_amount\": 4, \"payment_amount\": 30, \"payments_count\": 3, \"payment_coverage\": \"both\", \"price_valid_count\": 3, \"source_rows_count\": 3, \"review_pairs_count\": 2, \"freight_valid_count\": 3, \"payment_valid_count\": 3, \"item_components_valid_count\": 3}\norder_mart.values_raw_minus_core: 1\n{\"order_id\": \"fanout\", \"order_gmv\": 33, \"item_revenue\": 30, \"freight_amount\": 3, \"payment_amount\": 30, \"payments_count\": 3, \"payment_coverage\": \"both\", \"price_valid_count\": 2, \"source_rows_count\": 2, \"review_pairs_count\": 2, \"freight_valid_count\": 2, \"payment_valid_count\": 3, \"item_components_valid_count\": 2}\nHINT:  Transaction must roll back; preserve this error text because check_results rolls back too.\nCONTEXT:  PL/pgSQL function w11_core_80bc2faa51a8.run_checks() line 285 at RAISE\n"
+      }
+    ],
+    "rollback": "test schemas absent after rollback",
+    "stage_sha256": {
+      "model/05_typecheck.sql": "34fc2a829a9983eaee47714884a8640258fc9c9b5b71af3e7b1af024a9d91157",
+      "model/10_dims.sql": "f7aa80dcc9b8cb11ecd997259638cabaabebfb3f959950d3910c472d0b29aa39",
+      "model/20_facts.sql": "1d9ca47499c18429546cd4cc2cbf3e3668a1a7ba667faf62eba65067f107a234",
+      "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+      "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138",
+      "model/90_checks.sql": "fc1dbe0b902cecdefb8447f0498681b0eb59566966df8ccee985cdb178816ca2"
+    }
+  },
+  "summary": {
+    "executed": 16,
+    "positive_passed": 4,
+    "expected_failures_detected": 12,
+    "unexpected_failures": 0,
+    "not_run": 0
+  },
+  "test_schema_count_after": 0,
+  "cleanup": {
+    "stop_exit_code": 0,
+    "cluster_preserved": true,
+    "database_deleted": false,
+    "runtime_deleted": false,
+    "status_exit_code": 3,
+    "postmaster_pid_file_absent": true,
+    "unix_socket_absent": true,
+    "owned_postmaster_absent": true
+  },
+  "source_sha256_after": {
+    "AGENTS.md": "5ee8fdde81b541a04ffed155b9ab096267ff7d5467bad0b8955b8ea587c44682",
+    "docs/model-validation.md": "547607b4fc3018905a9ccf8cd3b22483f6ad14c62f0a7e3d86de9cd020f2cce3",
+    "model/00_schemas.sql": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+    "model/05_typecheck.sql": "34fc2a829a9983eaee47714884a8640258fc9c9b5b71af3e7b1af024a9d91157",
+    "model/10_dims.sql": "f7aa80dcc9b8cb11ecd997259638cabaabebfb3f959950d3910c472d0b29aa39",
+    "model/20_facts.sql": "1d9ca47499c18429546cd4cc2cbf3e3668a1a7ba667faf62eba65067f107a234",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "abe0684d5c21e531fb28802e9750f4ec07f33c10a59abb292909f0a3c00b2138",
+    "model/90_checks.sql": "fc1dbe0b902cecdefb8447f0498681b0eb59566966df8ccee985cdb178816ca2",
+    "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+    "model/build.sql": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59",
+    "scripts/init/02_raw_ddl.sql": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+    "scripts/verify-model.py": "f4e6751be51580db19e9dc7bba5494e7b9664c7f443b234478614c7f5ca24c11",
+    "tests/model/fixtures/assert-base.sql": "e91763223e528a04977d79272ad6abad4566ee006b8e512dd094520cb93c2518",
+    "tests/model/fixtures/base.sql": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a",
+    "tests/model/fixtures/cases.json": "996287daccc47fdba95f4dd199cab35d5a4d82438b831348fb26ed11ad7cbeea"
+  },
+  "source_hashes_unchanged": true,
+  "ended_utc": "2026-10-28T09:57:20.446111+00:00",
+  "elapsed_seconds": 1.975227,
+  "server_log_path": "/Users/a/.local/share/rwb-hak-dev/pg16-smoke-20261028/server.log",
+  "prerequisite_observations": [
+    {
+      "command": [
+        "python3",
+        "-c",
+        "import sys, psycopg2; print(sys.executable); print(sys.version.split()[0]); print(psycopg2.__version__)"
+      ],
+      "exit_code": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\nModuleNotFoundError: No module named 'psycopg2'\n",
+      "resolution": "Use the documented pre-existing ~/.local/share/rwb-hak-dev/venv/bin/python3 with psycopg2 2.9.13; no dependency installed or venv edited."
+    }
+  ],
+  "artifact_integrity": {
+    "fixture_stage_hashes_match_before_and_after": true,
+    "source_files_hashed": 17
+  }
+}

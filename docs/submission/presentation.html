@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capibara · черновик защиты</title>
+<style>
+:root{color-scheme:light dark;--pack-ink:var(--foreground,#243244);--pack-muted:var(--muted-foreground,#5a6676);--pack-line:var(--border,#c8d0d9);--pack-link:var(--primary,#225eb1)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--pack-ink);font:22px/1.5 var(--font-sans,system-ui,sans-serif)}main{max-width:1060px;margin:auto}nav{display:flex;gap:20px;flex-wrap:wrap;font-size:16px;padding:16px 0}a{color:var(--pack-link);text-underline-offset:.18em}a:focus-visible,summary:focus-visible{outline:3px solid var(--ring,#4383ca);outline-offset:4px}.slide{padding:38px 0 44px;border-bottom:1px solid var(--pack-line);scroll-margin-top:10px}h1{font-size:clamp(40px,7vw,72px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 24px}h2{font-size:clamp(30px,4.5vw,44px);line-height:1.2;letter-spacing:-.02em;margin:0 0 24px}h3{font-size:26px;margin:22px 0 10px}p{margin:12px 0 20px}ul,ol{padding-left:26px}li{margin:10px 0}code{font:.85em var(--font-mono,monospace);overflow-wrap:anywhere}small,.source{font-size:16px;color:var(--pack-muted)}.source{margin:25px 0 0}table{width:100%;border-collapse:collapse;font-size:19px;line-height:1.4}th,td{padding:11px 14px 11px 0;text-align:left;vertical-align:top;border-bottom:1px solid var(--pack-line)}.table-scroll{overflow-x:auto}.flow{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin:26px 0;font-size:26px}.arrow{color:var(--pack-muted)}.example{margin:24px 0;padding-left:20px;border-left:3px solid var(--pack-line)}details{font-size:16px;margin-top:24px}summary{cursor:pointer;color:var(--pack-muted)}details p{margin:12px 0}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:30px}.comparison p{margin:8px 0}.comparison h3{margin-top:0}.cover{padding-top:54px;padding-bottom:60px}.pending{font-size:19px;color:var(--pack-muted)}@media(max-width:650px){body{font-size:18px}.slide{padding:28px 0 34px}.comparison{grid-template-columns:1fr;gap:15px}h3{font-size:23px}.flow{font-size:22px;gap:9px}table{font-size:16px;min-width:510px}}@media print{body{color:#000;font-size:16pt}nav,details{display:none}.slide{break-after:page;break-inside:avoid;border:0;padding:16pt 0}.slide:last-child{break-after:auto}.cover{padding-top:90pt}h1{font-size:46pt}h2{font-size:30pt}table{font-size:13pt}a{color:inherit;text-decoration:none}.source{font-size:10pt}}
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Переходы показа"><a href="checkpoint-1330.md">13:30 · сценарий 5–7 минут</a><a href="index.html">Комплект</a><a href="#p2">Источники</a><a href="#p6">Модель</a><a href="#p9">Проверки</a><a href="presentation.md">Расширенная речь</a></nav>
+<section class="slide cover" id="p1" aria-labelledby="h1">
+<h1 id="h1">Capibara<br>Аналитическая модель</h1>
+<p>Заказы, позиции, платежи и отзывы.<br>Десять вопросов и объяснение нашего SQL.</p>
+<p>Код готов. 7 справочников + 4 факта.<br>Малые offline/static проверки успешны.</p>
+<p class="pending">Первый чекпоинт. PostgreSQL/core/rollback и результаты модели pending.</p>
+<p class="source">28 октября 2026 ·13:30 МСК · W-12 · <a href="README.md">полный комплект</a></p>
+</section>
+<section class="slide" id="p2" aria-labelledby="h2">
+<h2 id="h2">Восемь источников</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">Источник</th><th scope="col">Записей</th><th scope="col">Одна строка</th></tr></thead><tbody>
+<tr><td>orders</td><td>99 441</td><td>Заказ</td></tr><tr><td>order_items</td><td>112 650</td><td>Единица товара одного продавца</td></tr><tr><td>order_payments</td><td>103 886</td><td>Платёжная запись заказа</td></tr><tr><td>order_reviews</td><td>99 224</td><td>Пара «отзыв — заказ»</td></tr><tr><td>products</td><td>32 951</td><td>Карточка товара</td></tr><tr><td>sellers</td><td>3 095</td><td>Продавец</td></tr><tr><td>customers</td><td>99 441</td><td>Контекст покупателя для заказа</td></tr><tr><td>category translation</td><td>71</td><td>Перевод категории</td></tr>
+</tbody></table></div>
+<p><strong>550 759 записей</strong> в исходных CSV. Это контроль источника.</p>
+<p class="source"><a href="source-guide.md">Файлы и происхождение чисел</a>. Выкуп, возвраты, корзина и комиссия в наборе отсутствуют.</p>
+</section>
+<section class="slide" id="p3" aria-labelledby="h3">
+<h2 id="h3">Один настоящий заказ</h2>
+<p><code>e481f51cbdc54678b7cc49136f2d6af7</code> · delivered</p>
+<div class="example"><p><strong>1 позиция</strong><br>price 29.99 + freight 8.72 = GMV 38.71</p></div>
+<div class="example"><p><strong>3 платежа</strong><br>18.12 + 18.59 + 2.00 = 38.71</p></div>
+<div class="example"><p><strong>1 пара «отзыв — заказ»</strong> · оценка 4<br>Покупатель и контекст заказа — разные ID; ZIP 3149→03149</p></div>
+<p class="source">Выполненное чтение CSV, не core. <a href="order-example.json">Результат</a> · <a href="order-example.py">команда</a> · <a href="order-example.sql">подготовленный SQL</a></p>
+<details><summary>Что объяснить</summary><p>Наивный JOIN даёт3 строки и item price89.97 вместо29.99. Независимые агрегаты сохраняют настоящие суммы. ZIP3149 сохраняется как исходный текст,03149 — производное значение.</p></details>
+</section>
+<section class="slide" id="p4" aria-labelledby="h4">
+<h2 id="h4">Связи заказа</h2>
+<div class="flow" aria-label="Покупатель связан с контекстами, контекст с заказом"><span>Покупатель</span><span class="arrow" aria-hidden="true">→</span><span>контекст</span><span class="arrow" aria-hidden="true">→</span><strong>заказ</strong></div>
+<ul><li>Заказ → позиции → товар / категория / продавец</li><li>Заказ → платежи</li><li>Заказ → пары «отзыв — заказ»</li></ul>
+<p><strong>2 позиции × 2 платежа × 3 отзыва = 12 строк JOIN.</strong></p>
+<p>Каждая ветка сначала агрегируется независимо до нужного уровня. Заказы без детей сохраняются.</p>
+<p class="source">Учебный контрпример, не отдельный заказ CSV. <a href="../../model/CONTRACT.md">Контракт core</a></p>
+</section>
+<section class="slide" id="p5" aria-labelledby="h5">
+<h2 id="h5">Состав сдачи</h2>
+<ol><li>Сборка из неизменного raw одной командой</li><li>Десять SQL-ответов и полученные цифры из модели</li><li>Записка ≤½ страницы</li><li>Концепция дашборда с формулами и уровнем расчёта</li><li>Стратегия развития</li></ol>
+<p>Проверки, журнал ИИ и объяснение кода сопровождают комплект. Q6–Q10 ещё ждут условий.</p>
+<p class="source"><a href="../../hack-context/hackathon-students/docs/handout.md">Handout</a> · <a href="evidence.md">Критерии доказательства</a>. Расхождение рубрик 150/155 не закрыто.</p>
+</section>
+<section class="slide" id="p6" aria-labelledby="h6">
+<h2 id="h6">7 справочников + 4 факта</h2>
+<div class="comparison"><div><h3>Отдельные факты</h3><p><code>fact_order</code>: заказ</p><p><code>fact_order_item</code>: заказ + позиция</p><p><code>fact_payment</code>: заказ + номер платежа</p><p><code>fact_review</code>: отзыв + заказ</p></div><div><h3>Общий контекст</h3><p>Покупатель и контекст заказа раздельно</p><p>Дата и статус</p><p>Товар, категория, продавец</p><p>Raw остаётся неизменным</p></div></div>
+<p>Сохраняем 47 бизнес-полей восьми источников. Натуральные ключи. Numeric до округления. Неизвестное ≠0.</p>
+<p class="source">Контекст покупателя сохраняет и неиспользованные строки. Это уточнение агента к плану с 6 справочниками. <a href="../../model/CONTRACT.md">Точные поля и ключи</a></p>
+</section>
+<section class="slide" id="p7" aria-labelledby="h7">
+<h2 id="h7">Находки и последствия</h2>
+<div class="table-scroll"><table><thead><tr><th scope="col">Наблюдение источника</th><th scope="col">Изменение модели</th></tr></thead><tbody><tr><td>96 096 покупателей / 99 441 контекст</td><td>Идентичность отдельно от контекста заказа</td></tr><tr><td>Один review_id связан с несколькими заказами</td><td>Сохраняем каждую пару и её содержимое</td></tr><tr><td>Нет категории / нет перевода</td><td>Разные состояния справочника</td></tr><tr><td>775 заказов без позиций</td><td>Заказы загружаются независимо</td></tr><tr><td>Ноябрь 2016 без заказов</td><td>Месяцы берём из календаря</td></tr></tbody></table></div>
+<p class="source"><a href="source-guide.md">Источники и уточнения профиля</a>. Это контроль CSV/raw; выполнения core ещё нет.</p>
+</section>
+<section class="slide" id="p8" aria-labelledby="h8">
+<h2 id="h8">Деньги и параметры</h2>
+<p><code>item_revenue</code> — price delivered-позиций, без доставки.<br><code>order_gmv</code> — price + freight целого заказа.</p>
+<p>Покупатели по всем статусам считаются отдельно. Числа всех/доставленных заказов, окна и веса отзывов подписаны.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Предикат денежной дельты</th><th scope="col">Заказов</th><th scope="col">Сумма со знаком</th></tr></thead><tbody><tr><td>Точно: delta ≠ 0</td><td>639</td><td>−1 819.51</td></tr><tr><td>|delta| &gt; 0.01</td><td>366</td><td>−1 818.84</td></tr></tbody></table></div>
+<p class="source">Контроль CSV/raw, при обеих сторонах. <a href="../implementation-brief-20261028.md">Все 17 вопросов</a> · <a href="decisions-note.md">Записка</a>. Причины расхождений неизвестны.</p>
+</section>
+<section class="slide" id="p9" aria-labelledby="h9">
+<h2 id="h9">Код и малые проверки готовы</h2>
+<div class="flow" aria-label="Порядок показа: контракт, SQL, сборка, проверки, ответ"><span>Контракт</span><span class="arrow" aria-hidden="true">→</span><span>SQL</span><span class="arrow" aria-hidden="true">→</span><span>сборка</span><span class="arrow" aria-hidden="true">→</span><span>проверки</span><span class="arrow" aria-hidden="true">→</span><strong>ответ</strong></div>
+<ul><li>14 unit-тестов: манифест и безопасность изоляции</li><li>93 малые проверки DuckDB настоящего SQL mart/answers</li><li>19 файлов статически, dry-run оболочки, план 16 DB-кейсов</li></ul>
+<p><strong>Все exit0 по независимому повтору координатора.</strong> PostgreSQL/core/rollback ещё pending. План 16 описывает будущие проверки БД.</p>
+<p class="source"><a href="checkpoint-1330.md#точные-безопасные-команды-показа">Точные команды и ожидаемый вывод</a> · <a href="../../answers/verification.json">отчёт W-10</a> · <a href="../../model/90_checks.sql">SQL проверок</a></p>
+</section>
+<section class="slide" id="p10" aria-labelledby="h10">
+<h2 id="h10">Ответы из модели</h2>
+<p>SQL Q1–Q5 <a href="../../model/50_answers.sql">готов</a>. Ниже контроль и граница фактического исполнения.</p>
+<div class="table-scroll"><table><thead><tr><th scope="col">Вопрос</th><th scope="col">Контроль источника</th><th scope="col">Результат из core/БД</th></tr></thead><tbody><tr><td>Q1 · месяцы</td><td>24; 13 221 498.11</td><td>pending</td></tr><tr><td>Q2 · топ продавцов</td><td>226 987.93</td><td>pending</td></tr><tr><td>Q3 · средний чек</td><td>159.88</td><td>pending</td></tr><tr><td>Q4 · покупатели / повтор</td><td>96 096 / 3.12%</td><td>pending</td></tr><tr><td>Q5 · категории</td><td>74; топ 1 233 131.72</td><td>pending</td></tr><tr><td>Q6–Q10</td><td>Условия не опубликованы</td><td>pending: условие</td></tr></tbody></table></div>
+<p>В финальном показе: SQL + уровень расчёта + фильтр + знаменатель + экспорт. Контроль не копируется в поле результата.</p>
+<p class="source"><a href="evidence.md#ответы-q1q10">Полный реестр ответов</a>. Происхождение 123.75 не установлено.</p>
+</section>
+<section class="slide" id="p11" aria-labelledby="h11">
+<h2 id="h11">Использование и рост</h2>
+<h3>Руководитель операций</h3><p>Опоздания + покрытие дат → группа заказов → исходные даты для расследования. Причина и виновник не установлены.</p>
+<h3>Следующий этап платформы</h3><p>Нагрузка + SLA + стоимость → измерение → оптимизация → сравнение движков с паритетом и откатом.</p>
+<p>Новая история и возвраты требуют источника событий. Снимок не восстанавливает прошлое; предел PostgreSQL по числу строк нами не измерен.</p>
+<p class="source"><a href="dashboard-concept.md">Концепция и формулы</a> · <a href="growth-strategy.md">Стратегия</a>. Область и SLA — предложения, нагрузочный тест pending.</p>
+</section>
+<section class="slide" id="p12" aria-labelledby="h12">
+<h2 id="h12">Граница готовности</h2>
+<p>К первому показу готовы код, настоящий заказ, малые проверки и материалы. Для завершённой сдачи нужны PostgreSQL-run, проверки сохранности/отката, все десять экспортов и живая репетиция.</p>
+<p>На текущем Mac: guard exit78 и Docker недоступен по handoff окружения. Обход и тяжёлый запуск не выполнялись.</p>
+<p><a href="evidence.md#следующий-шаг">Следующая разрешённая проверка</a> · <a href="defense.md">Практические вопросы защиты</a></p>
+<p class="source">Предварительный комплект для review. Канон: <a href="../workstreams.md">работы</a> и <a href="../decision-log.md">решения</a>.</p>
+</section>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "kind": "W-10 pinned CSV reference, not proven live raw/core input",
+  "baseline_audit_manifest": "research/data-audit-2026-10-28/manifest.json",
+  "baseline_audit_manifest_sha256": "8afb8691d866ef5f5ed465eb9111df521408e1b3d84408d5f0c03337477312c3",
+  "olist_source_ref": "d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "project_input_main": "1939068295d7203a15cbb0a1ab5d407caca90f58",
+  "research_input_ref": "72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a",
+  "task_file": "hack-context/hackathon-students/docs/tasks.md",
+  "task_file_sha256": "80f47fc44374b1062ffbb61816224df9aafb85b1a5f27bff779d425512a659d2",
+  "live_raw_core_binding": "not verified",
+  "core_answers": "not executed from core",
+  "controls_file": "answers/control.sql",
+  "files": [
+    {
+      "path": "data/olist_orders_dataset.csv",
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_orders_dataset.csv"
+    },
+    {
+      "path": "data/olist_order_items_dataset.csv",
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_items_dataset.csv"
+    },
+    {
+      "path": "data/olist_order_payments_dataset.csv",
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_payments_dataset.csv"
+    },
+    {
+      "path": "data/olist_order_reviews_dataset.csv",
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_reviews_dataset.csv"
+    },
+    {
+      "path": "data/olist_products_dataset.csv",
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_products_dataset.csv"
+    },
+    {
+      "path": "data/olist_sellers_dataset.csv",
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_sellers_dataset.csv"
+    },
+    {
+      "path": "data/olist_customers_dataset.csv",
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_customers_dataset.csv"
+    },
+    {
+      "path": "data/product_category_name_translation.csv",
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/product_category_name_translation.csv"
+    }
+  ]
+}
