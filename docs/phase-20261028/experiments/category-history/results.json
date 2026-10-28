@@ -1,0 +1,468 @@
+{
+  "method": "Streaming csv + compact key maps + Decimal + synthetic simulation; no core queries",
+  "baseline": {
+    "ref": "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4",
+    "path": "research/internet-2026-10-28/orchestrator/evidence/sol-independent-check.json",
+    "sha256": "267c4f44708ae614145807c828d4aeb62f191998d9ea3ebee8d030e6f7961ba8"
+  },
+  "requirements": {
+    "ref": "558f0f6a38110acc9fcf4386a7e53ece973aedf5",
+    "sha256": "c24f3190729a672c09fcb97854a678fa02712456350038ff2bd738095652d1c5"
+  },
+  "script_sha256": "205143eac5108c5f87b5505ac082a90c6be225fd2a382a1e98e824bda997feab",
+  "inputs": {
+    "olist_customers_dataset.csv": {
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "bytes": 8562270,
+      "records": 99441,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "baseline_sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "baseline_match": true
+    },
+    "olist_order_items_dataset.csv": {
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "bytes": 15007623,
+      "records": 112650,
+      "header": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "baseline_sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "baseline_match": true
+    },
+    "olist_order_payments_dataset.csv": {
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "bytes": 5647783,
+      "records": 103886,
+      "header": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "baseline_sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "baseline_match": true
+    },
+    "olist_order_reviews_dataset.csv": {
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "bytes": 14451670,
+      "records": 99224,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "baseline_sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "baseline_match": true
+    },
+    "olist_orders_dataset.csv": {
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "bytes": 17654914,
+      "records": 99441,
+      "header": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "baseline_sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "baseline_match": true
+    },
+    "olist_products_dataset.csv": {
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "bytes": 2379446,
+      "records": 32951,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "baseline_sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "baseline_match": true
+    },
+    "olist_sellers_dataset.csv": {
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "bytes": 163589,
+      "records": 3095,
+      "header": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "baseline_sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "baseline_match": true
+    },
+    "product_category_name_translation.csv": {
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "bytes": 2613,
+      "records": 71,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "baseline_sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "baseline_match": true
+    }
+  },
+  "csv_observations": {
+    "products": 32951,
+    "products_without_category": 610,
+    "item_rows": 112650,
+    "products_with_items": 32951,
+    "product_seller_pairs": 34448,
+    "multi_seller_products": 1225,
+    "multi_seller_item_rows": 14416,
+    "max_sellers_per_product": 8,
+    "delivered_category_count": 74,
+    "delivered_item_revenue": "13221498.11",
+    "identity_example": {
+      "product_id": "99a4788cb24856965c36a24e339b6058",
+      "category": "cama_mesa_banho",
+      "sellers": [
+        {
+          "seller_id": "4a3ca9315b744ce9f8e9374361493884",
+          "item_rows": 482,
+          "delivered_item_revenue": "41542.50"
+        },
+        {
+          "seller_id": "53d00c40e32aeb924a84ce72b1af869d",
+          "item_rows": 6,
+          "delivered_item_revenue": "507.16"
+        }
+      ],
+      "real_rows": [
+        {
+          "order_id": "0006ec9db01a64e59a68b2c340bf65a7",
+          "order_item_id": "1",
+          "product_id": "99a4788cb24856965c36a24e339b6058",
+          "seller_id": "4a3ca9315b744ce9f8e9374361493884",
+          "price": "74.00",
+          "purchase_timestamp": "2018-07-24 17:04:17"
+        },
+        {
+          "order_id": "0504c112cd5ef9650a65748c4dc380cb",
+          "order_item_id": "1",
+          "product_id": "99a4788cb24856965c36a24e339b6058",
+          "seller_id": "53d00c40e32aeb924a84ce72b1af869d",
+          "price": "86.00",
+          "purchase_timestamp": "2018-04-17 09:10:35"
+        }
+      ],
+      "caveat": "Observed product/seller pairs do not prove who owns category edits; no changes inferred."
+    }
+  },
+  "model_source_hashes": {
+    "model/00_schemas.sql": {
+      "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+      "99bcbb366720f912ef6017a40aa5dbd6a671a8a4": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+      "b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d",
+      "working_tree": "ef09205e8b59c32c19bd7caec41b396655946695b8c9ed481d3aac479557981d"
+    },
+    "model/10_dims.sql": {
+      "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+      "99bcbb366720f912ef6017a40aa5dbd6a671a8a4": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+      "b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+      "working_tree": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400"
+    },
+    "model/20_facts.sql": {
+      "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+      "99bcbb366720f912ef6017a40aa5dbd6a671a8a4": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+      "b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+      "working_tree": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18"
+    },
+    "model/40_mart.sql": {
+      "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "99bcbb366720f912ef6017a40aa5dbd6a671a8a4": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "working_tree": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2"
+    },
+    "model/build.sql": {
+      "bbbfab8a67aa9c9920c250dc4f638e66ffbc4fc4": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59",
+      "99bcbb366720f912ef6017a40aa5dbd6a671a8a4": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59",
+      "b0bd0200a0a88b6bb7eb242cfc11d3239ff0fb68": "03e71612b6dda7df9722c1dbf1020f049f2028d3a2e5e41b4b0b51e5f360a4dd",
+      "working_tree": "c3398e357d2f2a7100d5532e48c5d4a7ea450098acb0266db83889c2d01e5c59"
+    }
+  },
+  "simulation": {
+    "scope": "Synthetic stdlib model, not PostgreSQL/core, symbolic time units",
+    "baseline": {
+      "P": "A"
+    },
+    "events": [
+      {
+        "id": "E1",
+        "known": 10,
+        "effective": 10,
+        "category": "B",
+        "product": "P",
+        "seller": "S1",
+        "action": "set",
+        "supersedes": null
+      },
+      {
+        "id": "E2",
+        "known": 20,
+        "effective": 4,
+        "category": "B",
+        "product": "P",
+        "seller": "S1",
+        "action": "set",
+        "supersedes": "E1"
+      },
+      {
+        "id": "E3",
+        "known": 21,
+        "effective": 21,
+        "category": "C",
+        "product": "P",
+        "seller": null,
+        "action": "set",
+        "supersedes": null
+      },
+      {
+        "id": "E4",
+        "known": 23,
+        "effective": 23,
+        "category": null,
+        "product": "P",
+        "seller": "S1",
+        "action": "unset",
+        "supersedes": null
+      },
+      {
+        "id": "E5",
+        "known": 25,
+        "effective": null,
+        "category": "D",
+        "product": "P",
+        "seller": "S2",
+        "action": "set",
+        "supersedes": null
+      },
+      {
+        "id": "E6",
+        "known": 27,
+        "effective": 27,
+        "category": "unknown",
+        "product": "P",
+        "seller": "S2",
+        "action": "set",
+        "supersedes": null
+      },
+      {
+        "id": "RETURN_A",
+        "known": 28,
+        "effective": 28,
+        "category": "A",
+        "product": "P",
+        "seller": null,
+        "action": "set",
+        "supersedes": null
+      },
+      {
+        "id": "E7",
+        "known": 28,
+        "effective": 27,
+        "category": "X",
+        "product": "P",
+        "seller": "S2",
+        "action": "set",
+        "supersedes": null
+      }
+    ],
+    "items": [
+      {
+        "id": "old-S1",
+        "product": "P",
+        "seller": "S1",
+        "at": 5,
+        "price": "100"
+      },
+      {
+        "id": "old-S2",
+        "product": "P",
+        "seller": "S2",
+        "at": 5,
+        "price": "200"
+      },
+      {
+        "id": "new-S1",
+        "product": "P",
+        "seller": "S1",
+        "at": 12,
+        "price": "30"
+      },
+      {
+        "id": "new-S2",
+        "product": "P",
+        "seller": "S2",
+        "at": 12,
+        "price": "40"
+      }
+    ],
+    "R0": [
+      {
+        "item": "old-S1",
+        "price": "100",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      },
+      {
+        "item": "old-S2",
+        "price": "200",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      }
+    ],
+    "R1": [
+      {
+        "item": "old-S1",
+        "price": "100",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      },
+      {
+        "item": "old-S2",
+        "price": "200",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      },
+      {
+        "item": "new-S1",
+        "price": "30",
+        "category": "B",
+        "version": "E1",
+        "basis": "asserted_valid_time"
+      },
+      {
+        "item": "new-S2",
+        "price": "40",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      }
+    ],
+    "restated_R1": [
+      {
+        "item": "old-S1",
+        "price": "100",
+        "category": "B",
+        "version": "E2",
+        "basis": "asserted_valid_time"
+      },
+      {
+        "item": "old-S2",
+        "price": "200",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      },
+      {
+        "item": "new-S1",
+        "price": "30",
+        "category": "B",
+        "version": "E2",
+        "basis": "asserted_valid_time"
+      },
+      {
+        "item": "new-S2",
+        "price": "40",
+        "category": "A",
+        "version": "baseline:P",
+        "basis": "snapshot_at_bootstrap"
+      }
+    ],
+    "totals": {
+      "R0": {
+        "A": "300"
+      },
+      "R1": {
+        "A": "340",
+        "B": "30"
+      },
+      "restated_R1": {
+        "A": "240",
+        "B": "130"
+      },
+      "incorrect_current_product_join": {
+        "B": "370"
+      }
+    },
+    "digests": {
+      "R0": "45b30f8702223b9b2955a6f39609a32bbe10b53e792ffa0eddf46f9cc1c8fd07",
+      "R1": "f68c35827d4fe335d046257248f537841bf7853c77285bf994749f64fd666799"
+    },
+    "checks": [
+      "A_to_B_does_not_change_old_report",
+      "seller_override_does_not_change_other_seller",
+      "current_join_counterexample",
+      "exact_event_retry_is_idempotent",
+      "conflicting_duplicate_rejected",
+      "backdating_visible_only_in_new_restatement",
+      "old_cutoff_rebuild_stable_after_correction",
+      "original_release_binding_still_stable",
+      "cold_replay_of_R1_with_pinned_cutoff",
+      "half_open_boundary",
+      "product_and_seller_scopes_coexist",
+      "unset_override_reveals_product_default",
+      "observation_does_not_invent_past_valid_time",
+      "explicit_unknown_is_not_unset",
+      "return_to_baseline_has_new_version",
+      "immutable_snapshot_alternative_rebuilds_same_reports",
+      "late_item_creates_new_release_without_changing_old",
+      "simulated_failed_build_does_not_publish",
+      "equal_effective_time_ambiguity_rejected"
+    ],
+    "passed": 19,
+    "polling_counterexample": {
+      "true_states": [
+        "A",
+        "B",
+        "A"
+      ],
+      "polls": [
+        "A",
+        "A"
+      ],
+      "lost_transition": "B"
+    }
+  },
+  "csv_unchanged_after": true,
+  "limits": [
+    "No PostgreSQL execution",
+    "No historical Olist category versions",
+    "No performance benchmark",
+    "No DB-level privilege/concurrency/rollback proof"
+  ]
+}
