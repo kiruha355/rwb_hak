@@ -39,11 +39,11 @@
 | Показатель | Формула | Уровень | Источник | Аддитивен? |
 |---|---|---|---|---|
 | Заказов оформлено | `count(order_id)` | заказ | `fact_order` | ✅ по времени и регионам; ❌ по продавцам и категориям (один заказ может включать нескольких) |
-| Выручка | `Σ price` где `is_revenue` | позиция | `fact_order_item` ⋈ `fact_order` | ✅ |
-| Средний чек | `Σ order_amount / count(order)` где `is_revenue` | заказ | `fact_order` | ❌ пересчитывать из числителя и знаменателя |
+| Выручка (`item_revenue`) | `Σ price` где `is_revenue` (без доставки) | позиция | `fact_order_item` ⋈ `fact_order` | ✅ |
+| Средний чек | `Σ order_gmv / count(order)` где `is_revenue` (с доставкой) | заказ | `fact_order` | ❌ пересчитывать из числителя и знаменателя |
 | Доля доставленных | `delivered / оформлено` | заказ | `fact_order` | ❌ |
 | Доля опозданий | `count(is_late) / count(delivered)` | заказ | `fact_order` | ❌ |
-| Медиана дней доставки | `percentile_cont(0.5)` по `delivery_days` | заказ | `fact_order` | ❌ никогда не складывается и не усредняется |
+| Медиана дней доставки | `percentile_cont(0.5)` по `delivery_days`, без `has_timeline_anomaly` | заказ | `fact_order` | ❌ никогда не складывается и не усредняется |
 | Продавец отгрузил вовремя | `count(carrier_date ≤ shipping_limit) / count(shipped)` | позиция (продавец) | `fact_order_item` | ❌ |
 | Средняя оценка | `avg(review_score)` | отзыв или заказ (решить) | `fact_review` | ❌ |
 | Оценка «опоздавших» против «вовремя» | `avg(score)` по `is_late` | заказ | `fact_order` ⋈ `fact_review` | ❌ |
@@ -114,7 +114,7 @@
 - [ ] Выбрать область (рекомендация — A).
 - [ ] Прототип: делаем или нет, на чём (Metabase / Superset / Streamlit / HTML).
 - [ ] Уровень для «средней оценки»: по отзывам или по заказам (зависит от политики дублей).
-- [ ] Определение `is_late`: `delivered_customer_date > estimated_delivery_date` по дате или по времени.
+- [ ] Определение `is_late`: `delivered_customer_date > estimated_delivery_date` по дате или по времени. Заказы с `has_timeline_anomaly` (166 + 23 + 6, см. `docs/profiling.md`) в долю опозданий и длительности не входят; показываем их число отдельной сноской.
 - [ ] Подтвердить UX-практики по первоисточникам: Stephen Few «Information Dashboard Design»; Nielsen Norman Group (статьи о дашбордах и data visualization); рекомендации Tableau, Power BI и Looker по дизайну дашбордов; Edward Tufte (data-ink ratio); гайд по доступности цветов (WCAG contrast).
 
 ## Решение
