@@ -1,7 +1,7 @@
 # Работы, владельцы и общий контекст
 
 Repository: `kiruha355/rwb_hak` · proposal branch: `proposal/mput-agent-workflow-20261028`
-Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-28 08:13:23 UTC`
+Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-28T09:05:10Z`
 
 > Статус: раннее предложение нашей рабочей группы для сравнения с версиями коллег. Общекомандного согласования и завершённой проверки полной панелью пока нет.
 
@@ -16,6 +16,7 @@ Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-2
 | W-03 | Объяснение команде · автор explainer | explainer.html, docs/decision-log.md | in_progress | Выпустить понятную первую версию и первые вопросы человеку; файлы не входят в этот ранний пакет. |
 | W-04 | Интернет-исследование · координатор исследований | research/README.md, research/internet-2026-10-28/ | in_progress | От ориентирования к проверяемому корпусу и независимому отбору. |
 | W-05 | Проверка данных · независимый аналитик | research/data-audit-2026-10-28/ | in_progress | Проверить 8 CSV, ключи, кардинальности, деньги и baseline; не выдавать raw baseline за результат core. |
+| W-06 | Бриф и пакет решений перед реализацией · автор implementation-brief (Codex / Sol) | docs/implementation-brief-20261028.md, docs/implementation-brief-20261028.html | in_progress | Сверить синтез v2 с финальным research; собрать причины, альтернативы, схемы и acceptance. Координация не означает approval архитектуры или запуск разработки. |
 
 Общие места этой версии: [идеи](ideas.md), [исследования](../research/README.md), [правила](../AGENTS.md). Журнал решений и explainer добавляются отдельной проверенной порцией. Исполнитель model/SQL этим снимком ещё не назначен.
 
@@ -29,3 +30,21 @@ Base SHA: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e` · snapshot UTC: `2026-10-2
 Статусы: proposed → in_progress → ready_for_review → accepted/done; blocked обозначает конкретную зависимость. Accepted относится к решению/объёму, done — к выполнению с evidence. Устаревшая запись не означает разрешения перезаписать файлы.
 
 Шаблон записи: `ID | цель | owner | repository | branch | base SHA | owned paths | status | UTC update | checks/results | unchecked | blockers | next step | published SHA`.
+
+## W-06 · Контекст и границы
+
+- Repository: `kiruha355/rwb_hak`; рабочая branch: `main` общего checkout.
+- Input/base: `origin/main` на `1939068295d7203a15cbb0a1ab5d407caca90f58`.
+  Локальный HEAD при сверке: `2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e`.
+- Owner: автор брифа перед реализацией (Codex / Sol); status: `in_progress`.
+- Начало сверки по запросу владельца: `2026-10-28T09:01:00Z`.
+- Owned paths: `docs/implementation-brief-20261028.md` и
+  `docs/implementation-brief-20261028.html`. Заявленные зоны не пересекаются
+  с W-01…W-05 по проверенным refs; общие реестры и explainer не входят в W-06.
+- Next: сопоставить synthesis v2 с финальным research, изложить причины/альтернативы,
+  схемы и acceptance. Это пакет решений до реализации, не approval архитектуры,
+  не изменение модели и не запуск разработки.
+- Git index/commit/push W-06 не меняет. Готовый результат планируется публиковать
+  в `proposal/implementation-brief-20261028` от свежего main через согласованного writer;
+  создание/публикация этой ветки данной записью не утверждаются.
+- UTC update записи writer: `2026-10-28T09:05:10Z`; remote SHA публикации этой записи пока pending.
