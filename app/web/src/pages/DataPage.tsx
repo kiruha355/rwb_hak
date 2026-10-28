@@ -8,7 +8,7 @@ import Metrics from "./Metrics";
 const TABS = [
   { id: "model", label: "Как устроена модель", el: <Model /> },
   { id: "checks", label: "Проверки качества", el: <Quality /> },
-  { id: "answers", label: "Ответы на вопросы кейса", el: <Answers /> },
+  { id: "answers", label: "Ответы на вопросы 1–10", el: <Answers /> },
   { id: "metrics", label: "Формулы метрик", el: <Metrics /> },
 ];
 

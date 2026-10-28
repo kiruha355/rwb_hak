@@ -1,4 +1,5 @@
-import { ErrorBox, Loading, PageHead, nf, useApi } from "../lib";
+import { ErrorBox, Loading, PageHead, Seg, nf, useApi, useViewParam } from "../lib";
+import AnswersB from "./AnswersB";
 
 type Answers = {
   q1: { rows: { month: string; orders_placed: number; orders_delivered: number; item_revenue: number }[]; total: number; control: { rows: number; total: number } };
@@ -12,14 +13,25 @@ const Ok = ({ ok }: { ok: boolean }) => <span className={"pill " + (ok ? "ok" : 
 const near = (a: number, b: number) => Math.abs(a - b) < 0.006;
 
 export default function AnswersPage() {
+  const [block, setBlock] = useViewParam<"a" | "b">("block", "a");
+  return (
+    <>
+      <div className="row between" style={{ marginBottom: 14 }}>
+        <PageHead
+          title={block === "a" ? "Вопросы 1–5" : "Вопросы 6–10"}
+          lead={block === "a" ? "Каждый ответ — витрина mart поверх одной и той же модели core. Рядом — контрольная цифра из задания." : "Блок Б: те же core и mart, новые витрины q06–q10. Контрольных цифр организаторы не дали."}
+        />
+        <Seg small={false} value={block} onChange={setBlock} options={[{ id: "a", label: "Блок А · 1–5" }, { id: "b", label: "Блок Б · 6–10" }]} />
+      </div>
+      {block === "a" ? <BlockA /> : <AnswersB />}
+    </>
+  );
+}
+
+function BlockA() {
   const { data, error } = useApi<Answers>("/api/answers");
   return (
     <>
-      <PageHead
-        eyebrow="06 · Ответы из модели"
-        title="Вопросы Q1–Q5"
-        lead="Каждый ответ — витрина mart, которая читает одну и ту же модель core. Рядом — контрольная цифра из задания."
-      />
       {error && <ErrorBox error={error} />}
       {!data && !error && <Loading />}
       {data && (
