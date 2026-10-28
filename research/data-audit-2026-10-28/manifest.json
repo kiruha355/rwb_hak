@@ -1,0 +1,200 @@
+{
+  "artifact_hashes": [
+    {
+      "bytes": 22110,
+      "path": "research/data-audit-2026-10-28/assertions.json",
+      "sha256": "279afd4f7415ff5eac6604ac08936af8c1169a2fa1a014b86217af50c564976e"
+    },
+    {
+      "bytes": 31024,
+      "path": "research/data-audit-2026-10-28/audit.py",
+      "sha256": "6e0bd2f8a0469b9a1c91b7d22c37407220bfd7f2e364efe9e81124371b29ce1f"
+    },
+    {
+      "bytes": 27461,
+      "path": "research/data-audit-2026-10-28/findings.md",
+      "sha256": "42223e50b2ec71082353e02cccb34ac6b7b4dcdd2b95e3d209c4f895c81ea91c"
+    },
+    {
+      "bytes": 754,
+      "path": "research/data-audit-2026-10-28/monthly.csv",
+      "sha256": "2111131ca161712337c694b2724d0fbc0ecdd2a1bf2a7e72969e5f504edea64d"
+    },
+    {
+      "bytes": 87257,
+      "path": "research/data-audit-2026-10-28/results.json",
+      "sha256": "58badd61e5b639d89e7fc2daf26125c46f20e409cac397cdccafabaf6b1113c8"
+    }
+  ],
+  "completed_utc": "2026-10-28T08:14:38.783920+00:00",
+  "created_utc": "2026-10-28T08:01:44.851876+00:00",
+  "database_accessed": false,
+  "disk_free_bytes_before_download": 34820898816,
+  "files": [
+    {
+      "bytes": 17654914,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "8133513ba3bcf576837c47aedd7fd81c5bb110fc",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_orders_dataset.csv",
+      "path": "data/olist_orders_dataset.csv",
+      "sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_orders_dataset.csv",
+      "source_tree_blob_sha1": "8133513ba3bcf576837c47aedd7fd81c5bb110fc",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_orders_dataset.csv"
+    },
+    {
+      "bytes": 15007623,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "469094c4785f82d594796efe376fd18fdd1596b4",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_order_items_dataset.csv",
+      "path": "data/olist_order_items_dataset.csv",
+      "sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_items_dataset.csv",
+      "source_tree_blob_sha1": "469094c4785f82d594796efe376fd18fdd1596b4",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_items_dataset.csv"
+    },
+    {
+      "bytes": 5647783,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "663679bc7a2911b806ef30ef1852f25b502005b2",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_order_payments_dataset.csv",
+      "path": "data/olist_order_payments_dataset.csv",
+      "sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_payments_dataset.csv",
+      "source_tree_blob_sha1": "663679bc7a2911b806ef30ef1852f25b502005b2",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_payments_dataset.csv"
+    },
+    {
+      "bytes": 14451670,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "2c32975b59dfa8335963fd4e94e3bebd60bd16f6",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_order_reviews_dataset.csv",
+      "path": "data/olist_order_reviews_dataset.csv",
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_reviews_dataset.csv",
+      "source_tree_blob_sha1": "2c32975b59dfa8335963fd4e94e3bebd60bd16f6",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_reviews_dataset.csv"
+    },
+    {
+      "bytes": 2379446,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "e5bd67eb7de63126b6b92aded29221303b124ed0",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_products_dataset.csv",
+      "path": "data/olist_products_dataset.csv",
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_products_dataset.csv",
+      "source_tree_blob_sha1": "e5bd67eb7de63126b6b92aded29221303b124ed0",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_products_dataset.csv"
+    },
+    {
+      "bytes": 163589,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "173500dec733fff76e2d4ca9eaee8995c481ea34",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_sellers_dataset.csv",
+      "path": "data/olist_sellers_dataset.csv",
+      "sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_sellers_dataset.csv",
+      "source_tree_blob_sha1": "173500dec733fff76e2d4ca9eaee8995c481ea34",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_sellers_dataset.csv"
+    },
+    {
+      "bytes": 8562270,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "247b44f6c4836b354fb90b89f0fb8927a670fa38",
+      "ignored": ".gitignore:3:data/*.csv\tdata/olist_customers_dataset.csv",
+      "path": "data/olist_customers_dataset.csv",
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_customers_dataset.csv",
+      "source_tree_blob_sha1": "247b44f6c4836b354fb90b89f0fb8927a670fa38",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_customers_dataset.csv"
+    },
+    {
+      "bytes": 2613,
+      "downloaded": true,
+      "existing_before_audit": false,
+      "existing_matched_source": false,
+      "git_blob_sha1": "316c88942fc31f7a22a6233a125e5dafea2af5d7",
+      "ignored": ".gitignore:3:data/*.csv\tdata/product_category_name_translation.csv",
+      "path": "data/product_category_name_translation.csv",
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "source_blob_url": "https://github.com/olist/work-at-olist-data/blob/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/product_category_name_translation.csv",
+      "source_tree_blob_sha1": "316c88942fc31f7a22a6233a125e5dafea2af5d7",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/product_category_name_translation.csv"
+    }
+  ],
+  "git_add_commit_push": false,
+  "initial_tracked_inputs_clean": true,
+  "kind": "independent_raw_csv_baseline",
+  "project_base_head": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+  "project_code_executed": false,
+  "project_live_head_end": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+  "project_live_head_start": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+  "project_status_end": " M AGENTS.md\n?? CLAUDE.md\n?? docs/decision-log.md\n?? docs/ideas.md\n?? docs/workstreams.md\n?? research/\n",
+  "project_status_start": " M AGENTS.md\n?? CLAUDE.md\n?? docs/decision-log.md\n?? docs/ideas.md\n?? docs/workstreams.md\n?? research/\n",
+  "protected_inputs": [
+    {
+      "changed_concurrently_since_initial_read": true,
+      "initial_read_sha256_from_clean_base": "a8aae09418e7f6e9a1f0cecb737630577f67d46a1f2fb29c6eb65feec5c24190",
+      "live_sha256_at_end": "5ee8fdde81b541a04ffed155b9ab096267ff7d5467bad0b8955b8ea587c44682",
+      "path": "AGENTS.md"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "8be72b00132f7f3a673f8eaf575e81edbd0a4cd67a706d7bfcf3f154e84a748d",
+      "live_sha256_at_end": "8be72b00132f7f3a673f8eaf575e81edbd0a4cd67a706d7bfcf3f154e84a748d",
+      "path": "docs/profiling.md"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "80f47fc44374b1062ffbb61816224df9aafb85b1a5f27bff779d425512a659d2",
+      "live_sha256_at_end": "80f47fc44374b1062ffbb61816224df9aafb85b1a5f27bff779d425512a659d2",
+      "path": "hack-context/hackathon-students/docs/tasks.md"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "3776fbc0f67e9ead2674be7e76d72a63ecf504695a1e2bdef31fc82238aec3fe",
+      "live_sha256_at_end": "3776fbc0f67e9ead2674be7e76d72a63ecf504695a1e2bdef31fc82238aec3fe",
+      "path": "hack-context/hackathon-students/docs/handout.md"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+      "live_sha256_at_end": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341",
+      "path": "scripts/init/02_raw_ddl.sql"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "8672e5b3d2781df9cf4cb7230d3f3f4addedee338e6d81f316246aa2dfd14870",
+      "live_sha256_at_end": "8672e5b3d2781df9cf4cb7230d3f3f4addedee338e6d81f316246aa2dfd14870",
+      "path": "scripts/load_raw.py"
+    },
+    {
+      "changed_concurrently_since_initial_read": false,
+      "initial_read_sha256_from_clean_base": "51d079ccc645aec38e0a5c34a6a7a6f6bf0833fe8b407f667dd5fa077b64edf2",
+      "live_sha256_at_end": "51d079ccc645aec38e0a5c34a6a7a6f6bf0833fe8b407f667dd5fa077b64edf2",
+      "path": "scripts/download_data.sh"
+    }
+  ],
+  "repro_command": "python3 research/data-audit-2026-10-28/audit.py",
+  "source_commit": "d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "source_commit_committer_date": "2022-03-04T16:26:13Z",
+  "source_commit_url": "https://github.com/olist/work-at-olist-data/commit/d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "source_repository": "https://github.com/olist/work-at-olist-data",
+  "source_requested_ref": "master",
+  "source_tree_sha": "d9e49802f3e92d09ee94ab9ccc5e457f207a8959",
+  "writer_scope": "research/data-audit-2026-10-28/ plus only ignored data/*.csv downloads explicitly authorized"
+}
