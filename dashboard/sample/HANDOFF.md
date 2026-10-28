@@ -11,12 +11,12 @@ No index/commit/push/checkout/pull/reset/merge performed.
 ## Ready paths
 
 - `dashboard/index.html`: complete standalone HTML/CSS/JS; no server/CDN/deps.
-- `dashboard/export_data.py`: read-only existing core/mart → JSON and optional
+- `dashboard/sample/export_data.py`: read-only existing core/mart → JSON and optional
   standalone HTML; uses already installed psycopg2 in W-07 venv.
 - `dashboard/sample.json`: 24 clearly synthetic demo orders, never Olist controls.
 - `dashboard/README.md`: run/export/data contract/limits and AI authorship.
 - `dashboard/checks.js`: injected DOM checks, not part of production HTML runtime.
-- `dashboard/check_export.py`: small reproducible offline exporter checks.
+- `dashboard/sample/check_export.py`: small reproducible offline exporter checks.
 - `dashboard/qa-results.json`: actual methods and results, explicit pending gates.
 - `dashboard/evidence/desktop-1100.png`, `dashboard/evidence/mobile-390.png`:
   final clean screenshots from html_preview; full HTML shown via html_render.
@@ -52,11 +52,11 @@ This handoff does not declare production/DB success or ten completed answers.
 | Path | SHA-256 |
 |---|---|
 | dashboard/index.html | `862c174cca9fe26b14fa5f2cef107465f0205aa5c7e62ff4a4b508c9a05a8ee7` |
-| dashboard/export_data.py | `274f3f95d355d2bd7c24a88d9703a2bc611940e89132c3acac2d469ccc22ce5b` |
+| dashboard/sample/export_data.py | `274f3f95d355d2bd7c24a88d9703a2bc611940e89132c3acac2d469ccc22ce5b` |
 | dashboard/README.md | `7c0c586bab4a4d0f7fdeb938b2d2fd53098c84df2284e60a30b7c27ac439510b` |
 | dashboard/sample.json | `7885c32bcce137f59681e7242421af29881a6bab094179402057e7377f63a6d9` |
 | dashboard/checks.js | `d1a248f21ec73fb1306434984e680bef5b18d55b372ee6c8b569f2e4a1372d5f` |
-| dashboard/check_export.py | `843524f2715e98b5f9bcdf16c44ee3427f7ac8042687a6bc67f4008d8749a0d0` |
+| dashboard/sample/check_export.py | `843524f2715e98b5f9bcdf16c44ee3427f7ac8042687a6bc67f4008d8749a0d0` |
 | dashboard/qa-results.json | `950089619cb05d3e83957e65883ddbc5d0a7fc93157d3e788a023c714018f106` |
 | dashboard/evidence/desktop-1100.png | `2d8aeb445be1661bc2bd7d98f66c3e5feb4920573a6439d4ad98c44231413422` |
 | dashboard/evidence/mobile-390.png | `8253cd9d7630b59b68bc24665390b7dd5d6327b4e77902cc4d78d792d1495027` |

@@ -197,3 +197,10 @@ COMMENT ON COLUMN core.fact_review.review_comment_title IS 'Full source text wit
 COMMENT ON COLUMN core.fact_review.review_comment_message IS 'Full source text without trimming, truncation, empty-string substitution or dedup selection.';
 COMMENT ON COLUMN core.fact_review.review_creation_date IS 'Naive source timestamp retained at timestamp precision despite the source column suffix date.';
 COMMENT ON COLUMN core.fact_review.review_answer_timestamp IS 'Naive source response timestamp; latest does not establish authoritative/current opinion.';
+
+-- Tables are created and filled in the same transaction, so autovacuum has not
+-- collected statistics yet. Without them the planner assumes ~200 groups per
+-- aggregate and picks nested loops over ~100k x 100k rows in 30_quality/40_mart.
+ANALYZE core.dim_date, core.dim_order_status, core.dim_customer, core.dim_customer_context,
+        core.dim_seller, core.dim_category, core.dim_product,
+        core.fact_order, core.fact_order_item, core.fact_payment, core.fact_review;

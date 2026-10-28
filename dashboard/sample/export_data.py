@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 import subprocess
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 QUERIES = {
     "orders": """SELECT order_id, customer_unique_id, order_status, customer_state,
         order_purchase_timestamp, order_delivered_carrier_date,
@@ -49,7 +49,7 @@ def write_export(payload, target, html_target=None):
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(canonical(payload) + "\n", encoding="utf-8")
     if html_target:
-        template = (ROOT / "dashboard/index.html").read_text(encoding="utf-8")
+        template = (ROOT / "dashboard/sample/index.html").read_text(encoding="utf-8")
         start, end = "<!-- DATA_START -->", "<!-- DATA_END -->"
         safe = canonical(payload).replace("<", "\\u003c").replace("&", "\\u0026")
         replacement = '<script id="embedded-data" type="application/json">' + safe + '</script>'
@@ -86,7 +86,7 @@ def main():
     data["months"] = [r["month_start"] for r in data["months"]]
     # Materialize Decimal/date values before hashing the actual payload.
     data = json.loads(canonical(data))
-    files = ["model/CONTRACT.md", "model/40_mart.sql", "model/50_answers.sql", "dashboard/export_data.py"]
+    files = ["model/CONTRACT.md", "model/40_mart.sql", "model/50_answers.sql", "dashboard/sample/export_data.py"]
     manifest = {
         "schema_version": 1, "mode": "model_export", "dataset_label": args.dataset_label,
         "exported_at": dt.datetime.now(dt.timezone.utc).isoformat(),
