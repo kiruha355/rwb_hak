@@ -1,0 +1,3 @@
+UPDATE 1
+ERROR:  Model category binding mismatch
+CONTEXT:  PL/pgSQL function history.check_model() line 14 at RAISE

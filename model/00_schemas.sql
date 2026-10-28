@@ -43,6 +43,8 @@ DROP TABLE IF EXISTS
     core.fact_payment,
     core.fact_order_item,
     core.fact_order,
+    core.dim_category_version,
+    core.model_release,
     core.dim_product,
     core.dim_category,
     core.dim_seller,
@@ -51,3 +53,5 @@ DROP TABLE IF EXISTS
     core.dim_order_status,
     core.dim_date
 RESTRICT;
+
+-- history.* is persistent source: never drop it during an ordinary rebuild.

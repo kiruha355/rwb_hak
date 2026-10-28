@@ -1,0 +1,7 @@
+ERROR:  duplicate key value violates unique constraint "category_event_supersedes_event_id_key"
+DETAIL:  Key (supersedes_event_id)=(E1) already exists.
+CONTEXT:  SQL statement "INSERT INTO history.category_event(event_id,product_id,seller_id,action,category_key,
+        business_valid_from,policy_apply_from,clock_contract,supersedes_event_id,provenance,payload_sha256)
+    VALUES(p_id,p_product,p_seller,p_action,p_category,p_valid_from,p_policy_from,p_clock,
+        p_supersedes,p_provenance,payload)"
+PL/pgSQL function history.append_event(text,text,text,text,text,timestamp without time zone,timestamp without time zone,text,text,jsonb) line 23 at SQL statement

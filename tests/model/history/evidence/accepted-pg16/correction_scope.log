@@ -1,0 +1,2 @@
+ERROR:  Correction scope mismatch
+CONTEXT:  PL/pgSQL function history.append_event(text,text,text,text,text,timestamp without time zone,timestamp without time zone,text,text,jsonb) line 19 at RAISE

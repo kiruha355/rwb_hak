@@ -135,17 +135,20 @@ CREATE TABLE core.fact_order_item (
     order_item_id integer NOT NULL,
     product_id text NOT NULL REFERENCES core.dim_product (product_id),
     seller_id text NOT NULL REFERENCES core.dim_seller (seller_id),
+    category_version_id text NOT NULL REFERENCES core.dim_category_version(version_id),
     price numeric CHECK (price NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)),
     freight_value numeric CHECK (freight_value NOT IN ('NaN'::numeric, 'Infinity'::numeric, '-Infinity'::numeric)),
     shipping_limit_at timestamp without time zone,
     PRIMARY KEY (order_id, order_item_id)
 );
 INSERT INTO core.fact_order_item (
-    order_id, order_item_id, product_id, seller_id, price, freight_value, shipping_limit_at
+    order_id, order_item_id, product_id, seller_id, category_version_id, price, freight_value, shipping_limit_at
 )
-SELECT order_id, order_item_id::integer, product_id, seller_id,
-       price::numeric, freight_value::numeric, shipping_limit_date::timestamp without time zone
-FROM raw.order_items;
+SELECT i.order_id, i.order_item_id::integer, i.product_id, i.seller_id, b.version_id,
+       i.price::numeric, i.freight_value::numeric, i.shipping_limit_date::timestamp without time zone
+FROM raw.order_items i
+LEFT JOIN history.report_binding b ON b.release_id=current_setting('capibara.report_release')
+    AND b.order_id=i.order_id AND b.order_item_id=i.order_item_id::integer;
 CREATE INDEX fact_order_item_product_idx ON core.fact_order_item (product_id);
 CREATE INDEX fact_order_item_seller_order_idx ON core.fact_order_item (seller_id, order_id);
 COMMENT ON TABLE core.fact_order_item IS 'One source item row / observed unit, keyed by order and within-order ordinal; no allocated order-level payment/review.';

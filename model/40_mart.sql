@@ -249,14 +249,14 @@ SELECT i.*,
        o.order_estimated_delivery_date, o.customer_city, o.customer_state,
        date_trunc('month', o.order_purchase_timestamp)::date AS purchase_month,
        s.is_revenue, o.order_status = 'delivered' AS is_delivered,
-       p.category_key, c.name_pt AS category_name_pt, c.name_en AS category_name_en,
+       v.category_key, c.name_pt AS category_name_pt, c.name_en AS category_name_en,
        c.is_unknown AS is_unknown_category, c.is_translated AS is_category_translated,
        seller.seller_city, seller.seller_state
 FROM core.fact_order_item i
 JOIN core.fact_order o ON o.order_id = i.order_id
 JOIN core.dim_order_status s ON s.order_status = o.order_status
-JOIN core.dim_product p ON p.product_id = i.product_id
-JOIN core.dim_category c ON c.category_key = p.category_key
+JOIN core.dim_category_version v ON v.version_id = i.category_version_id
+JOIN core.dim_category c ON c.category_key = v.category_key
 JOIN core.dim_seller seller ON seller.seller_id = i.seller_id;
 
 COMMENT ON VIEW mart.v_order_items IS

@@ -12,13 +12,17 @@ BEGIN
 END
 $build_guard$;
 
+\ir history/01_source.sql
+\ir history/02_prepare.sql
 \ir 00_schemas.sql
 \ir 05_typecheck.sql
 \ir 10_dims.sql
+\ir history/03_versions.sql
 \ir 20_facts.sql
 \ir 30_quality.sql
 \ir 40_mart.sql
 \ir 50_answers.sql
 \ir 55_answers_block_b.sql
 \ir 90_checks.sql
+\ir history/05_result.sql
 \echo [capibara] All build stages and invariant checks completed; psql commits on successful exit.

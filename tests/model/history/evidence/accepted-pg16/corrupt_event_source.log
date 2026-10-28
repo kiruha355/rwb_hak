@@ -1,0 +1,4 @@
+ALTER TABLE
+UPDATE 1
+ERROR:  Event source digest mismatch
+CONTEXT:  PL/pgSQL function history.assert_source() line 15 at RAISE

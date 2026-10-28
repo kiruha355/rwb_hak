@@ -1,0 +1,207 @@
+SET
+SET
+SET
+SET
+SET
+SET
+DO
+DO
+CREATE SCHEMA
+CREATE TABLE
+INSERT 0 0
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE FUNCTION
+DO
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+DO
+REVOKE
+REVOKE
+DO
+CREATE SCHEMA
+CREATE SCHEMA
+DROP FUNCTION
+DROP VIEW
+DROP TABLE
+CREATE TABLE
+DO
+DO
+DO
+CREATE TABLE
+INSERT 0 730
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 8
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 10
+COMMENT
+CREATE TABLE
+INSERT 0 11
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 4
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 3
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 1
+CREATE TABLE
+INSERT 0 3
+COMMENT
+COMMENT
+DO
+CREATE TABLE
+INSERT 0 10
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 9
+CREATE INDEX
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 9
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+CREATE TABLE
+INSERT 0 4
+CREATE INDEX
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+COMMENT
+ANALYZE
+CREATE TABLE
+COMMENT
+INSERT 0 1
+INSERT 0 13
+INSERT 0 1
+INSERT 0 4
+INSERT 0 3
+INSERT 0 4
+INSERT 0 0
+INSERT 0 1
+INSERT 0 1
+INSERT 0 20
+INSERT 0 1
+CREATE TABLE
+INSERT 0 34
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+COMMENT
+COMMENT
+CREATE VIEW
+COMMENT
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE TABLE
+CREATE FUNCTION
+ run_checks 
+------------
+ 
+(1 row)
+
+CREATE FUNCTION
+ check_model 
+-------------
+ 
+(1 row)
+
+DO
+[capibara] All build stages and invariant checks completed; psql commits on successful exit.
+psql:model/history/01_source.sql:3: NOTICE:  schema "history" already exists, skipping
+psql:model/history/01_source.sql:7: NOTICE:  relation "schema_version" already exists, skipping
+psql:model/history/01_source.sql:34: NOTICE:  relation "baseline_snapshot" already exists, skipping
+psql:model/history/01_source.sql:41: NOTICE:  relation "baseline_product" already exists, skipping
+psql:model/history/01_source.sql:62: NOTICE:  relation "category_event" already exists, skipping
+psql:model/history/01_source.sql:76: NOTICE:  relation "report_release" already exists, skipping
+psql:model/history/01_source.sql:83: NOTICE:  relation "release_source_row" already exists, skipping
+psql:model/history/01_source.sql:100: NOTICE:  relation "report_binding" already exists, skipping
+psql:model/history/01_source.sql:114: NOTICE:  relation "release_category" already exists, skipping
+psql:model/history/01_source.sql:118: NOTICE:  relation "initial_release" already exists, skipping
+psql:model/history/01_source.sql:420: NOTICE:  relation "report_result" already exists, skipping
+psql:model/00_schemas.sql:6: NOTICE:  schema "core" already exists, skipping
+psql:model/00_schemas.sql:7: NOTICE:  schema "mart" already exists, skipping
+psql:model/90_checks.sql:301: WARNING:  core quality warnings (source values preserved)
+DETAIL:  order.date_anomalies: 1
+{"order_id": "late-null"}
+review.score_unusual: 1
+{"order_id": "all-null", "review_id": "null-score", "review_score": null}
+psql:tests/model/rollback.sql:22: ERROR:  W11_INJECTED_LATE_FAILURE_AFTER_ALL_CHECKS
+CONTEXT:  PL/pgSQL function inline_code_block line 3 at RAISE
