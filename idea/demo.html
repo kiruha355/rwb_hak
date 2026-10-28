@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capibara: как показывать</title>
+<style>
+:root{
+  --bg:#f6f6f3; --card:#fff; --ink:#1d2127; --muted:#5f6670; --line:#e1e3e7;
+  --accent:#2f6fde; --accent-soft:#e9f0fd; --good:#1b7a4d; --good-soft:#e4f4eb;
+  --bad:#b3303e; --bad-soft:#fbe8ea; --warn:#8a5a00; --warn-soft:#fdf3dc;
+  --code-bg:#1e2230; --code-ink:#e6e9f2; --code-kw:#8fb5ff;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161a; --card:#1d2026; --ink:#e7e9ee; --muted:#a2a8b3; --line:#31353d;
+    --accent:#7aa7f5; --accent-soft:#1e293b; --good:#6fcf9e; --good-soft:#17291f;
+    --bad:#f08a95; --bad-soft:#2f1b1e; --warn:#e8b960; --warn-soft:#2c2416;
+    --code-bg:#0f1117; --code-ink:#e6e9f2; --code-kw:#8fb5ff;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161a; --card:#1d2026; --ink:#e7e9ee; --muted:#a2a8b3; --line:#31353d;
+  --accent:#7aa7f5; --accent-soft:#1e293b; --good:#6fcf9e; --good-soft:#17291f;
+  --bad:#f08a95; --bad-soft:#2f1b1e; --warn:#e8b960; --warn-soft:#2c2416;
+  --code-bg:#0f1117; --code-ink:#e6e9f2; --code-kw:#8fb5ff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 80px}
+header{padding:32px 0 6px}
+h1{font-size:clamp(26px,4vw,34px);line-height:1.2;margin:0 0 8px}
+h2{font-size:22px;margin:0 0 4px}
+h3{font-size:16px;margin:0 0 6px}
+.lead{color:var(--muted);font-size:17px;max-width:68ch;margin:0}
+.badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:var(--warn-soft);color:var(--warn);margin-bottom:10px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 18px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:3;border-bottom:1px solid var(--line)}
+.steps button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:6px 12px;border-radius:20px;cursor:pointer}
+.steps button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.scene{display:none}
+.scene.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.say{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 14px;border-radius:0 10px 10px 0;margin:0 0 14px}
+.say b.who{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:2px}
+.do{font-size:14px;color:var(--muted);margin:0 0 8px}
+.do b{color:var(--ink)}
+.console{background:var(--code-bg);color:var(--code-ink);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.console .bar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:12px;color:#9aa3b5;border-bottom:1px solid #2c3242}
+.console pre{margin:0;padding:12px 14px;font:14px/1.55 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+.kw{color:var(--code-kw)}
+.run{font:inherit;font-size:13px;font-weight:600;background:#2fbf71;color:#08210f;border:0;border-radius:6px;padding:5px 12px;cursor:pointer}
+.alt{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer;margin:0 6px 6px 0}
+.alt.danger{border-color:var(--bad);color:var(--bad)}
+.result{display:none}
+.result.on{display:block}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.zero td{background:var(--bad-soft)}
+tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+.ok{color:var(--good);font-weight:700}
+.no{color:var(--bad);font-weight:700}
+.muted{color:var(--muted);font-size:14px}
+.formula{font:14px/1.5 ui-monospace,Consolas,monospace;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:8px 10px;margin:8px 0}
+.tree{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tree>div{min-width:0}
+.tree .schema{font-weight:700;font-family:ui-monospace,Consolas,monospace;margin-bottom:6px}
+.tree .schema small{font-family:inherit;font-weight:400;color:var(--muted)}
+.tree button{display:block;width:100%;text-align:left;font:13px ui-monospace,Consolas,monospace;background:none;border:0;border-radius:6px;padding:4px 8px;color:var(--ink);cursor:pointer}
+.tree button:hover,.tree button.on{background:var(--accent-soft);color:var(--accent)}
+.info{margin-top:12px;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--line);min-height:64px}
+.big{font-size:30px;font-weight:700;line-height:1.2}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.kpi .l{font-size:13px;color:var(--muted)}
+.kpi .v{font-size:24px;font-weight:700;margin:2px 0}
+.kpi .f{font-size:12px;color:var(--muted);line-height:1.45}
+.switches label{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.switches input{width:18px;height:18px;accent-color:var(--accent)}
+.switches .r{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+select{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid2>*{min-width:0}
+.nav{display:flex;justify-content:space-between;margin-top:8px}
+.nav button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 14px;cursor:pointer}
+.layers{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center}
+.layers>div{min-width:0}
+.layers .box{border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:10px 12px;background:var(--card)}
+.layers .arr{color:var(--muted);font-size:22px;text-align:center}
+@media (max-width:760px){
+  .tree,.kpis,.grid2{grid-template-columns:1fr}
+  .layers{grid-template-columns:1fr}
+  .layers .arr{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="badge">Тренажёр показа · имитация интерфейса · цифры настоящие</span>
+  <h1>Как мы показываем решение: шаг за шагом</h1>
+  <p class="lead">Каждый шаг — это кусок будущей защиты: <b>что говорим</b>, <b>что делаем на экране</b> и <b>что появляется</b>. Нажимай кнопки «▶ Выполнить» и переключатели — результат появится, как в настоящей программе. Сама модель сейчас собирается коллегами; запросы и названия — из нашего принятого плана.</p>
+</header>
+
+<div class="steps" id="steps"></div>
+
+<!-- 0 -->
+<section class="scene" data-title="0. Суть">
+  <div class="say"><b class="who">Говорим</b>«Нам дали 8 сырых таблиц маркетплейса. Каждый аналитик считал по ним по-своему, и цифры не сходились. Мы построили из них аккуратную модель, где правила записаны один раз, — и все цифры теперь берутся оттуда».</div>
+  <div class="card">
+    <h3>Три «этажа» базы данных — запомни только это</h3>
+    <div class="layers">
+      <div class="box"><b>raw</b><br><span class="muted">Как пришло. 8 таблиц, всё текстом, грязь. <b>Не трогаем.</b></span></div>
+      <div class="arr">→</div>
+      <div class="box"><b>core</b> — модель<br><span class="muted">Почистили, разложили по таблицам, расставили ключи и правила.</span></div>
+      <div class="arr">→</div>
+      <div class="box"><b>mart</b> — витрины<br><span class="muted">Готовые ответы и данные для дашборда. Считаются <b>только из core</b>.</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Как это будет выглядеть вживую</h3>
+    <p class="muted" style="margin:0">Открываем программу для работы с базой (DBeaver или любой SQL-клиент), подключаемся к нашей базе. Слева — дерево таблиц, справа — окно, куда пишем запрос и жмём «Выполнить». Внизу появляется таблица с ответом. Дашборд — отдельная страничка в браузере (Streamlit), где есть фильтры и карточки с цифрами.</p>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="scene" data-title="1. Показываем модель">
+  <div class="say"><b class="who">Говорим</b>«Вот наша модель. У каждой таблицы есть подпись: что значит одна её строка. Это главное — на этом все ошибаются».</div>
+  <p class="do"><b>Делаем:</b> в дереве слева кликаем по таблицам. Кликни любую ↓</p>
+  <div class="card">
+    <div class="tree" id="tree"></div>
+    <div class="info" id="info"><span class="muted">Нажми на таблицу — здесь появится, что значит её строка, сколько в ней строк и какой у неё ключ.</span></div>
+  </div>
+  <div class="muted">«Ключ» — колонка (или пара колонок), по которой строку можно найти однозначно. База сама не даст записать две строки с одинаковым ключом.</div>
+</section>
+
+<!-- 2 -->
+<section class="scene" data-title="2. Вопрос 1">
+  <div class="say"><b class="who">Говорим</b>«Первый вопрос — выручка и заказы по месяцам. Мы не пишем сложный запрос на защите: ответ уже лежит в витрине. Просто открываем её».</div>
+  <p class="do"><b>Делаем:</b> пишем запрос и жмём «Выполнить».</p>
+  <div class="console">
+    <div class="bar"><span>SQL-редактор · marketplace</span><button class="run" data-run="r2">▶ Выполнить</button></div>
+    <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> mart.q01_revenue_monthly;</pre>
+  </div>
+  <div class="result" id="r2">
+    <div class="card scroll"><table id="q1"></table></div>
+    <div class="say"><b class="who">Объясняем то, что появилось</b>
+      <b>1.</b> Строк 24 — и ноябрь 2016 (красный) тоже есть, хотя заказов не было: месяцы берём из календаря.<br>
+      <b>2.</b> Заказов две колонки — «оформлено» и «доставлено»: задание не уточняет, какие считать, показываем обе.<br>
+      <b>3.</b> Выручка = сумма цен товаров <b>без доставки</b>, только в заказах, чей статус «даёт выручку». Итого 13 221 498.11 — совпадает с контролем.</div>
+    <div class="formula">выручка месяца = Σ price позиций, где статус заказа даёт выручку, месяц = месяц оформления</div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="scene" data-title="3. Средний чек">
+  <div class="say"><b class="who">Говорим</b>«Средний чек — свойство заказа целиком. Поэтому считаем его по таблице заказов, а не по строкам товаров».</div>
+  <div class="console">
+    <div class="bar"><span>SQL-редактор · marketplace</span><button class="run" data-run="r3">▶ Выполнить</button></div>
+    <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> mart.q03_avg_check;</pre>
+  </div>
+  <div class="result" id="r3">
+    <div class="card scroll">
+      <table>
+        <tr><th class="n">средний чек</th><th class="n">строк на заказ</th><th class="n">единиц на заказ</th><th class="n">разных товаров на заказ</th></tr>
+        <tr><td class="n"><b>159.88</b></td><td class="n">1.142</td><td class="n">1.142</td><td class="n">1.039</td></tr>
+      </table>
+    </div>
+    <div class="formula">средний чек = Σ (товары + доставка) по доставленным заказам ÷ число доставленных заказов (96 478)</div>
+    <p class="do"><b>Покажи, как ошибаются:</b></p>
+    <button class="alt danger" id="wrong3">Посчитать «по строкам товаров»</button>
+    <div class="result" id="w3">
+      <div class="card"><span class="no">139.97</span> — это средняя <i>строка</i>, а не заказ. В заказе бывает несколько товаров, и среднее «размазывается». Поэтому уровень расчёта важен.</div>
+    </div>
+    <div class="say"><b class="who">Если спросят «почему три числа про строки?»</b>Задание можно понять двумя способами: «строка» = одна единица товара (1.142) или один разный товар (1.039). Даём оба с подписями, чтобы не подменять одно другим.</div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="scene" data-title="4. Покупатели">
+  <div class="say"><b class="who">Говорим</b>«В данных у покупателя два номера. Один выдаётся на каждый заказ, второй — постоянный, это и есть человек. Мы считаем по постоянному».</div>
+  <div class="console">
+    <div class="bar"><span>SQL-редактор · marketplace</span><button class="run" data-run="r4">▶ Выполнить</button></div>
+    <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> mart.q04_customers;</pre>
+  </div>
+  <div class="result" id="r4">
+    <div class="card scroll">
+      <table>
+        <tr><th>ключ покупателя</th><th class="n">всего покупателей</th><th class="n">вернулись</th><th class="n">доля</th></tr>
+        <tr><td>customer_unique_id (человек)</td><td class="n"><b>96 096</b></td><td class="n"><b>2 997</b></td><td class="n"><b>3,12 %</b></td></tr>
+        <tr id="wrong4row" style="display:none"><td class="no">customer_id (номер заказа)</td><td class="n no">99 441</td><td class="n no">0</td><td class="n no">0 %</td></tr>
+      </table>
+    </div>
+    <button class="alt danger" id="wrong4">А если взять не тот номер?</button>
+    <div class="formula">вернулись = покупатели, у которых 2 и больше заказов (за весь период, любые статусы)</div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="scene" data-title="5. Топы">
+  <div class="say"><b class="who">Говорим</b>«Выручка продавца — только по его товарам. Если в заказе два продавца, каждый получает свою часть, а не весь заказ».</div>
+  <div class="console">
+    <div class="bar"><span>SQL-редактор · marketplace</span><button class="run" data-run="r5">▶ Выполнить</button></div>
+    <pre><span class="kw">SELECT</span> * <span class="kw">FROM</span> mart.q02_top_sellers <span class="kw">LIMIT</span> 3;
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> mart.q05_category_revenue <span class="kw">LIMIT</span> 5;</pre>
+  </div>
+  <div class="result" id="r5">
+    <div class="grid2">
+      <div class="card scroll">
+        <h3>Топ продавцов</h3>
+        <table>
+          <tr><th>продавец</th><th>город</th><th class="n">заказов</th><th class="n">выручка</th></tr>
+          <tr><td>4869f7…</td><td>guariba, SP</td><td class="n">1 124</td><td class="n"><b>226 987.93</b></td></tr>
+          <tr><td>532435…</td><td>lauro de freitas, BA</td><td class="n">348</td><td class="n">217 940.44</td></tr>
+          <tr><td>4a3ca9…</td><td>ibitinga, SP</td><td class="n">1 772</td><td class="n">196 882.12</td></tr>
+        </table>
+      </div>
+      <div class="card scroll">
+        <h3>Топ категорий</h3>
+        <table>
+          <tr><th>категория</th><th class="n">выручка</th><th class="n">доля</th></tr>
+          <tr><td>health_beauty</td><td class="n"><b>1 233 131.72</b></td><td class="n">9,3 %</td></tr>
+          <tr><td>watches_gifts</td><td class="n">1 166 176.98</td><td class="n">8,8 %</td></tr>
+          <tr><td>bed_bath_table</td><td class="n">1 023 434.76</td><td class="n">7,7 %</td></tr>
+          <tr><td>sports_leisure</td><td class="n">954 852.55</td><td class="n">7,2 %</td></tr>
+          <tr><td>computers_accessories</td><td class="n">888 724.61</td><td class="n">6,7 %</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="say"><b class="who">Объясняем</b>Категорий 74: 73 настоящих + «unknown» для товаров без категории. Без неё сумма по категориям была бы меньше общей выручки — мы это проверяем автоматически.</div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="scene" data-title="6. Вброс: меняем правило">
+  <div class="say"><b class="who">Говорим</b>«Правило "какой заказ даёт выручку" записано в одной маленькой таблице статусов. Если бизнес скажет "считайте ещё и отправленные" — мы меняем одну галочку, а все отчёты пересчитываются сами».</div>
+  <p class="do"><b>Делаем:</b> открываем таблицу <code>core.dim_order_status</code> и ставим галочку. Попробуй ↓</p>
+  <div class="grid2">
+    <div class="card switches" id="statuses"></div>
+    <div class="card">
+      <div class="muted">Выручка за период пересчитана:</div>
+      <div class="big" id="revTotal">13 221 498.11</div>
+      <div class="muted" id="revDelta">совпадает с контролем задания</div>
+      <div class="console" style="margin-top:12px">
+        <div class="bar"><span>что реально выполняем</span></div>
+        <pre id="sqlUpd"><span class="kw">-- ничего не меняли</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="muted">После изменения: <code>make build check control</code> — модель пересобирается, проверки проходят, а контрольный тест честно говорит: «цифры поменялись, потому что мы поменяли правило».</div>
+</section>
+
+<!-- 7 -->
+<section class="scene" data-title="7. Самопроверки">
+  <div class="say"><b class="who">Говорим</b>«Как мы убедились, что ничего не потеряли? Сборка сама сверяет сырые данные с моделью. Если хоть что-то не сходится — она падает и откатывается целиком».</div>
+  <div class="console">
+    <div class="bar"><span>SQL-редактор · marketplace</span><button class="run" data-run="r7">▶ Выполнить</button></div>
+    <pre><span class="kw">SELECT</span> check_name, expected, actual, ok <span class="kw">FROM</span> core.check_results;</pre>
+  </div>
+  <div class="result" id="r7">
+    <div class="card scroll"><table id="checks"></table></div>
+    <button class="alt danger" id="break">Сломать: «потерять» один заказ при сборке</button>
+    <button class="alt" id="fix" style="display:none">Починить</button>
+    <div class="result" id="broken">
+      <div class="card" style="border-color:var(--bad)">
+        <span class="no">ОШИБКА СБОРКИ:</span> не сошлись проверки «заказы raw = core», «сумма цен raw = core». Все изменения отменены — модель осталась прежней.
+        <div class="muted" style="margin-top:6px">Именно это и отвечаем на «а что будет, если что-то пойдёт не так?»</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="scene" data-title="8. Дашборд">
+  <div class="say"><b class="who">Говорим</b>«Дашборд для операционного директора и логистики: где мы теряем покупателя между заказом и доставкой. Под каждой цифрой — как она считается».</div>
+  <p class="do"><b>Делаем:</b> меняем фильтр «штат покупателя» — карточки пересчитываются.</p>
+  <div class="card">
+    <label class="muted">Штат покупателя: <select id="state"></select></label>
+    <div class="kpis" style="margin-top:12px" id="kpis"></div>
+  </div>
+  <div class="card">
+    <h3>Цена опоздания (все штаты)</h3>
+    <div class="scroll"><table>
+      <tr><th>доставка</th><th class="n">доля заказов</th><th class="n">средняя оценка</th><th class="n">оценок 1–2</th></tr>
+      <tr><td>вовремя</td><td class="n">93,2 %</td><td class="n ok">4,29 ★</td><td class="n">9,2 %</td></tr>
+      <tr><td>с опозданием</td><td class="n">6,8 %</td><td class="n no">2,27 ★</td><td class="n">62,4 %</td></tr>
+    </table></div>
+    <p class="muted">Опоздание стоит около двух звёзд. В 27,8 % опозданий заказ передали перевозчику позже срока продавца, в 72 % задержка возникла уже после передачи. <b>Слово «вина» не используем</b> — данные этого не доказывают.</p>
+  </div>
+  <div class="say"><b class="who">Если спросят «почему нельзя сложить доли по штатам?»</b>Доля опозданий в SP 4,5 %, в RJ 12,1 %. Сложить — 16,6 % — бессмыслица; усреднить — 8,3 % — тоже неверно, потому что в SP заказов втрое больше. Правильно — пересчитать: все опоздавшие ÷ все доставленные. Такие показатели называются <b>неаддитивными</b>.</div>
+</section>
+
+<!-- 9 -->
+<section class="scene" data-title="9. Шпаргалка">
+  <div class="card">
+    <h3>Порядок показа на защите (≈ 5–7 минут)</h3>
+    <ol style="margin:0;padding-left:20px">
+      <li><b>Суть</b> — три этажа: raw → core → mart.</li>
+      <li><b>Модель</b> — кликаем 2–3 таблицы, читаем «одна строка = …».</li>
+      <li><b>Ответы</b> — 2–3 запроса к витринам, цифры совпадают с контролем.</li>
+      <li><b>Ошибка новичка</b> — показываем, как получилось бы 139.97 или 99 441.</li>
+      <li><b>Вброс</b> — ставим галочку у статуса, выручка пересчитывается.</li>
+      <li><b>Самопроверки</b> — таблица зелёных проверок и что будет при поломке.</li>
+      <li><b>Дашборд</b> — фильтр по штату и «цена опоздания».</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Пять фраз, которые надо уметь сказать своими словами</h3>
+    <ol style="margin:0;padding-left:20px">
+      <li>«У каждой таблицы своё значение строки: заказ, товар в заказе, платёж, отзыв».</li>
+      <li>«Выручка — без доставки, средний чек — с доставкой; это две разные величины с разными именами».</li>
+      <li>«Правило выручки записано в одном месте — в таблице статусов».</li>
+      <li>«Неизвестное не превращаем в ноль, грязь не удаляем, а помечаем».</li>
+      <li>«Сборка сама сверяет сырые данные с моделью и откатывается при ошибке».</li>
+    </ol>
+  </div>
+</section>
+
+<div class="nav"><button id="prev">← Назад</button><button id="next">Дальше →</button></div>
+</div>
+
+<script>
+function fmt(x,d){return Number(x).toLocaleString("ru-RU",{minimumFractionDigits:d===undefined?2:d,maximumFractionDigits:d===undefined?2:d});}
+// navigation
+var scenes=[].slice.call(document.querySelectorAll(".scene")), steps=document.getElementById("steps"), cur=0;
+scenes.forEach(function(s,i){var b=document.createElement("button");b.textContent=s.dataset.title;b.onclick=function(){show(i)};steps.appendChild(b);});
+function show(i){cur=Math.max(0,Math.min(scenes.length-1,i));scenes.forEach(function(s,j){s.classList.toggle("on",j===cur)});[].forEach.call(steps.children,function(b,j){b.classList.toggle("on",j===cur)});window.scrollTo({top:0});}
+document.getElementById("prev").onclick=function(){show(cur-1)};
+document.getElementById("next").onclick=function(){show(cur+1)};
+show(0);
+// run buttons
+[].forEach.call(document.querySelectorAll("[data-run]"),function(b){b.onclick=function(){document.getElementById(b.dataset.run).classList.add("on")}});
+
+// scene 1: tree
+var T={
+ raw:[["orders","один заказ со статусом и датами","99 441","order_id"],["order_items","одна единица товара в заказе","112 650","—"],["order_payments","один платёж","103 886","—"],["order_reviews","связь отзыв—заказ (есть повторы!)","99 224","—"],["customers","покупатель в конкретном заказе","99 441","—"],["products","товар","32 951","—"],["sellers","продавец","3 095","—"],["category_translation","перевод категории","71","—"]],
+ core:[["fact_order","один заказ — все этапы его жизни в одной строке","99 441","order_id"],["fact_order_item","одна единица товара в заказе","112 650","order_id + номер позиции"],["fact_payment","один платёж","103 886","order_id + номер платежа"],["fact_review","одна связь «отзыв — заказ»","99 224","review_id + order_id"],["dim_customer","один реальный человек","96 096","customer_unique_id"],["dim_seller","один продавец","3 095","seller_id"],["dim_product","один товар","32 951","product_id"],["dim_category","одна категория (+ unknown)","74","название категории"],["dim_order_status","один статус + «даёт ли выручку»","8","order_status"],["dim_date","один день календаря","852","дата"],["data_issues","одна найденная аномалия","—","код + объект"],["check_results","одна самопроверка","—","имя проверки"]],
+ mart:[["q01_revenue_monthly","ответ на вопрос 1","24","месяц"],["q02_top_sellers","ответ на вопрос 2","10","продавец"],["q03_avg_check","ответ на вопрос 3","1","—"],["q04_customers","ответ на вопрос 4","1","—"],["q05_category_revenue","ответ на вопрос 5","74","категория"],["v_orders","широкая таблица заказов для новых вопросов","99 441","order_id"],["metric_definitions","паспорта метрик: формула, уровень, можно ли складывать","—","имя метрики"]]
+};
+var notes={raw:"Сырые данные. Не меняем. Здесь ключи не объявлены и бывают повторы.",core:"Наша модель. Ключ объявлен — база не пустит дубль. fact_ — события с числами, dim_ — справочники «кто/что/когда».",mart:"Витрины. Готовые ответы и данные для дашборда, считаются только из core."};
+var tree=document.getElementById("tree"), info=document.getElementById("info");
+Object.keys(T).forEach(function(sc){
+  var col=document.createElement("div");
+  col.innerHTML='<div class="schema">'+sc+' <small>'+({raw:"как пришло",core:"модель",mart:"витрины"})[sc]+'</small></div>';
+  T[sc].forEach(function(t){
+    var b=document.createElement("button");b.textContent=t[0];
+    b.onclick=function(){
+      [].forEach.call(tree.querySelectorAll("button"),function(x){x.classList.remove("on")});b.classList.add("on");
+      info.innerHTML='<b class="mono">'+sc+'.'+t[0]+'</b><br>Одна строка = <b>'+t[1]+'</b><br><span class="muted">Строк: '+t[2]+' · ключ: '+t[3]+'</span><br><span class="muted">'+notes[sc]+'</span>';
+    };
+    col.appendChild(b);
+  });
+  tree.appendChild(col);
+});
+
+// scene 2: Q1
+var q1=[["2016-09",4,1,134.97],["2016-10",324,265,40325.11],["2016-11",0,0,0],["2016-12",1,1,10.90],["2017-01",800,750,111798.36],["2017-02",1780,1653,234223.40],["2017-03",2682,2546,359198.85],["2017-04",2404,2303,340669.68],["2017-05",3700,3546,489338.25],["2017-06",3245,3135,421923.37],["2017-07",4026,3872,481604.52],["2017-08",4331,4193,554699.70],["2017-09",4285,4150,607399.67],["2017-10",4631,4478,648247.65],["2017-11",7544,7289,987765.37],["2017-12",5673,5513,726033.19],["2018-01",7269,7069,924645.00],["2018-02",6728,6555,826437.13],["2018-03",7211,7003,953356.25],["2018-04",6939,6798,973534.09],["2018-05",6873,6749,977544.69],["2018-06",6167,6099,856077.86],["2018-07",6292,6159,867953.46],["2018-08",6512,6351,838576.64]];
+var h='<tr><th>месяц</th><th class="n">оформлено</th><th class="n">доставлено</th><th class="n">выручка</th></tr>', sp=0,sd=0,sr=0;
+q1.forEach(function(r){sp+=r[1];sd+=r[2];sr+=r[3];h+='<tr'+(r[1]===0?' class="zero"':'')+'><td>'+r[0]+'</td><td class="n">'+fmt(r[1],0)+'</td><td class="n">'+fmt(r[2],0)+'</td><td class="n">'+fmt(r[3])+'</td></tr>';});
+h+='<tr class="total"><td>итого (24 строки)</td><td class="n">'+fmt(sp,0)+'</td><td class="n">'+fmt(sd,0)+'</td><td class="n">'+fmt(sr)+'</td></tr>';
+document.getElementById("q1").innerHTML=h;
+
+// scene 3, 4 toggles
+document.getElementById("wrong3").onclick=function(){document.getElementById("w3").classList.add("on")};
+document.getElementById("wrong4").onclick=function(){document.getElementById("wrong4row").style.display=""};
+
+// scene 6: statuses
+var st=[["delivered","вручён",13221498.11,true,true],["shipped","передан перевозчику",150582.44,false,false],["invoiced","выставлен счёт",61526.37,false,false],["processing","в обработке",60439.22,false,false],["approved","оплата подтверждена",209.60,false,false],["created","создан",0,false,false],["canceled","отменён",0,false,false],["unavailable","нет в наличии",0,false,false]];
+var box=document.getElementById("statuses");
+box.innerHTML='<h3>core.dim_order_status — «даёт выручку?»</h3>';
+st.forEach(function(s,i){
+  var l=document.createElement("label");
+  l.innerHTML='<input type="checkbox"'+(s[3]?' checked':'')+'><span><b class="mono">'+s[0]+'</b> <span class="muted">'+s[1]+'</span></span><span class="r">'+(s[2]?fmt(s[2]):"—")+'</span>';
+  l.querySelector("input").onchange=function(e){s[3]=e.target.checked;recalc();};
+  box.appendChild(l);
+});
+function recalc(){
+  var t=0,ch=[];st.forEach(function(s){if(s[3])t+=s[2];if(s[3]!==s[4])ch.push(s);});
+  document.getElementById("revTotal").textContent=fmt(t);
+  var d=t-13221498.11;
+  document.getElementById("revDelta").innerHTML=Math.abs(d)<0.005?"совпадает с контролем задания":'<span class="'+(d>0?"ok":"no")+'">'+(d>0?"+":"")+fmt(d)+'</span> к контролю — потому что поменяли правило';
+  document.getElementById("sqlUpd").innerHTML=ch.length?ch.map(function(s){return '<span class="kw">UPDATE</span> core.dim_order_status\n   <span class="kw">SET</span> is_revenue = '+s[3]+'\n <span class="kw">WHERE</span> order_status = \''+s[0]+'\';'}).join("\n"):'<span class="kw">-- ничего не меняли</span>';
+}
+
+// scene 7: checks
+var checks=[["заказов: raw = core","99 441","99 441"],["позиций: raw = core","112 650","112 650"],["платежей: raw = core","103 886","103 886"],["отзывов: raw = core","99 224","99 224"],["сумма цен: raw = core","13 591 643.70","13 591 643.70"],["сумма доставки: raw = core","2 256 599.44","2 256 599.44"],["сумма платежей: raw = core","16 008 872.12","16 008 872.12"],["ключи уникальны","0 дублей","0 дублей"],["календарь без дыр (месяцев)","24","24"],["выручка по категориям = общей","13 221 498.11","13 221 498.11"],["покупателей","96 096","96 096"]];
+function drawChecks(broken){
+  var h='<tr><th>проверка</th><th class="n">ожидали</th><th class="n">получили</th><th>ok</th></tr>';
+  checks.forEach(function(c,i){var a=c[2],ok=true;
+    if(broken&&i===0){a="99 440";ok=false}
+    if(broken&&i===4){a="13 591 553.80";ok=false}
+    h+='<tr><td>'+c[0]+'</td><td class="n">'+c[1]+'</td><td class="n">'+a+'</td><td class="'+(ok?"ok":"no")+'">'+(ok?"✓":"✗")+'</td></tr>';});
+  document.getElementById("checks").innerHTML=h;
+}
+drawChecks(false);
+document.getElementById("break").onclick=function(){drawChecks(true);document.getElementById("broken").classList.add("on");this.style.display="none";document.getElementById("fix").style.display=""};
+document.getElementById("fix").onclick=function(){drawChecks(false);document.getElementById("broken").classList.remove("on");this.style.display="none";document.getElementById("break").style.display=""};
+
+// scene 8: dashboard
+var S={"Все штаты":[96470,6.8,10,4.16,13.22,159.87],"SP — Сан-Паулу":[40494,4.5,7,4.25,5.07,142.50],"RJ — Рио-де-Жанейро":[12350,12.1,12,3.97,1.76,166.45],"MG — Минас-Жерайс":[11354,4.6,10,4.19,1.55,160.24],"RS — Риу-Гранди-ду-Сул":[5344,6.1,13,4.19,0.73,161.22],"PR — Парана":[4923,4.0,10,4.24,0.67,158.82],"BA — Баия":[3256,12.2,17,3.93,0.49,181.55],"MA — Мараньян":[717,17.4,19,3.83,0.12,206.14],"AL — Алагоас":[397,21.4,22,3.85,0.08,237.65]};
+var sel=document.getElementById("state");
+Object.keys(S).forEach(function(k){var o=document.createElement("option");o.textContent=k;sel.appendChild(o)});
+function kp(l,v,f,cls){return '<div class="kpi"><div class="l">'+l+'</div><div class="v'+(cls?" "+cls:"")+'">'+v+'</div><div class="f">'+f+'</div></div>'}
+function dash(){var d=S[sel.value];
+  document.getElementById("kpis").innerHTML=
+   kp("Доставлено заказов",fmt(d[0],0),"count(заказов) · можно складывать ✓")+
+   kp("Выручка",fmt(d[4],2)+" млн R$","Σ цен товаров · можно складывать ✓")+
+   kp("Средний чек",fmt(d[5])+" R$","Σ(товары+доставка) ÷ заказы · нельзя складывать ✗")+
+   kp("Доля опозданий",fmt(d[1],1)+" %","опоздавшие ÷ доставленные (n = "+fmt(d[0],0)+") · нельзя складывать ✗",d[1]>8?"no":"")+
+   kp("Медиана дней доставки",d[2]+" дн.","середина ряда «покупка → вручение» · нельзя складывать ✗")+
+   kp("Средняя оценка",fmt(d[3])+" ★","среднее оценок по заказам · нельзя складывать ✗",d[3]<4?"no":"");
+}
+sel.onchange=dash;dash();
+</script>
+</body>
+</html>

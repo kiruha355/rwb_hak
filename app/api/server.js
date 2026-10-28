@@ -110,8 +110,8 @@ app.get(
   "/api/overview",
   cached(async (req) => {
     const f = filters(req);
-    const p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], p6 = [];
-    const [kpi, rev, late, monthsOrders, monthsRev, monthsLate] = await Promise.all([
+    const p1 = [], p2 = [], p3 = [], p4 = [], p5 = [], p6 = [], p7 = [];
+    const [kpi, rev, late, monthsOrders, monthsRev, monthsLate, repeat] = await Promise.all([
       q(`SELECT count(*) AS orders_placed,
                 count(*) FILTER (WHERE o.is_delivered) AS orders_delivered,
                 avg(o.order_gmv) FILTER (WHERE o.is_revenue AND o.order_gmv IS NOT NULL) AS avg_check,
@@ -127,13 +127,20 @@ app.get(
          FROM mart.v_orders o JOIN mart.v_order_delivery_variants d USING (order_id)
          WHERE o.is_delivered AND o.order_delivered_customer_date IS NOT NULL AND ${orderWhere(f, p3)}`, p3),
       q(`SELECT to_char(o.purchase_month, 'YYYY-MM') AS m, count(*) AS placed,
-                count(*) FILTER (WHERE o.is_delivered) AS delivered
+                count(*) FILTER (WHERE o.is_delivered) AS delivered,
+                count(DISTINCT o.customer_unique_id) AS buyers,
+                avg(o.order_gmv) FILTER (WHERE o.is_revenue AND o.order_gmv IS NOT NULL) AS avg_check,
+                avg(o.review_avg_pair_score) FILTER (WHERE o.review_score_count > 0) AS review_avg
          FROM mart.v_orders o WHERE ${orderWhere(f, p4)} GROUP BY 1`, p4),
       q(`SELECT to_char(i.purchase_month, 'YYYY-MM') AS m, sum(i.price) AS revenue
          FROM mart.v_order_items i WHERE i.is_revenue AND ${itemWhere(f, p5)} GROUP BY 1`, p5),
       q(`SELECT to_char(o.purchase_month, 'YYYY-MM') AS m, avg(d.is_late_calendar_day::int) AS late_share, count(*) AS n
          FROM mart.v_orders o JOIN mart.v_order_delivery_variants d USING (order_id)
          WHERE o.is_delivered AND o.order_delivered_customer_date IS NOT NULL AND ${orderWhere(f, p6)} GROUP BY 1`, p6),
+      // repeat = a person with 2+ orders inside the selected slice
+      q(`SELECT count(*) FILTER (WHERE n >= 2) AS repeat_buyers
+         FROM (SELECT o.customer_unique_id, count(*) AS n FROM mart.v_orders o
+               WHERE ${orderWhere(f, p7)} GROUP BY 1) t`, p7),
     ]);
     // calendar months so empty months stay visible as 0
     const cal = await q(
@@ -147,11 +154,14 @@ app.get(
       month: m,
       placed: mo[m]?.placed ?? 0,
       delivered: mo[m]?.delivered ?? 0,
+      buyers: mo[m]?.buyers ?? 0,
+      avg_check: mo[m]?.avg_check ?? null,
+      review_avg: mo[m]?.review_avg ?? null,
       revenue: mr[m]?.revenue ?? 0,
       late_share: ml[m] ? ml[m].late_share : null,
       late_n: ml[m]?.n ?? 0,
     }));
-    return { filters: f, kpi: { ...kpi[0], ...rev[0], ...late[0] }, series };
+    return { filters: f, kpi: { ...kpi[0], ...rev[0], ...late[0], ...repeat[0] }, series };
   })
 );
 
@@ -220,16 +230,18 @@ app.get(
   "/api/commerce",
   cached(async (req) => {
     const f = filters(req);
+    const limit = [10, 25, 50, 100].includes(Number(req.query.limit)) ? Number(req.query.limit) : 10;
     const p1 = [], p2 = [], p3 = [];
     const [cats, sellers, pays] = await Promise.all([
       q(`SELECT i.category_key AS key, coalesce(i.category_name_en, i.category_name_pt, 'unknown') AS name,
-                i.is_unknown_category AS is_unknown, sum(i.price) AS revenue, count(*) AS units
+                i.is_unknown_category AS is_unknown, sum(i.price) AS revenue, count(*) AS units,
+                count(DISTINCT i.order_id) AS orders, count(DISTINCT i.seller_id) AS sellers
          FROM mart.v_order_items i WHERE i.is_revenue AND ${itemWhere(f, p1)}
          GROUP BY 1, 2, 3 ORDER BY 4 DESC`, p1),
       q(`SELECT i.seller_id, i.seller_city, i.seller_state, sum(i.price) AS revenue,
                 count(DISTINCT i.order_id) AS orders, count(*) AS units
          FROM mart.v_order_items i WHERE i.is_revenue AND ${itemWhere(f, p2)}
-         GROUP BY 1, 2, 3 ORDER BY 4 DESC LIMIT 10`, p2),
+         GROUP BY 1, 2, 3 ORDER BY 4 DESC LIMIT ${limit}`, p2),
       q(`SELECT p.payment_type AS type, count(*) AS payments, sum(p.payment_value) AS amount,
                 avg(p.payment_installments) AS avg_installments
          FROM core.fact_payment p JOIN mart.v_orders o USING (order_id)

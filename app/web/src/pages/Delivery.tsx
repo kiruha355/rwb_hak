@@ -1,128 +1,129 @@
-import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import Filters from "../Filters";
-import { ErrorBox, Loading, PageHead, Ring, nf, pct, useApi, useFilters } from "../lib";
+import Page from "../Page";
+import { Bar, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Col, DataTable, ErrorBox, KpiStrip, Loading, Panel, Seg, nf, pct, useApi, useFilters, useViewParam } from "../lib";
 import { axis, tip, C } from "../charts";
 
+type Split = { late: boolean; n: number; score: number; low_share: number; scored: number };
+type State = { state: string; n: number; late_share: number; median_days: number; score: number };
 type Delivery = {
-  split: { late: boolean; n: number; score: number; low_share: number; scored: number }[];
-  states: { state: string; n: number; late_share: number; median_days: number; score: number }[];
+  split: Split[];
+  states: State[];
   stage: { late_n: number; handover_late: number; after_handover: number; unknown_stage: number };
   buckets: { bucket: string; n: number; late_share: number }[];
 };
-type Late = {
-  rows: { order_id: string; state: string; city: string; purchased: string; promised: string; delivered: string;
-    days_late: number; handover_late: boolean | null; sellers_count: number; order_gmv: number; score: number | null }[];
+type LateRow = {
+  order_id: string; state: string; city: string; purchased: string; promised: string; delivered: string;
+  days_late: number; handover_late: boolean | null; sellers_count: number; order_gmv: number; score: number | null;
 };
 
 const MIN_N = 300;
-const d = (s: string) => new Date(s).toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "2-digit" });
+const d = (s: string) => new Date(s).toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "2-digit" });
+const stageLabel = (v: boolean | null) => (v === null ? "нет данных" : v ? "передал продавец поздно" : "после передачи в доставку");
 
 export default function Delivery() {
   const { qs, f, set } = useFilters();
   const { data, error, loading } = useApi<Delivery>("/api/delivery?" + qs);
-  const lo = useApi<Late>("/api/late-orders?" + qs);
+  const lo = useApi<{ rows: LateRow[] }>("/api/late-orders?" + qs);
+  const [small, setSmall] = useViewParam<"hide" | "show">("small", "hide");
   const on = data?.split.find((s) => !s.late);
   const late = data?.split.find((s) => s.late);
   const total = (on?.n || 0) + (late?.n || 0);
   const st = data?.stage;
-  const states = [...(data?.states || [])].filter((s) => s.n >= MIN_N).sort((a, b) => b.late_share - a.late_share).slice(0, 8);
-  const maxShare = states[0]?.late_share || 1;
+  const states = (data?.states || []).filter((s) => small === "show" || s.n >= MIN_N);
+
+  const stateCols: Col<State>[] = [
+    { key: "state", label: "Штат", fmt: (s) => <>{s.state} {s.n < MIN_N && <span className="pill" title={`Меньше ${MIN_N} заказов — доля неустойчива`}>мало данных</span>}</> },
+    { key: "n", label: "Доставлено", num: true, fmt: (s) => nf(s.n) },
+    { key: "late_share", label: "Опоздали", num: true, bar: true, fmt: (s) => pct(s.late_share) },
+    { key: "median_days", label: "Медиана, дн.", num: true, fmt: (s) => nf(s.median_days, 1) },
+    { key: "score", label: "Оценка", num: true, fmt: (s) => nf(s.score, 2) },
+  ];
+  const lateCols: Col<LateRow>[] = [
+    { key: "order_id", label: "Заказ", fmt: (r) => <span className="mono" title={r.order_id}>{r.order_id.slice(0, 12)}…</span> },
+    { key: "city", label: "Покупатель", fmt: (r) => `${r.city}, ${r.state}` },
+    { key: "purchased", label: "Куплен", fmt: (r) => d(r.purchased) },
+    { key: "promised", label: "Обещали", fmt: (r) => d(r.promised) },
+    { key: "delivered", label: "Вручили", fmt: (r) => d(r.delivered) },
+    { key: "days_late", label: "Опоздание, дн.", num: true, fmt: (r) => <b>{nf(r.days_late)}</b> },
+    { key: "handover_late", label: "Где задержка", value: (r) => stageLabel(r.handover_late), fmt: (r) => <span className={"pill" + (r.handover_late ? " no" : r.handover_late === false ? " ok" : "")}>{stageLabel(r.handover_late)}</span> },
+    { key: "order_gmv", label: "Сумма заказа", num: true, fmt: (r) => nf(r.order_gmv, 2) },
+    { key: "score", label: "Оценка", num: true, fmt: (r) => (r.score === null ? "—" : nf(r.score, 0)) },
+  ];
+
   return (
-    <>
-      <PageHead eyebrow="" title="Доставка" />
-      <Filters />
+    <Page title="Доставка" lead="Насколько вовремя доставляем, где возникают задержки и как опоздание влияет на оценку покупателя.">
       {error && <ErrorBox error={error} />}
       {loading && !data && <Loading />}
       {data && on && (
         <>
-          <div className="grid g3">
-            <div className="card ice">
-              <span className="muted">Вовремя · {pct(on.n / total, 0)}</span>
-              <div className="big-num" style={{ margin: "14px 0 8px" }}>{nf(on.score, 2)} ★</div>
-              <span className="pill">{pct(on.low_share, 0)} плохих оценок</span>
-            </div>
-            <div className="card sand">
-              <span className="muted">С опозданием · {late ? pct(late.n / total, 0) : "—"}</span>
-              <div className="big-num" style={{ margin: "14px 0 8px" }}>{late ? nf(late.score, 2) : "—"} ★</div>
-              <span className="pill">{late ? pct(late.low_share, 0) : "—"} плохих оценок</span>
-            </div>
-            <div className="card row" style={{ gap: 20, flexWrap: "nowrap" }}>
-              {st && st.late_n > 0 && <Ring value={st.handover_late / st.late_n} label="у продавца" color={C.ink} />}
-              <div>
-                <h3>Где застряло</h3>
-                <div className="muted" style={{ fontSize: 14 }}>
-                  {st && st.late_n > 0 && <>продавец передал поздно, остальное — после передачи</>}
-                </div>
-                <span className="info" title="Этап задержки, а не виноватый: причины в данных нет." style={{ marginTop: 8 }}>i</span>
-              </div>
-            </div>
-          </div>
+          <KpiStrip
+            items={[
+              { label: "Доставлено заказов", value: nf(total), sub: "с известной датой вручения" },
+              { label: "Вовремя", value: pct(on.n / total), sub: `${nf(on.n)} заказов`, help: "Вручили не позже обещанной даты (по календарному дню). Не складывается по срезам." },
+              { label: "С опозданием", value: late ? pct(late.n / total) : "—", sub: `${nf(late?.n || 0)} заказов` },
+              { label: "Оценка, если вовремя", value: nf(on.score, 2), sub: `плохих оценок (1–2): ${pct(on.low_share)}` },
+              { label: "Оценка при опоздании", value: late ? nf(late.score, 2) : "—", sub: late ? `плохих оценок (1–2): ${pct(late.low_share)}` : "" },
+            ]}
+          />
 
-          <div className="grid g2" style={{ marginTop: 16 }}>
-            <div className="card dark">
-              <div className="row" style={{ justifyContent: "space-between" }}>
-                <h3>Штаты с опозданиями</h3>
-                <span className="info" title={`Только штаты от ${MIN_N} заказов. Доли нельзя складывать — каждый раз пересчитываются из заказов.`}>i</span>
-              </div>
-              <div style={{ marginTop: 12 }}>
-                {states.map((s) => (
-                  <div key={s.state} className="bar-row" style={{ cursor: "pointer", gridTemplateColumns: "48px 1fr 64px" }}
-                    onClick={() => set({ state: f.state === s.state ? "" : s.state })}>
-                    <b>{s.state}</b>
-                    <div className="track"><div className="fill" style={{ width: (s.late_share / maxShare) * 100 + "%" }} /></div>
-                    <span style={{ textAlign: "right" }}>{pct(s.late_share, 0)}</span>
+          <div className="grid g2 mt">
+            <Panel title="Где возникла задержка" hint="Только опоздавшие заказы. В данных есть этап, но не причина — виноватых не называем.">
+              {st && st.late_n > 0 ? (
+                <>
+                  <div className="stack" style={{ height: 14 }}>
+                    <div style={{ width: (st.handover_late / st.late_n) * 100 + "%", background: C.sand }} />
+                    <div style={{ width: (st.after_handover / st.late_n) * 100 + "%", background: C.ink }} />
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="card">
-              <h3>Дней от покупки до вручения</h3>
-              <ResponsiveContainer width="100%" height={260}>
-                <BarChart data={data.buckets} margin={{ top: 16 }}>
+                  <table style={{ marginTop: 12 }}>
+                    <tbody>
+                      <tr><td><i className="sw" style={{ background: C.sand }} />Продавец передал в доставку позже своего срока</td><td className="n">{nf(st.handover_late)}</td><td className="n"><b>{pct(st.handover_late / st.late_n)}</b></td></tr>
+                      <tr><td><i className="sw" style={{ background: C.ink }} />Передал вовремя, задержка уже в доставке</td><td className="n">{nf(st.after_handover)}</td><td className="n"><b>{pct(st.after_handover / st.late_n)}</b></td></tr>
+                      {st.unknown_stage > 0 && <tr><td className="dim">Этап не определить</td><td className="n">{nf(st.unknown_stage)}</td><td className="n">{pct(st.unknown_stage / st.late_n)}</td></tr>}
+                      <tr className="total"><td>Всего опоздавших</td><td className="n">{nf(st.late_n)}</td><td className="n">100 %</td></tr>
+                    </tbody>
+                  </table>
+                </>
+              ) : <div className="empty">В этом срезе нет опозданий</div>}
+            </Panel>
+            <Panel title="Срок доставки" hint="Столбцы — заказы по числу дней от покупки до вручения, линия — доля опозданий в группе"
+              csv={{ name: "srok_dostavki", columns: [{ key: "bucket", label: "Дней" }, { key: "n", label: "Заказов" }, { key: "late_share", label: "Доля опозданий" }], rows: data.buckets }}>
+              <ResponsiveContainer width="100%" height={230}>
+                <ComposedChart data={data.buckets} margin={{ top: 8, right: 0, left: 0 }}>
+                  <CartesianGrid stroke={C.grid} vertical={false} />
                   <XAxis dataKey="bucket" {...axis} />
-                  <YAxis {...axis} tickFormatter={(v) => nf(v)} width={54} />
-                  <Tooltip {...tip} formatter={(v: number, _n: string, p: any) => [`${nf(v)} · опоздали ${pct(p.payload.late_share, 0)}`, "заказов"]} />
-                  <Bar dataKey="n" radius={[12, 12, 12, 12]}>
-                    {data.buckets.map((b) => <Cell key={b.bucket} fill={b.late_share > 0.08 ? C.ice : C.silver} />)}
-                  </Bar>
-                </BarChart>
+                  <YAxis yAxisId="n" {...axis} width={54} tickFormatter={(v) => nf(v)} />
+                  <YAxis yAxisId="s" orientation="right" {...axis} width={40} tickFormatter={(v) => nf(v * 100, 0) + "%"} />
+                  <Tooltip {...tip} formatter={(v: number, n: string) => (n === "n" ? [nf(v), "заказов"] : [pct(v), "опоздали"])} />
+                  <Bar yAxisId="n" dataKey="n" fill={C.silver} radius={[2, 2, 0, 0]} />
+                  <Line yAxisId="s" dataKey="late_share" stroke={C.accent} strokeWidth={2} dot={{ r: 3 }} />
+                </ComposedChart>
               </ResponsiveContainer>
-              <div className="legend" style={{ marginTop: 6 }}>
-                <span><i style={{ background: C.ice }} />много опозданий</span>
-              </div>
-            </div>
+            </Panel>
           </div>
 
-          <div className="card" style={{ marginTop: 16 }}>
-            <div className="row" style={{ justifyContent: "space-between", marginBottom: 14 }}>
-              <h3>Самые долгие опоздания</h3>
-              <span className="pill">{lo.data ? nf(lo.data.rows.length) : "…"} заказов</span>
-            </div>
-            {lo.data && (
-              <div className="table-wrap">
-                <table>
-                  <thead>
-                    <tr><th>Заказ</th><th>Город</th><th>Обещали</th><th>Привезли</th><th className="n">Опоздание</th><th>Где застряло</th><th className="n">Оценка</th></tr>
-                  </thead>
-                  <tbody>
-                    {lo.data.rows.map((r) => (
-                      <tr key={r.order_id}>
-                        <td className="mono">{r.order_id.slice(0, 8)}</td>
-                        <td>{r.city}, {r.state}</td>
-                        <td>{d(r.promised)}</td>
-                        <td>{d(r.delivered)}</td>
-                        <td className="n"><b>{nf(r.days_late)} дн.</b></td>
-                        <td>{r.handover_late === null ? <span className="pill">нет данных</span> : r.handover_late ? <span className="pill no">у продавца</span> : <span className="pill ok">в доставке</span>}</td>
-                        <td className="n">{r.score === null ? "—" : nf(r.score, 0) + " ★"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+          <Panel
+            className="mt"
+            title="Штаты покупателей"
+            hint="Нажмите на строку, чтобы отфильтровать дашборд по штату. Доли нельзя складывать или усреднять между штатами."
+            controls={<Seg value={small} onChange={setSmall} options={[{ id: "hide", label: `От ${MIN_N} заказов` }, { id: "show", label: "Все штаты" }]} />}
+            csv={{ name: "shtaty", columns: stateCols.map((c) => ({ key: c.key, label: c.label })), rows: data.states }}
+            flush
+          >
+            <DataTable cols={stateCols} rows={states} initialSort={{ key: "late_share", desc: true }} maxHeight={360}
+              onRow={(s) => set({ state: f.state === s.state ? "" : s.state })} active={(s) => s.state === f.state} />
+          </Panel>
+
+          <Panel
+            className="mt"
+            title="Опоздавшие заказы"
+            hint="60 заказов с самым большим опозданием в текущем срезе — для разбора с логистикой и продавцами"
+            csv={lo.data ? { name: "opozdavshie_zakazy", columns: lateCols.map((c) => ({ key: c.key, label: c.label })), rows: lo.data.rows } : undefined}
+            flush
+          >
+            {lo.data ? <DataTable cols={lateCols} rows={lo.data.rows} maxHeight={420} /> : <Loading />}
+          </Panel>
         </>
       )}
-    </>
+    </Page>
   );
 }

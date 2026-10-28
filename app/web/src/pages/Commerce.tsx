@@ -1,119 +1,122 @@
-import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import Filters from "../Filters";
-import { ErrorBox, Loading, PageHead, money, nf, pct, useApi, useFilters } from "../lib";
+import Page from "../Page";
+import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Col, DataTable, ErrorBox, KpiStrip, Loading, Panel, Seg, money, nf, pct, useApi, useFilters, useViewParam } from "../lib";
 import { axis, tip, C } from "../charts";
 
-type Commerce = {
-  total: number;
-  categories: { key: string; name: string; is_unknown: boolean; revenue: number; units: number }[];
-  sellers: { seller_id: string; seller_city: string; seller_state: string; revenue: number; orders: number; units: number }[];
-  payments: { type: string; payments: number; amount: number; avg_installments: number }[];
-};
+type Cat = { key: string; name: string; is_unknown: boolean; revenue: number; units: number; orders: number; sellers: number };
+type Seller = { seller_id: string; seller_city: string; seller_state: string; revenue: number; orders: number; units: number };
+type Pay = { type: string; payments: number; amount: number; avg_installments: number };
+type Commerce = { total: number; categories: Cat[]; sellers: Seller[]; payments: Pay[] };
 
-const PAY: Record<string, string> = { credit_card: "Карта", boleto: "Boleto", voucher: "Ваучер", debit_card: "Дебетовая", not_defined: "Не указан" };
-const PAY_COLORS = [C.ink, C.ice, C.sand, C.silver, C.iceSoft];
+const PAY: Record<string, string> = { credit_card: "Кредитная карта", boleto: "Boleto (квитанция)", voucher: "Ваучер", debit_card: "Дебетовая карта", not_defined: "Не указан" };
+const PAY_COLORS = [C.ink, C.accent, C.sand, C.silver, C.accentSoft];
 
 export default function Commerce() {
   const { qs, f, set } = useFilters();
-  const { data, error, loading } = useApi<Commerce>("/api/commerce?" + qs);
-  const top = data?.categories.slice(0, 10) || [];
-  const unknown = data?.categories.find((c) => c.is_unknown);
-  const sumCats = data?.categories.reduce((s, c) => s + c.revenue, 0) || 0;
+  const [view, setView] = useViewParam<"chart" | "table">("cats", "chart");
+  const [topN, setTopN] = useViewParam<"10" | "25" | "50" | "100">("sellers", "10");
+  const { data, error, loading } = useApi<Commerce>(`/api/commerce?${qs}${topN !== "10" ? "&limit=" + topN : ""}`);
+  const cats = data?.categories || [];
+  const units = cats.reduce((s, c) => s + c.units, 0);
+  const unknown = cats.find((c) => c.is_unknown);
   const payTotal = data?.payments.reduce((s, p) => s + p.amount, 0) || 0;
+  const payCount = data?.payments.reduce((s, p) => s + p.payments, 0) || 0;
+  const pickCat = (c: Cat) => set({ category: f.category === c.key ? "" : c.key });
+
+  const catCols: Col<Cat>[] = [
+    { key: "name", label: "Категория", fmt: (c) => (c.is_unknown ? <span className="dim">без категории</span> : c.name) },
+    { key: "revenue", label: "Выручка", num: true, bar: true, fmt: (c) => nf(c.revenue, 2) },
+    { key: "share", label: "Доля", num: true, value: (c) => c.revenue / (data?.total || 1), fmt: (c) => pct(c.revenue / (data?.total || 1)) },
+    { key: "orders", label: "Заказы", num: true, fmt: (c) => nf(c.orders) },
+    { key: "units", label: "Продано единиц", num: true, fmt: (c) => nf(c.units) },
+    { key: "avg", label: "Средняя цена", num: true, value: (c) => c.revenue / c.units, fmt: (c) => nf(c.revenue / c.units, 2) },
+    { key: "sellers", label: "Продавцов", num: true, fmt: (c) => nf(c.sellers) },
+  ];
+  const sellerCols: Col<Seller & { rank: number }>[] = [
+    { key: "rank", label: "#", num: true },
+    { key: "seller_id", label: "Продавец", fmt: (s) => <span className="mono" title={s.seller_id}>{s.seller_id.slice(0, 12)}…</span> },
+    { key: "seller_city", label: "Город" },
+    { key: "seller_state", label: "Штат" },
+    { key: "orders", label: "Заказы", num: true, fmt: (s) => nf(s.orders) },
+    { key: "units", label: "Единиц", num: true, fmt: (s) => nf(s.units) },
+    { key: "revenue", label: "Выручка", num: true, bar: true, fmt: (s) => nf(s.revenue, 2) },
+    { key: "share", label: "Доля", num: true, value: (s) => s.revenue / (data?.total || 1), fmt: (s) => pct(s.revenue / (data?.total || 1), 2) },
+  ];
+  const payCols: Col<Pay>[] = [
+    { key: "type", label: "Способ", fmt: (p) => PAY[p.type] || p.type },
+    { key: "payments", label: "Платежей", num: true, fmt: (p) => nf(p.payments) },
+    { key: "amount", label: "Сумма", num: true, bar: true, fmt: (p) => nf(p.amount, 2) },
+    { key: "share", label: "Доля суммы", num: true, value: (p) => p.amount / payTotal, fmt: (p) => pct(p.amount / payTotal) },
+    { key: "avg_installments", label: "Частей рассрочки, в ср.", num: true, fmt: (p) => nf(p.avg_installments, 1) },
+  ];
+  const sellers = (data?.sellers || []).map((s, i) => ({ ...s, rank: i + 1 }));
+
   return (
-    <>
-      <PageHead eyebrow="" title="Продажи" />
-      <Filters />
+    <Page title="Продажи" lead="Из чего складывается выручка: какие категории и продавцы её дают и как покупатели платят.">
       {error && <ErrorBox error={error} />}
       {loading && !data && <Loading />}
       {data && (
         <>
-          <div className="grid g3">
-            <div className="card dark kpi">
-              <div className="row" style={{ justifyContent: "space-between" }}>
-                <span className="label">Выручка</span>
-                <span className="info" title={`Сумма по категориям = ${nf(sumCats, 2)}. Товары без категории не теряются: они в строке «без категории».`}>i</span>
-              </div>
-              <div className="value">{money(data.total)}</div>
-              {Math.abs(sumCats - data.total) < 0.01 && <span className="pill ok">категории сходятся с итогом</span>}
-            </div>
-            <div className="card ice kpi">
-              <span className="label">Лидер</span>
-              <div className="value" style={{ fontSize: 30 }}>{top[0]?.name || "—"}</div>
-              <div className="hint">{top[0] ? pct(top[0].revenue / data.total) + " выручки" : ""}</div>
-            </div>
-            <div className="card kpi">
-              <span className="label">Категорий</span>
-              <div className="value">{nf(data.categories.length)}</div>
-              <div className="hint">{unknown ? money(unknown.revenue) + " без категории" : ""}</div>
-            </div>
-          </div>
+          <KpiStrip
+            items={[
+              { label: "Выручка", value: money(data.total), sub: "сумма по категориям = итог", help: "sum(price) по доставленным заказам. Сумма по всем категориям, включая «без категории», совпадает с общей выручкой." },
+              { label: "Продано единиц", value: nf(units), sub: "одна строка заказа = одна единица", help: "Число позиций в доставленных заказах. Складывается." },
+              { label: "Средняя цена единицы", value: nf(data.total / (units || 1), 2), sub: "выручка ÷ единицы", help: "Не складывается: пересчитывается в каждом срезе." },
+              { label: "Категорий с продажами", value: nf(cats.filter((c) => !c.is_unknown).length), sub: unknown ? `плюс «без категории»: ${money(unknown.revenue)}` : "все товары с категорией" },
+              { label: "Платежи", value: nf(payCount), sub: `на ${money(payTotal)} по всем заказам периода`, help: "Платежи по всем заказам периода, любой статус: деньги приходят и по заказам, которые потом отменили. Поэтому сумма не равна выручке." },
+            ]}
+          />
 
-          <div className="grid g2" style={{ marginTop: 16 }}>
-            <div className="card">
-              <h3>Топ категорий</h3>
-              <ResponsiveContainer width="100%" height={top.length * 34 + 20}>
-                <BarChart data={top} layout="vertical" margin={{ left: 0, right: 16 }}>
-                  <XAxis type="number" hide />
-                  <YAxis type="category" dataKey="name" width={170} {...axis} fontSize={13} />
-                  <Tooltip {...tip} formatter={(v: number) => [`${money(v)} · ${pct(v / data.total)}`, "выручка"]} />
-                  <Bar dataKey="revenue" radius={9} barSize={18} cursor="pointer"
-                    onClick={(d: any) => set({ category: f.category === d.key ? "" : d.key })}>
-                    {top.map((c) => <Cell key={c.key} fill={c.key === f.category ? C.ice : c.is_unknown ? C.silver : C.ink} />)}
+          <Panel
+            className="mt"
+            title="Категории"
+            hint="Нажмите на категорию, чтобы отфильтровать по ней весь дашборд"
+            controls={<Seg value={view} onChange={setView} options={[{ id: "chart", label: "График" }, { id: "table", label: "Таблица" }]} />}
+            csv={{ name: "kategorii", columns: catCols.filter((c) => !["share", "avg"].includes(c.key)).map((c) => ({ key: c.key, label: c.label })), rows: cats }}
+            flush={view === "table"}
+          >
+            {view === "chart" ? (
+              <ResponsiveContainer width="100%" height={15 * 26 + 20}>
+                <BarChart data={cats.slice(0, 15)} layout="vertical" margin={{ left: 0, right: 24 }}>
+                  <CartesianGrid stroke={C.grid} horizontal={false} />
+                  <XAxis type="number" {...axis} tickFormatter={(v) => money(v)} />
+                  <YAxis type="category" dataKey="name" width={200} {...axis} fontSize={12} tickFormatter={(v) => (v === "unknown" ? "без категории" : v)} />
+                  <Tooltip {...tip} formatter={(v: number) => [`${nf(v, 2)} · ${pct(v / data.total)}`, "выручка"]} />
+                  <Bar dataKey="revenue" barSize={16} radius={[0, 2, 2, 0]} cursor="pointer" onClick={(d: any) => pickCat(d)}>
+                    {cats.slice(0, 15).map((c) => <Cell key={c.key} fill={c.key === f.category ? C.accent : c.is_unknown ? C.silver : C.ink} />)}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-            </div>
-            <div className="card">
-              <h3>Как платят</h3>
-              <div className="row" style={{ flexWrap: "nowrap", gap: 20 }}>
-                <div style={{ width: 200, height: 200, flex: "none" }}>
-                  <PieChart width={200} height={200}>
-                    <Pie data={data.payments} dataKey="amount" nameKey="type" innerRadius={62} outerRadius={92} paddingAngle={3} cornerRadius={10} stroke="none">
-                      {data.payments.map((p, i) => <Cell key={p.type} fill={PAY_COLORS[i % PAY_COLORS.length]} />)}
-                    </Pie>
-                    <Tooltip {...tip} formatter={(v: number, n: string) => [money(v), PAY[n] || n]} />
-                  </PieChart>
-                </div>
-                <div style={{ flex: 1 }}>
-                  {data.payments.map((p, i) => (
-                    <div key={p.type} className="row" style={{ justifyContent: "space-between", margin: "10px 0" }}>
-                      <span><i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 99, background: PAY_COLORS[i % PAY_COLORS.length], marginRight: 8 }} />{PAY[p.type] || p.type}</span>
-                      <b>{pct(p.amount / payTotal, 0)}</b>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+            ) : (
+              <DataTable cols={catCols} rows={cats} initialSort={{ key: "revenue", desc: true }} onRow={pickCat} active={(c) => c.key === f.category} limit={20}
+                total={{ name: "Итого", revenue: nf(data.total, 2), share: "100 %", units: nf(units) }} />
+            )}
+          </Panel>
 
-          <div className="card" style={{ marginTop: 16 }}>
-            <div className="row" style={{ justifyContent: "space-between", marginBottom: 14 }}>
-              <h3>Топ-10 продавцов</h3>
-              <span className="info" title="Выручка продавца — только по его товарам, а не по всему заказу.">i</span>
-            </div>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>#</th><th>Продавец</th><th>Город</th><th className="n">Заказы</th><th className="n">Товары</th><th className="n">Выручка</th></tr>
-                </thead>
-                <tbody>
-                  {data.sellers.map((s, i) => (
-                    <tr key={s.seller_id}>
-                      <td>{i + 1}</td>
-                      <td className="mono">{s.seller_id.slice(0, 8)}</td>
-                      <td>{s.seller_city}, {s.seller_state}</td>
-                      <td className="n">{nf(s.orders)}</td>
-                      <td className="n">{nf(s.units)}</td>
-                      <td className="n"><b>{nf(s.revenue, 2)}</b></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="grid g2 mt">
+            <Panel
+              title="Лучшие продавцы"
+              hint="Выручка продавца — только его товары в заказе, не весь заказ"
+              controls={<Seg value={topN} onChange={setTopN} options={[{ id: "10", label: "Топ 10" }, { id: "25", label: "25" }, { id: "50", label: "50" }, { id: "100", label: "100" }]} />}
+              csv={{ name: "prodavcy_top" + topN, columns: sellerCols.filter((c) => c.key !== "share").map((c) => ({ key: c.key, label: c.label })), rows: sellers }}
+              flush
+            >
+              <DataTable cols={sellerCols} rows={sellers} maxHeight={420} />
+            </Panel>
+            <Panel title="Способы оплаты" hint="По всем заказам периода" csv={{ name: "oplata", columns: payCols.filter((c) => c.key !== "share").map((c) => ({ key: c.key, label: c.label })), rows: data.payments }}>
+              <div className="stack" style={{ height: 14, marginBottom: 10 }}>
+                {data.payments.map((p, i) => <div key={p.type} title={`${PAY[p.type] || p.type}: ${pct(p.amount / payTotal)}`} style={{ width: (p.amount / payTotal) * 100 + "%", background: PAY_COLORS[i % PAY_COLORS.length] }} />)}
+              </div>
+              <div className="legend" style={{ marginBottom: 12 }}>
+                {data.payments.map((p, i) => <span key={p.type}><i style={{ background: PAY_COLORS[i % PAY_COLORS.length] }} />{PAY[p.type] || p.type}</span>)}
+              </div>
+              <div style={{ margin: "0 -16px -14px", borderTop: "1px solid var(--line)" }}>
+                <DataTable cols={payCols} rows={data.payments} maxHeight={300} />
+              </div>
+            </Panel>
           </div>
         </>
       )}
-    </>
+    </Page>
   );
 }
