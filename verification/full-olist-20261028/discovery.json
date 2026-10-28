@@ -1,0 +1,72 @@
+{
+  "scope": "read-only discovery; no service start, installation, DDL or data loading",
+  "endpoint_source": "aab62d7:docs/dev-environment-20261028.md:51; AGENTS.md",
+  "project_endpoint": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "database": "marketplace",
+    "user": "hack"
+  },
+  "alternate_endpoint": "not found in pinned runbooks/evidence; known validation/libpq endpoint variables unset",
+  "commands": [
+    {
+      "at_utc": "2026-10-28T14:08:33.092524+00:00",
+      "argv": [
+        "/Users/a/bin/dev-job",
+        "preflight"
+      ],
+      "exit_code": 78,
+      "stdout": "{\n  \"at\": \"2026-10-28T17:08:33.037112+03:00\",\n  \"free_gib\": 26.43,\n  \"memory_pressure_level\": 2,\n  \"swap_used_gib\": 3.68,\n  \"docker_saved\": {\n    \"Cpus\": 4,\n    \"MemoryMiB\": 4096,\n    \"SwapMiB\": 1024,\n    \"KubernetesEnabled\": false,\n    \"cache_budget\": \"4GB\"\n  },\n  \"heavy_local_allowed\": false\n}\n",
+      "stderr": "Тяжёлая локальная задача заблокирована: нужен запас SSD, нормальная RAM и swap ниже лимита.\n"
+    },
+    {
+      "at_utc": "2026-10-28T14:08:33.204933+00:00",
+      "argv": [
+        "docker",
+        "ps",
+        "--format",
+        "{{.Names}}\t{{.Image}}\t{{.Ports}}"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Cannot connect to the Docker daemon at unix:///Users/a/.docker/run/docker.sock. Is the docker daemon running?\n"
+    },
+    {
+      "at_utc": "2026-10-28T14:08:33.238851+00:00",
+      "argv": [
+        "lsof",
+        "-nP",
+        "-iTCP:5432",
+        "-sTCP:LISTEN"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "at_utc": "2026-10-28T14:08:33.246780+00:00",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "psql (PostgreSQL) 16.15 (Homebrew)\n",
+      "stderr": ""
+    },
+    {
+      "at_utc": "2026-10-28T14:08:33.253458+00:00",
+      "argv": [
+        "/opt/homebrew/opt/postgresql@16/bin/psql",
+        "-X",
+        "-w",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-Atc",
+        "SELECT current_setting('server_version'), current_database(), current_user;"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "psql: error: connection to server at \"127.0.0.1\", port 5432 failed: Connection refused\n\tIs the server running on that host and accepting TCP/IP connections?\n"
+    }
+  ]
+}
