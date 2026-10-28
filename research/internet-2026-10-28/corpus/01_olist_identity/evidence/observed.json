@@ -1,0 +1,124 @@
+{
+  "method": "UTF-8-sig csv.DictReader; exact decoded field equality including empty string; counts are CSV records not physical lines",
+  "files": {
+    "olist_customers_dataset.csv": {
+      "sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "git_blob_sha1": "247b44f6c4836b354fb90b89f0fb8927a670fa38",
+      "bytes": 8562270,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "records": 99441
+    },
+    "olist_order_reviews_dataset.csv": {
+      "sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "git_blob_sha1": "2c32975b59dfa8335963fd4e94e3bebd60bd16f6",
+      "bytes": 14451670,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "records": 99224
+    },
+    "olist_products_dataset.csv": {
+      "sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "git_blob_sha1": "e5bd67eb7de63126b6b92aded29221303b124ed0",
+      "bytes": 2379446,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "records": 32951
+    },
+    "product_category_name_translation.csv": {
+      "sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "git_blob_sha1": "316c88942fc31f7a22a6233a125e5dafea2af5d7",
+      "bytes": 2613,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "records": 71
+    }
+  },
+  "customers": {
+    "customer_id_distinct": 99441,
+    "duplicate_customer_id_groups": 0,
+    "empty_customer_ids": 0,
+    "unique_id_distinct": 96096,
+    "empty_unique_ids": 0,
+    "unique_ids_multiple_zip_prefixes": 250
+  },
+  "reviews": {
+    "repeat_examples": [
+      {
+        "review_id": "00130cbe1f9d422698c812ed8ded1919",
+        "order_ids": [
+          "04a28263e085d399c97ae49e0b477efa",
+          "dfcdfc43867d1c1381bfaf62d6b9c195"
+        ],
+        "payload_sha256": "e3aea91b8afc7a6bdb8e08849afebd79426dc25a6a66d3622ed154022e238b73"
+      },
+      {
+        "review_id": "0115633a9c298b6a98bcbe4eee75345f",
+        "order_ids": [
+          "0c9850b2c179c1ef60d2855e2751d1fa",
+          "78a4201f58af3463bdab842eea4bc801"
+        ],
+        "payload_sha256": "121338a1fe27e0ea839968d6b72f74fd9fdbadf8f79f54039f0df71749243e38"
+      },
+      {
+        "review_id": "0174caf0ee5964646040cd94e15ac95e",
+        "order_ids": [
+          "74db91e33b4e1fd865356c89a61abf1f",
+          "f93a732712407c02dce5dd5088d0f47b"
+        ],
+        "payload_sha256": "b5f348b33de8120bf7a22aa25e76a93a05e45a13180bfc04de622db6b6295b16"
+      }
+    ],
+    "review_id_distinct": 98410,
+    "review_id_multiple_rows": 789,
+    "review_id_multiple_orders": 789,
+    "order_id_multiple_reviews": 547,
+    "pair_distinct": 99224,
+    "duplicate_pair_groups": 0,
+    "empty_key_rows": 0,
+    "conflicting_ids_by_field": {
+      "review_score": 0,
+      "review_comment_title": 0,
+      "review_comment_message": 0,
+      "review_creation_date": 0,
+      "review_answer_timestamp": 0
+    },
+    "conflicting_ids_any_payload": 0,
+    "conflicting_examples": []
+  },
+  "categories": {
+    "product_ids_distinct": 32951,
+    "duplicate_product_id_groups": 0,
+    "missing_category_products": 610,
+    "nonempty_product_categories": 73,
+    "translation_key_duplicate_groups": 0,
+    "translation_keys": 71,
+    "untranslated_product_categories": [
+      "pc_gamer",
+      "portateis_cozinha_e_preparadores_de_alimentos"
+    ]
+  }
+}

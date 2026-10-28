@@ -1,0 +1,24 @@
+{
+  "checked_at": "2026-10-28T09:04:25.148199+00:00",
+  "json_files_parsed": 9,
+  "jsonl_records_parsed": 809,
+  "findings": 102,
+  "unique_findings": 102,
+  "selected": 18,
+  "review_dispositions": 162,
+  "all_findings_have_explicit_review": true,
+  "relative_markdown_links_missing": [],
+  "portable_portal_violations": {},
+  "credential_pattern_filename_hits": [],
+  "html_preview": {
+    "width": 728,
+    "content_height": 754,
+    "console_messages": 0,
+    "visually_inspected": true
+  },
+  "limits": [
+    "Credential scan is pattern-based, not proof that every possible secret type is absent",
+    "No DB/model/runtime correctness inferred",
+    "Remote HTTP links not all re-fetched in packaging check"
+  ]
+}

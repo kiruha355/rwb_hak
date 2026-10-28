@@ -1,0 +1,30 @@
+# Static source checks
+
+Immutable refs, access times and hashes: ../source-checks.jsonl. No code executed. Locators below point to upstream source; findings and concise observations, not source copies.
+
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/staging/stg_order_reviews.sql — HTTP 200; locator all; sha256 422183b805df0548e892c262c1a095c31267ca60ff09f87a8b678a90df27ce4a
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/intermediate/int_orders_reviews_aggregated.sql — HTTP 200; locator all; sha256 da3e965fe652cef609bea3810526c714763e99d4864dc6456578da6421fb1927
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/marts/fct_orders.sql — HTTP 200; locator all; sha256 2fdab23b904b7cf6e362e190f8180502c28bbe29df07a7ee94c074bacbc6339c
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/marts/fct_order_items.sql — HTTP 200; locator all; sha256 599e4ca97f8b3cd3aad6f6df53420873b3e1a9444e54e09ca520a7a11a3c54e7
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/marts/dim_customers.sql — HTTP 200; locator all; sha256 d2f2daad39a66ac6e30c8fd1a86f4dd8735a602828443ff4ae81c44cc13edc77
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/marts/schema.yml — HTTP 200; locator 35-90; sha256 d7ed49fe593b118874f15b5f24f7740cb1f2d94c48670ddc45d311a84155724c
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/LICENSE — HTTP 200; locator all; sha256 bcd38d066083e1aecdcb309acc42b39cbc93de31b76402656dea647e4f1da050
+- https://raw.githubusercontent.com/yzinchenko-data/olist-ecommerce-analytics/443ebe2bb86f02c987d4e1e4c24a4824db908e79/sql/03_create_order_mart.sql — HTTP 200; locator 25-70; sha256 44d502b7e6ce21cf274fcbcffd5a1bc1f2604fb3e5057669501d32a5d6d34bd2
+- https://raw.githubusercontent.com/yzinchenko-data/olist-ecommerce-analytics/443ebe2bb86f02c987d4e1e4c24a4824db908e79/LICENSE — HTTP 200; locator all; sha256 cfd919ecfcad3b1a28ebc67219a26ddc72a56a48741ffc6f7554554b00d989a2
+- https://raw.githubusercontent.com/tolamoye/Olist-E-commerce-Data-Analysis/c609dfa753e84ebeca0711344a650668f4e81652/Olist%20data.sql — HTTP 200; locator 445-470; sha256 7ecd1444f458996520baadbc5bf96699fd1ac600356074b8924494ebef16c10e
+- https://raw.githubusercontent.com/tolamoye/Olist-E-commerce-Data-Analysis/c609dfa753e84ebeca0711344a650668f4e81652/LICENSE — HTTP Error 404: Not Found; locator all; sha256 n/a
+- https://raw.githubusercontent.com/dishadhara23/Sales-Customer-Intelligence-Platform/45b079af4e09b87d5d1cdd15c357874e3b187512/sql/models/22_fact_payments.sql — HTTP 200; locator all; sha256 94dbd6748691a44721b9c61793bf23d1f788df068a750ad9dc258c31ed989ff8
+- https://raw.githubusercontent.com/dishadhara23/Sales-Customer-Intelligence-Platform/45b079af4e09b87d5d1cdd15c357874e3b187512/src/etl/checks.py — HTTP 200; locator 45-115; sha256 e64b08394c21fe1aa9e562c0b1ee06c2608011ccb86a452c33fae46c6de63495
+- https://raw.githubusercontent.com/dishadhara23/Sales-Customer-Intelligence-Platform/45b079af4e09b87d5d1cdd15c357874e3b187512/LICENSE — HTTP Error 404: Not Found; locator all; sha256 n/a
+- https://raw.githubusercontent.com/dishadhara23/Sales-Customer-Intelligence-Platform/45b079af4e09b87d5d1cdd15c357874e3b187512/LICENSE.md — HTTP Error 404: Not Found; locator all; sha256 n/a
+- https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/LICENSE — HTTP 200; locator all; sha256 711bcd3c7100387058446ecc870b995146b9ad6b953a7d5ea6dbdece4e6bdaa2
+- https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/README.md — HTTP 200; locator all; sha256 b832007c190504593ff105161be3e097a5e60d4c3c28abd984f4370575e29cc4
+
+## Additional pinned source checks
+
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/intermediate/int_order_items_aggregated.sql — HTTP 200; sha256 14767c22556c9a0b24948aa237414721f27ec11b416ba74604b8f2740d98d265; HTTP fetch and static reading; exact locator/hash in evidence/code-locators.md and report.
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/models/intermediate/int_orders_payments_aggregated.sql — HTTP 200; sha256 1899b7508ca5726b1c0a3ba4c73b8b702d840dd322773db262d6add5db7e7b12; HTTP fetch and static reading; exact locator/hash in evidence/code-locators.md and report.
+- https://raw.githubusercontent.com/tunguyenn99/ecommerce-data-modeling/63401c2739ae42dd9bbfa7e20227fe7b7de725a3/dbt_project/dbt_project.yml — HTTP 200; sha256 5ffb6405a51f29727967c5e54472f870d435269c4319cf300b3e8ba4151eb37c; HTTP fetch and static reading; exact locator/hash in evidence/code-locators.md and report.
+- https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/README.md — HTTP 200; sha256 c9e6a34e7b79c1fdfeb10263f88bd1a2598c6b857fd73d46812d5f5178d8bcc4; Pinned bytes equal corresponding repo-relative local copy; authority not established.
+- https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/docs/handout.md — HTTP 200; sha256 3776fbc0f67e9ead2674be7e76d72a63ecf504695a1e2bdef31fc82238aec3fe; Pinned bytes equal corresponding repo-relative local copy; authority not established.
+- https://raw.githubusercontent.com/daniilivanovp-droid/hackathon-students/3da32d149bfa14dca3fdb0c5863d0771c38efbfc/docs/tasks.md — HTTP 200; sha256 80f47fc44374b1062ffbb61816224df9aafb85b1a5f27bff779d425512a659d2; Pinned bytes equal corresponding repo-relative local copy; authority not established.
