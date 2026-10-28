@@ -1,0 +1,154 @@
+{
+  "status": "passed",
+  "scope": "real 1000-order subset only",
+  "method": "all build stages executed in one transaction, deliberate SELECT 1/0 after invariant checks, actual SQLSTATE 22012; rollback then raw/core/mart row-count and sorted content hashes match",
+  "sqlstate": "22012",
+  "diagnostic": "ERROR:  division by zero\n",
+  "relations": 36,
+  "fingerprints": {
+    "core.check_results": [
+      201,
+      "e432d9870638b4b1436dc59c39cf5645"
+    ],
+    "core.data_issues": [
+      118,
+      "b3516c8be9883625e4beefa8a2ff9cf9"
+    ],
+    "core.dim_category": [
+      73,
+      "2a5efa07436dadeb2325b25c02f1013b"
+    ],
+    "core.dim_customer": [
+      975,
+      "7e23ddf9b3501844a7f141b0abb72d76"
+    ],
+    "core.dim_customer_context": [
+      1000,
+      "80864d011c5c9bc80982ab372d5f79d9"
+    ],
+    "core.dim_date": [
+      776,
+      "bd4ee925cbfe8b64e23f3f3015acfe6b"
+    ],
+    "core.dim_order_status": [
+      8,
+      "0e2cb18fd8f38a1ebb46a7434827da5c"
+    ],
+    "core.dim_product": [
+      913,
+      "28bd282e92d194eb73d69e598bd3ae38"
+    ],
+    "core.dim_seller": [
+      491,
+      "9d8777b6f9b815f90812c36a0e06b261"
+    ],
+    "core.fact_order": [
+      1000,
+      "f9001c9b41562b7ac923c557e4ddfc8e"
+    ],
+    "core.fact_order_item": [
+      1121,
+      "8d44ee9da89a5fb7e1221e1f6343d256"
+    ],
+    "core.fact_payment": [
+      1037,
+      "ab579f0fe36f6a29e7122dbb0b2d7bbc"
+    ],
+    "core.fact_review": [
+      996,
+      "cf0f9f8ad84d614668631d6804569201"
+    ],
+    "mart.metric_definitions": [
+      34,
+      "5e740a313361abc7f8fe6bc2e5f8b05f"
+    ],
+    "mart.q01_revenue_monthly": [
+      24,
+      "cac0c0d250c963b9e2f67ac6bca094e5"
+    ],
+    "mart.q02_sellers_top10": [
+      10,
+      "e8f00486e0075aef01d19c979e829976"
+    ],
+    "mart.q03_average_order": [
+      1,
+      "95423af1cb9512a88c4c353dc694838e"
+    ],
+    "mart.q04_buyers_repeat": [
+      1,
+      "2e0462acbc5d9c850f75f06984a62e14"
+    ],
+    "mart.q04_buyers_repeat_q1_window": [
+      1,
+      "c356daf3331e3d95d17905575bef3c00"
+    ],
+    "mart.q05_category_revenue": [
+      73,
+      "cb1498102329eed0e110a72c93143815"
+    ],
+    "mart.v_order_delivery_variants": [
+      1000,
+      "61dee4e93384d05d52d39332b62176ec"
+    ],
+    "mart.v_order_items": [
+      1121,
+      "10d914a0e5d3ac40ad4c5ffc6a2bf527"
+    ],
+    "mart.v_order_payment_reconciliation": [
+      1000,
+      "9cbab5a4dba63cabac0ab80cae21a93b"
+    ],
+    "mart.v_orders": [
+      1000,
+      "ad88bf62a2982a9b9d03d2f4b5d62a64"
+    ],
+    "mart.v_payment_reconciliation": [
+      32,
+      "25a41df4fe4d6d1e62ec9b2b787391d4"
+    ],
+    "mart.v_review": [
+      990,
+      "820f5b5c226e30447012a041205d1135"
+    ],
+    "mart.v_review_payload_variants": [
+      990,
+      "89ee50c879a736b6b6afe4116a2ab0c4"
+    ],
+    "mart.v_review_weighting": [
+      3,
+      "0593d6c5c83e4419ffe5b66c914b16ac"
+    ],
+    "raw.customers": [
+      1000,
+      "894e589ce907d4d0e15be93539d3214e"
+    ],
+    "raw.order_items": [
+      1121,
+      "a4a01bceea1ec880cd9ece06d84d9c61"
+    ],
+    "raw.order_payments": [
+      1037,
+      "6049e21e0bc88e49d99dbde1b7ae3a11"
+    ],
+    "raw.order_reviews": [
+      996,
+      "16ea2ea29e0a14570795554797a4dace"
+    ],
+    "raw.orders": [
+      1000,
+      "002661c07a19c02548a1aec11fe1159a"
+    ],
+    "raw.product_category_translation": [
+      71,
+      "8291c391e6003e7fb347876c06a43a8c"
+    ],
+    "raw.products": [
+      913,
+      "8641cf657c0f6d6aa9e7090ca571a7b8"
+    ],
+    "raw.sellers": [
+      491,
+      "b0559162d4ae2dacaafdf72a090f6bb7"
+    ]
+  }
+}

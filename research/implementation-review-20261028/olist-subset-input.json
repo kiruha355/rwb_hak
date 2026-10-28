@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "scope": "real_olist_stratified_subset",
+  "orders": 1000,
+  "population_orders": 99441,
+  "representative": false,
+  "full_olist_loaded": false,
+  "created_at": "2026-10-28T10:35:40.996309+00:00",
+  "source": {
+    "repository": "https://github.com/olist/work-at-olist-data",
+    "ref": "d9e49802f3e92d09ee94ab9ccc5e457f207a8959"
+  },
+  "selection_algorithm": "v1: mandatory real example and missing-payment order; lowest SHA256(order_id) per observed purchase-month/status stratum; first two source-order rows for 25 repeat buyers with lowest SHA256(customer_unique_id); fill to 1000 with globally lowest SHA256(order_id). All children and referenced dimension rows, full tiny translation table. No extrapolation.",
+  "mandatory_order_ids": [
+    "bfbd0f9bdef84302105ad712db648a6c",
+    "e481f51cbdc54678b7cc49136f2d6af7"
+  ],
+  "guaranteed_orders_before_fill": 187,
+  "guaranteed_repeat_buyers": 25,
+  "selected_order_ids_sha256": "ccc5dcda669b2d7ebf2814b232108594645806c5cfc83b2124ea325958b34631",
+  "population_status_counts": {
+    "approved": 2,
+    "canceled": 625,
+    "created": 5,
+    "delivered": 96478,
+    "invoiced": 314,
+    "processing": 301,
+    "shipped": 1107,
+    "unavailable": 609
+  },
+  "selected_status_counts": {
+    "approved": 2,
+    "canceled": 24,
+    "created": 3,
+    "delivered": 882,
+    "invoiced": 21,
+    "processing": 19,
+    "shipped": 26,
+    "unavailable": 23
+  },
+  "population_month_counts": {
+    "2016-09": 4,
+    "2016-10": 324,
+    "2016-12": 1,
+    "2017-01": 800,
+    "2017-02": 1780,
+    "2017-03": 2682,
+    "2017-04": 2404,
+    "2017-05": 3700,
+    "2017-06": 3245,
+    "2017-07": 4026,
+    "2017-08": 4331,
+    "2017-09": 4285,
+    "2017-10": 4631,
+    "2017-11": 7544,
+    "2017-12": 5673,
+    "2018-01": 7269,
+    "2018-02": 6728,
+    "2018-03": 7211,
+    "2018-04": 6939,
+    "2018-05": 6873,
+    "2018-06": 6167,
+    "2018-07": 6292,
+    "2018-08": 6512,
+    "2018-09": 16,
+    "2018-10": 4
+  },
+  "selected_month_counts": {
+    "2016-09": 3,
+    "2016-10": 12,
+    "2016-12": 1,
+    "2017-01": 10,
+    "2017-02": 24,
+    "2017-03": 30,
+    "2017-04": 26,
+    "2017-05": 40,
+    "2017-06": 34,
+    "2017-07": 29,
+    "2017-08": 40,
+    "2017-09": 36,
+    "2017-10": 59,
+    "2017-11": 80,
+    "2017-12": 54,
+    "2018-01": 65,
+    "2018-02": 72,
+    "2018-03": 44,
+    "2018-04": 55,
+    "2018-05": 68,
+    "2018-06": 69,
+    "2018-07": 80,
+    "2018-08": 66,
+    "2018-09": 2,
+    "2018-10": 1
+  },
+  "source_pin_status": "all_8_full_source_SHA256_and_bytes_match",
+  "status": "prepared_not_loaded",
+  "files": [
+    {
+      "file": "olist_orders_dataset.csv",
+      "table": "raw.orders",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_orders_dataset.csv",
+      "sha256": "50e33a17faee0537e66d54a196cbe69c244cbb604047e056f668ab13e58996cb",
+      "bytes": 172022,
+      "header": [
+        "order_id",
+        "customer_id",
+        "order_status",
+        "order_purchase_timestamp",
+        "order_approved_at",
+        "order_delivered_carrier_date",
+        "order_delivered_customer_date",
+        "order_estimated_delivery_date"
+      ],
+      "rows": 1000,
+      "source_sha256": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "source_rows": 99441
+    },
+    {
+      "file": "olist_order_items_dataset.csv",
+      "table": "raw.order_items",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_items_dataset.csv",
+      "sha256": "f945c53d08d88687174013fc8e95a2c7c22691d137a9164342c24989541de6e2",
+      "bytes": 149379,
+      "header": [
+        "order_id",
+        "order_item_id",
+        "product_id",
+        "seller_id",
+        "shipping_limit_date",
+        "price",
+        "freight_value"
+      ],
+      "rows": 1121,
+      "source_sha256": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+      "source_rows": 112650
+    },
+    {
+      "file": "olist_order_payments_dataset.csv",
+      "table": "raw.order_payments",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_payments_dataset.csv",
+      "sha256": "50bfd9d5890c58fb23674f0e844b8fe2e79b6dc725a86504e1e01527ea7e6902",
+      "bytes": 56296,
+      "header": [
+        "order_id",
+        "payment_sequential",
+        "payment_type",
+        "payment_installments",
+        "payment_value"
+      ],
+      "rows": 1037,
+      "source_sha256": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec",
+      "source_rows": 103886
+    },
+    {
+      "file": "olist_order_reviews_dataset.csv",
+      "table": "raw.order_reviews",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_order_reviews_dataset.csv",
+      "sha256": "82f0d8c50affea07576c5e3ff06470db0b1cf5ad07e87cedbb5bc6bc251a460e",
+      "bytes": 141232,
+      "header": [
+        "review_id",
+        "order_id",
+        "review_score",
+        "review_comment_title",
+        "review_comment_message",
+        "review_creation_date",
+        "review_answer_timestamp"
+      ],
+      "rows": 996,
+      "source_sha256": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+      "source_rows": 99224
+    },
+    {
+      "file": "olist_products_dataset.csv",
+      "table": "raw.products",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_products_dataset.csv",
+      "sha256": "ff92d9334ba0cb3b977ac2fbd6173144707b14942d55de995f078fdd6cc5e6dc",
+      "bytes": 64978,
+      "header": [
+        "product_id",
+        "product_category_name",
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+      ],
+      "rows": 913,
+      "source_sha256": "3e6569628a17fbc75fd206ee357b59e20364b9afa90f5b6cd5b4d624c58aa9cc",
+      "source_rows": 32951
+    },
+    {
+      "file": "olist_sellers_dataset.csv",
+      "table": "raw.sellers",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_sellers_dataset.csv",
+      "sha256": "a200fd72875d5ed37133a469865cb1703ca615eb5a30b1cd845224458d029e8e",
+      "bytes": 25900,
+      "header": [
+        "seller_id",
+        "seller_zip_code_prefix",
+        "seller_city",
+        "seller_state"
+      ],
+      "rows": 491,
+      "source_sha256": "31eb9bd50d684526a78f2389413ce61841e97692de7b828fe7d956b534586312",
+      "source_rows": 3095
+    },
+    {
+      "file": "olist_customers_dataset.csv",
+      "table": "raw.customers",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/olist_customers_dataset.csv",
+      "sha256": "16dd29abcb77d321f01bafe834ae27d90f2087287facc3d3379e90e5ac606049",
+      "bytes": 86331,
+      "header": [
+        "customer_id",
+        "customer_unique_id",
+        "customer_zip_code_prefix",
+        "customer_city",
+        "customer_state"
+      ],
+      "rows": 1000,
+      "source_sha256": "c26c17f59f3027a6a0dbeb8f1fa373c38f3323ecc84f225a8f4820e5bb288df8",
+      "source_rows": 99441
+    },
+    {
+      "file": "product_category_name_translation.csv",
+      "table": "raw.product_category_translation",
+      "source_url": "https://raw.githubusercontent.com/olist/work-at-olist-data/d9e49802f3e92d09ee94ab9ccc5e457f207a8959/datasets/product_category_name_translation.csv",
+      "sha256": "5233473346639d5ff3da9b784385ba284778abfaac1062572abe99e8aba8b7e3",
+      "bytes": 2540,
+      "header": [
+        "product_category_name",
+        "product_category_name_english"
+      ],
+      "rows": 71,
+      "source_sha256": "a81f0d1f27b27e7293f761bc79e3ce8f348ee39c4b3ed3e49bde38f478586278",
+      "source_rows": 71
+    }
+  ]
+}

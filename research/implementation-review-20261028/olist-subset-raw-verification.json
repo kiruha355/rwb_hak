@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "scope": "only the bounded real 1000-order subset",
+  "method": "session-private temp tables; REPEATABLE READ READ ONLY source snapshot; bidirectional EXCEPT ALL; _source_file equality",
+  "files": [
+    {
+      "file": "olist_orders_dataset.csv",
+      "table": "raw.orders",
+      "csv_rows": 1000,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_order_items_dataset.csv",
+      "table": "raw.order_items",
+      "csv_rows": 1121,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_order_payments_dataset.csv",
+      "table": "raw.order_payments",
+      "csv_rows": 1037,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_order_reviews_dataset.csv",
+      "table": "raw.order_reviews",
+      "csv_rows": 996,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_products_dataset.csv",
+      "table": "raw.products",
+      "csv_rows": 913,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_sellers_dataset.csv",
+      "table": "raw.sellers",
+      "csv_rows": 491,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "olist_customers_dataset.csv",
+      "table": "raw.customers",
+      "csv_rows": 1000,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    },
+    {
+      "file": "product_category_name_translation.csv",
+      "table": "raw.product_category_translation",
+      "csv_rows": 71,
+      "missing_in_raw": 0,
+      "extra_in_raw": 0,
+      "wrong_source_file": 0
+    }
+  ],
+  "verified_at": "2026-10-28T10:35:41.440066+00:00",
+  "input_manifest_sha256": "6beae18f538b1ac1e95ca5c7449a3233d809dd48b0f58394b9a484d5d6cddf41",
+  "verifier_sha256": "34fc93206b49a20cead680da81d451d3f25816a00c38379aa3aaee0c0602a9e1"
+}

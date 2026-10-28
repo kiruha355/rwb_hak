@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "method": "independent streaming selected-source vs subset CSV multisets, including PostgreSQL CSV NULL distinction between quoted empty and unquoted empty; source child sets selected by order_id, dimensions by actual references; no child LIMIT",
+  "files": [
+    {
+      "file": "olist_orders_dataset.csv",
+      "selected_source_rows": 1000,
+      "subset_rows": 1000,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_order_items_dataset.csv",
+      "selected_source_rows": 1121,
+      "subset_rows": 1121,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_order_payments_dataset.csv",
+      "selected_source_rows": 1037,
+      "subset_rows": 1037,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_order_reviews_dataset.csv",
+      "selected_source_rows": 996,
+      "subset_rows": 996,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_products_dataset.csv",
+      "selected_source_rows": 913,
+      "subset_rows": 913,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_sellers_dataset.csv",
+      "selected_source_rows": 491,
+      "subset_rows": 491,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "olist_customers_dataset.csv",
+      "selected_source_rows": 1000,
+      "subset_rows": 1000,
+      "missing": 0,
+      "extra": 0
+    },
+    {
+      "file": "product_category_name_translation.csv",
+      "selected_source_rows": 71,
+      "subset_rows": 71,
+      "missing": 0,
+      "extra": 0
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "scope": "real_olist_1000_order_subset_only",
+  "commands": [
+    {
+      "command": "bash scripts/build-model.sh build",
+      "exit_code": 0,
+      "log_sha256": "3944e3b964c3ea9a9cd70e5ade89b79aeb92f87e5ac2d3be5fa736b6787878c5"
+    },
+    {
+      "command": "bash scripts/build-model.sh check",
+      "exit_code": 0,
+      "log_sha256": "e6ebd84c1958c3c1a0c00bb4c67e9e48aaae738bb453699aee685a8a819e201d"
+    },
+    {
+      "command": "bash scripts/build-model.sh answers",
+      "exit_code": 0,
+      "log_sha256": "379e917e5d6cc3e31363c425531f17845fee21bad80e5833cae6f51cd6ac1f4b"
+    },
+    {
+      "command": "bash scripts/build-model.sh rebuild-check",
+      "exit_code": 0,
+      "log_sha256": "4fc57c7f50c19ecb4063e747e77348a96833d159f1cca6d38aee3d1ba1ad7f7d"
+    }
+  ],
+  "full_pinned_controls": "not_run; subset is not full Olist population",
+  "completed_at": "2026-10-28T10:36:10.184207+00:00"
+}

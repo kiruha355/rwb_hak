@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "scope": "real Olist 1000 orders only; deliberately stratified, not representative",
+  "checks": {
+    "source_8_full_sha256_unchanged_after_pipeline": true,
+    "orders_export_equals_csv": 1000,
+    "all_items_exported": 1121,
+    "all_review_associations_exported": 996,
+    "all_payments_counted_in_order_export": 1037,
+    "all_item_counts_preserved_in_order_export": 1121,
+    "missing_payment_stays_null": true,
+    "mandatory_real_order_present": true,
+    "model_data_sha256_matches_manifest": true,
+    "synthetic_DEMO_DATA_removed_from_real_html": true,
+    "strong_gate_data_sha256_matches_validation_report": true
+  },
+  "html_sha256": "a63c754d5ef6d626683d7cc64341ef05553fc5df20323c0e48579f012321f509",
+  "html_bytes": 1191825,
+  "export_manifest": {
+    "schema_version": 1,
+    "mode": "model_export",
+    "dataset_label": "Olist · 1 000 реальных заказов · ограниченная выборка",
+    "exported_at": "2026-10-28T10:40:54.835359+00:00",
+    "transaction_at": "2026-10-28T10:40:54.816179+00:00",
+    "postgres_version": "16.15 (Homebrew)",
+    "method": "psycopg2; REPEATABLE READ READ ONLY; SELECT core/mart only",
+    "status": "real_subset_checked",
+    "validation_status": "subset_checked_not_full_olist",
+    "timestamp_semantics": "source timestamp without timezone; no conversion",
+    "currency": "BRL (Olist context assumption)",
+    "row_counts": {
+      "orders": 1000,
+      "items": 1121,
+      "reviews": 996,
+      "months": 26
+    },
+    "query_sha256": "13fb328ce1b303d136e9775ad2bc15fb8914782b7e05ec6ce4b2bc57e8bc046d",
+    "data_sha256": "ad80d501a86c47e6a7b18e6dbc1598cd4057ff710da8a61b3f2b5558ff1ba06e",
+    "files_sha256": {
+      "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+      "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+      "dashboard/export_data.py": "dae265592176ed59c69a1d9d633b7032fcd893dc67ae31a3200f1d823aff1ce3"
+    },
+    "sources": [
+      "mart.v_orders",
+      "mart.v_order_delivery_variants",
+      "mart.v_order_items",
+      "core.fact_review",
+      "mart.v_review",
+      "core.dim_date"
+    ],
+    "checkout_head": "2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e",
+    "scope": {
+      "kind": "olist_subset",
+      "selected_orders": 1000,
+      "source_orders": 99441,
+      "selection": "v1: mandatory real example and missing-payment order; lowest SHA256(order_id) per observed purchase-month/status stratum; first two source-order rows for 25 repeat buyers with lowest SHA256(customer_unique_id); fill to 1000 with globally lowest SHA256(order_id). All children and referenced dimension rows, full tiny translation table. No extrapolation.",
+      "representative": false,
+      "full_population_validated": false
+    },
+    "validation_report_sha256": "352f228cfb6b2a298afe2d69246bc1767e11d1f071f6c09dc45edf4d88a793af"
+  },
+  "verified_at": "2026-10-28T10:41:01.344049+00:00"
+}

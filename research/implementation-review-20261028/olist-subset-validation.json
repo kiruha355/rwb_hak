@@ -1,0 +1,50 @@
+{
+  "kind": "olist_subset_validation",
+  "status": "passed",
+  "database": "rwb_olist_subset_1000_20261028",
+  "scope": {
+    "kind": "olist_subset",
+    "selected_orders": 1000,
+    "source_orders": 99441,
+    "selection": "v1: mandatory real example and missing-payment order; lowest SHA256(order_id) per observed purchase-month/status stratum; first two source-order rows for 25 repeat buyers with lowest SHA256(customer_unique_id); fill to 1000 with globally lowest SHA256(order_id). All children and referenced dimension rows, full tiny translation table. No extrapolation.",
+    "representative": false,
+    "full_population_validated": false
+  },
+  "row_counts": {
+    "orders": 1000,
+    "items": 1121,
+    "reviews": 996,
+    "months": 26
+  },
+  "data_sha256": "ad80d501a86c47e6a7b18e6dbc1598cd4057ff710da8a61b3f2b5558ff1ba06e",
+  "csv_raw": {
+    "status": "passed",
+    "files_checked": 8,
+    "report_sha256": "6b6459fe3ff2775b5ae7d28acc9f7129e903bc9925ef7a3c2c3a52098626e1ab"
+  },
+  "core_checks": {
+    "total": 201,
+    "errors": 0,
+    "warnings": 0,
+    "issues": []
+  },
+  "code_sha256": {
+    "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+    "model/05_typecheck.sql": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d",
+    "model/10_dims.sql": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+    "model/20_facts.sql": "493722f77e6b21b74a52e5c09ecd89fe5f5ef4c6e20a9d6bca00966f97d3f324",
+    "model/30_quality.sql": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab",
+    "model/40_mart.sql": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+    "model/50_answers.sql": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+    "model/90_checks.sql": "0f42d520e0958ddb6f7ab8bf532ee75b888839c3cd3cd37ec84f8c19d1f60b33"
+  },
+  "source_input_manifest_sha256": "6beae18f538b1ac1e95ca5c7449a3233d809dd48b0f58394b9a484d5d6cddf41",
+  "build_report_sha256": "53ef385d6e3abf09b25d471bc73d8972720f105eb78ea1058c3c8b76557710cb",
+  "postgres_version": "PostgreSQL 16.15 (Homebrew) on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.3.34.2), 64-bit",
+  "verified_at": "2026-10-28T10:40:54.774584+00:00",
+  "not_run": [
+    "full Olist database load",
+    "full-population pinned controls",
+    "representativeness or extrapolation"
+  ]
+}
