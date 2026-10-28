@@ -1,5 +1,6 @@
 import { ErrorBox, Loading, PageHead, Seg, nf, useApi, useViewParam } from "../lib";
 import AnswersB from "./AnswersB";
+import BlockBAnswers from "../BlockBAnswers";
 
 type Answers = {
   q1: { rows: { month: string; orders_placed: number; orders_delivered: number; item_revenue: number }[]; total: number; control: { rows: number; total: number } };
@@ -23,7 +24,7 @@ export default function AnswersPage() {
         />
         <Seg small={false} value={block} onChange={setBlock} options={[{ id: "a", label: "Блок А · 1–5" }, { id: "b", label: "Блок Б · 6–10" }]} />
       </div>
-      {block === "a" ? <BlockA /> : <AnswersB />}
+      {block === "a" ? <BlockA /> : <BlockBAnswers fallback={<AnswersB />} />}
     </>
   );
 }

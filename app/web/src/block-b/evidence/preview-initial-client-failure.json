@@ -1,0 +1,16 @@
+{
+  "width": 1280,
+  "contentHeight": 79,
+  "capturedHeight": 79,
+  "consoleMessages": [
+    {
+      "level": "error",
+      "text": "ReferenceError: React is not defined\n    at eo (page.html:90:73440)\n    at Ef (page.html:89:47849)\n    at Yc (page.html:89:70503)\n    at Vr (page.html:89:80827)\n    at h0 (page.html:89:116353)\n    at dy (page.html:89:115435)\n    at Ii (page.html:89:115273)\n    at _0 (page.html:89:112110)\n    at N0 (page.html:89:123762)\n    at MessagePort.pi (page.html:82:10022)"
+    }
+  ],
+  "screenshot": {
+    "mimeType": "image/png",
+    "width": 1280,
+    "height": 79
+  }
+}

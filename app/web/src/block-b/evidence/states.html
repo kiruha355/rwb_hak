@@ -1,0 +1,82 @@
+<!doctype html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{--ink:var(--foreground);--muted:var(--muted-foreground);--surface:var(--card);--sunken:var(--secondary);--line:var(--border);--line-strong:var(--border);--accent:var(--chart-1);--sand:var(--chart-2);--font:var(--font-sans);--mono:var(--font-mono);--r:var(--radius);--r-s:var(--radius)}*{box-sizing:border-box}html,body{margin:0}h2,h3{margin:0}button{font:inherit} .btn{ display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--line-strong); background: var(--surface); border-radius: var(--r-s); font-size: 13px; font-weight: 500; cursor: pointer; color: var(--ink); white-space: nowrap; }
+.btn:hover{ background: var(--sunken); }
+.btn.primary{ background: var(--graphite); border-color: var(--graphite); color: #fff; }
+.btn.ghost{ border-color: transparent; background: transparent; color: var(--muted); }
+.btn.ghost:hover{ background: var(--sunken); color: var(--ink); }
+.btn.sm{ height: 28px; padding: 0 9px; font-size: 12.5px; }
+.btn svg{ width: 15px; height: 15px; }
+.card, .panel{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); min-width: 0; }
+th, td{ text-align: left; padding: 8px 12px; white-space: nowrap; border-bottom: 1px solid var(--line); }
+th .arr{ color: var(--accent); margin-left: 3px; }
+td.n, th.n{ text-align: right; }
+tbody tr:hover td{ background: #fafbfc; }
+.block-b { min-width: 0; color: var(--ink); }
+.bb-compat { font-size: 12.5px; color: var(--muted); margin: 0 0 14px; }
+.block-b h2 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.block-b h3 { font-size: 15px; font-weight: 600; }
+.block-b h4 { font-size: 13px; margin: 0 0 10px; font-weight: 600; }
+.block-b p { max-width: 80ch; }
+.block-b .bb-scope, .block-b .bb-note { font-size: 12.5px; color: var(--muted); margin: 6px 0 14px; line-height: 1.5; }
+.block-b .bb-scope { max-width: 90ch; }
+.block-b .bb-section { margin-top: 20px; }
+.block-b .bb-section > header { margin-bottom: 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: start; }
+.block-b .bb-section > header p { grid-column: 1 / -1; }
+.block-b .bb-subhead { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.block-b .bb-subhead h4 { margin-bottom: 0; }
+.block-b button:disabled { opacity: .55; cursor: default; }
+.block-b .bb-section > header p { margin-bottom: 0; }
+.block-b .bb-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.block-b .bb-body { padding: 14px 16px; }
+.block-b .bb-body, .block-b .bb-variant { min-width: 0; }
+.block-b .bb-body > :last-child { margin-bottom: 0; }
+.block-b .bb-variant + .bb-variant { margin-top: 16px; }
+.block-b .bb-empty { padding: 16px 0; color: var(--muted); font-size: 13px; margin: 0; }
+.block-b .bb-table { overflow: auto; max-height: 360px; border: 1px solid var(--line); border-radius: var(--r-s); }
+.block-b .bb-table:focus-visible, .block-b button:focus-visible, .block-b summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.block-b table { font-variant-numeric: tabular-nums; }
+.block-b th { white-space: normal; min-width: 92px; vertical-align: bottom; }
+.block-b th:first-child { min-width: 105px; }
+.block-b td { vertical-align: top; }
+.block-b .bb-denom { display: block; font-size: 11.5px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+.block-b .bb-unknown { color: var(--muted); font-size: 12px; }
+.block-b .bb-code { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; }
+.block-b .bb-product { display: block; margin: 0 0 8px; }
+.block-b details { margin-top: 12px; }
+.block-b summary { cursor: pointer; color: var(--accent); font-size: 13px; width: fit-content; max-width: 100%; }
+.block-b details[open] > summary { margin-bottom: 12px; }
+.block-b .bb-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.block-b .bb-chart text { font-family: var(--font); fill: var(--muted); font-size: 12px; }
+.block-b .bb-chart .bb-grid { stroke: var(--line); }
+.block-b .bb-chart .bb-point, .block-b .bb-chart .bb-line { stroke: var(--accent); }
+.block-b .bb-chart .bb-point { fill: var(--accent); }
+.block-b .bb-chart .bb-alt { stroke: var(--sand); }
+.block-b .bb-chart .bb-point.bb-alt { fill: var(--sand); }
+.block-b .bb-chart .bb-line { fill: none; stroke-width: 2; }
+.block-b .bb-chart .bb-timestamp { stroke-dasharray: 5 4; }
+.block-b .bb-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.block-b .bb-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.block-b .bb-swatch { width: 18px; border-top: 2px solid var(--accent); display: inline-block; }
+.block-b .bb-swatch.bb-alt { border-color: var(--sand); }
+.block-b .bb-swatch.bb-timestamp { border-top-style: dashed; }
+.block-b .bb-share { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.block-b .bb-track { display: inline-block; height: 6px; width: 80px; background: var(--sunken); border-radius: 3px; overflow: hidden; flex: none; }
+.block-b .bb-track > i { display: block; height: 100%; background: var(--accent); }
+.block-b .bb-error { padding: 12px 14px; border: 1px solid var(--line-strong); border-radius: var(--r-s); margin-top: 12px; }
+.block-b .bb-error p { margin: 0 0 10px; }
+.block-b .bb-loading { color: var(--muted); padding: 12px 0; }
+.block-b .bb-meta { font-size: 12px; }
+.block-b .bb-meta pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 220px; overflow: auto; padding: 10px; background: var(--sunken); font: 12px var(--mono); }
+@media (max-width: 1000px) { .block-b .bb-pair { grid-template-columns: 1fr; } }
+@media (max-width: 480px) {
+  .block-b .bb-body { padding: 12px; }
+  .block-b .bb-chart text { font-size: 14px; }
+  .block-b .bb-track { width: 44px; }
+}
+@media print {
+  .block-b .bb-table { max-height: none; overflow: visible; }
+  .block-b .bb-pair { grid-template-columns: 1fr; }
+  .block-b .bb-section { break-inside: avoid; }
+}
+</style></head><body><p style="font-size:12px;color:var(--muted-foreground)">Синтетические данные для проверки UI · не ответы Olist</p><h2>Ожидание</h2><section class="block-b" aria-label="Блок Б: вопросы Q6–Q10" aria-busy="true"><p class="bb-scope">Весь снимок данных; платежи по штатам — покупки 2018 года. Фильтры месяца, категории и штата из других отчётов здесь не применяются. Варианты расчёта показаны отдельно.</p><div class="bb-loading" role="status">Загрузка Q6–Q10…</div></section><h2>Ошибка</h2><section class="block-b" aria-label="Блок Б: вопросы Q6–Q10" aria-busy="false"><p class="bb-scope">Весь снимок данных; платежи по штатам — покупки 2018 года. Фильтры месяца, категории и штата из других отчётов здесь не применяются. Варианты расчёта показаны отдельно.</p><div class="bb-error" role="alert"><p>Витрина недоступна (HTTP 503). Проверьте доступность новых витрин.</p><button class="btn" type="button">Повторить загрузку</button></div></section><h2>Успешный пустой ответ</h2><section class="block-b" aria-label="Блок Б: вопросы Q6–Q10" aria-busy="false"><p class="bb-scope">Весь снимок данных; платежи по штатам — покупки 2018 года. Фильтры месяца, категории и штата из других отчётов здесь не применяются. Варианты расчёта показаны отдельно.</p><section class="bb-section" aria-labelledby="bb-q6"><header><h3 id="bb-q6">Q6 · История цены товара</h3><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q06-price-history">Скачать CSV</button><p class="bb-note">Лидеры по числу разных известных цен. При равенстве показаны все товары; дата — покупка заказа. Цены одного дня остаются отдельными точками.</p></header><div class="bb-pair"><div class="panel bb-body"><h4>Все статусы</h4><p class="bb-empty">Нет товара с известной ценой в этой совокупности.</p></div><div class="panel bb-body"><h4>Только доставленные</h4><p class="bb-empty">Нет товара с известной ценой в этой совокупности.</p></div></div></section><section class="bb-section" aria-labelledby="bb-q7"><header><h3 id="bb-q7">Q7 · Доставка по штатам покупателя</h3><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q07-delivery-states">Скачать CSV</button><p class="bb-note">Штаты с ≥ 500 заказами в каждой совокупности. Срок — от покупки до вручения, в дробных сутках; измерим только для доставленных. Отрицательный срок исключён из среднего.</p></header><div class="bb-pair"><div class="panel bb-body"><h4>Все статусы</h4><p class="bb-empty">Нет штатов с ≥ 500 заказами в этой совокупности.</p></div><div class="panel bb-body"><h4>Только доставленные</h4><p class="bb-empty">Нет штатов с ≥ 500 заказами в этой совокупности.</p></div></div><p class="bb-note">«По дате» — вручение позже обещанного календарного дня; «по времени» — позже точного момента. У среднего срока и доли опозданий отдельные знаменатели. Варианты не складываются.</p></section><section class="bb-section" aria-labelledby="bb-q8"><header><h3 id="bb-q8">Q8 · Текущие статусы заказов</h3><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q08-statuses">Скачать CSV</button><p class="bb-note">Доли от всех заказов снимка. Распределение не показывает переходы или конверсию между статусами.</p></header><div class="panel bb-body"><p class="bb-empty">Витрина не вернула строк.</p></div></section><section class="bb-section" aria-labelledby="bb-q9"><header><h3 id="bb-q9">Q9 · Способы оплаты и число частей</h3><p class="bb-note">Одна запись — один платёж. 2018 год определяется датой покупки заказа: даты платежа в источнике нет. Число частей не задаёт срок в месяцах.</p></header><div class="panel bb-body"><div class="bb-subhead"><h4>Штаты покупателя · покупки 2018 года · все статусы</h4><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q09-payment-states-2018">Скачать CSV</button></div><p class="bb-empty">Нет платежей заказов, купленных в 2018 году.</p><p class="bb-note">При неизвестной сумме хотя бы одного платежа итог не определён; известная часть показана отдельно.</p></div><div class="bb-pair" style="margin-top:16px"><div class="panel bb-body"><div class="bb-subhead"><h4>Способы оплаты · весь снимок</h4><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q09-payment-methods-all_snapshot">Скачать CSV</button></div><p class="bb-empty">Витрина не вернула строк.</p></div><div class="panel bb-body"><div class="bb-subhead"><h4>Способы оплаты · покупки 2018 года</h4><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q09-payment-methods-purchase_2018">Скачать CSV</button></div><p class="bb-empty">Витрина не вернула строк.</p></div></div><p class="bb-note">Два периода пересекаются: платежи покупок 2018 года входят во весь снимок. Итоги этих таблиц нельзя складывать.</p></section><section class="bb-section" aria-labelledby="bb-q10"><header><h3 id="bb-q10">Q10 · Оценка покупателя и доставка</h3><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q10-review-delivery-variants">Скачать CSV</button><p class="bb-note">«Каждая оценка заказа» учитывает заказ по одному разу в каждой его оценке: группы могут пересекаться. «Только одна оценка» исключает заказы с разными известными оценками.</p></header><div class="bb-legend"><span><i aria-hidden="true" class="bb-swatch"></i>Каждая оценка заказа · по дате</span><span><i aria-hidden="true" class="bb-swatch bb-timestamp"></i>Каждая оценка заказа · по времени</span><span><i aria-hidden="true" class="bb-swatch bb-alt"></i>Только одна оценка · по дате</span><span><i aria-hidden="true" class="bb-swatch bb-alt bb-timestamp"></i>Только одна оценка · по времени</span></div><div class="bb-pair"><div class="panel bb-body"><h4>Все статусы</h4><p class="bb-empty">Витрина не вернула строк.</p></div><div class="panel bb-body"><h4>Только доставленные</h4><p class="bb-empty">Витрина не вернула строк.</p></div></div><p class="bb-note">Срок измеряется только у доставленных с датами и неотрицательной длительностью. У среднего срока и доли опозданий разные знаменатели. Наблюдаемая связь не доказывает причинность.</p><div class="panel bb-body"><div class="bb-subhead"><h4>Охват оценок</h4><button type="button" class="btn sm" disabled="" aria-label="Скачать CSV: q10-review-coverage">Скачать CSV</button></div><p class="bb-empty">Диагностика охвата не вернула строк.</p><p class="bb-note">Причины пересекаются; их нельзя складывать. Число заказов по пяти оценкам также не является числом уникальных заказов для правила «Каждая оценка заказа».</p></div></section><details class="bb-meta"><summary>Охват и источник ответа API</summary><pre>{
+  &quot;scope&quot;: &quot;empty fixture&quot;
+}</pre></details></section></body></html>
