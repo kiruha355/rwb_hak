@@ -1,0 +1,421 @@
+{
+  "at_utc": "2026-10-28T14:21:34.015596+00:00",
+  "input_sha": "aab62d7a59f196be051df12466fb21c0da4659b9",
+  "method": "static pinned-source audit + existing execution readback + targeted streaming CSV + tiny arithmetic examples",
+  "not_run": [
+    "new model/SQL runs",
+    "database access",
+    "full lifecycle",
+    "UI/browser",
+    "benchmark"
+  ],
+  "sources": {
+    "AGENTS.md": {
+      "sha256": "a8aae09418e7f6e9a1f0cecb737630577f67d46a1f2fb29c6eb65feec5c24190",
+      "git_blob": "1e07cf42c729e31e733043127a1a57635fa0f4e8"
+    },
+    "docs/workstreams.md": {
+      "sha256": "640486a35a592c8c91fad3b36e5d22baaf13ee643e9494d44f0b448116559b29",
+      "git_blob": "67ad94c210451acb0e8801c2653a3804ff03f9b4"
+    },
+    "docs/decision-log.md": {
+      "sha256": "07d3f6636034345c201b522b35a44927497cf8fe86a8303e4f7077d3b9cbf89d",
+      "git_blob": "243dbf3e469dc92cc79e78fbf1e2fa82b14dd65c"
+    },
+    "docs/ideas.md": {
+      "sha256": "e5db6039dbcdf9962d7e0965987215a90b62806b609647dc4b16cac902e532ae",
+      "git_blob": "83f62bc3d354294380ae7baa223f012e84370426"
+    },
+    "research/README.md": {
+      "sha256": "69ec06dc256a16d8e01ad9c21168c6aef158af94b93ae7d026b5e594a3916549",
+      "git_blob": "5cdd1327808cee3fcbf8121357c362795da36603"
+    },
+    "docs/idea-synthesis.md": {
+      "sha256": "eb30f912c82197ed4394002b4d802a7d5277f2e42c16844c6cd984f4d1bb35f2",
+      "git_blob": "618b84c3d3c841203c65d60b9a83d3bc5ce20486"
+    },
+    "docs/implementation-brief-20261028.md": {
+      "sha256": "81f0a11b28f6e873ee443b801bdee1846d3cc888236bf8fce77ed153da2f87e7",
+      "git_blob": "8638fd9c5e775688c3b58840a01ed916526fb038"
+    },
+    "docs/metric-definitions.md": {
+      "sha256": "73707aa2afb994b4c36eda18c51f84c8f719a4f7faae7156d2b9aacede9ae7bb",
+      "git_blob": "c6949804cbf4cf036d05827d59025cfc3efd1962"
+    },
+    "hack-context/hackathon-students/docs/tasks.md": {
+      "sha256": "c24f3190729a672c09fcb97854a678fa02712456350038ff2bd738095652d1c5",
+      "git_blob": "d85c38fda07aae98a1664fd70b83ae46e56cf63f"
+    },
+    "hack-context/hackathon-students/docs/handout.md": {
+      "sha256": "3776fbc0f67e9ead2674be7e76d72a63ecf504695a1e2bdef31fc82238aec3fe",
+      "git_blob": "aaa76c80fe7778db62ade6f128013f4faff233da"
+    },
+    "model/10_dims.sql": {
+      "sha256": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400",
+      "git_blob": "d0ddf5549b62358e33f5c82a3cd27e88518f1f79"
+    },
+    "model/20_facts.sql": {
+      "sha256": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18",
+      "git_blob": "33aac3ee90ebe1bcf9416e2ff76daa007b58779c"
+    },
+    "model/40_mart.sql": {
+      "sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2",
+      "git_blob": "dff764c6a4b002e75ddd27ad538abf794affb263"
+    },
+    "model/50_answers.sql": {
+      "sha256": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4",
+      "git_blob": "bed0cc26c0fd3ef1f5f475ce8ff172b23360ee1a"
+    },
+    "model/55_answers_block_b.sql": {
+      "sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4",
+      "git_blob": "10d5e012abd4b871a9a6a37f625328cfde07533f"
+    },
+    "answers/q06-q10/q07.sql": {
+      "sha256": "89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc",
+      "git_blob": "2331f00e17e4be9dead9d0b2137d8a1b368f0a35"
+    },
+    "answers/q06-q10/q10.sql": {
+      "sha256": "a84c1244ff15b56789eba5807ade4704c73b866d11f14d9c96e76c5ff3feea10",
+      "git_blob": "aa5b7d19280919c308c7dc388ae1b380fc893ba0"
+    },
+    "docs/phase-20261028/README.md": {
+      "sha256": "ab83d9bc167dee6b34812ad0d61793f4b88ec8030e39e1f47617b156823eab3b",
+      "git_blob": "ec09a330b3916443f5b58209bc9a566b4bd86260"
+    },
+    "docs/phase-20261028/index.html": {
+      "sha256": "d273b7bd8fff8aa2f13c15e018ced89ed175b1bab442850ef0b42cb2a713862f",
+      "git_blob": "72023a2db74eedc84170540faf0b11aa4c2076e9"
+    },
+    "docs/phase-20261028/FRONTEND-HANDOFF.md": {
+      "sha256": "dcabf8183aa2776cf94ca4ee85e8a686d9aba5ba412eb610e254775d2736f7c8",
+      "git_blob": "a2745a1c646046ccdfbbab938c31fa49c17fc352"
+    },
+    "docs/phase-20261028/evidence/pg16-small-02/summary.json": {
+      "sha256": "0f58771550ed21b8f3c4e05b8ce0670de336087f435bedf40562b8b66a57a81b",
+      "git_blob": "cbc5b995b7e50623d659108d8bbfe86df31a27be"
+    },
+    "docs/phase-20261028/experiments/delivery-data/report.md": {
+      "sha256": "4bf8162ffa8761abcc91fb66f42c276575b85de679a6cf874fd0f391f2e8199d",
+      "git_blob": "7abc348e5012ab1935464c3dfb20333af26f080a"
+    },
+    "docs/phase-20261028/experiments/delivery-data/script.py": {
+      "sha256": "e9f91937e638f2a33cd9ff432737a596b8c9090677224616d3d9c4331a5be085",
+      "git_blob": "7e170b8b7f053082751e990531b9b206d5e58d81"
+    },
+    "docs/phase-20261028/experiments/delivery-data/results.json": {
+      "sha256": "d4ed0495d6d1cab01c21845d53b11a8680f5a490a41f35a1b88266df02a141ee",
+      "git_blob": "086c4b44a44c3a642d87624b079a8595c7495d92"
+    },
+    "docs/phase-20261028/experiments/review-data/report.md": {
+      "sha256": "e7a668087e8469e877903744f23145563b27ab1cf4907851b58a6ed438929861",
+      "git_blob": "13aa84a10fc750a10e1b5f161cd961a308962fb7"
+    },
+    "docs/phase-20261028/experiments/review-data/script.py": {
+      "sha256": "71879af106bcaf625dae90281388efe9eed76f7849cdef83e2d7f8e649cf6038",
+      "git_blob": "40b92aa28a93ff32b53a48a18921b90d99e61610"
+    },
+    "docs/phase-20261028/experiments/review-data/results.json": {
+      "sha256": "46e29fc2289899d7b42163a87ba69761eabe4a4bd6cf45ad2c2a7cd2ea2298b2",
+      "git_blob": "c9189525314230da59deedb0680e63c3e7880c50"
+    },
+    "docs/phase-20261028/experiments/payments-prices/report.md": {
+      "sha256": "aee001aecf29cc93ebba8a2a790d60a8640b93a65e5102bc44ac21ec3a2e4f54",
+      "git_blob": "bf9057dace994375c677480b2f8f961bc7648724"
+    },
+    "docs/phase-20261028/experiments/payments-prices/script.py": {
+      "sha256": "5038a7f9e6071e52c7b6aab5bccbfb72883d7e8703c2227239fdb3974d0cf23d",
+      "git_blob": "d134d7fc4110d1920cfc7fc26efc6982b46b85af"
+    },
+    "docs/phase-20261028/experiments/payments-prices/results.json": {
+      "sha256": "cdf761bc370e5b972036b27751ffcc4f649ada0d352b03cfa5e297997bb64922",
+      "git_blob": "dcfbda20af8ad3dcd6604afdde3ddbb337807c7e"
+    },
+    "docs/phase-20261028/experiments/category-history/report.md": {
+      "sha256": "ba24ea935152757ef2223640fe0fb1637481c9e0d6e33edc487302fe734b4c7a",
+      "git_blob": "9d1bef1af6b3c1d700a8fcfbe52c024c2fa30bba"
+    },
+    "docs/phase-20261028/experiments/category-history/script.py": {
+      "sha256": "205143eac5108c5f87b5505ac082a90c6be225fd2a382a1e98e824bda997feab",
+      "git_blob": "ef4f47b96c4237fe1f296071ee9e94941ec085e9"
+    },
+    "docs/phase-20261028/experiments/category-history/results.json": {
+      "sha256": "74ab4b165ad7c9fc8cff9b4507a123a870157bb26b8b96ed8bcf451c6432eef0",
+      "git_blob": "8c6b387d35f3d356424aba0d437ccc8f2dc4c9f4"
+    },
+    "docs/phase-20261028/experiments/category-history/tasks.source.md": {
+      "sha256": "c24f3190729a672c09fcb97854a678fa02712456350038ff2bd738095652d1c5",
+      "git_blob": "d85c38fda07aae98a1664fd70b83ae46e56cf63f"
+    }
+  },
+  "original_17": [
+    [
+      "1",
+      "Форма `core`: звезда или нормализованный `core` (D-01)"
+    ],
+    [
+      "2",
+      "Q1 «число заказов» (D-02)"
+    ],
+    [
+      "3",
+      "Q2: заказы и единицы продавца"
+    ],
+    [
+      "4",
+      "Q3: чек и «строки»"
+    ],
+    [
+      "5",
+      "Окна Q2–Q5"
+    ],
+    [
+      "6",
+      "Отзывы"
+    ],
+    [
+      "7",
+      "Аномалии (D-03)"
+    ],
+    [
+      "8",
+      "Область дашборда (D-04)"
+    ],
+    [
+      "9",
+      "Формулировка про опоздания"
+    ],
+    [
+      "10",
+      "Прототип дашборда"
+    ],
+    [
+      "11",
+      "Кто владеет моделью и SQL"
+    ],
+    [
+      "12",
+      "Канон реестров и AGENTS"
+    ],
+    [
+      "13",
+      "150 или 155 и критерий «презентация»"
+    ],
+    [
+      "14",
+      "123.75 в tasks.md"
+    ],
+    [
+      "15",
+      "Допуск расхождения платежей"
+    ],
+    [
+      "16",
+      "Индексы из 4 цифр"
+    ],
+    [
+      "17",
+      "Порог выборки для оценок"
+    ]
+  ],
+  "u15": "· Принятый пакет к чекпоинту и HTML-дашборд\n\n- **Статус:** accepted_decision. **Дата:** 2026-10-28, около 09:58 UTC.\n- **Основание:** прямой ответ пользователя «Да, утвердить этот пакет» на конкретное предложение в основном рабочем треде.\n- **Принято:** раздельные факты и общие справочники; сохранять все связи отзыв–заказ; выручка по delivered без freight; чек = сумма товаров и freight на заказ; обе совокупности Q1/Q2; Q2–Q5 по всему снимку; аномалии помечать, не исправлять догадками; дашборд о выполнении и сервисе с продажами и качеством.\n- **Отдельное прямое решение:** HTML для дашборда; Streamlit отклонён. Предыдущая рекомендация Streamlit superseded.\n- **Остаётся открытым:** вес отзывов; сравнение опоздания по дню или timestamp; агрегация дедлайна по min/max; сглаживание. Принятие пакета не означает принятия всех 17 деталей.\n- **Проверки:** по переданному протоколу 16/16 проверок на синтетике в PostgreSQL 16; успешная сборка и проверки на реальном Olist пока не подтверждены. [Протокол PG16](../research/implementation-review-20261028/pg-smoke.json).",
+  "pg16_existing_execution_hash_binding": {
+    "model/00_schemas.sql": {
+      "matches_published_execution": true,
+      "sha256": "e19e07e56a504bf484dadb3d0b33a5981a91d576301c9e7f7fb928b5597b8ae3"
+    },
+    "model/05_typecheck.sql": {
+      "matches_published_execution": true,
+      "sha256": "e1e0b973c771f357cd31ca20a657a1841f4bf98ed2041ff44dbb53ae44a1046d"
+    },
+    "model/10_dims.sql": {
+      "matches_published_execution": true,
+      "sha256": "08ca793a6ec78a1d260553c200b8e8560e67a09a27341257aa8cae6e370f4400"
+    },
+    "model/20_facts.sql": {
+      "matches_published_execution": true,
+      "sha256": "efff32239f3fcc9a326203a6f556d0257f2896c3baa8da8078290f4c16654d18"
+    },
+    "model/30_quality.sql": {
+      "matches_published_execution": true,
+      "sha256": "1a3ce9264e7ed92fda96c27f9b9d0c170393be81dc90711d721dce8f2b2a08ab"
+    },
+    "model/40_mart.sql": {
+      "matches_published_execution": true,
+      "sha256": "7b3060c4d375f764b5933c04246799b694adbf8c73a625d8a91736fb6a7b6bc2"
+    },
+    "model/50_answers.sql": {
+      "matches_published_execution": true,
+      "sha256": "66547fd7b72e44aef59058591ee388a82dcd9939f3db59e401ba6e8b6450a5c4"
+    },
+    "model/55_answers_block_b.sql": {
+      "matches_published_execution": true,
+      "sha256": "34e0f6f5f03f2d013b82e1acb0dc9ec4db66366fc918d0a81136a01193e6b1b4"
+    },
+    "model/90_checks.sql": {
+      "matches_published_execution": true,
+      "sha256": "0f42d520e0958ddb6f7ab8bf532ee75b888839c3cd3cd37ec84f8c19d1f60b33"
+    },
+    "model/build.sql": {
+      "matches_published_execution": true,
+      "sha256": "03e71612b6dda7df9722c1dbf1020f049f2028d3a2e5e41b4b0b51e5f360a4dd"
+    },
+    "answers/q06-q10/q06.sql": {
+      "matches_published_execution": true,
+      "sha256": "36663b358b88c52b53a82c61ed46f2730412b0ba45243079d898bec843b44b3f"
+    },
+    "answers/q06-q10/q07.sql": {
+      "matches_published_execution": true,
+      "sha256": "89c32335ef45d37f88eefa21810206a776971f4bd29fac4db5a6d81124d888dc"
+    },
+    "answers/q06-q10/q08.sql": {
+      "matches_published_execution": true,
+      "sha256": "793467a1c39c47fec729e15c93f821f5e58fdb101da043dfafa72b67ad442b6a"
+    },
+    "answers/q06-q10/q09.sql": {
+      "matches_published_execution": true,
+      "sha256": "7977be948b01acbbbc79f7d7ebe99cd35e8737793585a4e164b4dd0e3660b05b"
+    },
+    "answers/q06-q10/q10.sql": {
+      "matches_published_execution": true,
+      "sha256": "a84c1244ff15b56789eba5807ade4704c73b866d11f14d9c96e76c5ff3feea10"
+    },
+    "answers/q06-q10/q10_coverage.sql": {
+      "matches_published_execution": true,
+      "sha256": "c3091e34ad759d8c89f0eba3de37837a626aa7a87c02db81630abf2e0cc52b9d"
+    },
+    "answers/q06-q10/test_fixture.py": {
+      "matches_published_execution": true,
+      "sha256": "bb263e3db112dac0d28a903d2175b581dc4e3df1aa3bb32cfd7fcdef37d43728"
+    },
+    "answers/q06-q10/test_wiring.py": {
+      "matches_published_execution": true,
+      "sha256": "74454f7c2e820f7acb51ef03b8364c7c5023fec1504b4fd2a3544fd58b1f8fc3"
+    },
+    "scripts/build-model.sh": {
+      "matches_published_execution": true,
+      "sha256": "1f64c5b5cef0a45cf510ffd95c255a0835134287a57086965034926b56095b12"
+    },
+    "scripts/init/02_raw_ddl.sql": {
+      "matches_published_execution": true,
+      "sha256": "629bff3e0fdf93fd627a89073322efda206114ecea070e5c8adff4ea0c42d341"
+    },
+    "tests/model/fixtures/base.sql": {
+      "matches_published_execution": true,
+      "sha256": "dd70d0046d4c09fd269ddde08ecbdc8898d5fbeb4e5fa22128e4b03318a72c0a"
+    },
+    "tests/model/fingerprint.sql": {
+      "matches_published_execution": true,
+      "sha256": "39995edc49d0c5f471fd52179f9c4e9180eb25751f7143290dd8d604ff07adde"
+    },
+    "tests/model/rollback.sql": {
+      "matches_published_execution": true,
+      "sha256": "7ff18076507bb60ab191990b90c8435ad88cf7a64540deeed8053baad209561e"
+    }
+  },
+  "existing_pg16_scope": "Q6-Q10 behavior: 16 synthetic orders; lifecycle: original 10 synthetic orders. No Olist CSVs were loaded.",
+  "csv_hashes_before_equal_after": {
+    "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+    "olist_order_reviews_dataset.csv": "012b61c7593e34f51fa614efdf802b9c7056ce6aae5307ddb93236e7cfc797d7",
+    "olist_order_items_dataset.csv": "4f6abdbbc94036d0df4a76fa0520c072e31a40119d70f7f370fba1e2285d2bcb",
+    "olist_order_payments_dataset.csv": "61674868ed7b872aac3dcd95bf774448a88f6426b183f21be55f75af021ffdec"
+  },
+  "csv_targeted_observations": {
+    "statuses": {
+      "delivered": 96478,
+      "invoiced": 314,
+      "shipped": 1107,
+      "processing": 301,
+      "unavailable": 609,
+      "canceled": 625,
+      "created": 5,
+      "approved": 2
+    },
+    "delivered_late_day": 6534,
+    "delivered_late_timestamp": 7826,
+    "review_scored_delivered": 95832,
+    "review_conflicting_delivered": 189,
+    "review_within_score_memberships": 96021,
+    "review_single_score_orders": 95643,
+    "q6_leader_units_by_status": {
+      "delivered": 151,
+      "shipped": 4
+    },
+    "q6_leader_known_prices_all": 31,
+    "q6_leader_known_prices_delivered": 31,
+    "payments": {
+      "all_2018": 56015,
+      "delivered_2018": 54748
+    },
+    "same_day_example": {
+      "order_id": "8563039e855156e48fccee4d611a3196",
+      "order_status": "delivered",
+      "order_estimated_delivery_date": "2018-03-20 00:00:00",
+      "order_delivered_customer_date": "2018-03-20 00:59:25"
+    }
+  },
+  "synthetic_examples": {
+    "threshold": {
+      "all_orders": 500,
+      "delivered": 499,
+      "all_qualifies": true,
+      "delivered_qualifies": false
+    },
+    "deadline": {
+      "deadlines": [
+        10,
+        20
+      ],
+      "carrier": 15,
+      "after_min": true,
+      "after_max": false
+    },
+    "rating_units": {
+      "order_A_scores": [
+        1,
+        1
+      ],
+      "order_B_scores": [
+        5
+      ],
+      "pair_mean": 2.3333333333333335,
+      "order_mean": 3
+    },
+    "stable_ranking_different_estimands": {
+      "policy_A": [
+        21.307,
+        16.652,
+        14.261,
+        12.31,
+        10.685
+      ],
+      "policy_B": [
+        21.34,
+        16.648,
+        14.244,
+        12.304,
+        10.679
+      ]
+    },
+    "history_conflict": {
+      "product_category": "C",
+      "seller_category": "B",
+      "both_stored": true,
+      "effective_category_requires_precedence": true
+    }
+  },
+  "supplemental_ui": {
+    "commit": "6452806eae21d13126da9de8ebaba01a2152eaea",
+    "sha256": "b09e46fe6620f2b53eb93d09b9ffe40a9a43e6700397ed2918dcf720eb59a400",
+    "defaults_by_line": {
+      "34": "const [p6, setP6] = useViewParam<Pop>(\"q6\", \"delivered\");",
+      "35": "const [p7, setP7] = useViewParam<Pop>(\"q7\", \"delivered\");",
+      "36": "const [b7, setB7] = useViewParam<Basis>(\"q7b\", \"calendar_day\");",
+      "37": "const [per9, setPer9] = useViewParam<\"purchase_2018\" | \"all_snapshot\">(\"q9\", \"all_snapshot\");",
+      "38": "const [p10, setP10] = useViewParam<Pop>(\"q10\", \"delivered\");",
+      "39": "const [pol10, setPol10] = useViewParam<Policy>(\"q10p\", \"within_score\");",
+      "40": "const [b10, setB10] = useViewParam<Basis>(\"q10b\", \"calendar_day\");"
+    },
+    "scope": "source only; no browser or E2E claim"
+  },
+  "status": "pass"
+}
