@@ -6,6 +6,7 @@ fixture-only raw/core/mart inside a rolled-back transaction; never point it at a
 working database. It loads the repository's actual core and mart SQL.
 """
 from pathlib import Path
+from decimal import Decimal
 import psycopg
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,6 +22,10 @@ def rows(cur, filename):
     return [dict(zip([c.name for c in cur.description], row)) for row in cur.fetchall()]
 
 
+def near(actual, expected):
+    assert actual is not None and abs(actual - Decimal(expected)) < Decimal('1e-12'), (actual, expected)
+
+
 with psycopg.connect() as conn:
     with conn.cursor() as cur:
         cur.execute("SELECT current_database(), count(*) FROM pg_namespace WHERE nspname IN ('raw','core','mart')")
@@ -34,6 +39,7 @@ with psycopg.connect() as conn:
             UPDATE raw.orders SET order_status='canceled' WHERE order_id='neither';
             UPDATE raw.orders SET order_purchase_timestamp='2018-01-01 10:00:00' WHERE order_id='all-null';
             INSERT INTO raw.order_reviews(review_id,order_id,review_score) VALUES ('cancel-review','neither','3');
+            INSERT INTO raw.order_reviews(review_id,order_id,review_score) VALUES ('same-score-again','fanout','5');
             UPDATE raw.orders SET order_purchase_timestamp='2018-01-01 10:00:00',
               order_delivered_carrier_date='2018-01-02 10:00:00',
               order_delivered_customer_date='2018-01-03 18:00:00',
@@ -43,6 +49,15 @@ with psycopg.connect() as conn:
             INSERT INTO raw.order_items(order_id,order_item_id,product_id,seller_id,price,freight_value)
               SELECT 'fanout', (n+2)::text, 'p2','s1', price, '0'
               FROM (VALUES (1,'0'),(2,'4'),(3,'5'),(4,'7'),(5,'10'),(6,'20'),(7,'30')) v(n,price);
+            INSERT INTO raw.orders(order_id, customer_id, order_status, order_purchase_timestamp,
+              order_delivered_customer_date, order_estimated_delivery_date)
+              SELECT 'boundary-'||id, 'boundary-c-'||id, 'delivered', '2017-01-01 00:00:00',
+                actual, '2017-01-03 00:00:00'
+              FROM (VALUES ('a1',NULL),('b1','2017-01-02 00:00:00'),('b2',NULL),
+                ('c1','2017-01-02 00:00:00'),('c2','2017-01-03 00:00:00'),('c3','2017-01-05 00:00:00')) v(id,actual);
+            INSERT INTO raw.customers(customer_id,customer_unique_id,customer_state)
+              SELECT 'boundary-c-'||id, 'boundary-b-'||id, state
+              FROM (VALUES ('a1','AA'),('b1','BB'),('b2','BB'),('c1','CC'),('c2','CC'),('c3','CC')) v(id,state);
         """)
         for stage in ('model/10_dims.sql', 'model/20_facts.sql', 'model/40_mart.sql', 'model/55_answers_block_b.sql'):
             cur.execute(sql(stage))
@@ -51,30 +66,45 @@ with psycopg.connect() as conn:
         assert all(r['distinct_prices'] == 7 for r in q6)
         assert sum(r['units_sold'] for r in q6 if r['population'] == 'all_statuses' and r['product_id'] == 'p2') == 7
         q7 = rows(cur, 'q07.sql')
-        assert q7 == []  # 10 orders are below the required 500
+        assert q7 == []  # All fixture states are below the required 500
         q7sql = (HERE / 'q07.sql').read_text().replace('500::bigint', '2::bigint')
         cur.execute(q7sql)
         q7 = [dict(zip([c.name for c in cur.description], row)) for row in cur.fetchall()]
-        by7 = {(r['population'], r['late_basis']): r for r in q7}
-        assert by7['all_statuses', 'timestamp']['orders_count'] == 10
-        assert by7['delivered', 'timestamp']['orders_count'] == 9
-        assert by7['delivered', 'calendar_day']['late_orders'] == 0
-        assert by7['delivered', 'timestamp']['late_orders'] == 8
-        assert by7['delivered', 'timestamp']['late_denominator'] == 8
-        assert by7['delivered', 'timestamp']['duration_denominator'] == 7
+        assert {r['customer_state'] for r in q7} == {'SP', 'BB', 'CC'}  # 1 excluded, 2 included, 3 included
+        by7 = {(r['population'], r['late_basis'], r['customer_state']): r for r in q7}
+        assert by7['all_statuses', 'timestamp', 'SP']['orders_count'] == 10
+        sp = by7['delivered', 'timestamp', 'SP']
+        assert sp['orders_count'] == 9
+        assert by7['delivered', 'calendar_day', 'SP']['late_orders'] == 0
+        assert sp['late_orders'] == sp['late_denominator'] == 8
+        assert sp['duration_denominator'] == 7
+        near(sp['late_pct'], '100')
+        near(sp['avg_delivery_days'], Decimal(7) / 3)
+        bb = by7['delivered', 'calendar_day', 'BB']
+        assert bb['orders_count'] == 2 and bb['duration_denominator'] == bb['late_denominator'] == 1
+        near(bb['avg_delivery_days'], '1')
+        near(bb['late_pct'], '0')
+        cc = by7['delivered', 'calendar_day', 'CC']
+        assert cc['duration_denominator'] == cc['late_denominator'] == 3 and cc['late_orders'] == 1
+        near(cc['avg_delivery_days'], Decimal(7) / 3)
+        near(cc['late_pct'], Decimal(100) / 3)
         q8 = {r['order_status']: r for r in rows(cur, 'q08.sql')}
         assert q8['canceled']['orders_count'] == q8['canceled']['orders_without_items'] == 1
-        assert q8['delivered']['orders_count'] == 9
-        assert q8['canceled']['orders_pct'] == 10
+        assert q8['delivered']['orders_count'] == 15
+        near(q8['canceled']['orders_pct'], '6.25')
         cur.execute((HERE / 'q09.sql').read_text())
         q9 = [dict(zip([c.name for c in cur.description], row)) for row in cur.fetchall()]
         assert len(q9) == 1 and q9[0]['payment_count'] == 4 and q9[0]['payment_amount'] is None
         assert q9[0]['known_payment_amount_sum'] == 30 and q9[0]['amount_denominator'] == 3
         assert q9[0]['credit_installments_denominator'] == 2
+        near(q9[0]['avg_installments_all_types'], '0.75')
+        near(q9[0]['avg_installments_credit_card'], '0.5')
         assert cur.nextset()
         methods = [dict(zip([c.name for c in cur.description], row)) for row in cur.fetchall()]
         assert sum(r['payment_count'] for r in methods if r['period'] == 'purchase_2018') == 4
         assert sum(r['payment_count'] for r in methods if r['period'] == 'all_snapshot') == 9
+        for method in methods:
+            near(method['avg_installments'], '0.5' if method['payment_type'] == 'credit_card' else '1')
         q10 = rows(cur, 'q10.sql')
         by10 = {(r['score_policy'], r['late_basis'], r['review_score']): r for r in q10 if r['population'] == 'all_statuses'}
         assert len(q10) == 40
@@ -83,6 +113,13 @@ with psycopg.connect() as conn:
         assert by10['single_score_only', 'timestamp', 5]['orders_count'] == 1
         assert by10['within_score', 'calendar_day', 5]['late_orders'] == 0
         assert by10['within_score', 'timestamp', 5]['late_orders'] == 2
+        score5 = by10['within_score', 'timestamp', 5]
+        assert score5['duration_denominator'] == score5['late_denominator'] == 2
+        near(score5['avg_delivery_days'], Decimal(7) / 3)
+        near(score5['late_pct'], '100')
+        near(by10['within_score', 'calendar_day', 5]['late_pct'], '0')
+        assert by10['within_score', 'timestamp', 2]['orders_count'] == 0
+        assert by10['within_score', 'timestamp', 2]['avg_delivery_days'] is None
         assert by10['within_score', 'timestamp', 3]['orders_count'] == 1
         assert by10['within_score', 'timestamp', 3]['late_pct'] is None
         delivered3 = next(r for r in q10 if r['population'] == 'delivered' and r['score_policy'] == 'within_score' and r['late_basis'] == 'timestamp' and r['review_score'] == 3)

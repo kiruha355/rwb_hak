@@ -2,6 +2,7 @@
 """Exercise the real shell entrypoint with a fake psql; never connect to a DB."""
 from pathlib import Path
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -65,6 +66,17 @@ class Wiring(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("q10_coverage.sql", result.stderr)
         self.assertFalse(self.capture.exists())
+
+    def test_rebuild_drop_inventory_covers_created_views(self):
+        """A new dependent view left behind blocks the next RESTRICT rebuild."""
+        created = set()
+        for path in (self.root / "model").glob("*.sql"):
+            created.update(re.findall(r"CREATE\s+VIEW\s+(mart\.\w+)", path.read_text(), re.I))
+        reset = (self.root / "model/00_schemas.sql").read_text()
+        view_drop = re.search(r"DROP VIEW IF EXISTS\s+(.*?)\s+RESTRICT;", reset, re.S).group(1)
+        dropped = set(re.findall(r"mart\.\w+", view_drop))
+        self.assertTrue(created)
+        self.assertEqual(created - dropped, set(), "Views missing from the owned rebuild inventory")
 
 
 if __name__ == "__main__":
