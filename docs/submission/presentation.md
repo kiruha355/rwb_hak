@@ -1,6 +1,6 @@
 # Показ решения Capibara
 
-**Первый показ:** 13:30 МСК /10:30 UTC, [сценарий 5–7 минут](checkpoint-1330.md). Переносимый [HTML](presentation.html), 12 коротких разделов; расширенная речь ниже — до10 минут +вопросы. Код W-08…W-11 готов, offline/static checks успешны в своих границах. PostgreSQL-демо и core answers pending. Нет тяжёлых зависимостей или внешнего сервиса.
+**Срочно:** [речь на две минуты](checkpoint-now.html). **Расширенный показ:** 13:30 МСК /10:30 UTC, [сценарий 5–7 минут](checkpoint-1330.md). Переносимый [HTML](presentation.html), 12 коротких разделов; расширенная речь ниже — до10 минут +вопросы. Код W-08…W-11 готов, offline/static checks успешны в своих границах. PG16 synthetic 16/16 PASS; full Olist-демо и core answers pending. Нет тяжёлых зависимостей или внешнего сервиса.
 
 Сначала источник и строки, затем связи и задание, только после этого модель и выводы. Контрольные числа в речи всегда называются baseline; после реального запуска их заменяет подписанный экспорт из core/mart с run ID. Окончательный регламент и расхождение 150/155 уточняются отдельно.
 
@@ -64,7 +64,7 @@
 
 На экране: `item_revenue` без доставки, `order_gmv` с доставкой; buyers all statuses. Counts all/delivered и окна подписаны. Exact 639/−1 819.51 и tolerance 366/−1 818.84 — два baseline набора, не одна пара.
 
-Речь: «Совпадение с контролем поддерживает рабочую формулу, но не превращается в решение о смысле. Открыты веса отзывов, late day/timestamp и часть counts/windows. Для них сохраняем варианты. Причин задержки и денег из этих полей не выдумываем».
+Речь: «Совпадение с контролем поддерживает рабочую формулу, но не превращается в решение о смысле. Counts/windows приняты: обе populations Q1/Q2, Q1 — 24 месяца, Q2–Q5 — весь снимок. Открыты веса отзывов, late day/timestamp и smoothing. Для них сохраняем варианты. Причин задержки и денег из этих полей не выдумываем».
 
 Источник: [бриф, все 17 вопросов](../implementation-brief-20261028.md#все-17-вопросов), [записка](decisions-note.md).
 
@@ -74,9 +74,9 @@
 
 После готовности отдельного стенда: один согласованный build command, сохранённый exit/log/run ID; один сохранностный check и один negative/rollback case; полный экспорт Q1 и Q3. Не запускать reset общего стенда во время защиты.
 
-Речь сейчас: «Код готов. Координатор независимо повторил 14 unittest,93 DuckDB checks,static19,wrapper dry-run иplan16, все exit0. Это успешные малые проверки; PostgreSQL evidence ещё нет. Наличие ON_ERROR_STOP и транзакции подтвердим ошибкой в конце и сравнением состояния, а не чтением флага».
+Речь сейчас: «Код готов. Координатор независимо повторил 14 unittest,93 DuckDB checks,static19,wrapper dry-run иplan16, все exit0. Дополнительно W-14 выполнил 16/16 малых PostgreSQL16.15 cases:4 положительных и12 ожидаемых отказов; fixture CLI0.944s, сервер остановлен. Полная Olist-сборка ещё pending. Наличие ON_ERROR_STOP и транзакции подтвердим ошибкой в конце и сравнением состояния, а не чтением флага».
 
-Источник: [runtime gates](evidence.md#матрица-runtime-приёмки). В `90_checks.sql` открыть `EXCEPT ALL` mapping; в `40_mart.sql` — независимые CTE `items/payments/reviews`; в `50_answers.sql` — `q03_average_order` с отдельными знаменателями. SQL runtime остаётся pending. [Отчёт W-10](../../answers/verification.json) содержит 93 synthetic DuckDB checks; это offline evidence автора, W-12 его не повторял.
+Источник: [runtime gates](evidence.md#матрица-runtime-приёмки). В `90_checks.sql` открыть `EXCEPT ALL` mapping; в `40_mart.sql` — независимые CTE `items/payments/reviews`; в `50_answers.sql` — `q03_average_order` с отдельными знаменателями. Полный Olist runtime остаётся pending; [PG synthetic evidence](../../research/implementation-review-20261028/pg-smoke.md) относится к малым cases. [Отчёт W-10](../../answers/verification.json) содержит 93 synthetic DuckDB checks; это offline evidence автора, W-12 его не повторял.
 
 ## 10. Ответы и границы доказательства · 45 с
 
@@ -86,11 +86,11 @@
 
 ## 11. Как пользоваться моделью и куда расти · 60 с
 
-Показать сценарий: руководитель операций видит late с coverage→выбирает группу→открывает исходные даты заказа. Это расследование, не доказанное обвинение. Рядом ссылка на коммерческий вариант и quality.
+Область и HTML приняты пользователем. Показать сценарий: руководитель операций видит late с coverage→выбирает группу→открывает исходные даты заказа. Это расследование, не доказанное обвинение. Рядом ссылка на коммерческий вариант и quality.
 
 Затем показать один workload→SLA→проверка стоимости→решение о следующем движке. История статусов/возвраты требуют новых событий; snapshot не создаёт прошлое. PostgreSQL не имеет доказанного для нас row-count предела.
 
-Источник: [dashboard-concept](dashboard-concept.md), [growth-strategy](growth-strategy.md). SLA и область — предложения, benchmark pending.
+Источник: [dashboard-concept](dashboard-concept.md), [growth-strategy](growth-strategy.md). Область и HTML приняты; SLA и параметры late/review/smoothing открыты, benchmark pending.
 
 ## 12. Что уже можно проверить и что ещё нужно · 30 с
 

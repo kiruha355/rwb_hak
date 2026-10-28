@@ -134,5 +134,62 @@
     "title": "Capibara · чекпоинт 13:30",
     "height": 1593,
     "method": "html_render of the final index.html bytes after html_preview"
+  },
+  "prior_records_are_historical": true,
+  "w15_followup": {
+    "method": "native html_preview; no browser server or dependencies",
+    "utc": "2026-10-28T10:14:22.062941+00:00",
+    "previews": [
+      {
+        "file": "checkpoint-now.html",
+        "width": 1440,
+        "height": 756,
+        "consoleMessages": []
+      },
+      {
+        "file": "decisions-note.html",
+        "width": 642,
+        "height": 448,
+        "consoleMessages": []
+      },
+      {
+        "file": "index.html",
+        "width": 728,
+        "height": 1678,
+        "consoleMessages": []
+      },
+      {
+        "file": "index.html",
+        "width": 390,
+        "height": 2142,
+        "consoleMessages": []
+      },
+      {
+        "file": "presentation.html",
+        "sections": [
+          "p9",
+          "p11",
+          "p12"
+        ],
+        "temporary_preview_css_only": true,
+        "width": 1000,
+        "height": 1514,
+        "consoleMessages": []
+      }
+    ],
+    "source_sha256": {
+      "checkpoint-now.html": "8acc38f52f614d70571bbfb6108f12c3a146206e98c578f219e2cbfbeb541a6a",
+      "decisions-note.html": "51139f1fd7ae586807a182a9107a16d0371fe3634f850783ee3f4253bdfeb390",
+      "index.html": "09b4cd35e728ecebd20789b000ec6afd237218edb36d9b7276eef283d9986d3e",
+      "presentation.html": "dab1420752cc502225eb807d56be80d819c909a894618bba6d52ccd9cd71e4d3"
+    },
+    "speech_words": 226,
+    "memo_words_including_title": 185,
+    "memo_half_printable_a4_height_approx_px": 486,
+    "memo_observed_height_px": 448,
+    "pdf_pagination_verified": false,
+    "keyboard_interaction_verified": false,
+    "human_rehearsal_verified": false,
+    "inline_render": "checkpoint-now.html passed html_preview then html_render"
   }
 }

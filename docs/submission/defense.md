@@ -2,7 +2,7 @@
 
 **Цель:** участник объясняет свой SQL, показывает проверку и предсказывает поведение на изменённом входе. Ответ из термина «звезда/SCD/идемпотентность» без нашего поля, JOIN или evidence недостаточен. Эта памятка подготовлена ИИ; живая репетиция команды пока не проведена.
 
-**На 13:30 МСК:** открыть [короткий сценарий](checkpoint-1330.md) и [настоящий связанный заказ](order-example.json). Код 7 dims +4 facts и Q1–Q5 готов; 14/93/static19/dry-run/plan16 имеют успешный offline/static результат по повтору координатора. Pending относится к PostgreSQL/core/rollback, фактическим SQL-ответам и человеческой репетиции. При вопросе «что уже работает?» назвать конкретный малый check, а не отвечать общим «всё pending».
+**На 13:30 МСК:** открыть [короткий сценарий](checkpoint-1330.md) и [настоящий связанный заказ](order-example.json). Код 7 dims +4 facts и Q1–Q5 готов; 14/93/static19/dry-run/plan16 имеют успешный offline/static результат по повтору координатора. Отдельно W-14 выполнил16/16 малых PostgreSQL16.15 cases ([evidence](../../research/implementation-review-20261028/pg-smoke.md)); сервер остановлен. Pending относится к полной Olist/core/rollback, фактическим full-data SQL-ответам и человеческой репетиции. При вопросе «что уже работает?» назвать конкретный малый check, а не отвечать общим «всё pending».
 
 ## Практические вопросы
 
@@ -18,7 +18,7 @@
 | Чем выручка отличается от чека? | Eligibility в `dim_order_status.is_revenue`; item price против order sum(price+freight) | Revenue не payment и не прибыль; average item не average order |
 | Что с новым статусом? | По контракту сохраняется в status domain, `is_revenue=false`, warning на unexpected status | Это техническая безопасная политика, не присвоенный новый бизнес-смысл |
 | Почему ноябрь 2016 есть? | Месяцы из DISTINCT `dim_date.month_start` и LEFT JOIN monthly aggregates | Проверить gap отдельно от duplicates; множество дней 1/3 января уникально, но неполно |
-| Почему два числа заказов в Q1/Q2? | Placed/delivered именованы, supplier counts только по его items | Revenue-population не определяет смысл соседнего count; organiser interpretation открыта |
+| Почему два числа заказов в Q1/Q2? | Placed/delivered именованы, supplier counts только по его items | Revenue-population не определяет смысл соседнего count; пользователь принял обе именованные populations; это не утверждение единственного смысла organiser wording |
 | Можно сложить заказы продавцов? | Пересчитать distinct order IDs на объединении | Один order с двумя sellers входит в две группы; это не два orders площадки |
 | Можно сложить покупателей по месяцам? | Нет; `count(distinct customer_unique_id)` по объединённому окну | Один buyer в январе и феврале — один за два месяца |
 | Что с нулём и NULL? | Число children, число непустых price/freight/payment и суммы отдельно | Нет payment, all NULL payment_value и value=0 — три состояния |
@@ -33,7 +33,7 @@
 | REPEATABLE READ защищает от reload raw? | Сам по себе нет; показать принятый loader/build protocol и concurrency evidence | TRUNCATE не MVCC-safe; lock rights/timeout и оба порядка запуска проверяются отдельно |
 | Как отвечаете на новый вопрос? | Выбрать grain→population/window→поля core→SQL→checks→export | Не считать из raw ради готовой цифры, не менять raw для подгонки |
 | Где предел PostgreSQL? | Нет измеренного универсального предела; показать workload/SLA/TCO и parity/rollback | Миллионы строк без bytes/concurrency/IO/SLA не обосновывают миграцию |
-| Что сделал ИИ, что проверили люди? | [AI log](ai-log.md): источник, предложение, метод проверки и неизвестное | Согласие агентов не human approval; живая репетиция и DB run пока pending |
+| Что сделал ИИ, что проверили люди? | [AI log](ai-log.md): источник, предложение, метод проверки и неизвестное | Согласие агентов не human approval; живая репетиция и full Olist DB run pending; малые PG16 cases16/16 PASS |
 
 ## Короткие запросы для объяснения кода
 

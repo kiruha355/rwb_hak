@@ -1,58 +1,54 @@
-# W-12 · Передача комплекта
+# W-15 · Передача README и обновлённого комплекта W-12
 
-**Предварительный комплект готов к review первого чекпоинта 13:30 МСК / 10:30 UTC.** Owned path: `docs/submission/**`, без правок вне него. Публикация адресно через W-01; Git index/add/commit/push/checkout/pull/reset/merge и PR не использовались. Новых делегатов, сервисов, Docker/VM, установок или тяжёлых fixtures не запускалось.
+**Ready for publication через W-01.** Разрешённая область: `README.md`, `docs/submission/**`. Основной код и первый комплект опубликованы в main `aca34f5b693b794fc2a0ea8c2623293b462b6089`; эта передача касается доработки перед выступлением. Git index/add/commit/push/checkout/pull/reset/merge не использовались. Fetch выполнен; чужие кодовые пути, explainer и реестры не изменялись. Новых агентов, серверов, зависимостей и тяжёлых запусков нет.
 
-## Что открыть
+## Что открыть сейчас
 
-- [Чекпоинт5–7 минут](checkpoint-1330.md): роли, точные команды, ожидаемые выводы, восемь решений и ответы жюри.
-- [HTML-hub](index.html) и [HTML-показ из 12 разделов](presentation.html), без сервера/зависимостей.
-- [README](README.md): критерий→артефакт→evidence→состояние; реальные model/build/answers/checks ссылки.
-- [Настоящий заказ](order-example.json), [CSV-reader](order-example.py), [подготовленный core SQL](order-example.sql):1 item/3 payments/1 review, GMV38.71. SQL не выполнялся.
-- [Записка](decisions-note.md), [дашборд](dashboard-concept.md), [рост](growth-strategy.md), [защита](defense.md), [AI log](ai-log.md), [runtime gates](evidence.md).
+1. [Root README](../../README.md): задача, требования, 7 dims/4 facts, 5 из10 SQL, метрики, build prerequisites, evidence, AI и развитие.
+2. [Короткий экран](checkpoint-now.html), [речь](checkpoint-now.md): 226 русских слов, пять обязательных результатов, семь критериев PDF. Речь занимает примерно две минуты; человеком не репетировалась.
+3. [Единый hub](index.html) → [расширенный показ](presentation.html) и [чекпоинт 5–7 минут](checkpoint-1330.md) → детали. Нового реестра решений/ownership нет.
 
-Все changed paths и SHA256 — [manifest.sha256](manifest.sha256), кроме самого manifest. [input-evidence.json](input-evidence.json) фиксирует прочитанные чужие байты и атрибуцию проверки. Input local HEAD`2f0a8de45aadc3b685f434aaaf736f0cca7c7f2e`; main synthesis`1939068295d7203a15cbb0a1ab5d407caca90f58`; research`72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a`. Публикационный SHA W-12 назначает W-01 после публикации; он не выдуман здесь.
+Принятый пакет и HTML отражены в README, index, обоих presentation, checkpoint, memo, dashboard concept и evidence. Открыты только именованные late/reviewweight/smoothing и их параметры; counts/windows/dashboard area/HTML не названы полностью pending. [Связанный CSV-заказ](order-example.json):1 item/3 payments/1 review; price29.99 +freight8.72 =GMV38.71 =payments38.71; наивный JOIN price89.97. Core SQL этого заказа не выполнялся.
 
-## Фактически проверено W-12
+## Публикационная порция
 
-| Фактическая команда / инструмент | Результат и предел |
+`README.md`; в `docs/submission/`: `README.md`, `checkpoint-now.md`, `checkpoint-now.html`, `checkpoint-1330.md`, `index.html`, `presentation.md`, `presentation.html`, `decisions-note.md`, `decisions-note.html`, `dashboard-concept.md`, `defense.md`, `evidence.md`, `ai-log.md`, `input-evidence.json`, `qa.json`, `verify_pack.py`, `handoff.md`, `manifest.sha256`.
+
+Все актуальные hashes — [manifest.sha256](manifest.sha256); root README включён ключом `../../README.md`. Manifest не хеширует сам себя. Неизменённые файлы W-12 также сохранены в manifest для целостности комплекта. Верификатор проверяет root README и новые входные точки, относительные ссылки/anchors, HTML/Python/JSON syntax, переносимость и hashes. Только W-01 делает адресный add/commit/push; файлы чужих зон в порцию не включать.
+
+## Что проверил W-15
+
+| Метод / команда | Наблюдаемый результат и граница |
 |---|---|
-| `python3 docs/submission/order-example.py --output docs/submission/order-example.json` | Exit0; прочитан связанный пример восьми CSV: 1 item /3 payments /1 review, GMV=payment=38.71; не raw/core |
-| `python3 answers/static-check.py` | Exit0; `OK (19 files); no DB executed` |
-| `python3 scripts/verify-model.py --plan` | Exit0; 16 cases, `missing_stages=[]`, `status=pending_db_execution` |
-| Лёгкий Python/regex inventory DDL | 47 бизнес-полей восьми raw sources, 7 dims, 4 facts; не SQL execution |
-| Сверка SHA256 отчёта W-10 | 15/15 recorded hashes совпали с актуальными файлами на `2026-10-28T09:56:30Z`; сам fixture W-12 не повторял |
-| `python3 docs/submission/verify_pack.py --write-manifest`, затем `python3 docs/submission/verify_pack.py` | Exit0; локальные ссылки/anchors, переносимость 3 HTML, Python/JSON syntax и manifest; метод `static_only` |
-| Нативный `html_preview` | Осмотр hub728/390, презентации по частям и записки642; console errors нет; подробности [qa.json](qa.json) |
-| Записка | 178 whitespace words вместе с заголовком; макет12pt/170mm занимает468px, меньше половины печатной области A4 с20mm полями (≈486px); PDF/PowerPoint не проверялись |
+| `python3 docs/submission/verify_pack.py --write-manifest`, затем без флага | PASS static-only; 23 файла с root README,4 HTML; manifest обновлён/проверен. Это не SQL runtime |
+| `python3 answers/static-check.py` | Exit0,19 files; no DB executed |
+| `python3 scripts/verify-model.py --plan` | Exit0,16 cases, missing_stages=[]; сам план не исполняет SQL |
+| Нативный `html_preview` | Короткий экран1440×756; hub728 и390; изменённые sections9/11/12 presentation; memo642×448. Console errors нет; [qa.json](qa.json) |
+| Нативный `html_render` | Короткий экран показан в треде после preview; локальный HTML остаётся переносимым |
+| Записка | 185 whitespace words с заголовком;448px при ширине642 меньше≈486px половины печатной области A4 с20mm полями. PDF-пагинация не проверялась |
 
-Команды и метод каждого свидетельства отделены от PostgreSQL runtime. Проверки 14/93/static19/dry-run/plan16 независимого координатора отражены по его прямому сообщению; W-12 дополнительно выполнил только static19 и plan16, не присваивает себе остальные прогоны. Живая клавиатурная проверка браузера/человеческая репетиция не выполнены.
+Старые записи QA/input evidence сохранены как исторические; добавлен отдельный W-15 snapshot с hashes прочитанных PG/Astra/source-артефактов. [AI log](ai-log.md) разделяет работу ИИ, принятые пользователем решения и методы проверки.
 
-## Что не проверено
+## Переданное runtime evidence и оставшиеся gates
 
-PostgreSQL build/core, input CSV↔live raw binding, DB checks/control, повторная сборка/rollback/concurrency и actual Q1–Q5 model exports; Q6–Q10 ждут опубликованных условий. Живая репетиция людей, полный dashboard runtime, нагрузочный benchmark и человеческое принятие параметров не заявлены.
+Координатор сообщил14 Python и93 DuckDB PASS. W-14 выполнил **16/16 реальных малых PostgreSQL16.15 cases**:4 positive,12 expected failures; fixture CLI0.944424s, полный отчёт1.975227s; сервер остановлен, cluster сохранён. [PG report](../../research/implementation-review-20261028/pg-smoke.md), [JSON](../../research/implementation-review-20261028/pg-smoke.json). W-15 эти прогоны не повторял и себе не присваивает.
 
-Блокеры SQL runtime по полученному handoff: guard exit78 на Mac (SSD30.42GiB<35, pressure2), Docker daemon отсутствует. Guard и системы не менялись. Это не препятствие писать код и выполнять малые static/offline проверки.
+[Astra review](../../research/implementation-review-20261028/astra-review.md):1 P1+4 P2. Суть findings — в [technical evidence](evidence.md#независимый-review); фиксы отдельно ведёт parent. Они не объявлены закрытыми этой документацией.
 
-## Следующая точная команда
+**Pending:** полная Olist-build, CSV↔live raw binding, pinned control, clean/rebuild/late rollback/concurrency, full-data Q1–Q5 exports, опубликованные условия и ответы Q6–Q10, UI↔full-data SQL parity, нагрузочный benchmark и живая репетиция. Общий production/DB pass и финальная готовность всех10 ответов не заявлены. Mac guard78 соблюдён.
 
-Сейчас, из корня checkout:
+## Следующие команды
+
+Сейчас, без БД:
 
 ```sh
 python3 docs/submission/verify_pack.py
 ```
 
-Для непосредственного показа:
+Для разрешённого подготовленного PG16 endpoint, **только после** подтверждённого raw reload pause и проверки правильного endpoint:
 
 ```sh
-python3 docs/submission/order-example.py
+RWB_RAW_RELOAD_PAUSED=1 RWB_DB_MODE=host make build
 ```
 
-Затем открыть [checkpoint-1330.md](checkpoint-1330.md) и HTML-файлы локально, без сервера. Код7dims+4facts и Q1–Q5 готов; pending относится к реальному PostgreSQL-результату, а не ко всем артефактам.
-
-После готовности разрешённого PG16 endpoint и выполнения raw/model pause protocol:
-
-```sh
-RWB_RAW_RELOAD_PAUSED=1 RWB_DB_MODE=host make build check answers rebuild-check
-```
-
-Условия, write effects check/rebuild и отдельный pinned control — [build-runbook](../build-runbook.md). Не запускать эту DB-команду на заблокированном Mac и не превращать известный hash в фиктивное input binding.
+Дальнейшие check/answers/rebuild/control и условия input binding — [runbook](../build-runbook.md) и [evidence](evidence.md#следующий-шаг). `setup.sh` выполняет TRUNCATE/reload; `--reset` удаляет volumes: это не ежедневная команда сборки модели. На заблокированном Mac её не запускать.

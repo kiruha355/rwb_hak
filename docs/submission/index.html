@@ -14,8 +14,8 @@
 <main>
 <header>
 <h1>Capibara. Комплект сдачи</h1>
-<p><strong>Чекпоинт 13:30 МСК.</strong> Код готов: 7 справочников, 4 детальных факта, сборка, проверки и SQL Q1–Q5. Малые offline/static проверки успешны. PostgreSQL/core/rollback и результаты модели <strong>pending</strong>; Q6–Q10 ждут условий.</p>
-<nav aria-label="Материалы комплекта"><a href="checkpoint-1330.md">Сценарий 5–7 минут</a><a href="presentation.html">HTML-показ</a><a href="README.md">Полный индекс</a><a href="../../explainer.html">Общий explainer</a></nav>
+<p><strong><a href="checkpoint-now.html">Две минуты жюри — открыть сейчас</a>.</strong> Код опубликован: 7 справочников, 4 детальных факта, сборка, проверки и SQL Q1–Q5. 14 Python +93 DuckDB +16/16 малых PostgreSQL cases PASS. Полная Olist-сборка, binding/control/lifecycle и результаты модели <strong>pending</strong>; Q6–Q10 ждут условий.</p>
+<nav aria-label="Материалы комплекта"><a href="../../README.md">README проекта</a><a href="checkpoint-now.html">Речь на две минуты</a><a href="checkpoint-1330.md">Сценарий 5–7 минут</a><a href="presentation.html">HTML-показ</a><a href="README.md">Полный индекс</a><a href="../../explainer.html">Общий explainer</a></nav>
 </header>
 <section aria-labelledby="route-title">
 <h2 id="route-title">Сначала источник</h2>
@@ -31,22 +31,22 @@
 <thead><tr><th scope="col">Критерий</th><th scope="col">Артефакт</th><th scope="col">Доказательство / состояние</th></tr></thead>
 <tbody>
 <tr><td>Ответы</td><td><a href="evidence.md#ответы-q1q10">Q1–Q10</a></td><td>SQL Q1–Q5 готов. Нужны фактические экспорты из модели; Q6–Q10 не опубликованы.</td></tr>
-<tr><td>Качество модели</td><td><a href="../../model/CONTRACT.md">Контракт core</a></td><td>7 справочников + 4 факта готовы; соответствие 47 полям восьми источников. Сохранность на PostgreSQL pending.</td></tr>
-<tr><td>Поддерживаемость</td><td><a href="evidence.md#сборка-и-проверки">Сборка и проверки</a></td><td>14 unit-тестов, 93 проверки DuckDB, 19 файлов статически; оболочка и план 16 проверок. Повтор координатора: exit0. PostgreSQL/откат pending.</td></tr>
+<tr><td>Качество модели</td><td><a href="../../model/CONTRACT.md">Контракт core</a></td><td>7 справочников + 4 факта готовы; соответствие 47 полям восьми источников. PG synthetic 16/16 PASS; сохранность полного Olist pending.</td></tr>
+<tr><td>Поддерживаемость</td><td><a href="evidence.md#сборка-и-проверки">Сборка и проверки</a></td><td>14 Python, 93 DuckDB и 16/16 PostgreSQL synthetic PASS; static19 и wrapper dry-run. Полный build/lifecycle/откат pending.</td></tr>
 <tr><td>Понимание и вброс</td><td><a href="defense.md">Защита и репетиция</a></td><td>Наш ключ, JOIN, метрика и проверка. Живая репетиция pending.</td></tr>
-<tr><td>Дашборд</td><td><a href="dashboard-concept.md">Концепция и формулы</a></td><td>Пользователь, уровень расчёта, источник, неаддитивность, действие. Область — вариант для выбора.</td></tr>
+<tr><td>Дашборд</td><td><a href="dashboard-concept.md">Концепция и формулы</a></td><td>Пользователь, уровень расчёта, источник, неаддитивность, действие. Область «выполнение и сервис с продажами и качеством» и HTML приняты; полный UI↔SQL путь pending.</td></tr>
 <tr><td>Использование ИИ</td><td><a href="ai-log.md">Журнал ИИ</a></td><td>Источник→предложение→проверка→автор решения. Принятие человеком отдельно.</td></tr>
 <tr><td>Стратегия</td><td><a href="growth-strategy.md">Рост и миграция</a></td><td>Нагрузка, SLA, стоимость, источники истории, паритет и откат. Измерения pending.</td></tr>
 </tbody></table></div>
 </section>
 <section aria-label="Подробности комплекта">
 <details><summary>Короткая записка и рабочий выбор</summary><p><a href="decisions-note.md">Записка ≤½ страницы</a>: раздельные факты с натуральными ключами; buyer по customer_unique_id; адрес на заказе; все review-order пары; неизвестное отличается от нуля. Спорные правила выпускаются именованными вариантами.</p></details>
-<details><summary>Что открыто для выбора</summary><p>Counts Q1/Q2, окна, веса отзывов, late day/timestamp, область и технология дашборда. Полные <a href="../implementation-brief-20261028.md#все-17-вопросов">17 вопросов с альтернативами</a>. Разрешение реализации не превращается в 17 отдельных approvals.</p></details>
-<details><summary>Как показывать работу</summary><p><a href="presentation.md">Сценарий на 9–10 минут</a>: файлы→строки→связи→задача→модель→находки→выбор→код/check→ответ. До PostgreSQL-run показываем файлы и ограничения; после — реальные команды и экспорты. <a href="defense.md">Вопросы защиты</a> привязаны к нашим полям и контрпримерам.</p></details>
+<details><summary>Что открыто для выбора</summary><p>Веса отзывов, late day/timestamp, smoothing и его параметры. Counts Q1/Q2, окна Q1 и Q2–Q5, область и HTML приняты пользователем. Полные <a href="../implementation-brief-20261028.md#все-17-вопросов">17 вопросов с альтернативами</a>. Разрешение реализации не превращается в 17 отдельных approvals.</p></details>
+<details><summary>Как показывать работу</summary><p><a href="presentation.md">Сценарий на 9–10 минут</a>: файлы→строки→связи→задача→модель→находки→выбор→код/check→ответ. Показываем файлы, CSV-пример и реальные 16/16 PG synthetic cases; после полного Olist-run — экспорты ответов. <a href="defense.md">Вопросы защиты</a> привязаны к нашим полям и контрпримерам.</p></details>
 <details><summary>Сборка, ответы и проверки в репозитории</summary><ul><li><a href="../../model/">Каталог model</a> и <a href="../../model/CONTRACT.md">точный интерфейс core</a>.</li><li><a href="../../scripts/build-model.sh">Команда сборки</a>, <a href="../../model/90_checks.sql">SQL проверок</a>, <a href="../../answers/RESULTS.md">состояние ответов владельца</a>.</li><li><a href="evidence.md#сборка-и-проверки">Входные точки и приёмка на PostgreSQL</a>.</li><li><a href="../dev-environment-20261028.md">Инструкция по окружению</a>; запуск Docker/VM на текущем Mac заблокирован.</li><li><a href="evidence.md#следующий-шаг">Следующая разрешённая команда</a>: лёгкая статическая проверка комплекта.</li></ul></details>
-<details><summary>Происхождение и канонические записи</summary><p>Repository <code>kiruha355/rwb_hak</code>; синтез <code>1939068295d7203a15cbb0a1ab5d407caca90f58</code>; research <code>72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a</code>. Это refs источников, не публикация W-12. Статусы — в <a href="../workstreams.md">workstreams</a>, решения — в <a href="../decision-log.md">decision-log</a>. Этот hub является навигацией; оценка/финальная готовность не заявлены.</p></details>
+<details><summary>Происхождение и канонические записи</summary><p>Repository <code>kiruha355/rwb_hak</code>; синтез <code>1939068295d7203a15cbb0a1ab5d407caca90f58</code>; research <code>72c1fb6ffe43e95b2ba539dc1b396374f4bfde3a</code>. Код и W-12 опубликованы в main <code>aca34f5b693b794fc2a0ea8c2623293b462b6089</code>; текущую доработку публикует W-01. Статусы — в <a href="../workstreams.md">workstreams</a>, решения — в <a href="../decision-log.md">decision-log</a>. Этот hub является навигацией; оценка/финальная готовность не заявлены.</p></details>
 </section>
-<footer><small>Предварительный комплект W-12 · 28 октября 2026 · публикация через W-01</small></footer>
+<footer><small>Комплект W-12 · доработка W-15 · 28 октября 2026 · публикация через W-01</small></footer>
 </main>
 </body>
 </html>

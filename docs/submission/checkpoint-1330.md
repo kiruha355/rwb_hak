@@ -1,6 +1,6 @@
 # Чекпоинт 13:30 МСК · 10:30 UTC
 
-**Показываем за 5–7 минут:** готовый код сборки и модели, реальные строки одного заказа и проверяемые малые проверки. **7 справочников + 4 детальных факта**, Q1–Q5 реализованы с вариантами. PostgreSQL/core, повторная сборка и rollback ещё не выполнены; Q6–Q10 ждут условий. Это первый чекпоинт, не окончательная сдача.
+**Если осталось две минуты:** [короткий экран](checkpoint-now.html) ([речь](checkpoint-now.md)). **Показываем за 5–7 минут:** готовый код сборки и модели, реальные строки одного заказа и проверяемые малые проверки. **7 справочников + 4 детальных факта**, Q1–Q5 реализованы с вариантами. PG16 synthetic 16/16 PASS; полная Olist/core, повторная сборка и late rollback ещё не выполнены; Q6–Q10 ждут условий. Это первый чекпоинт, не окончательная сдача.
 
 [HTML-hub без сервера](index.html) · [HTML-показ](presentation.html) · [Заказ целиком](order-example.json) · [Все материалы](README.md)
 
@@ -46,7 +46,7 @@ python3 answers/check_offline.py
 python3 scripts/verify-model.py --plan
 ```
 
-Ожидается exit0, `status="pending_db_execution"`, 16 cases, `missing_stages=[]`. Это проверенный план изолированных fixtures, **не 16 прошедших DB-кейсов**. Показать `fractional_scale_preserved`, `review_payload_conflict_retained_warning`, `calendar_gap_detected` и `compensating_order_errors_detected`.
+Ожидается exit0, `status="pending_db_execution"`, 16 cases, `missing_stages=[]`. Сам `--plan` лишь печатает план. Отдельный W-14 уже выполнил **16/16 на PostgreSQL 16.15**: 4 positive +12 expected failures, fixture CLI0.944424s; [отчёт](../../research/implementation-review-20261028/pg-smoke.md), сервер остановлен. Это не полная Olist/lifecycle проверка. Показать `fractional_scale_preserved`, `review_payload_conflict_retained_warning`, `calendar_gap_detected` и `compensating_order_errors_detected`.
 
 **Запасные команды, если жюри просит воспроизводимость:**
 
@@ -82,9 +82,11 @@ python3 docs/submission/verify_pack.py
 
 ## Восемь решений для показа
 
+Пакет принят пользователем: раздельные факты/общие справочники, все review-order связи, delivered revenue без freight, order GMV с freight, обе populations Q1/Q2, snapshot Q2–Q5, аномалии без догадок, область исполнения/сервиса с продажами/качеством и HTML. Late/reviewweight/smoothing открыты; это не 17 отдельных approvals.
+
 | Рабочее решение | Причина | Альтернатива / цена | Как доказать на нашем коде |
 |---|---|---|---|
-| 7 dims + 4 отдельных факта, натуральные ключи | Сохранить 47 бизнес-полей восьми источников и независимые grains | Нормализованный detail core тоже допустим; один плоский факт размножает суммы | CONTRACT, INSERT/FK, EXCEPT ALL mapping в90_checks; DB pending |
+| 7 dims + 4 отдельных факта, натуральные ключи | Сохранить 47 бизнес-полей восьми источников и независимые grains | Нормализованный detail core тоже допустим; один плоский факт размножает суммы | CONTRACT, INSERT/FK, EXCEPT ALL mapping в90_checks; PG tiny PASS, full Olist pending |
 | Добавлен `dim_customer_context` | Buyer не задаёт единственный адрес; unused contexts тоже нельзя потерять | Держать только адрес заказа потеряет неиспользованный context; SCD без источника выдумает историю | 10_dims/20_facts; mapping всех customers; исходные6dims уточнены агентом, не новый human approval |
 | Review-order пара сохраняется целиком | Один review ID относится к нескольким orders | Review entity+bridge допустим; dedup по ID теряет связи | PK пары; NULL-aware payload variants и warning конфликта; offline checks готовы |
 | Children агрегируются до JOIN | Не размножать item/payment/review меры | Детальный JOIN допустим для связи, но не сумм; DISTINCT amount скрывает законные повторы | Настоящий заказ выше; CTE в40_mart; synthetic 2×2×3 |
@@ -97,12 +99,12 @@ python3 docs/submission/verify_pack.py
 
 ## Короткие ответы жюри
 
-- **У вас модель уже работает?** Код готов и прошёл малые offline/static проверки. PostgreSQL-build и данные core ещё не проверены; фактических model answers мы не предъявляем.
-- **Что именно проверено?** 14 unittest о manifest/isolation safety;93 synthetic DuckDB checks настоящих mart/answer SQL; static19; wrapper dry-run; план16 DB-кейсов. Методы различаются, число не является числом пройденных SQL runtime-кейсов.
+- **У вас модель уже работает?** Код опубликован и прошёл offline/static и16/16 настоящих PG synthetic cases. Полная Olist-build и данные core ещё не проверены; фактических model answers мы не предъявляем.
+- **Что именно проверено?** 14 unittest о manifest/isolation safety;93 synthetic DuckDB checks настоящих mart/answer SQL; static19; wrapper dry-run; план16 DB-кейсов плюс отдельный реальный PG16 run16/16. Методы различаются; PG tiny run не равен full Olist acceptance.
 - **Почему семь справочников, а не шесть?** Добавлен customer context для сохранности всех source customer rows и адресного контекста. Это уточнение реализации агента; buyer dim не получает «текущий адрес».
-- **Откуда взялась цифра выручки?** 13 221 498.11 — контроль задания/CSV. Наш SQL рассчитывает её через core/mart; результат на PostgreSQL пока pending, поэтому не копируем контроль в колонку ответа.
-- **Как уверены, что не потеряли данные?** Спроектированы проверки не только counts/sums: ключи, двусторонние EXCEPT ALL по типизированным значениям, NULL/payload/FK/calendar и компенсирующиеся ошибки. В PostgreSQL их предстоит выполнить.
-- **Почему нет живой БД?** На Mac guard78 и отсутствующий Docker daemon. Обход/VM/тяжёлые установки запрещены. Показали воспроизводимые малые проверки и существующий код; SQL runtime будет отдельным evidence.
+- **Откуда взялась цифра выручки?** 13 221 498.11 — контроль задания/CSV. Наш SQL рассчитывает её через core/mart; результат на полном Olist/PostgreSQL пока pending, поэтому не копируем контроль в колонку ответа.
+- **Как уверены, что не потеряли данные?** Спроектированы проверки не только counts/sums: ключи, двусторонние EXCEPT ALL по типизированным значениям, NULL/payload/FK/calendar и компенсирующиеся ошибки. На малых PG fixtures выполнены; на полном Olist их предстоит подтвердить.
+- **Почему нет живой БД?** На Mac guard78 и отсутствующий Docker daemon. Обход/VM/тяжёлые установки запрещены. Показали воспроизводимые малые проверки и существующий код. Малые PG cases уже выполнены на предустановленном сервере и остановлены; полный SQL runtime будет отдельным evidence.
 - **Доставили — значит выкупили?** Нет. Это только правило eligibility учебной выручки; выкуп, возврат и settlement требуют новых событий.
 - **Что сделаете с новым вопросом?** Сначала grain/status/window/denominator, затем SQL из сохранённых деталей core, check и полный export. Непубликовавшиеся Q6–Q10 не придуманы и входят в scope.
 

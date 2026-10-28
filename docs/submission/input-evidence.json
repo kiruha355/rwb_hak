@@ -208,5 +208,47 @@
       "93DuckDBchecks",
       "wrapper custom dry-run"
     ]
+  },
+  "w15_followup": {
+    "snapshot_utc": "2026-10-28T10:14:22.050541+00:00",
+    "method": "read-only source/evidence inspection; no PostgreSQL execution by W15",
+    "code_publication": "aca34f5b693b794fc2a0ea8c2623293b462b6089",
+    "observed_origin_main": "b0361f84962ecf695b459c6c249a35ceb50e448f",
+    "fetch_completed_in_turn": true,
+    "files": {
+      "docs/implementation-brief-20261028.md": "81f0a11b28f6e873ee443b801bdee1846d3cc888236bf8fce77ed153da2f87e7",
+      "model/CONTRACT.md": "6a5fe6c2b1dd64db9accb6a8363a9bdb26973da1000060d3c1151c466de008af",
+      "docs/build-runbook.md": "0dda2da13fefe07c6df9000f4ff8af39ad73b34d8f1fc6ca14f546dfc8baeef3",
+      "research/implementation-review-20261028/pg-smoke.md": "65a10362b18381e03d589f7497d262900aea78a3da3a10c1e4a149990e8cd780",
+      "research/implementation-review-20261028/pg-smoke.json": "ff02255d4f9dcf696e6996f24556c6df8595e2c940994776d22b930bb8da2eb5",
+      "research/implementation-review-20261028/astra-review.md": "300199b70c2807fd418ae912ea436e8ad07008949766c89bdef6289bb621f45e",
+      "research/implementation-review-20261028/astra-evidence.json": "ec56057c1f426ebc7c86e4047a0ec6c1d93194d11797b2d882f079625c20de42",
+      "docs/submission/order-example.json": "7b05fdf9a2718390d83be425567379c0ec5fa1ea9aab68fea355cc67c0014e5c"
+    },
+    "pg_smoke_attribution": {
+      "owner": "W14",
+      "server_version": "16.15",
+      "executed": 16,
+      "positive": 4,
+      "expected_failures_detected": 12,
+      "fixture_cli_seconds": 0.944424,
+      "whole_report_seconds": 1.975227,
+      "server_stopped": true,
+      "full_olist_acceptance": false
+    },
+    "astra_review_attribution": {
+      "owner": "W13",
+      "P1": 1,
+      "P2": 4,
+      "fixes_owned_by_parent": true,
+      "fixes_verified_by_W15": false
+    },
+    "performed_commands": [
+      "git fetch --all --prune",
+      "python3 answers/static-check.py",
+      "python3 scripts/verify-model.py --plan"
+    ],
+    "git_index_commit_push_checkout_pull_reset_merge_used": false,
+    "heavy_work_or_dependencies": false
   }
 }

@@ -10,12 +10,12 @@
 </head>
 <body>
 <main>
-<nav aria-label="Переходы показа"><a href="checkpoint-1330.md">13:30 · сценарий 5–7 минут</a><a href="index.html">Комплект</a><a href="#p2">Источники</a><a href="#p6">Модель</a><a href="#p9">Проверки</a><a href="presentation.md">Расширенная речь</a></nav>
+<nav aria-label="Переходы показа"><a href="checkpoint-now.html">Две минуты жюри</a><a href="../../README.md">README проекта</a><a href="checkpoint-1330.md">13:30 · сценарий 5–7 минут</a><a href="index.html">Комплект</a><a href="#p2">Источники</a><a href="#p6">Модель</a><a href="#p9">Проверки</a><a href="presentation.md">Расширенная речь</a></nav>
 <section class="slide cover" id="p1" aria-labelledby="h1">
 <h1 id="h1">Capibara<br>Аналитическая модель</h1>
 <p>Заказы, позиции, платежи и отзывы.<br>Десять вопросов и объяснение нашего SQL.</p>
-<p>Код готов. 7 справочников + 4 факта.<br>Малые offline/static проверки успешны.</p>
-<p class="pending">Первый чекпоинт. PostgreSQL/core/rollback и результаты модели pending.</p>
+<p>Код готов. 7 справочников + 4 факта.<br>14 Python +93 DuckDB +16/16 малых PostgreSQL cases PASS.</p>
+<p class="pending">Первый чекпоинт. Полная Olist-сборка, binding/control/lifecycle и результаты модели pending.</p>
 <p class="source">28 октября 2026 ·13:30 МСК · W-12 · <a href="README.md">полный комплект</a></p>
 </section>
 <section class="slide" id="p2" aria-labelledby="h2">
@@ -58,20 +58,20 @@
 <section class="slide" id="p7" aria-labelledby="h7">
 <h2 id="h7">Находки и последствия</h2>
 <div class="table-scroll"><table><thead><tr><th scope="col">Наблюдение источника</th><th scope="col">Изменение модели</th></tr></thead><tbody><tr><td>96 096 покупателей / 99 441 контекст</td><td>Идентичность отдельно от контекста заказа</td></tr><tr><td>Один review_id связан с несколькими заказами</td><td>Сохраняем каждую пару и её содержимое</td></tr><tr><td>Нет категории / нет перевода</td><td>Разные состояния справочника</td></tr><tr><td>775 заказов без позиций</td><td>Заказы загружаются независимо</td></tr><tr><td>Ноябрь 2016 без заказов</td><td>Месяцы берём из календаря</td></tr></tbody></table></div>
-<p class="source"><a href="source-guide.md">Источники и уточнения профиля</a>. Это контроль CSV/raw; выполнения core ещё нет.</p>
+<p class="source"><a href="source-guide.md">Источники и уточнения профиля</a>. Это контроль CSV/raw; full Olist core ещё не проверен.</p>
 </section>
 <section class="slide" id="p8" aria-labelledby="h8">
 <h2 id="h8">Деньги и параметры</h2>
 <p><code>item_revenue</code> — price delivered-позиций, без доставки.<br><code>order_gmv</code> — price + freight целого заказа.</p>
-<p>Покупатели по всем статусам считаются отдельно. Числа всех/доставленных заказов, окна и веса отзывов подписаны.</p>
+<p>Покупатели по всем статусам считаются отдельно. Обе populations Q1/Q2 приняты; Q1 — 24 месяца, Q2–Q5 — весь снимок. Late/reviewweight/smoothing открыты.</p>
 <div class="table-scroll"><table><thead><tr><th scope="col">Предикат денежной дельты</th><th scope="col">Заказов</th><th scope="col">Сумма со знаком</th></tr></thead><tbody><tr><td>Точно: delta ≠ 0</td><td>639</td><td>−1 819.51</td></tr><tr><td>|delta| &gt; 0.01</td><td>366</td><td>−1 818.84</td></tr></tbody></table></div>
 <p class="source">Контроль CSV/raw, при обеих сторонах. <a href="../implementation-brief-20261028.md">Все 17 вопросов</a> · <a href="decisions-note.md">Записка</a>. Причины расхождений неизвестны.</p>
 </section>
 <section class="slide" id="p9" aria-labelledby="h9">
 <h2 id="h9">Код и малые проверки готовы</h2>
 <div class="flow" aria-label="Порядок показа: контракт, SQL, сборка, проверки, ответ"><span>Контракт</span><span class="arrow" aria-hidden="true">→</span><span>SQL</span><span class="arrow" aria-hidden="true">→</span><span>сборка</span><span class="arrow" aria-hidden="true">→</span><span>проверки</span><span class="arrow" aria-hidden="true">→</span><strong>ответ</strong></div>
-<ul><li>14 unit-тестов: манифест и безопасность изоляции</li><li>93 малые проверки DuckDB настоящего SQL mart/answers</li><li>19 файлов статически, dry-run оболочки, план 16 DB-кейсов</li></ul>
-<p><strong>Все exit0 по независимому повтору координатора.</strong> PostgreSQL/core/rollback ещё pending. План 16 описывает будущие проверки БД.</p>
+<ul><li>14 unit-тестов: манифест и безопасность изоляции</li><li>93 малые проверки DuckDB настоящего SQL mart/answers</li><li>16/16 настоящих PG16 synthetic cases: 4 положительных +12 ожидаемых отказов</li><li>19 файлов статически и dry-run оболочки</li></ul>
+<p>Offline-повтор — координатор; PG16.15 — <a href="../../research/implementation-review-20261028/pg-smoke.md">отчёт W-14</a>, fixture CLI 0.944 s, сервер остановлен. Полная Olist-сборка, CSV↔raw и lifecycle pending.</p>
 <p class="source"><a href="checkpoint-1330.md#точные-безопасные-команды-показа">Точные команды и ожидаемый вывод</a> · <a href="../../answers/verification.json">отчёт W-10</a> · <a href="../../model/90_checks.sql">SQL проверок</a></p>
 </section>
 <section class="slide" id="p10" aria-labelledby="h10">
@@ -86,11 +86,11 @@
 <h3>Руководитель операций</h3><p>Опоздания + покрытие дат → группа заказов → исходные даты для расследования. Причина и виновник не установлены.</p>
 <h3>Следующий этап платформы</h3><p>Нагрузка + SLA + стоимость → измерение → оптимизация → сравнение движков с паритетом и откатом.</p>
 <p>Новая история и возвраты требуют источника событий. Снимок не восстанавливает прошлое; предел PostgreSQL по числу строк нами не измерен.</p>
-<p class="source"><a href="dashboard-concept.md">Концепция и формулы</a> · <a href="growth-strategy.md">Стратегия</a>. Область и SLA — предложения, нагрузочный тест pending.</p>
+<p class="source"><a href="dashboard-concept.md">Концепция и формулы</a> · <a href="growth-strategy.md">Стратегия</a>. Область «выполнение и сервис с продажами и качеством» и HTML приняты; SLA/нагрузочный тест pending.</p>
 </section>
 <section class="slide" id="p12" aria-labelledby="h12">
 <h2 id="h12">Граница готовности</h2>
-<p>К первому показу готовы код, настоящий заказ, малые проверки и материалы. Для завершённой сдачи нужны PostgreSQL-run, проверки сохранности/отката, все десять экспортов и живая репетиция.</p>
+<p>К первому показу готовы код, настоящий заказ, малые проверки и материалы. Для завершённой сдачи нужны full Olist-run, binding/control/lifecycle, все десять экспортов и живая репетиция.</p>
 <p>На текущем Mac: guard exit78 и Docker недоступен по handoff окружения. Обход и тяжёлый запуск не выполнялись.</p>
 <p><a href="evidence.md#следующий-шаг">Следующая разрешённая проверка</a> · <a href="defense.md">Практические вопросы защиты</a></p>
 <p class="source">Предварительный комплект для review. Канон: <a href="../workstreams.md">работы</a> и <a href="../decision-log.md">решения</a>.</p>

@@ -2,6 +2,8 @@
 
 Это перечень свидетельств сдачи W-12. Каноническая карта задач — [workstreams](../workstreams.md), решения — [decision-log](../decision-log.md). Ни один baseline ниже не является результатом PostgreSQL/core W-12.
 
+Код и исходный комплект опубликованы: main `aca34f5b693b794fc2a0ea8c2623293b462b6089`. Приняты раздельные факты/общие справочники, все review-order связи, delivered revenue без freight, order GMV с freight, обе populations Q1/Q2, весь snapshot Q2–Q5, аномалии без догадок и область/HTML дашборда. Late/reviewweight/smoothing открыты.
+
 ## Ответы Q1–Q10
 
 В [tasks](../../hack-context/hackathon-students/docs/tasks.md) прочитаны Q1–Q5. Для каждого ответа нужны: точный SQL/ref, grain, status, окно, компоненты, знаменатель, NULL/coverage, единицы, полный экспорт и run ID. Состояние CSV/raw baseline отличается от состояния ответа из модели.
@@ -23,7 +25,7 @@
 
 ## Уже готовое к первому чекпоинту
 
-Код W-08…W-11 завершён по сообщению координатора; файлы сборки, 7 dims +4 facts, mart/answers/checks и тестовые инструменты доступны в общем checkout. Это состояние кода, не PostgreSQL-pass. [Сценарий 13:30](checkpoint-1330.md) содержит точные команды и реальные ожидаемые выходы.
+Код W-08…W-11 завершён по сообщению координатора; файлы сборки, 7 dims +4 facts, mart/answers/checks и тестовые инструменты доступны в общем checkout. Код опубликован. Отдельно выполнены 16/16 малых PostgreSQL cases; это не full Olist acceptance. [Сценарий 13:30](checkpoint-1330.md) содержит точные команды и реальные ожидаемые выходы.
 
 | Проверка | Уже получено | Источник и предел |
 |---|---|---|
@@ -31,10 +33,23 @@
 | Synthetic mart/answer SQL | 93 checks, exit0 | [W-10 report](../../answers/verification.json), независимый повтор координатора сообщён; DuckDB1.5.2, 128MB in-memory, не core build |
 | Static | 19 files, exit0 | [static-check.py](../../answers/static-check.py), повтор координатора сообщён; синтаксис Python, JSON, ссылки и хеши |
 | Wrapper | Dry-run, exit0 | [Runbook W-09](../build-runbook.md#выполненные-малые-проверки-w-09), повтор координатора сообщён; подставные клиенты, не БД |
-| PostgreSQL fixture plan | 16 cases, missing stages [], exit0 | [verify-model.py](../../scripts/verify-model.py), status `pending_db_execution`; случаи спроектированы, не исполнены |
+| PostgreSQL 16.15 synthetic runtime | 16/16: 4 положительных +12 ожидаемых отказов; fixture CLI 0.944424 s | W-14: [pg-smoke.md](../../research/implementation-review-20261028/pg-smoke.md), [JSON](../../research/implementation-review-20261028/pg-smoke.json). Сервер остановлен; full Olist/build.sql wrapper/lifecycle не проверены |
+| PostgreSQL fixture plan | 16 cases, missing stages [], exit0 | `--plan` сам по себе не исполняет cases; runtime evidence находится в отдельной строке выше |
 | Один связанный заказ | CSV-чтение exit0, 1 item /3 payments /1 review; GMV и payment38.71 | Выполнено W-12: [результат](order-example.json), [скрипт](order-example.py); mapping в core описан, SQL не исполнен |
 
 Для независимого повторения координатора отдельный run-log/ref в поручении не указан. Поэтому его результаты названы сообщением координатора; W-12 не создаёт ложное свидетельство своего выполнения. Owner-отчёты и snapshots хешей доступны отдельно.
+
+## Независимый review
+
+[Astra review](../../research/implementation-review-20261028/astra-review.md) завершён: **1 P1 + 4 P2**, P0 не найден. Разделение grains и основная семантика поддержаны прочитанным кодом и малым PG evidence. Это review конкретного input snapshot, не будущих исправлений. Координатор ведёт фиксы отдельно; W-15 их не меняет и не объявляет закрытыми.
+
+- **R1/P1:** CSV→raw verifier создаёт TEMP внутри READ ONLY; блокирует binding/lifecycle path, не доказывает неправильную модель.
+- **R2/P2:** самопроверка translation membership не защищает `has_translation_row`.
+- **R3/P2:** LIMIT 10 в Q2 скрывает кандидатов с неполной выручкой.
+- **R4/P2:** lifecycle-команда не устанавливает обязательный verified-manifest token.
+- **R5/P2:** whitespace-only keys проходят проверку `btrim` для табуляции/перевода строки.
+
+Методы и точные repro различаются: static/официальная PG семантика и узкие DuckDB probes; полного PG lifecycle reviewer не запускал. [Машинное evidence](../../research/implementation-review-20261028/astra-evidence.json). До full-data acceptance нужны исправления, повторные целевые проверки и полный прогон.
 
 ## Сборка и проверки
 
@@ -42,9 +57,9 @@
 |---|---|---|
 | [model/CONTRACT.md](../../model/CONTRACT.md) | Точные имена/grains/NULL/typing | Прочитан W-12, без DB execution |
 | [build-model.sh](../../scripts/build-model.sh), [build.sql](../../model/build.sql), [runbook](../build-runbook.md) | Wrapper владеет транзакцией, single-transaction/fail-fast; raw reload pause — утверждение оператора, не автоматическая блокировка loader | Код прочитан, DB pending |
-| [10_dims](../../model/10_dims.sql), [20_facts](../../model/20_facts.sql), [05_typecheck](../../model/05_typecheck.sql), [30_quality](../../model/30_quality.sql) | Детали, типы и наблюдаемые аномалии | Файлы доступны, DB pending |
-| [40_mart](../../model/40_mart.sql), [50_answers](../../model/50_answers.sql), [паспорта](../metric-definitions.md) | SQL метрик и ответов, варианты с coverage | Файлы прочитаны; DB pending |
-| [90_checks](../../model/90_checks.sql), [verify-model.py](../../scripts/verify-model.py), [input-manifest.py](../../scripts/input-manifest.py) | Инварианты, проверки и версия входа, отдельно от известных ответов | Код доступен; runtime pending |
+| [10_dims](../../model/10_dims.sql), [20_facts](../../model/20_facts.sql), [05_typecheck](../../model/05_typecheck.sql), [30_quality](../../model/30_quality.sql) | Детали, типы и наблюдаемые аномалии | Малые PG cases PASS; полная Olist-сохранность pending |
+| [40_mart](../../model/40_mart.sql), [50_answers](../../model/50_answers.sql), [паспорта](../metric-definitions.md) | SQL метрик и ответов, варианты с coverage | DuckDB93 +PG small cases; full-data exports pending |
+| [90_checks](../../model/90_checks.sql), [verify-model.py](../../scripts/verify-model.py), [input-manifest.py](../../scripts/input-manifest.py) | Инварианты, проверки и версия входа, отдельно от известных ответов | Код доступен; малые PG cases PASS; CSV↔raw и полный runtime pending |
 | [control.sql](../../answers/control.sql), [baseline manifest](../../answers/baseline-manifest.json) | Pinned regression после доказанного live input binding | Binding и control execution pending |
 | [answers/verification.json](../../answers/verification.json), [RESULTS](../../answers/RESULTS.md) | Owner W-10 записал 93 offline checks, DuckDB 1.5.2, synthetic fixture; PostgreSQL/core flags false | Отчёт прочитан W-12, не повторён; соответствие хешей — в snapshot |
 | [Dev runbook](../dev-environment-20261028.md) | Предварительная проверка окружения; не замена сборке | По handoff W-07 offline exit0, обычный exit3 на Docker; W-12 не повторял |

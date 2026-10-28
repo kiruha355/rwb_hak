@@ -22,6 +22,10 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def manifest_key(path: Path) -> str:
+    return str(path.relative_to(PACK)) if path.is_relative_to(PACK) else "../../" + str(path.relative_to(ROOT))
+
+
 def slug(text: str) -> str:
     text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
     text = text.replace("`", "").lower()
@@ -99,6 +103,14 @@ def main() -> int:
     args = parser.parse_args()
     errors: list[str] = []
     files = sorted(p for p in PACK.rglob("*") if p.is_file() and p != MANIFEST)
+    entrypoint = ROOT / "README.md"
+    if entrypoint.exists():
+        files.append(entrypoint)
+    else:
+        errors.append("root README.md absent")
+    for name in ("checkpoint-now.md", "checkpoint-now.html", "index.html"):
+        if not (PACK / name).exists():
+            errors.append(f"entrypoint absent: {name}")
     pages: dict[Path, Page] = {}
     id_cache: dict[Path, set[str]] = {}
     local_links = 0
@@ -194,7 +206,7 @@ def main() -> int:
                 if key in expected:
                     errors.append(f"duplicate manifest entry: {key}")
                 expected[key] = match[1]
-            actual = {str(p.relative_to(PACK)): digest(p) for p in files}
+            actual = {manifest_key(p): digest(p) for p in files}
             if actual != expected:
                 changed = sorted(set(actual) | set(expected))
                 errors.extend(f"manifest mismatch: {name}" for name in changed if actual.get(name) != expected.get(name))
@@ -203,7 +215,7 @@ def main() -> int:
         print(json.dumps({"status": "FAIL", "method": "static_only", "errors": errors}, ensure_ascii=False, indent=2))
         return 1
     if args.write_manifest:
-        MANIFEST.write_text("".join(f"{digest(path)}  {path.relative_to(PACK)}\n" for path in files), encoding="utf-8")
+        MANIFEST.write_text("".join(f"{digest(path)}  {manifest_key(path)}\n" for path in files), encoding="utf-8")
     print(json.dumps({
         "status": "PASS", "method": "static_only", "files_hashed": len(files),
         "local_links_checked": local_links, "external_links_not_fetched": external_links,
