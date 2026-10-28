@@ -10,7 +10,7 @@ services:
       # ускоряет инициализацию, для учебной базы безопасно
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       # SQL-скрипты отсюда выполняются один раз при первом старте
@@ -38,7 +38,7 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
     ports:
-      - "8080:80"
+      - "127.0.0.1:8080:80"
     depends_on:
       postgres:
         condition: service_healthy

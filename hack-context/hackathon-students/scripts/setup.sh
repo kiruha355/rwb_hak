@@ -119,7 +119,7 @@ ok "база принимает подключения"
 # --- 5. Загрузка ----------------------------------------------------
 step "Загружаю сырые данные в схему raw"
 
-PORT=$(awk -F'"' '/- "[0-9]+:5432"/ {split($2,a,":"); print a[1]; exit}' docker-compose.yml)
+PORT=$(awk -F'"' '/:5432"/ {n=split($2,a,":"); print a[n-1]; exit}' docker-compose.yml)
 PORT=${PORT:-5432}
 
 $PY scripts/load_raw.py --port "$PORT" || die "загрузка не прошла" \
