@@ -1,0 +1,3 @@
+# Existing scripts/load_raw.py imports psycopg2; use a binary wheel in a venv.
+# Version verified against https://pypi.org/pypi/psycopg2-binary/json on 2026-10-28.
+psycopg2-binary==2.9.13
